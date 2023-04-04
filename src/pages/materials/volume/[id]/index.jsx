@@ -8,18 +8,21 @@ import {get} from "lodash";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
-import {ContentLoader} from "@/components/loader";
+import {ContentLoader, OverlayLoader} from "@/components/loader";
 import Product from "@/components/product";
 
 const Index = () => {
     const {data:materials, isLoading} = useGetQuery({key: KEYS.materialsMostOrdered, url: URLS.materialsMostOrdered});
     const {data:volumes, isLoading:isLoadingVolumes} = useGetQuery({key: KEYS.materialVolumes, url: URLS.materialVolumes});
+
     if(isLoading){
         return <Main><ContentLoader /></Main>;
     }
 
+
     return (
         <Main>
+            {isLoadingVolumes && <OverlayLoader />}
             <Menu active={1}/>
             <Section>
                 <div className="grid grid-cols-12">
@@ -32,7 +35,7 @@ const Index = () => {
                                 label={'Tanlangan mahsulot turi'}/>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select label={'Tanlangan bo‘lim'}/>
+                        <Select options={get(volumes,'data.results',[]).map(volume=>({value:get(volume,'id'),label:get(volume,'volume_name')}))} label={'Tanlangan bo‘lim'}/>
                     </div>
                     <div className="col-span-12 mb-5">
                         <Select label={'Tanlangan kategoriya'}/>
