@@ -14,7 +14,6 @@ import Product from "@/components/product";
 export default function Home() {
     const {
         data: volumes,
-        isError,
         isLoading,
         isFetching
     } = useQuery([KEYS.materialVolumes], () => getMaterialVolumes());
