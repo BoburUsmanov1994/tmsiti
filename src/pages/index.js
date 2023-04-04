@@ -22,23 +22,23 @@ export default function Home() {
     } = useQuery([KEYS.materialVolumes], () => getMaterialVolumes());
     const {
         data: materials,
-        isLoading:materialLoading,
-        isError:materialError,
+        isLoading: materialLoading,
+        isError: materialError,
     } = useQuery([KEYS.materialsMostOrdered], () => getMostOrderedMaterials());
-    if(isError || materialError){
-        return <ErrorPage  />
+    if (isError || materialError) {
+        return <ErrorPage/>
     }
     if (isLoading || materialLoading || isFetching) {
         return <Main><ContentLoader/></Main>;
     }
-    console.log('volumes',volumes)
     return (
         <Main>
             <Menu active={1}/>
             <Section>
                 <div className="grid grid-cols-12 gap-x-8 ">
                     {
-                       !isEmpty(get(volumes,'results',[])) && get(volumes,'results',[]).map(volume => <div key={get(volume, 'id')} className={'col-span-3 mb-5'}><Category
+                        !isEmpty(get(volumes, 'results', [])) && get(volumes, 'results', []).map(volume => <div
+                            key={get(volume, 'id')} className={'col-span-3 mb-5'}><Category
                             data={volume}/></div>)
                     }
                 </div>
@@ -47,8 +47,8 @@ export default function Home() {
                         <Title>Ko‘p ko‘rilganlar</Title>
                     </div>
                     {
-                        get(materials,'results',[]).map(material => <div key={get(material, 'material_csr_code')}
-                                                       className={'col-span-3 mb-[30px] '}>
+                        get(materials, 'results', []).map(material => <div key={get(material, 'material_csr_code')}
+                                                                           className={'col-span-3 mb-[30px] '}>
                             <Product data={material}/>
                         </div>)
                     }

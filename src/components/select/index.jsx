@@ -52,15 +52,12 @@ const Select = ({
     useEffect(() => {
         getValue(selectedOption)
     }, [selectedOption])
-    useEffect(() => {
-        if (defaultValue) {
-            setSelectedOption(find(options, ({value}) => isEqual(value, defaultValue)))
-        }
-    }, [defaultValue])
+
     return (
         <div className={clsx({'flex items-center': sm})}>
             <label className={clsx('mb-2 inline-block ', {'text-sm mb-0 mr-3': sm})} htmlFor={label}>{label}</label>
             <RSelect
+                defaultValue={defaultValue}
                 clearIndicator={true}
                 styles={customStyles(sm)}
                 id={label}
