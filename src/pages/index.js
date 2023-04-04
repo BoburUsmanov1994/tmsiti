@@ -7,29 +7,38 @@ import {dehydrate, QueryClient, useQuery} from '@tanstack/react-query';
 import {ContentLoader} from "@/components/loader";
 import Category from "@/components/category";
 import Title from "@/components/title";
-import {get} from "lodash"
+import {get, isEmpty} from "lodash"
 import Product from "@/components/product";
+import ErrorPage from "@/pages/500";
 
 
 export default function Home() {
     const {
         data: volumes,
+        isError,
         isLoading,
-        isFetching
+        isFetching,
+        error
     } = useQuery([KEYS.materialVolumes], () => getMaterialVolumes());
     const {
         data: materials,
+        isLoading:materialLoading,
+        isError:materialError,
     } = useQuery([KEYS.materialsMostOrdered], () => getMostOrderedMaterials());
-    if (isLoading || isFetching) {
+    if(isError || materialError){
+        return <ErrorPage  />
+    }
+    if (isLoading || materialLoading || isFetching) {
         return <Main><ContentLoader/></Main>;
     }
+    console.log('volumes',volumes)
     return (
         <Main>
             <Menu active={1}/>
             <Section>
                 <div className="grid grid-cols-12 gap-x-8 ">
                     {
-                        volumes.map(volume => <div key={get(volume, 'id')} className={'col-span-3 mb-5'}><Category
+                       !isEmpty(get(volumes,'results',[])) && get(volumes,'results',[]).map(volume => <div key={get(volume, 'id')} className={'col-span-3 mb-5'}><Category
                             data={volume}/></div>)
                     }
                 </div>
@@ -38,7 +47,7 @@ export default function Home() {
                         <Title>Ko‘p ko‘rilganlar</Title>
                     </div>
                     {
-                        materials.map(material => <div key={get(material, 'material_csr_code')}
+                        get(materials,'results',[]).map(material => <div key={get(material, 'material_csr_code')}
                                                        className={'col-span-3 mb-[30px] '}>
                             <Product data={material}/>
                         </div>)

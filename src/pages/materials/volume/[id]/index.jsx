@@ -13,10 +13,11 @@ import Product from "@/components/product";
 
 const Index = () => {
     const {data:materials, isLoading} = useGetQuery({key: KEYS.materialsMostOrdered, url: URLS.materialsMostOrdered});
+    const {data:volumes, isLoading:isLoadingVolumes} = useGetQuery({key: KEYS.materialVolumes, url: URLS.materialVolumes});
     if(isLoading){
         return <Main><ContentLoader /></Main>;
     }
-    console.log('data',materials)
+
     return (
         <Main>
             <Menu active={1}/>
@@ -53,7 +54,7 @@ const Index = () => {
                         </div>
                     </div>
                     {
-                        get(materials,'data',[]).map(material => <div key={get(material, 'material_csr_code')}
+                        get(materials,'data.results',[]).map(material => <div key={get(material, 'material_csr_code')}
                                                        className={'col-span-3 mb-[30px] '}>
                             <Product data={material}/>
                         </div>)
