@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from "next/link";
-import {get,isEqual} from "lodash"
+import {get, isEqual} from "lodash"
 import clsx from "clsx";
 
 const data = [
@@ -46,7 +46,9 @@ const Menu = ({active = 1}) => {
             <ul className={'container text-[#8D97AD] flex justify-between'}>
                 {
                     data.map(item => <li>
-                        <Link className={clsx('hover:text-white transition-all border-b border-b-transparent font-medium',{'border-b-[#1890FF] text-white':isEqual(get(item,'id'),active)})} href={get(item,'url')}>{get(item,'title')}</Link>
+                        <Link
+                            className={clsx('hover:text-white transition-all border-b border-b-transparent font-medium', {'!border-b-[#1890FF] text-white': isEqual(get(item, 'id'), active)})}
+                            href={get(item, 'url')}>{get(item, 'title')}</Link>
                     </li>)
                 }
             </ul>

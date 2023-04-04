@@ -16,6 +16,10 @@ module.exports = {
                 sans: ['var(--font-rubik)'],
                 mono: ['var(--font-rubik)'],
             },
+            dropShadow:{
+                category:'5px 5px 10px rgba(40, 54, 109, 0.05)',
+                empty:'5px 5px 35px rgba(40, 54, 109, 0.2)'
+            }
         },
         container: {
             padding: '30px',
