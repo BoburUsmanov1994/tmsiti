@@ -3,7 +3,7 @@ import Link from "next/link";
 import {get, isEqual} from "lodash"
 import clsx from "clsx";
 
-const data = [
+export const menuData = [
     {
         id: 1,
         title: 'Materiallar va buyumlar',
@@ -45,7 +45,7 @@ const Menu = ({active = 1}) => {
         <div className={' bg-[#28366D]  py-5 '}>
             <ul className={'container text-[#8D97AD] flex justify-between'}>
                 {
-                    data.map(item => <li>
+                    menuData.map(item => <li>
                         <Link
                             className={clsx('hover:text-white transition-all border-b border-b-transparent font-medium', {'!border-b-[#1890FF] text-white': isEqual(get(item, 'id'), active)})}
                             href={get(item, 'url')}>{get(item, 'title')}</Link>

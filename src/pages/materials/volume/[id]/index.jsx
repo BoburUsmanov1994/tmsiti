@@ -1,9 +1,10 @@
 import React from 'react';
 import Main from "@/layouts/main";
 import Section from "@/components/section";
-import Menu from "@/components/menu";
+import Menu, {menuData} from "@/components/menu";
 import Title from "@/components/title";
 import Select from "@/components/select";
+import {get} from "lodash";
 
 const Index = () => {
     return (
@@ -12,19 +13,32 @@ const Index = () => {
             <Section>
                 <div className="grid grid-cols-12">
                     <div className="col-span-12 text-center mt-5">
-                        <Title  center>Materiallar va buyumlar</Title>
+                        <Title center>Materiallar va buyumlar</Title>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select label={'Tanlangan mahsulot turi'} />
+                        <Select defaultValue={1} getValue={(val)=>console.log(val)} options={menuData.map((menu)=>({label:get(menu,'title'),value:get(menu,'id')}))} label={'Tanlangan mahsulot turi'}/>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select label={'Tanlangan bo‘lim'} />
+                        <Select label={'Tanlangan bo‘lim'}/>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select label={'Tanlangan kategoriya'} />
+                        <Select label={'Tanlangan kategoriya'}/>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select label={'Tanlangan guruh'} />
+                        <Select label={'Tanlangan guruh'}/>
+                    </div>
+                </div>
+                <div className="grid grid-cols-12 mt-8 items-start">
+                    <div className="col-span-4">
+                        <Title>mahsulotlar</Title>
+                    </div>
+                    <div className="col-span-8">
+                        <div className="flex justify-end">
+                            <Select sm label={'Shahar / viloyat'}/>
+                            <div className="ml-8">
+                                <Select sm label={'Tuman'}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Section>

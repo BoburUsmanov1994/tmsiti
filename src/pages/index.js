@@ -24,7 +24,6 @@ export default function Home() {
     if (isLoading || isFetching) {
         return <Main><ContentLoader/></Main>;
     }
-    console.log('materials', materials)
     return (
         <Main>
             <Menu active={1}/>
