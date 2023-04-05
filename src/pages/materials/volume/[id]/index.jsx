@@ -85,6 +85,7 @@ const Index = () => {
                         <Select
                             getValue={(val) => {
                                 if (get(val, 'value')) {
+                                    setPage(1)
                                     router.push(`/materials/volume/${get(val, 'value')}`)
                                 }
                             }}
