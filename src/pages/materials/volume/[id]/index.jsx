@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Main from "@/layouts/main";
 import Section from "@/components/section";
 import Menu, {menuData} from "@/components/menu";
@@ -13,19 +13,44 @@ import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import {useRouter} from "next/router";
 import {getDefaultValue, getOptionList} from "@/utils";
+import Pagination from "@/components/pagination";
 
 const Index = () => {
     const router = useRouter();
     const {id} = router.query;
+    const [page,setPage] = useState(1);
+    const [categoryId, setCategoryId] = useState(null)
+    const [groupId, setGroupId] = useState(null)
     const {data: materials, isLoading, isError: isErrorMaterials} = useGetQuery({
-        key: KEYS.materialsMostOrdered,
-        url: URLS.materialsMostOrdered
+        key: 'materials',
+        url: `${URLS.materialVolume}${id}/`,
+        params:{
+            page
+        },
+        enabled:!!(id)
     });
     const {
         data: volumes,
         isLoading: isLoadingVolumes,
         isError: isErrorVolumes
     } = useGetQuery({key: KEYS.materialVolumes, url: URLS.materialVolumes});
+    const {
+        data: categories,
+        isLoading: isLoadingCategory,
+    } = useGetQuery({
+        key: [KEYS.materialCategory, id],
+        url: URLS.materialCategory + id + '/',
+        enabled: !!(id)
+    });
+
+    const {
+        data: groups,
+        isLoading: isLoadingGroup,
+    } = useGetQuery({
+        key: [KEYS.materialGroup, categoryId],
+        url: URLS.materialGroup + categoryId + '/',
+        enabled: !!(categoryId)
+    });
 
     if (isErrorVolumes || isErrorMaterials) {
         return <ErrorPage/>
@@ -35,9 +60,10 @@ const Index = () => {
         return <Main><ContentLoader/></Main>;
     }
 
+
     return (
         <Main>
-            {false && <OverlayLoader/>}
+            {(isLoadingCategory) && <OverlayLoader/>}
             <Menu active={1}/>
             <Section>
                 <div className="grid grid-cols-12">
@@ -57,10 +83,14 @@ const Index = () => {
                             label={'Tanlangan bo‘lim'}/>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select label={'Tanlangan kategoriya'}/>
+                        <Select getValue={(val) => setCategoryId(get(val, 'value'))}
+                                options={getOptionList(get(categories, 'data.results', []), 'id', 'category_name')}
+                                label={'Tanlangan kategoriya'}/>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select label={'Tanlangan guruh'}/>
+                        <Select getValue={(val) => setGroupId(get(val, 'value'))}
+                                options={getOptionList(get(groups, 'data.results', []), 'id', 'group_name')}
+                                label={'Tanlangan guruh'}/>
                     </div>
                 </div>
                 <div className="grid grid-cols-12 gap-x-8 mt-8 items-start">
@@ -81,6 +111,9 @@ const Index = () => {
                             <Product data={material}/>
                         </div>)
                     }
+                    <div className={'col-span-12'}>
+                        <Pagination page={page} setPage={setPage} pageCount={get(materials,'data.total_pages',0)}/>
+                    </div>
                 </div>
             </Section>
         </Main>

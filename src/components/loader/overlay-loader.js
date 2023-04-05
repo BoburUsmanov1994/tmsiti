@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 
 const OverlayLoader = () => {
     return (
-        <div className={'flex min-h-[75vh] bg-[#F4F8FA] justify-center items-center'}>
+        <div className={'flex h-screen bg-[#F4F8FA] justify-center items-center fixed top-0 left-0 w-full z-10 bg-opacity-75'}>
             <motion.div  transition={{ repeat: Infinity, repeatDelay: 0.25 }}  animate={{
                 scale: [1, 1, 1, 1, 1],
                 rotate: [0, 0, 270, 270, 0],
