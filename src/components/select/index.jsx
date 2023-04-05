@@ -45,7 +45,7 @@ const customStyles = (sm = false) => ({
     })
 });
 const Select = ({
-                    defaultValue = null, sm = false, label = '', getValue = () => {
+                    name='',defaultValue = null, sm = false, label = '', getValue = () => {
     }, options = []
                 }) => {
     const [selectedOption, setSelectedOption] = useState();
@@ -57,6 +57,7 @@ const Select = ({
         <div className={clsx({'flex items-center': sm})}>
             <label className={clsx('mb-2 inline-block ', {'text-sm !mb-0 mr-3': sm})} htmlFor={label}>{label}</label>
             <RSelect
+                name={name}
                 defaultValue={defaultValue}
                 clearIndicator={true}
                 styles={customStyles(sm)}

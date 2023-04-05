@@ -3,5 +3,7 @@ export const KEYS = {
     materialsMostOrdered: 'materialsMostOrdered',
     materialCategory: 'materialCategory',
     materialGroup: 'materialGroup',
-    materialVolume: 'materialVolume',
+    materialVolumeFilter: 'materialVolumeFilter',
+    materialCategoryFilter: 'materialCategoryFilter',
+    materialGroupFilter: 'materialGroupFilter',
 };

@@ -3,5 +3,7 @@ export const URLS = {
     materialsMostOrdered: 'materials/m/ordered/',
     materialCategory: 'materials/c/',
     materialGroup: 'materials/g/',
-    materialVolume: 'materials/volume/',
+    materialVolumeFilter: 'materials/volume/',
+    materialCategoryFilter: 'materials/category/',
+    materialGroupFilter: 'materials/m/',
 };

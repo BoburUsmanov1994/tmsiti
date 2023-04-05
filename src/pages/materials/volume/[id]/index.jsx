@@ -22,8 +22,8 @@ const Index = () => {
     const [categoryId, setCategoryId] = useState(null)
     const [groupId, setGroupId] = useState(null)
     const {data: materials, isLoading, isError: isErrorMaterials, isFetching} = useGetQuery({
-        key: ['materials', id, page],
-        url: `${URLS.materialVolume}${id}/`,
+        key: ['materials', id, page,categoryId,groupId],
+        url: groupId ? `${URLS.materialGroupFilter}${groupId}/`: categoryId ? `${URLS.materialCategoryFilter}${categoryId}/` : `${URLS.materialVolumeFilter}${id}/`,
         params: {
             page
         },
@@ -36,7 +36,6 @@ const Index = () => {
     } = useGetQuery({key: KEYS.materialVolumes, url: URLS.materialVolumes});
     const {
         data: categories,
-        isLoading: isLoadingCategory,
     } = useGetQuery({
         key: [KEYS.materialCategory, id],
         url: URLS.materialCategory + id + '/',
@@ -45,9 +44,8 @@ const Index = () => {
 
     const {
         data: groups,
-        isLoading: isLoadingGroup,
     } = useGetQuery({
-        key: [KEYS.materialGroup, categoryId],
+        key: [KEYS.materialGroup, id,categoryId],
         url: URLS.materialGroup + categoryId + '/',
         enabled: !!(categoryId)
     });
@@ -72,6 +70,7 @@ const Index = () => {
                     </div>
                     <div className="col-span-12 mb-5">
                         <Select
+                            name={'material'}
                             defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title',true), '/materials/volume')}
                             getValue={(val) => {
                                 if (get(val, 'value') && !isEqual(get(val, 'value'), '/materials/volume')) {
@@ -83,9 +82,12 @@ const Index = () => {
                     </div>
                     <div className="col-span-12 mb-5">
                         <Select
+                            name={`volume-${id}`}
                             getValue={(val) => {
                                 if (get(val, 'value')) {
                                     setPage(1)
+                                    setCategoryId(null);
+                                    setGroupId(null);
                                     router.push(`/materials/volume/${get(val, 'value')}`)
                                 }
                             }}
@@ -94,12 +96,15 @@ const Index = () => {
                             label={'Tanlangan bo‘lim'}/>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select getValue={(val) => setCategoryId(get(val, 'value'))}
+                        <Select name={`category-${categoryId}`} defaultValue={null} getValue={(val) => {
+                            setGroupId(null)
+                            setCategoryId(get(val, 'value'))
+                        }}
                                 options={getOptionList(get(categories, 'data.results', []), 'id', 'category_name')}
                                 label={'Tanlangan kategoriya'}/>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select getValue={(val) => setGroupId(get(val, 'value'))}
+                        <Select  name={`group-${groupId}`} getValue={(val) => setGroupId(get(val, 'value'))}
                                 options={getOptionList(get(groups, 'data.results', []), 'id', 'group_name')}
                                 label={'Tanlangan guruh'}/>
                     </div>
