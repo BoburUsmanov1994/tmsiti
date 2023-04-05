@@ -18,16 +18,16 @@ import Pagination from "@/components/pagination";
 const Index = () => {
     const router = useRouter();
     const {id} = router.query;
-    const [page,setPage] = useState(1);
+    const [page, setPage] = useState(1);
     const [categoryId, setCategoryId] = useState(null)
     const [groupId, setGroupId] = useState(null)
-    const {data: materials, isLoading, isError: isErrorMaterials,isFetching} = useGetQuery({
-        key: ['materials',id,page],
+    const {data: materials, isLoading, isError: isErrorMaterials, isFetching} = useGetQuery({
+        key: ['materials', id, page],
         url: `${URLS.materialVolume}${id}/`,
-        params:{
+        params: {
             page
         },
-        enabled:!!(id)
+        enabled: !!(id)
     });
     const {
         data: volumes,
@@ -71,20 +71,21 @@ const Index = () => {
                         <Title center>Materiallar va buyumlar</Title>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title'), '/materials/volume')}
-                                getValue={(val) => {
-                                    if(get(val,'value') && !isEqual(get(val,'value'),'/materials/volume')){
-                                        router.push(get(val,'value'))
-                                    }
-                                }}
-                                options={getOptionList(menuData, 'filterUrl', 'title')}
-                                label={'Tanlangan mahsulot turi'}/>
+                        <Select
+                            defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title'), '/materials/volume')}
+                            getValue={(val) => {
+                                if (get(val, 'value') && !isEqual(get(val, 'value'), '/materials/volume')) {
+                                    router.push(get(val, 'value'))
+                                }
+                            }}
+                            options={getOptionList(menuData, 'filterUrl', 'title')}
+                            label={'Tanlangan mahsulot turi'}/>
                     </div>
                     <div className="col-span-12 mb-5">
                         <Select
                             getValue={(val) => {
-                                if(get(val,'value')){
-                                    router.push(`/materials/volume/${get(val,'value')}`)
+                                if (get(val, 'value')) {
+                                    router.push(`/materials/volume/${get(val, 'value')}`)
                                 }
                             }}
                             defaultValue={getDefaultValue(getOptionList(get(volumes, 'data.results', []), 'id', 'volume_name'), id)}
@@ -121,7 +122,7 @@ const Index = () => {
                         </div>)
                     }
                     <div className={'col-span-12'}>
-                        <Pagination page={page} setPage={setPage} pageCount={get(materials,'data.total_pages',0)}/>
+                        <Pagination page={page} setPage={setPage} pageCount={get(materials, 'data.total_pages', 0)}/>
                     </div>
                 </div>
             </Section>
