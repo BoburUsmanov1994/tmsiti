@@ -71,9 +71,13 @@ const Index = () => {
                         <Title center>Materiallar va buyumlar</Title>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select defaultValue={getDefaultValue(getOptionList(menuData, 'id', 'title'), 1)}
-                                // getValue={({value}) => router.push(`materials/volume/${value}`)}
-                                options={getOptionList(menuData, 'id', 'title')}
+                        <Select defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title'), '/materials/volume')}
+                                getValue={(val) => {
+                                    if(get(val,'value')){
+                                        router.push(get(val,'value'))
+                                    }
+                                }}
+                                options={getOptionList(menuData, 'filterUrl', 'title')}
                                 label={'Tanlangan mahsulot turi'}/>
                     </div>
                     <div className="col-span-12 mb-5">
