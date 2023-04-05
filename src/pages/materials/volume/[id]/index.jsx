@@ -72,13 +72,13 @@ const Index = () => {
                     </div>
                     <div className="col-span-12 mb-5">
                         <Select
-                            defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title'), '/materials/volume')}
+                            defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title',true), '/materials/volume')}
                             getValue={(val) => {
                                 if (get(val, 'value') && !isEqual(get(val, 'value'), '/materials/volume')) {
                                     router.push(get(val, 'value'))
                                 }
                             }}
-                            options={getOptionList(menuData, 'filterUrl', 'title')}
+                            options={getOptionList(menuData, 'filterUrl', 'title',true)}
                             label={'Tanlangan mahsulot turi'}/>
                     </div>
                     <div className="col-span-12 mb-5">

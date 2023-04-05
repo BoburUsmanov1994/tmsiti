@@ -32,19 +32,17 @@ export const menuData = [
         id: 5,
         title: 'Uskuna va qurilmalar',
         url: '/technos',
-        filterUrl:'/technos/category'
+        filterUrl:'/technos/volume'
     },
     {
         id: 6,
         title: 'Klassifikator',
         url: '/classifier',
-        filterUrl:'/classifier/category'
     },
     {
         id: 7,
         title: 'Bo’limlar',
         url: '/volumes',
-        filterUrl:'/volumes/category'
     }
 ]
 const Menu = ({active = 1}) => {
