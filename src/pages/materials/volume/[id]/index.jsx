@@ -21,8 +21,8 @@ const Index = () => {
     const [page,setPage] = useState(1);
     const [categoryId, setCategoryId] = useState(null)
     const [groupId, setGroupId] = useState(null)
-    const {data: materials, isLoading, isError: isErrorMaterials} = useGetQuery({
-        key: 'materials',
+    const {data: materials, isLoading, isError: isErrorMaterials,isFetching} = useGetQuery({
+        key: ['materials',id,page],
         url: `${URLS.materialVolume}${id}/`,
         params:{
             page
@@ -63,7 +63,7 @@ const Index = () => {
 
     return (
         <Main>
-            {(isLoadingCategory) && <OverlayLoader/>}
+            {isFetching && <OverlayLoader/>}
             <Menu active={1}/>
             <Section>
                 <div className="grid grid-cols-12">
@@ -72,12 +72,17 @@ const Index = () => {
                     </div>
                     <div className="col-span-12 mb-5">
                         <Select defaultValue={getDefaultValue(getOptionList(menuData, 'id', 'title'), 1)}
-                                getValue={(val) => console.log(val)}
+                                // getValue={({value}) => router.push(`materials/volume/${value}`)}
                                 options={getOptionList(menuData, 'id', 'title')}
                                 label={'Tanlangan mahsulot turi'}/>
                     </div>
                     <div className="col-span-12 mb-5">
                         <Select
+                            getValue={(val) => {
+                                if(get(val,'value')){
+                                    router.push(`/materials/volume/${get(val,'value')}`)
+                                }
+                            }}
                             defaultValue={getDefaultValue(getOptionList(get(volumes, 'data.results', []), 'id', 'volume_name'), id)}
                             options={getOptionList(get(volumes, 'data.results', []), 'id', 'volume_name')}
                             label={'Tanlangan bo‘lim'}/>

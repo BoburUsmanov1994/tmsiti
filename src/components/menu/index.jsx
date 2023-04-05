@@ -8,36 +8,43 @@ export const menuData = [
         id: 1,
         title: 'Materiallar va buyumlar',
         url: '/',
+        filterUrl:'/materials/volume'
     },
     {
         id: 2,
         title: 'Mashina mexanizmlar',
         url: '/machine-mechano',
+        filterUrl:'/machine-mechano/category'
     },
     {
         id: 3,
         title: 'Qurilish ishlari',
         url: '/works',
+        filterUrl:'/works/category'
     },
     {
         id: 4,
         title: 'Kichik mexanizatsiya',
         url: '/small-mechano',
+        filterUrl:'/small-mechano/category'
     },
     {
         id: 5,
         title: 'Uskuna va qurilmalar',
         url: '/technos',
+        filterUrl:'/technos/category'
     },
     {
         id: 6,
         title: 'Klassifikator',
         url: '/classifier',
+        filterUrl:'/classifier/category'
     },
     {
         id: 7,
         title: 'Bo’limlar',
         url: '/volumes',
+        filterUrl:'/volumes/category'
     }
 ]
 const Menu = ({active = 1}) => {
