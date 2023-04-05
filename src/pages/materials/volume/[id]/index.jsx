@@ -4,7 +4,7 @@ import Section from "@/components/section";
 import Menu, {menuData} from "@/components/menu";
 import Title from "@/components/title";
 import Select from "@/components/select";
-import {get} from "lodash";
+import {get, isEqual} from "lodash";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
@@ -73,7 +73,7 @@ const Index = () => {
                     <div className="col-span-12 mb-5">
                         <Select defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title'), '/materials/volume')}
                                 getValue={(val) => {
-                                    if(get(val,'value')){
+                                    if(get(val,'value') && !isEqual(get(val,'value'),'/materials/volume')){
                                         router.push(get(val,'value'))
                                     }
                                 }}
