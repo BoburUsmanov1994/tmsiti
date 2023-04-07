@@ -8,7 +8,7 @@ const GridBody = ({columns = [], rows = [],pageSize=24,page=1}) => {
             <thead className={'font-medium text-black text-left'}>
             <tr>
                 {
-                    columns && columns.map(th =><th className={clsx('p-2.5',get(th, "classnames", ""))} key={get(th,'id')}>
+                    columns && columns.map(th =><th className={clsx('py-2.5 px-5',get(th, "classnames", ""))} key={get(th,'id')}>
                         {get(th,'title')}
                     </th>)
                 }
