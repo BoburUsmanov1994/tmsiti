@@ -7,6 +7,6 @@ export const getMaterialVolumes = (params={}) => {
     return result.then((response) => response.data);
 };
 export const getMostOrderedMaterials = (params={}) => {
-    const result = request.get(URLS.materialsMostOrdered, {params});
+    const result = request.get(URLS.materials, {params});
     return result.then((response) => response.data);
 };

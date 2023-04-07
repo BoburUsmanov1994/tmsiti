@@ -1,4 +1,5 @@
 export const URLS = {
+    materials:'materials',
     materialVolumes: 'materials/v/',
     materialsMostOrdered: 'materials/m/ordered/',
     materialCategory: 'materials/c/',

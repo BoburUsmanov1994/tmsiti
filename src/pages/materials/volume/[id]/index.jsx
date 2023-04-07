@@ -22,10 +22,12 @@ const Index = () => {
     const [categoryId, setCategoryId] = useState(null)
     const [groupId, setGroupId] = useState(null)
     const {data: materials, isLoading, isError: isErrorMaterials, isFetching} = useGetQuery({
-        key: ['materials', id, page,categoryId,groupId],
-        url: groupId ? `${URLS.materialGroupFilter}${groupId}/`: categoryId ? `${URLS.materialCategoryFilter}${categoryId}/` : `${URLS.materialVolumeFilter}${id}/`,
+        key: KEYS.materials,
+        url: URLS.materials,
         params: {
-            page
+            page,
+            key:groupId ? 'group': categoryId ? 'category' : 'volume',
+            value:groupId ? groupId : categoryId ? categoryId : id ,
         },
         enabled: !!(id)
     });

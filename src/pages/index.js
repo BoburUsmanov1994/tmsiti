@@ -24,7 +24,7 @@ export default function Home() {
         data: materials,
         isLoading: materialLoading,
         isError: materialError,
-    } = useQuery([KEYS.materialsMostOrdered], () => getMostOrderedMaterials());
+    } = useQuery([KEYS.materials], () => getMostOrderedMaterials({key:'views_count'}));
     if (isError || materialError) {
         return <ErrorPage/>
     }
@@ -64,8 +64,8 @@ export const getStaticProps = async (context) => {
     await queryClient.prefetchQuery([KEYS.materialVolumes],
         () => getMaterialVolumes(),
     );
-    await queryClient.prefetchQuery([KEYS.materialsMostOrdered],
-        () => getMostOrderedMaterials(),
+    await queryClient.prefetchQuery([KEYS.materials],
+        () => getMostOrderedMaterials({key:'views_count'}),
     );
 
     return {
