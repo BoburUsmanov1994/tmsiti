@@ -36,7 +36,7 @@ const GridView = ({
             {isFetching && <OverlayLoader/>}
             <GridHeader>{HeaderBody}</GridHeader>
             {get(data, 'data.results',[])?.length > 0 && <>
-            <GridBody handleSort={setSort} columns={columns} rows={get(data, 'data.results',[])} page={page}/>
+            <GridBody handleSort={setSort} columns={columns} rows={get(data, 'data.results',[])} page={page} setPage={setPage}/>
             <Pagination page={page} setPage={setPage} pageCount={get(data, 'data.total_pages', 0)}/></>}
         </>
     );
