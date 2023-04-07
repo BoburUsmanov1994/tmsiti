@@ -76,7 +76,7 @@ const ViewPage = () => {
     const {code} = router.query;
     const {data: material, isLoading, isError} = useGetQuery({
         key: [KEYS.materials, code],
-        url: `${URLS.materials}/${code}/`,
+        url: `${URLS.materials}${code}/`,
         enabled: !!(code)
     });
 
