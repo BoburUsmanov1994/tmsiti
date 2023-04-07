@@ -19,7 +19,7 @@ export default function Home() {
         isLoading,
         isFetching,
         error
-    } = useQuery([KEYS.materialVolumes], () => getMaterialVolumes());
+    } = useQuery([KEYS.volumes], () => getMaterialVolumes({key:'materials'}));
     const {
         data: materials,
         isLoading: materialLoading,
@@ -61,8 +61,8 @@ export default function Home() {
 export const getStaticProps = async (context) => {
     const queryClient = new QueryClient();
 
-    await queryClient.prefetchQuery([KEYS.materialVolumes],
-        () => getMaterialVolumes(),
+    await queryClient.prefetchQuery([KEYS.volumes],
+        () => getMaterialVolumes({key:'materials'}),
     );
     await queryClient.prefetchQuery([KEYS.materials],
         () => getMostOrderedMaterials({key:'views_count'}),

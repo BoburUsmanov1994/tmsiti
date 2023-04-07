@@ -1,7 +1,8 @@
 export const KEYS = {
     materials: 'materials',
-    materialVolumes: 'materialVolumes',
+    volumes: 'volumes',
     materialsMostOrdered: 'materialsMostOrdered',
     materialCategory: 'materialCategory',
     materialGroup: 'materialGroup',
+    materialAds: 'materialAds',
 };

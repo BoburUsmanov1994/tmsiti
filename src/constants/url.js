@@ -1,6 +1,7 @@
 export const URLS = {
-    materials:'materials',
-    materialVolumes: 'materials/v/',
+    materials:'materials/',
+    volumes: 'volumes/',
     materialCategory: 'materials/c/',
     materialGroup: 'materials/g/',
+    materialAds: 'materials/ads/',
 };
