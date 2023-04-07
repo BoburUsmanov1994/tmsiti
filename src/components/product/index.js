@@ -22,7 +22,7 @@ const Product = ({data}) => {
                 {get(data, 'material_name')}
             </h2>
             <div className="flex justify-between">
-                <Button>Ko’rish</Button>
+                <Button url={`/materials/${get(data, 'material_csr_code')}`}>Ko’rish</Button>
                 <Button className={'min-w-[48px] hover:bg-transparent hover:border-[#28366D]'}><Image width={24}
                                                                                                       height={24}
                                                                                                       src={'/icons/bag.svg'}/></Button>
