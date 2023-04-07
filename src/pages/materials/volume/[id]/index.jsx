@@ -35,7 +35,7 @@ const Index = () => {
         data: volumes,
         isLoading: isLoadingVolumes,
         isError: isErrorVolumes
-    } = useGetQuery({key: KEYS.materialVolumes, url: URLS.materialVolumes});
+    } = useGetQuery({key: KEYS.volumes, url: URLS.volumes,params:{key:'materials'}});
     const {
         data: categories,
     } = useGetQuery({
