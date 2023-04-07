@@ -1,15 +1,22 @@
 import React from 'react';
 import {get} from "lodash";
 import clsx from "clsx";
+import Image from "next/image";
 
-const GridBody = ({columns = [], rows = [],pageSize=24,page=1}) => {
+const GridBody = ({columns = [], rows = [],pageSize=24,page=1,handleSort=()=>{}}) => {
     return (
         <table className={'bg-white w-full mb-8'}>
             <thead className={'font-medium text-black text-left'}>
             <tr>
                 {
                     columns && columns.map(th =><th className={clsx('py-2.5 px-5',get(th, "classnames", ""))} key={get(th,'id')}>
-                        {get(th,'title')}
+                       <div className="inline-flex items-center">
+                           <span>{get(th,'title')}</span>
+                           {get(th,'sorter') && <div className="inline-flex flex-col ml-1">
+                               <Image onClick={()=>handleSort(get(th,'key'))} className={'cursor-pointer mb-[3px]'} width={10} height={6} src={'/icons/sort-up.svg'} alt={'up'} />
+                               <Image onClick={()=>handleSort(`-${get(th,'key')}`)} className={'cursor-pointer'} width={10} height={6} src={'/icons/sort-down.svg'} alt={'up'} />
+                           </div>}
+                       </div>
                     </th>)
                 }
             </tr>

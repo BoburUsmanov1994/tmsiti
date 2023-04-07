@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import GridHeader from "@/containers/grid-view/components/grid-header";
 import GridBody from "@/containers/grid-view/components/grid-body";
 import useGetQuery from "@/hooks/api/useGetQuery";
-import {ContentLoader} from "@/components/loader";
+import {ContentLoader, OverlayLoader} from "@/components/loader";
 import {useRouter} from "next/router";
 import Pagination from "@/components/pagination";
 import {get} from "lodash";
@@ -15,14 +15,15 @@ const GridView = ({
                       params = {},
                       enabled = true,
                   }) => {
-    const router = useRouter()
-    const [page,setPage] = useState(1)
-    const {data, isLoading, isError} = useGetQuery({
+    const [page, setPage] = useState(1)
+    const [sort, setSort] = useState(undefined)
+    const {data, isLoading, isFetching} = useGetQuery({
         key: key,
         url: url,
-        params:{
+        params: {
             page,
-            ...params
+            ...params,
+            sort_by:sort
         },
         enabled
     });
@@ -31,12 +32,12 @@ const GridView = ({
     if (isLoading) {
         return <ContentLoader/>;
     }
-    console.log('data', data)
     return (
         <>
+            {isFetching && <OverlayLoader/>}
             <GridHeader>{HeaderBody}</GridHeader>
-            <GridBody columns={columns} rows={get(data,'data.results')} page={page}/>
-            <Pagination page={page} setPage={setPage} pageCount={get(data, 'data.total_pages', 0)} />
+            <GridBody handleSort={setSort} columns={columns} rows={get(data, 'data.results')} page={page}/>
+            <Pagination page={page} setPage={setPage} pageCount={get(data, 'data.total_pages', 0)}/>
         </>
     );
 };

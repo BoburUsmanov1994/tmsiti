@@ -31,7 +31,8 @@ const columns = [
         title:'Korxona nomi',
         key:'company_name',
         render:({value})=><span className={'underline'}>{value}</span>,
-        classnames:'text-center'
+        classnames:'text-center',
+        sorter:true
     },
     {
         title:'Sertifikat',
@@ -43,25 +44,28 @@ const columns = [
         title:'Narxi (so’m)',
         key:'material_price',
         render:({value})=><NumericFormat className={'text-center bg-transparent'} thousandSeparator={' '} value={value}/>,
-        classnames:'text-center'
+        classnames:'text-center',
+        sorter:true
     },
     {
         title:'Miqdori (kun-t)',
         key:'material_amount',
         render:({value})=><NumericFormat className={'text-center bg-transparent'} thousandSeparator={' '} value={value}/>,
-        classnames:'text-center'
+        classnames:'text-center',
+        sorter:true
     },
     {
         title:'Oxirgi o’zgarish',
-        key:'material_created_date',
+        key:'material_updated_date',
         render:({value})=>dayjs(value).format("DD.MM.YYYY HH:mm"),
-        classnames:'text-center'
+        classnames:'text-center',
+        sorter:true
     },
     {
         title:'Action',
         key:'action',
         render:()=><div className={'flex items-center'}>
-            <Image className={'mx-auto cursor-pointer'}  width={24} height={24} src={'/images/shopping.png'} alt={'certificate'} />
+            <Image  className={'mx-auto cursor-pointer'}  width={24} height={24} src={'/images/shopping.png'} alt={'certificate'} />
             <Image className={'mx-auto cursor-pointer'}  width={24} height={24} src={'/icons/stick.svg'} alt={'certificate'} />
         </div>,
         classnames:'text-center'
