@@ -92,7 +92,7 @@ const ViewPage = () => {
         <>
             <Main>
                 <Menu active={1}/>
-                <Section className={'!bg-white'}>
+                <Section className={'!bg-white min-h-[50vh]'}>
                     <div className="grid grid-cols-12">
                         <div className="col-span-5 text-center">
                             <Image className={'mx-auto'} width={370} height={260} src={'/images/material.png'}
