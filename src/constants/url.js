@@ -1,7 +1,8 @@
 export const URLS = {
-    materials:'materials/',
+    materials: 'materials/',
     volumes: 'volumes/',
-    materialCategory: 'materials/c/',
-    materialGroup: 'materials/g/',
+    categories: 'categories/',
+    groups: 'groups/',
     materialAds: 'materials/ads/',
+    machinesMechanos: 'machines-mechanos/',
 };

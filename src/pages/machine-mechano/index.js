@@ -1,7 +1,7 @@
 import Main from "@/layouts/main";
-import Menu from "../components/menu";
-import Section from "../components/section";
-import {getMostOrdered, getVolumes} from "@/api";
+import Menu from "@/components/menu";
+import Section from "@/components/section";
+import {getMaterialVolumes, getMostOrderedMaterials} from "@/api";
 import {KEYS} from "@/constants/key";
 import {dehydrate, QueryClient, useQuery} from '@tanstack/react-query';
 import {ContentLoader} from "@/components/loader";
@@ -10,22 +10,21 @@ import Title from "@/components/title";
 import {get, isEmpty} from "lodash"
 import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
-import {URLS} from "../constants/url";
 
 
-export default function Home() {
+export default function MachineMechano() {
     const {
         data: volumes,
         isError,
         isLoading,
         isFetching,
         error
-    } = useQuery([KEYS.volumes], () => getVolumes({url:URLS.volumes,params:{key: KEYS.materials}}));
+    } = useQuery([KEYS.volumes], () => getMaterialVolumes({key: 'materials'}));
     const {
         data: materials,
         isLoading: materialLoading,
         isError: materialError,
-    } = useQuery([KEYS.materials], () => getMostOrdered({url:URLS.materials,params:{key: KEYS.viewCounts}}));
+    } = useQuery([KEYS.materials], () => getMostOrderedMaterials({key: 'views_count'}));
     if (isError || materialError) {
         return <ErrorPage/>
     }
@@ -63,10 +62,10 @@ export const getStaticProps = async (context) => {
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery([KEYS.volumes],
-        () => getVolumes({url:URLS.volumes,params:{key: KEYS.materials}}),
+        () => getMaterialVolumes({key: 'materials'}),
     );
     await queryClient.prefetchQuery([KEYS.materials],
-        () => getMostOrdered({url:URLS.materials,params:{key: KEYS.viewCounts}}),
+        () => getMostOrderedMaterials({key: 'views_count'}),
     );
 
     return {

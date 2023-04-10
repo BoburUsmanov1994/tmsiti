@@ -1,12 +1,11 @@
 import {request} from "@/services/api";
-import {URLS} from "@/constants/url";
 
 
-export const getMaterialVolumes = (params={}) => {
-    const result = request.get(URLS.volumes, {params});
+export const getVolumes = ({params={},url='/'}) => {
+    const result = request.get(url, {params});
     return result.then((response) => response.data);
 };
-export const getMostOrderedMaterials = (params={}) => {
-    const result = request.get(URLS.materials+'', {params});
+export const getMostOrdered = ({params={},url='/'}) => {
+    const result = request.get(url, {params});
     return result.then((response) => response.data);
 };

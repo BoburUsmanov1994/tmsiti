@@ -26,8 +26,8 @@ const Index = () => {
         url: URLS.materials,
         params: {
             page,
-            key:groupId ? 'group': categoryId ? 'category' : 'volume',
-            value:groupId ? groupId : categoryId ? categoryId : id ,
+            key: groupId ? 'group' : categoryId ? 'category' : 'volume',
+            value: groupId ? groupId : categoryId ? categoryId : id,
         },
         enabled: !!(id)
     });
@@ -35,20 +35,22 @@ const Index = () => {
         data: volumes,
         isLoading: isLoadingVolumes,
         isError: isErrorVolumes
-    } = useGetQuery({key: KEYS.volumes, url: URLS.volumes,params:{key:'materials'}});
+    } = useGetQuery({key: KEYS.volumes, url: URLS.volumes, params: {key: 'materials'}});
     const {
         data: categories,
     } = useGetQuery({
-        key: [KEYS.materialCategory, id],
-        url: URLS.materialCategory + id + '/',
+        key: [KEYS.categories, id],
+        url: URLS.categories,
+        params: {key: 'materials', parent: id},
         enabled: !!(id)
     });
 
     const {
         data: groups,
     } = useGetQuery({
-        key: [KEYS.materialGroup, id,categoryId],
-        url: URLS.materialGroup + categoryId + '/',
+        key: [KEYS.groups, id, categoryId],
+        url: URLS.groups,
+        params: {key: 'materials', parent: categoryId},
         enabled: !!(categoryId)
     });
 
@@ -73,13 +75,13 @@ const Index = () => {
                     <div className="col-span-12 mb-5">
                         <Select
                             name={'material'}
-                            defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title',true), '/materials/volume')}
+                            defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title', true), '/materials/volume')}
                             getValue={(val) => {
                                 if (get(val, 'value') && !isEqual(get(val, 'value'), '/materials/volume')) {
                                     router.push(get(val, 'value'))
                                 }
                             }}
-                            options={getOptionList(menuData, 'filterUrl', 'title',true)}
+                            options={getOptionList(menuData, 'filterUrl', 'title', true)}
                             label={'Tanlangan mahsulot turi'}/>
                     </div>
                     <div className="col-span-12 mb-5">
@@ -106,7 +108,7 @@ const Index = () => {
                                 label={'Tanlangan kategoriya'}/>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select  name={`group-${groupId}`} getValue={(val) => setGroupId(get(val, 'value'))}
+                        <Select name={`group-${groupId}`} getValue={(val) => setGroupId(get(val, 'value'))}
                                 options={getOptionList(get(groups, 'data.results', []), 'id', 'group_name')}
                                 label={'Tanlangan guruh'}/>
                     </div>

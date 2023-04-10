@@ -1,8 +1,9 @@
 export const KEYS = {
     materials: 'materials',
     volumes: 'volumes',
-    materialsMostOrdered: 'materialsMostOrdered',
-    materialCategory: 'materialCategory',
-    materialGroup: 'materialGroup',
+    categories: 'categories',
+    groups: 'groups',
     materialAds: 'materialAds',
+    machinesMechanos:'machines-mechanos',
+    viewCounts:'views_count',
 };
