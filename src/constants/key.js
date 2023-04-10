@@ -7,4 +7,5 @@ export const KEYS = {
     machinesMechanos:'machines-mechanos',
     viewCounts:'views_count',
     works:'works',
+    machinesMechanosAds:'machinesMechanosAds',
 };

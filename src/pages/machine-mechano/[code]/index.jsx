@@ -75,8 +75,8 @@ const ViewPage = () => {
     const router = useRouter()
     const {code} = router.query;
     const {data: material, isLoading, isError} = useGetQuery({
-        key: [KEYS.materials, code],
-        url: `${URLS.materials}${code}/`,
+        key: [KEYS.machinesMechanos, code],
+        url: `${URLS.machinesMechanos}${code}/`,
         enabled: !!(code)
     });
 
@@ -91,7 +91,7 @@ const ViewPage = () => {
     return (
         <>
             <Main>
-                <Menu active={1}/>
+                <Menu active={2}/>
                 <Section className={'!bg-white'}>
                     <div className="grid grid-cols-12">
                         <div className="col-span-5 text-center">
@@ -103,7 +103,7 @@ const ViewPage = () => {
                                 <div className={'inline-flex mr-8'}>
                                     <Image className={'mr-2'} width={24} height={24} src={'/icons/code.svg'}
                                            alt={'code'}/>
-                                    <span className={'font-medium'}>#{get(material, 'data.material_csr_code')}</span>
+                                    <span className={'font-medium'}>#{get(material, 'data.mmechano_csr_code')}</span>
                                 </div>
                                 <div className={'inline-flex mr-8'}>
                                     <Image className={'mr-2'} width={24} height={24} src={'/icons/eye.svg'}
@@ -117,7 +117,7 @@ const ViewPage = () => {
                                     <span className={'font-medium'}>Saqlash</span>
                                 </div>
                             </div>
-                            <h2 className={'my-3 text-xl font-semibold'}>{get(material, 'data.material_name')}</h2>
+                            <h2 className={'my-3 text-xl font-semibold'}>{get(material, 'data.mmechano_name')}</h2>
                             <div className="flex mb-5 ">
                                 <div className={'inline-flex mr-20'}>
                                     <strong className={'font-medium text-[#212529] mr-1'}>O’rtacha narx: </strong><span
@@ -138,8 +138,8 @@ const ViewPage = () => {
                             <GridView HeaderBody={<div className="flex mb-5"><Select sm label={'Shahar / viloyat'}/>
                                 <div className="ml-8"><Select sm label={'Tuman'}/></div>
                             </div>}
-                                      url={`${URLS.materialAds}${code}/`}
-                                      key={KEYS.materialAds}
+                                      url={`${URLS.machinesMechanosAds}${code}/`}
+                                      key={KEYS.machinesMechanosAds}
                                       columns={columns}
                             />
                         </div>
