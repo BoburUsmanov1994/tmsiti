@@ -1,7 +1,7 @@
 import Main from "@/layouts/main";
 import Menu from "@/components/menu";
 import Section from "@/components/section";
-import {getMaterialVolumes, getMostOrderedMaterials} from "@/api";
+import {getMostOrdered, getVolumes} from "@/api";
 import {KEYS} from "@/constants/key";
 import {dehydrate, QueryClient, useQuery} from '@tanstack/react-query';
 import {ContentLoader} from "@/components/loader";
@@ -10,30 +10,34 @@ import Title from "@/components/title";
 import {get, isEmpty} from "lodash"
 import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
+import {URLS} from "@/constants/url";
 
 
-export default function MachineMechano() {
+export default function MachinesMechanos() {
     const {
         data: volumes,
         isError,
         isLoading,
         isFetching,
         error
-    } = useQuery([KEYS.volumes], () => getMaterialVolumes({key: 'materials'}));
+    } = useQuery([KEYS.volumes], () => getVolumes({url: URLS.volumes, params: {key: KEYS.machinesMechanos}}));
     const {
-        data: materials,
-        isLoading: materialLoading,
-        isError: materialError,
-    } = useQuery([KEYS.materials], () => getMostOrderedMaterials({key: 'views_count'}));
-    if (isError || materialError) {
+        data: items,
+        isLoading: machineLoading,
+        isError: machineError,
+    } = useQuery([KEYS.machinesMechanos], () => getMostOrdered({
+        url: URLS.machinesMechanos,
+        params: {key: KEYS.machinesMechanos}
+    }));
+    if (isError || machineError) {
         return <ErrorPage/>
     }
-    if (isLoading || materialLoading || isFetching) {
+    if (isLoading || machineLoading || isFetching) {
         return <Main><ContentLoader/></Main>;
     }
     return (
         <Main>
-            <Menu active={1}/>
+            <Menu active={2}/>
             <Section>
                 <div className="grid grid-cols-12 gap-x-8 ">
                     {
@@ -47,9 +51,9 @@ export default function MachineMechano() {
                         <Title>Ko‘p ko‘rilganlar</Title>
                     </div>
                     {
-                        get(materials, 'results', []).map(material => <div key={get(material, 'material_csr_code')}
-                                                                           className={'col-span-3 mb-[30px] '}>
-                            <Product data={material}/>
+                        get(items, 'results', []).map(item => <div key={get(item, 'material_csr_code')}
+                                                                   className={'col-span-3 mb-[30px] '}>
+                            <Product data={item}/>
                         </div>)
                     }
                 </div>
@@ -62,10 +66,10 @@ export const getStaticProps = async (context) => {
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery([KEYS.volumes],
-        () => getMaterialVolumes({key: 'materials'}),
+        () => getVolumes({url: URLS.volumes, params: {key: KEYS.machinesMechanos}}),
     );
-    await queryClient.prefetchQuery([KEYS.materials],
-        () => getMostOrderedMaterials({key: 'views_count'}),
+    await queryClient.prefetchQuery([KEYS.machinesMechanos],
+        () => getMostOrdered({url: URLS.machinesMechanos, params: {key: KEYS.machinesMechanos}}),
     );
 
     return {
