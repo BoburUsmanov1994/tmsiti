@@ -25,7 +25,7 @@ export default function Works() {
         data: items,
         isLoading: machineLoading,
         isError: machineError,
-    } = useQuery([KEYS.machinesMechanos], () => getMostOrdered({
+    } = useQuery([KEYS.works], () => getMostOrdered({
         url: URLS.works,
         params: {key: KEYS.viewCounts}
     }));
@@ -68,8 +68,8 @@ export const getStaticProps = async (context) => {
     await queryClient.prefetchQuery([KEYS.volumes],
         () => getVolumes({url: URLS.volumes, params: {key: KEYS.works}}),
     );
-    await queryClient.prefetchQuery([KEYS.machinesMechanos],
-        () => getMostOrdered({url: URLS.machinesMechanos, params: {key: KEYS.viewCounts}}),
+    await queryClient.prefetchQuery([KEYS.works],
+        () => getMostOrdered({url: URLS.works, params: {key: KEYS.viewCounts}}),
     );
 
     return {
