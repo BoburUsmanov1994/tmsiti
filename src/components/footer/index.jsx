@@ -42,25 +42,25 @@ const Footer = () => {
                     <div className="col-span-4">
                         <h4 className={'text-xl font-bold mb-2.5'}>Menu</h4>
                         <ul>
-                            <li className={'mb-2 text-[#1890FF]'}>
-                                <Link href={'#'}>Qurilish materiallari</Link>
+                            <li className={'mb-2 hover:text-[#1890FF]'}>
+                                <Link href={'/'}>Qurilish materiallari</Link>
                             </li>
-                            <li className={'mb-2'}>
-                                <Link href={'#'}>Mashina mexanizmlar</Link>
+                            <li className={'mb-2 hover:text-[#1890FF]'}>
+                                <Link href={'/machine-mechano'}>Mashina mexanizmlar</Link>
                             </li>
-                            <li className={'mb-2'}>
-                                <Link href={'#'}>Qurilish ishlari</Link>
+                            <li className={'mb-2 hover:text-[#1890FF]'}>
+                                <Link href={'/works'}>Qurilish ishlari</Link>
                             </li>
-                            <li className={'mb-2'}>
+                            <li className={'mb-2 hover:text-[#1890FF]'}>
                                 <Link href={'#'}>Korxonalar</Link>
                             </li>
-                            <li className={'mb-2'}>
-                                <Link href={'#'}>Klassifikator</Link>
+                            <li className={'mb-2 hover:text-[#1890FF]'}>
+                                <Link href={'/classifier'}>Klassifikator</Link>
                             </li>
-                            <li className={'mb-2'}>
+                            <li className={'mb-2 hover:text-[#1890FF]'}>
                                 <Link href={'#'}>Yangiliklar</Link>
                             </li>
-                            <li>
+                            <li className={'hover:text-[#1890FF]'}>
                                 <Link href={'#'}>Aloqa</Link>
                             </li>
                         </ul>
