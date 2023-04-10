@@ -53,7 +53,7 @@ export default function MachinesMechanos() {
                     {
                         get(items, 'results', []).map(item => <div key={get(item, 'material_csr_code')}
                                                                    className={'col-span-3 mb-[30px] '}>
-                            <Product data={item}/>
+                            <Product viewUrl={'machine-mechano'} name={'mmechano_name'} code={'mmechano_csr_code'} img={'mmechano_image'} data={item}/>
                         </div>)
                     }
                 </div>
