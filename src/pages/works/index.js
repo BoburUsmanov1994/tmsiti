@@ -1,7 +1,7 @@
 import Main from "@/layouts/main";
 import Menu from "@/components/menu";
 import Section from "@/components/section";
-import {getMostOrdered, getVolumes} from "@/api";
+import {getMostOrdered, getCategories} from "@/api";
 import {KEYS} from "@/constants/key";
 import {dehydrate, QueryClient, useQuery} from '@tanstack/react-query';
 import {ContentLoader} from "@/components/loader";
@@ -20,7 +20,7 @@ export default function Works() {
         isLoading,
         isFetching,
         error
-    } = useQuery([KEYS.volumes], () => getVolumes({url: URLS.volumes, params: {key: KEYS.works}}));
+    } = useQuery([KEYS.categories], () => getCategories({url: URLS.categories, params: {key: KEYS.works}}));
     const {
         data: items,
         isLoading: machineLoading,
@@ -65,8 +65,8 @@ export default function Works() {
 export const getStaticProps = async (context) => {
     const queryClient = new QueryClient();
 
-    await queryClient.prefetchQuery([KEYS.volumes],
-        () => getVolumes({url: URLS.volumes, params: {key: KEYS.works}}),
+    await queryClient.prefetchQuery([KEYS.categories],
+        () => getCategories({url: URLS.categories, params: {key: KEYS.works}}),
     );
     await queryClient.prefetchQuery([KEYS.works],
         () => getMostOrdered({url: URLS.works, params: {key: KEYS.viewCounts}}),
