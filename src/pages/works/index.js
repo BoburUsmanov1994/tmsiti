@@ -37,7 +37,7 @@ export default function Works() {
     }
     return (
         <Main>
-            <Menu active={2}/>
+            <Menu active={3}/>
             <Section>
                 <div className="grid grid-cols-12 gap-x-8 ">
                     {
