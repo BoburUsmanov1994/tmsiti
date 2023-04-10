@@ -50,7 +50,7 @@ const columns = [
     {
         title:'Miqdori (kun-t)',
         key:'material_amount',
-        render:({value})=><NumericFormat className={'text-center bg-transparent'} thousandSeparator={' '} value={value}/>,
+        render:({value})=><NumericFormat displayType={'text'}  className={'text-center bg-transparent'} thousandSeparator={' '} value={value}/>,
         classnames:'text-center',
         sorter:true
     },
