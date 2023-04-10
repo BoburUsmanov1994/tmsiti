@@ -1,7 +1,7 @@
 import Main from "@/layouts/main";
 import Menu from "@/components/menu";
 import Section from "@/components/section";
-import {getMostOrdered, getVolumes} from "@/api";
+import {getMostOrdered, getGroups} from "@/api";
 import {KEYS} from "@/constants/key";
 import {dehydrate, QueryClient, useQuery} from '@tanstack/react-query';
 import {ContentLoader} from "@/components/loader";
@@ -20,7 +20,7 @@ export default function MachinesMechanos() {
         isLoading,
         isFetching,
         error
-    } = useQuery([KEYS.volumes], () => getVolumes({url: URLS.volumes, params: {key: KEYS.machinesMechanos}}));
+    } = useQuery([KEYS.groups], () => getGroups({url: URLS.groups, params: {key: KEYS.machinesMechanos}}));
     const {
         data: items,
         isLoading: machineLoading,
@@ -65,8 +65,8 @@ export default function MachinesMechanos() {
 export const getStaticProps = async (context) => {
     const queryClient = new QueryClient();
 
-    await queryClient.prefetchQuery([KEYS.volumes],
-        () => getVolumes({url: URLS.volumes, params: {key: KEYS.machinesMechanos}}),
+    await queryClient.prefetchQuery([KEYS.groups],
+        () => getGroups({url: URLS.groups, params: {key: KEYS.machinesMechanos}}),
     );
     await queryClient.prefetchQuery([KEYS.machinesMechanos],
         () => getMostOrdered({url: URLS.machinesMechanos, params: {key: KEYS.viewCounts}}),
