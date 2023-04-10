@@ -5,4 +5,5 @@ export const URLS = {
     groups: 'groups/',
     materialAds: 'materials/ads/',
     machinesMechanos: 'machines-mechanos/',
+    works: 'works/',
 };

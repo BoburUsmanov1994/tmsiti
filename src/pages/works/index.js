@@ -13,20 +13,20 @@ import ErrorPage from "@/pages/500";
 import {URLS} from "@/constants/url";
 
 
-export default function MachinesMechanos() {
+export default function Works() {
     const {
         data: volumes,
         isError,
         isLoading,
         isFetching,
         error
-    } = useQuery([KEYS.volumes], () => getVolumes({url: URLS.volumes, params: {key: KEYS.machinesMechanos}}));
+    } = useQuery([KEYS.volumes], () => getVolumes({url: URLS.volumes, params: {key: KEYS.works}}));
     const {
         data: items,
         isLoading: machineLoading,
         isError: machineError,
     } = useQuery([KEYS.machinesMechanos], () => getMostOrdered({
-        url: URLS.machinesMechanos,
+        url: URLS.works,
         params: {key: KEYS.viewCounts}
     }));
     if (isError || machineError) {
@@ -66,7 +66,7 @@ export const getStaticProps = async (context) => {
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery([KEYS.volumes],
-        () => getVolumes({url: URLS.volumes, params: {key: KEYS.machinesMechanos}}),
+        () => getVolumes({url: URLS.volumes, params: {key: KEYS.works}}),
     );
     await queryClient.prefetchQuery([KEYS.machinesMechanos],
         () => getMostOrdered({url: URLS.machinesMechanos, params: {key: KEYS.viewCounts}}),

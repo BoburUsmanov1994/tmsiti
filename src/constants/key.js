@@ -6,4 +6,5 @@ export const KEYS = {
     materialAds: 'materialAds',
     machinesMechanos:'machines-mechanos',
     viewCounts:'views_count',
+    works:'works',
 };
