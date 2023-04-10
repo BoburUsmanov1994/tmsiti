@@ -19,8 +19,6 @@ const Index = () => {
     const router = useRouter();
     const {id} = router.query;
     const [page, setPage] = useState(1);
-    const [categoryId, setCategoryId] = useState(null)
-    const [groupId, setGroupId] = useState(null)
     const {data: materials, isLoading, isError: isErrorMaterials, isFetching} = useGetQuery({
         key: KEYS.materials,
         url: URLS.materials,
@@ -74,8 +72,6 @@ const Index = () => {
                             getValue={(val) => {
                                 if (get(val, 'value')) {
                                     setPage(1)
-                                    setCategoryId(null);
-                                    setGroupId(null);
                                     router.push(`/materials/volume/${get(val, 'value')}`)
                                 }
                             }}
@@ -84,16 +80,13 @@ const Index = () => {
                             label={'Tanlangan bo‘lim'}/>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select name={`category-${categoryId}`} defaultValue={null} getValue={(val) => {
-                            setGroupId(null)
-                            setCategoryId(get(val, 'value'))
-                        }}
-                                options={getOptionList(get(categories, 'data.results', []), 'id', 'category_name')}
+                        <Select
+                                options={[]}
                                 label={'Tanlangan kategoriya'}/>
                     </div>
                     <div className="col-span-12 mb-5">
-                        <Select name={`group-${groupId}`} getValue={(val) => setGroupId(get(val, 'value'))}
-                                options={getOptionList(get(groups, 'data.results', []), 'id', 'group_name')}
+                        <Select
+                                options={[]}
                                 label={'Tanlangan guruh'}/>
                     </div>
                 </div>
