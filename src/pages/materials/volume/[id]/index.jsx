@@ -35,13 +35,13 @@ const Index = () => {
         data: volumes,
         isLoading: isLoadingVolumes,
         isError: isErrorVolumes
-    } = useGetQuery({key: KEYS.volumes, url: URLS.volumes, params: {key: 'materials'}});
+    } = useGetQuery({key: KEYS.volumes, url: URLS.volumes, params: {key: KEYS.materials}});
     const {
         data: categories,
     } = useGetQuery({
         key: [KEYS.categories, id],
         url: URLS.categories,
-        params: {key: 'materials', parent: id},
+        params: {key: KEYS.materials, parent: id},
         enabled: !!(id)
     });
 
@@ -50,7 +50,7 @@ const Index = () => {
     } = useGetQuery({
         key: [KEYS.groups, id, categoryId],
         url: URLS.groups,
-        params: {key: 'materials', parent: categoryId},
+        params: {key: KEYS.materials, parent: categoryId},
         enabled: !!(categoryId)
     });
 

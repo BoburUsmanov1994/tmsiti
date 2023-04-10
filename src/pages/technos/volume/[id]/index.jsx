@@ -22,8 +22,8 @@ const Index = () => {
     const [categoryId, setCategoryId] = useState(null)
     const [groupId, setGroupId] = useState(null)
     const {data: materials, isLoading, isError: isErrorMaterials, isFetching} = useGetQuery({
-        key: KEYS.materials,
-        url: URLS.materials,
+        key: KEYS.technos,
+        url: URLS.technos,
         params: {
             page,
             key: groupId ? 'group' : categoryId ? 'category' : 'volume',
@@ -35,13 +35,13 @@ const Index = () => {
         data: volumes,
         isLoading: isLoadingVolumes,
         isError: isErrorVolumes
-    } = useGetQuery({key: KEYS.volumes, url: URLS.volumes, params: {key: 'materials'}});
+    } = useGetQuery({key: KEYS.volumes, url: URLS.volumes, params: {key: KEYS.technos}});
     const {
         data: categories,
     } = useGetQuery({
         key: [KEYS.categories, id],
         url: URLS.categories,
-        params: {key: 'materials', parent: id},
+        params: {key: KEYS.technos, parent: id},
         enabled: !!(id)
     });
 
@@ -50,7 +50,7 @@ const Index = () => {
     } = useGetQuery({
         key: [KEYS.groups, id, categoryId],
         url: URLS.groups,
-        params: {key: 'materials', parent: categoryId},
+        params: {key: KEYS.technos, parent: categoryId},
         enabled: !!(categoryId)
     });
 
@@ -70,14 +70,14 @@ const Index = () => {
             <Section>
                 <div className="grid grid-cols-12">
                     <div className="col-span-12 text-center mt-5">
-                        <Title center>Materiallar va buyumlar</Title>
+                        <Title center>Uskuna va qurilmalar</Title>
                     </div>
                     <div className="col-span-12 mb-5">
                         <Select
                             name={'material'}
-                            defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title', true), '/materials/volume')}
+                            defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title', true), '/technos/volume')}
                             getValue={(val) => {
-                                if (get(val, 'value') && !isEqual(get(val, 'value'), '/materials/volume')) {
+                                if (get(val, 'value') && !isEqual(get(val, 'value'), '/technos/volume')) {
                                     router.push(get(val, 'value'))
                                 }
                             }}
@@ -92,7 +92,7 @@ const Index = () => {
                                     setPage(1)
                                     setCategoryId(null);
                                     setGroupId(null);
-                                    router.push(`/materials/volume/${get(val, 'value')}`)
+                                    router.push(`/technos/volume/${get(val, 'value')}`)
                                 }
                             }}
                             defaultValue={getDefaultValue(getOptionList(get(volumes, 'data.results', []), 'id', 'volume_name'), id)}

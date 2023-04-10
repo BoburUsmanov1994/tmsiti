@@ -54,7 +54,7 @@ export default function Technos() {
                     {
                         get(items, 'results', []).map(item => <div key={get(item, 'material_csr_code')}
                                                                    className={'col-span-3 mb-[30px] '}>
-                            <Product viewUrl={'small-mechano'} name={'smallmechano_name'} code={'smallmechano_csr_code'} img={'smallmechano_image'} data={item}/>
+                            <Product viewUrl={'technos'} name={'techno_name'} code={'techno_csr_code'} img={'techno_image'} data={item}/>
                         </div>)
                     }
                 </div>
