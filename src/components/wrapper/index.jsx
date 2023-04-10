@@ -2,7 +2,7 @@ import React from 'react';
 
 const Index = ({children}) => {
     return (
-        <div className="!select-none ">
+        <div>
             {children}
         </div>
     );

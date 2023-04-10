@@ -8,4 +8,7 @@ export const KEYS = {
     viewCounts:'views_count',
     works:'works',
     machinesMechanosAds:'machinesMechanosAds',
+    smallMechanos:'small-mechanos',
+    smallMechanosAds:'smallMechanosAds',
+    technos:'technos',
 };
