@@ -87,7 +87,7 @@ const Index = () => {
                                 }
                             }}
                             defaultValue={getDefaultValue(getOptionList(get(categories, 'data.results', []), 'id', 'category_name'), id)}
-                            options={getOptionList(get(categories, 'data.results', []), 'id', 'volume_name')}
+                            options={getOptionList(get(categories, 'data.results', []), 'id', 'category_name')}
                             label={'Tanlangan kategoriya'}/>
                     </div>
 
