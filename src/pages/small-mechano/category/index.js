@@ -67,14 +67,12 @@ const Index = () => {
                     </div>
                     <div className="col-span-12 mb-5">
                         <Select
-                            name={`volume-${id}`}
                             getValue={(val) => {
                                 if (get(val, 'value')) {
                                     setPage(1)
                                     router.push(`/small-mechano/category/${get(val, 'value')}`)
                                 }
                             }}
-                            defaultValue={getDefaultValue(getOptionList(get(categories, 'data.results', []), 'id', 'category_name'), id)}
                             options={getOptionList(get(categories, 'data.results', []), 'id', 'volume_name')}
                             label={'Tanlangan kategoriya'}/>
                     </div>
