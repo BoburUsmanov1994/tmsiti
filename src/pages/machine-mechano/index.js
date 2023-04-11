@@ -42,7 +42,7 @@ export default function MachinesMechanos() {
                 <div className="grid grid-cols-12 gap-x-8 ">
                     {
                         !isEmpty(get(volumes, 'results', [])) && get(volumes, 'results', []).map(volume => <div
-                            key={get(volume, 'id')} className={'col-span-3 mb-5'}><Category
+                            key={get(volume, 'id')} className={'col-span-3 mb-5'}><Category url={'machine-mechano/category'} name={'category_name'}
                             data={volume}/></div>)
                     }
                 </div>
