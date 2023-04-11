@@ -96,9 +96,9 @@ const Index = () => {
                         </div>
                     </div>
                     {
-                        get(materials, 'data.results', []).map(material => <div key={get(material, 'material_csr_code')}
+                        get(materials, 'data.results', []).map(material => <div key={get(material, 'smallmechano_csr_code')}
                                                                                 className={'col-span-3 mb-[30px] '}>
-                            <Product data={material}/>
+                            <Product url={'small-mechano'} img={'smallmechano_image'} code={'smallmechano_csr_code'} name={'smallmechano_name'} data={material}/>
                         </div>)
                     }
                     <div className={'col-span-12'}>
