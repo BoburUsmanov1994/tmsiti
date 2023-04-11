@@ -47,7 +47,7 @@ const Index = () => {
     return (
         <Main>
             {isFetching && <OverlayLoader/>}
-            <Menu active={4}/>
+            <Menu active={2}/>
             <Section>
                 <div className="grid grid-cols-12">
                     <div className="col-span-12 text-center mt-5">
