@@ -73,7 +73,7 @@ const Index = () => {
                                     router.push(`/small-mechano/category/${get(val, 'value')}`)
                                 }
                             }}
-                            options={getOptionList(get(categories, 'data.results', []), 'id', 'volume_name')}
+                            options={getOptionList(get(categories, 'data.results', []), 'id', 'category_name')}
                             label={'Tanlangan kategoriya'}/>
                     </div>
 
