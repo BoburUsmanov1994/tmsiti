@@ -1,14 +1,17 @@
 import React from 'react';
 import Image from "next/image";
-import {get} from "lodash";
+import {get, isNil} from "lodash";
 import Button from "@/components/button";
 
 const Product = ({data, name = 'material_name', code = 'material_csr_code', img = '',viewUrl='materials'}) => {
     return (
         <div className={'drop-shadow-category bg-white p-2.5 rounded-[5px]'}>
             <div className={'relative h-[170px] rounded overflow-hidden mb-2.5'}>
-                <Image layout={'fill'} objectFit={'cover'}
-                       src={'/images/material.png'}/>
+                {
+                    isNil(get(data,img)) ?   <Image layout={'fill'} objectFit={'cover'}
+                                                    src={'/images/material.png'}/> : <Image  layout={'fill'} objectFit={'cover'} src={get(data,img)}  loader={() => get(data,img)} />
+                }
+
             </div>
             <div className={'flex justify-between mb-2.5'}>
                 <span className={'text-xs py-[5px] px-2.5 bg-[#D1E9FF] text-[#28366D] font-medium'}>
