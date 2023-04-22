@@ -60,6 +60,7 @@ export default function Home() {
 }
 
 export const getStaticProps = async (context) => {
+
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery([KEYS.volumes],

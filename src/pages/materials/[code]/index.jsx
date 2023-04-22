@@ -12,63 +12,68 @@ import Image from "next/image";
 import {get} from "lodash";
 import Select from "@/components/select";
 import GridView from "@/containers/grid-view";
-import { NumericFormat } from 'react-number-format';
+import {NumericFormat} from 'react-number-format';
 import dayjs from "dayjs";
 
 const columns = [
     {
-        title:'№',
-        key:'id',
-        render:({index})=><span className={'font-semibold'}>{index}</span>
+        title: '№',
+        key: 'id',
+        render: ({index}) => <span className={'font-semibold'}>{index}</span>
     },
     {
-        title:'Logo',
-        key:'material_image',
-        render:()=><Image className={'mx-auto'} width={80} height={56} src={'/images/company.png'} alt={'logo'} />,
-        classnames:'text-center'
+        title: 'Logo',
+        key: 'material_image',
+        render: () => <Image className={'mx-auto'} width={80} height={56} src={'/images/company.png'} alt={'logo'}/>,
+        classnames: 'text-center'
     },
     {
-        title:'Korxona nomi',
-        key:'company_name',
-        render:({value})=><span className={'underline'}>{value}</span>,
-        classnames:'text-center',
-        sorter:true
+        title: 'Korxona nomi',
+        key: 'company_name',
+        render: ({value}) => <span className={'underline'}>{value}</span>,
+        classnames: 'text-center',
+        sorter: true
     },
     {
-        title:'Sertifikat',
-        key:'sertificate_blank_num',
-        render:()=><Image className={'mx-auto'} width={24} height={24} src={'/images/certificate.png'} alt={'certificate'} />,
-        classnames:'text-center'
+        title: 'Sertifikat',
+        key: 'sertificate_blank_num',
+        render: () => <Image className={'mx-auto'} width={24} height={24} src={'/images/certificate.png'}
+                             alt={'certificate'}/>,
+        classnames: 'text-center'
     },
     {
-        title:'Narxi (so’m)',
-        key:'material_price',
-        render:({value})=><NumericFormat displayType={'text'} className={'text-center bg-transparent'} thousandSeparator={' '} value={value}/>,
-        classnames:'text-center',
-        sorter:true
+        title: 'Narxi (so’m)',
+        key: 'material_price',
+        render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+                                            thousandSeparator={' '} value={value}/>,
+        classnames: 'text-center',
+        sorter: true
     },
     {
-        title:'Miqdori (kun-t)',
-        key:'material_amount',
-        render:({value})=><NumericFormat displayType={'text'}  className={'text-center bg-transparent'} thousandSeparator={' '} value={value}/>,
-        classnames:'text-center',
-        sorter:true
+        title: 'Miqdori (kun-t)',
+        key: 'material_amount',
+        render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+                                            thousandSeparator={' '} value={value}/>,
+        classnames: 'text-center',
+        sorter: true
     },
     {
-        title:'Oxirgi o’zgarish',
-        key:'material_updated_date',
-        render:({value})=>dayjs(value).format("DD.MM.YYYY HH:mm"),
-        classnames:'text-center',
-        sorter:true
+        title: 'Oxirgi o’zgarish',
+        key: 'material_updated_date',
+        render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm"),
+        classnames: 'text-center',
+        sorter: true
     },
     {
-        title:'Action',
-        key:'action',
-        render:()=><div className={'flex items-center'}>
-            <Image  className={'mx-auto cursor-pointer'}  width={24} height={24} src={'/images/shopping.png'} alt={'certificate'} />
-            <Image className={'mx-auto cursor-pointer'}  width={24} height={24} src={'/icons/stick.svg'} alt={'certificate'} />
+        title: 'Action',
+        key: 'action',
+        render: () => <div className={'flex items-center'}>
+            <Image className={'mx-auto cursor-pointer'} width={24} height={24} src={'/images/shopping.png'}
+                   alt={'certificate'}/>
+            <Image className={'mx-auto cursor-pointer'} width={24} height={24} src={'/icons/stick.svg'}
+                   alt={'certificate'}/>
         </div>,
-        classnames:'text-center'
+        classnames: 'text-center'
     }
 ]
 const ViewPage = () => {
@@ -79,12 +84,18 @@ const ViewPage = () => {
         url: `${URLS.materials}${code}/`,
         enabled: !!(code)
     });
-
+    const {data: regions, isLoading: isLoadingRegion} = useGetQuery({
+        key: [KEYS.territories, 'regions'],
+        url: `${URLS.territories}`,
+        params: {
+            key: 'regions'
+        }
+    });
     if (isError) {
         return <ErrorPage/>
     }
 
-    if (isLoading) {
+    if (isLoading || isLoadingRegion) {
         return <Main><ContentLoader/></Main>;
     }
 

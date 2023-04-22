@@ -12,4 +12,5 @@ export const KEYS = {
     smallMechanosAds:'smallMechanosAds',
     technos:'technos',
     technosAds:'technosAds',
+    territories:'territories',
 };

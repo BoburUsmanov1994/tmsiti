@@ -11,4 +11,5 @@ export const URLS = {
     smallMechanosAds: 'small-mechanos/ads/filter/',
     technos: 'technos/',
     technosAds: 'materials/ads/',
+    territories: 'companies/territories/',
 };

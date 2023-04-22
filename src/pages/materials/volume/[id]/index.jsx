@@ -114,16 +114,8 @@ const Index = () => {
                     </div>
                 </div>
                 <div className="grid grid-cols-12 gap-x-8 mt-8 items-start">
-                    <div className="col-span-4">
+                    <div className="col-span-12">
                         <Title>mahsulotlar</Title>
-                    </div>
-                    <div className="col-span-8">
-                        <div className="flex justify-end">
-                            <Select sm label={'Shahar / viloyat'}/>
-                            <div className="ml-8">
-                                <Select sm label={'Tuman'}/>
-                            </div>
-                        </div>
                     </div>
                     {
                         get(materials, 'data.results', []).map(material => <div key={get(material, 'material_csr_code')}
