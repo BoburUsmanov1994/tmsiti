@@ -176,8 +176,8 @@ const Classifier = () => {
                                                 setPartId(get(part, 'id'));
                                             }}
                                                                                                  className={clsx(' transition cursor-pointer mb-2  hover:text-[#1B41C6] text-sm text-[#28366D] font-normal', {
-                                                                                                     'text-[#017EFA] !font-medium': get(part, 'id') == partId,
-                                                                                                     'mb-0': get(parts, 'data.results', [])?.length == j + 1
+                                                                                                     '!text-[#017EFA] !font-medium': get(part, 'id') == partId,
+                                                                                                     '!mb-0': get(parts, 'data.results', [])?.length == j + 1
                                                                                                  })}
                                                                                                  key={get(part, 'id')}>
                                                 <div className={'flex items-start'}>
@@ -195,8 +195,8 @@ const Classifier = () => {
                                                         {
                                                             get(chapters, 'data.results', []).map((chapter, k) => <li
                                                                 className={clsx(' transition cursor-pointer mb-1.5  hover:text-[#1B41C6] text-sm text-[#28366D] font-normal', {
-                                                                    'text-[#017EFA] !font-medium': get(chapter, 'id') == chapterId,
-                                                                    'mb-0': get(chapters, 'data.results', [])?.length == k + 1
+                                                                    '!text-[#017EFA] !font-medium': get(chapter, 'id') == chapterId,
+                                                                    '!mb-0': get(chapters, 'data.results', [])?.length == k + 1
                                                                 })}
                                                                 key={get(chapter, 'id')}
                                                                 onClick={(e) => {
@@ -220,8 +220,8 @@ const Classifier = () => {
                                                                             get(groups, 'data.results', []).map((group, l) => <li
                                                                             key={get(group,'id')}
                                                                             className={clsx(' transition cursor-pointer mb-1.5  hover:text-[#1B41C6] text-sm text-[#28366D] font-normal', {
-                                                                                'text-[#017EFA] !font-medium': get(group, 'id') == groupId,
-                                                                                'mb-0': get(groups, 'data.results', [])?.length == l + 1
+                                                                                '!text-[#017EFA] !font-medium': get(group, 'id') == groupId,
+                                                                                '!mb-0': get(groups, 'data.results', [])?.length == l + 1
                                                                             })}
                                                                             onClick={(e) => {
                                                                                 e.stopPropagation();
