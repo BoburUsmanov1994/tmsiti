@@ -13,9 +13,10 @@ const GridView = ({
                       key,
                       params = {},
                       enabled = true,
-                      getCount = () => {}
+                      getCount = () => {},
                   }) => {
     const [page, setPage] = useState(1)
+    const [pageSize, setPageSize] = useState(48)
     const [sort, setSort] = useState(undefined)
     const {data, isLoading, isFetching} = useGetQuery({
         key: key,
@@ -24,13 +25,13 @@ const GridView = ({
             page,
             ...params,
             sort_by:sort,
-            page_size:48
+            page_size:pageSize
         },
         enabled
     });
     useEffect(()=>{
-        if(!isNil(get(data, 'data.total_pages')) && !isNil(get(data, 'data.items_per_page'))){
-            getCount(get(data, 'data.total_pages',0)*get(data, 'data.items_per_page',0))
+        if(!isNil(get(data, 'data.count'))){
+            getCount(get(data, 'data.count',0))
         }
     },[data])
 
@@ -44,7 +45,7 @@ const GridView = ({
             {isFetching && <OverlayLoader/>}
             <GridHeader>{HeaderBody}</GridHeader>
             {get(data, 'data.results',[])?.length > 0 ? <>
-            <GridBody handleSort={setSort} columns={columns} rows={get(data, 'data.results',[])} page={page} setPage={setPage}/>
+            <GridBody handleSort={setSort} columns={columns} rows={get(data, 'data.results',[])} pageSize={pageSize} page={page} setPage={setPage}/>
             <Pagination page={page} setPage={setPage} pageCount={get(data, 'data.total_pages', 0)}/></>:<p className={'py-5'}>Ushbu mahsulot bo’yicha hozircha e’lonlar mavjud emas...</p>}
         </>
     );
