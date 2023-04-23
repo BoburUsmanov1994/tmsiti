@@ -91,11 +91,18 @@ const ViewPage = () => {
             key: 'regions'
         }
     });
+    const {data: districts, isLoading: isLoadingDistrict} = useGetQuery({
+        key: [KEYS.territories, 'districts'],
+        url: `${URLS.territories}`,
+        params: {
+            key: 'districts'
+        }
+    });
     if (isError) {
         return <ErrorPage/>
     }
 
-    if (isLoading || isLoadingRegion) {
+    if (isLoading || isLoadingRegion || isLoadingDistrict) {
         return <Main><ContentLoader/></Main>;
     }
 

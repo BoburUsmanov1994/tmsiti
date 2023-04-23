@@ -12,4 +12,6 @@ export const URLS = {
     technos: 'technos/',
     technosAds: 'materials/ads/',
     territories: 'companies/territories/',
+    classifierResources: 'classifier/resources/',
+    classifier: 'classifier/',
 };

@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import GridHeader from "@/containers/grid-view/components/grid-header";
 import GridBody from "@/containers/grid-view/components/grid-body";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {ContentLoader, OverlayLoader} from "@/components/loader";
 import Pagination from "@/components/pagination";
-import {get} from "lodash";
+import {get,isNil} from "lodash";
 
 const GridView = ({
                       HeaderBody = null,
@@ -13,6 +13,7 @@ const GridView = ({
                       key,
                       params = {},
                       enabled = true,
+                      getCount = () => {}
                   }) => {
     const [page, setPage] = useState(1)
     const [sort, setSort] = useState(undefined)
@@ -22,15 +23,22 @@ const GridView = ({
         params: {
             page,
             ...params,
-            sort_by:sort
+            sort_by:sort,
+            page_size:48
         },
         enabled
     });
+    useEffect(()=>{
+        if(!isNil(get(data, 'data.total_pages')) && !isNil(get(data, 'data.items_per_page'))){
+            getCount(get(data, 'data.total_pages',0)*get(data, 'data.items_per_page',0))
+        }
+    },[data])
 
 
     if (isLoading) {
         return <ContentLoader/>;
     }
+
     return (
         <>
             {isFetching && <OverlayLoader/>}

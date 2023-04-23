@@ -46,17 +46,25 @@ const customStyles = (sm = false) => ({
 });
 const Select = ({
                     name='',defaultValue = null, sm = false, label = '', getValue = () => {
-    }, options = []
+    }, options = [],
+    placeholder = 'Select ...',isClearable=false
                 }) => {
     const [selectedOption, setSelectedOption] = useState();
     useEffect(() => {
         getValue(selectedOption)
     }, [selectedOption])
 
+    useEffect(()=>{
+        if(defaultValue){
+            setSelectedOption(defaultValue)
+        }
+    },[defaultValue])
+
     return (
         <div className={clsx({'flex items-center': sm})}>
             <label className={clsx('mb-2 inline-block ', {'text-sm !mb-0 mr-3': sm})} htmlFor={label}>{label}</label>
             <RSelect
+                isClearable={isClearable}
                 name={name}
                 defaultValue={defaultValue}
                 clearIndicator={true}
@@ -65,6 +73,7 @@ const Select = ({
                 value={selectedOption}
                 onChange={setSelectedOption}
                 options={options}
+                placeholder={placeholder}
             />
         </div>
     );
