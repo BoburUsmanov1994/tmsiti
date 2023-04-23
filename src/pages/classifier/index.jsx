@@ -165,13 +165,20 @@ const Classifier = () => {
                                 </div>} options={[]} placeholder={'Barcha guruhlar'}/>
                             </div>
                             <div className="col-span-12 mt-5">
+                                {volumeId ?  <GridView
+                                        getCount={setCount}
+                                        url={URLS.classifierResources}
+                                        key={[KEYS.classifierResources,volumeId]}
+                                        params={search ? {key: 'name', parent: search} : {key: 'volume',value:volumeId}}
+                                        columns={columns}
+                                    />:
                                 <GridView
                                     getCount={setCount}
                                     url={URLS.classifier}
                                     key={KEYS.classifier}
                                     params={search ? {key: 'name', parent: search} : {key: 'resources'}}
                                     columns={columns}
-                                />
+                                />}
                             </div>
                         </div>
                     </div>
