@@ -117,6 +117,7 @@ const Classifier = () => {
                             )} placeholder={'Kerakli mahsulot nomini yozing'}
                                    className={'border border-transparent w-full px-5 py-2.5 rounded-[5px] bg-white placeholder:italic placeholder:text-[#516164] h-[46px] rounded-[5px] outline-none focus:border-[#28366D]'}
                                    type="text"/>
+                            {search && search.length < 4 && <span className={'text-red-500 text-xs font-light'}>Kamida 4 ta belgi kiriting</span>}
                         </div>
                     </div>
                     <div className="col-span-3">
@@ -184,14 +185,14 @@ const Classifier = () => {
                                         getCount={setCount}
                                         url={URLS.classifierResources}
                                         key={[KEYS.classifierResources,volumeId]}
-                                        params={search ? {key: 'name', parent: search} : {key: 'volume',value:volumeId}}
+                                        params={search && search?.length > 3 ? {key: 'name', parent: search} : {key: 'volume',value:volumeId}}
                                         columns={columns}
                                     />:
                                 <GridView
                                     getCount={setCount}
                                     url={URLS.classifier}
                                     key={KEYS.classifier}
-                                    params={search ? {key: 'name', parent: search} : {key: 'resources'}}
+                                    params={search && search?.length > 3 ? {key: 'name', parent: search} : {key: 'resources'}}
                                     columns={columns}
                                 />}
                             </div>
