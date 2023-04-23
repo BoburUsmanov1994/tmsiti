@@ -20,38 +20,40 @@ const columns = [
     {
         title: '№',
         key: 'id',
-        render: ({index}) => <span className={'font-semibold'}>{index}</span>
+        render: ({index}) => <span className={'font-semibold'}>{index}</span>,
+        classnames: 'text-sm'
     },
     {
         title: 'Resurs kodi',
         key: 'resource_code',
         sorter: true,
-        classnames: 'min-w-[175px]'
+        classnames: 'min-w-[175px] text-sm'
     },
     {
         title: 'Resurs nomi',
         key: 'resource_name',
-        sorter: true
+        sorter: true,
+        classnames: 'text-sm'
     },
     {
         title: 'O’lchov birligi',
         key: 'resource_measure',
-        classnames: 'text-center'
+        classnames: 'text-center text-sm'
     },
     {
         title: 'Joriy narx (so’m)',
         key: 'resource_current_average_price',
         render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
                                             thousandSeparator={' '} value={value}/>,
-        classnames: 'text-center',
+        classnames: 'text-center min-w-[150px] text-sm',
         sorter: true
     },
     {
-        title: 'O’rtacha joriy narx (so’m)',
+        title: 'O’rtacha joriy narx (so’m) ',
         key: 'resource_average_price',
         render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
                                             thousandSeparator={' '} value={value}/>,
-        classnames: 'text-center',
+        classnames: 'text-center text-sm  min-w-[180px]',
         sorter: true
     },
 
@@ -62,7 +64,7 @@ const columns = [
             <Image className={'mx-auto cursor-pointer'} width={24} height={24} src={'/icons/stick.svg'}
                    alt={'certificate'}/>
         </div>,
-        classnames: 'text-center'
+        classnames: 'text-center text-sm'
     }
 ]
 const Classifier = () => {

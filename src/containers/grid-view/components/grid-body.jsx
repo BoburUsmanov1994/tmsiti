@@ -13,8 +13,8 @@ const GridBody = ({columns = [], rows = [],pageSize=24,page=1,handleSort=()=>{}}
                        <div className="inline-flex items-center">
                            <span>{get(th,'title')}</span>
                            {get(th,'sorter') && <div className="inline-flex flex-col ml-1">
-                               <Image onClick={()=>handleSort(get(th,'key'))} className={'cursor-pointer mb-[3px]'} width={10} height={6} src={'/icons/sort-up.svg'} alt={'up'} />
-                               <Image onClick={()=>handleSort(`-${get(th,'key')}`)} className={'cursor-pointer'} width={10} height={6} src={'/icons/sort-down.svg'} alt={'up'} />
+                               <Image  onClick={()=>handleSort(get(th,'key'))} className={'cursor-pointer mb-[3px] max-w-none'} width={10} height={6} src={'/icons/sort-up.svg'} alt={'up'} />
+                               <Image onClick={()=>handleSort(`-${get(th,'key')}`)} className={'cursor-pointer max-w-none'} width={10} height={6} src={'/icons/sort-down.svg'} alt={'up'} />
                            </div>}
                        </div>
                     </th>)
