@@ -15,4 +15,5 @@ export const KEYS = {
     territories: 'territories',
     classifierResources: 'classifierResources',
     classifier: 'classifier',
+    signup: 'signup',
 };

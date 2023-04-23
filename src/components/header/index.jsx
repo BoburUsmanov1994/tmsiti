@@ -2,8 +2,11 @@ import React from 'react';
 import Image from "next/image";
 import Brand from "../brand";
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 const Header = () => {
+    const { data: session } = useSession()
+    console.log('session',session)
     return (
         <header>
             <div className={' bg-[#182041]  py-2 '}>
