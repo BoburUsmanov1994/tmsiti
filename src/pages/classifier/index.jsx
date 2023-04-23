@@ -79,7 +79,7 @@ const Classifier = () => {
             key: "volumes"
         }
     });
-    const {data: parts, isLoading: isLoadingParts} = useGetQuery({
+    const {data: parts, isLoading: isLoadingParts,isFetching:isFetchingParts} = useGetQuery({
         key: [KEYS.classifier, volumeId],
         url: URLS.classifier,
         params: {
@@ -94,6 +94,7 @@ const Classifier = () => {
         return <Main><ContentLoader/></Main>;
     }
 
+    console.log('parts',parts)
     return (
         <Main>
             <Menu active={6}/>
@@ -123,8 +124,9 @@ const Classifier = () => {
                             {
                                 get(volumes, 'data.results', []).map(volume => <li
                                     onClick={() => setVolumeId(get(volume, 'id'))}
-                                    className={clsx('p-1.5 transition cursor-pointer mb-3 flex items-start hover:bg-[#C7E3FC]', {'text-[#1B41C6] font-medium': get(volume, 'id') == volumeId})}
+                                    className={clsx('p-1.5 transition cursor-pointer mb-3 hover:bg-[#C7E3FC]', {'text-[#1B41C6] font-medium hover:bg-transparent': get(volume, 'id') == volumeId})}
                                     key={get(volume, 'id')}>
+                                    <div className={'flex items-start'}>
                                     <motion.div className={'mr-2 flex-none'} animate={{
                                         rotate: get(volume, 'id') == volumeId ? 180 : 0,
                                     }}><Image width={24} height={24}
@@ -132,6 +134,19 @@ const Classifier = () => {
                                               alt={'arrow'}/>
                                     </motion.div>
                                     <span>{get(volume, 'volume_name')}</span>
+                                    </div>
+                                    {get(volume, 'id') == volumeId && ((isLoadingParts || isFetchingParts) ? <ContentLoader classNames={'!bg-transparent min-h-[25vh]'} /> : <ul className={'pl-3 py-1.5'}>
+                                        {get(parts,'data.results',[]).map((part,j)=><li  onClick={() => setPartId(get(part, 'id'))}
+                                                                                     className={clsx(' transition cursor-pointer mb-2 flex items-start hover:text-[#1B41C6] text-sm text-[#28366D] font-normal', {'text-[#017EFA] !font-medium': get(part, 'id') == partId,'mb-0':get(parts,'data.results',[])?.length == j+1})} key={get(part,'id')}>
+                                            <motion.div className={'mr-2 flex-none '} animate={{
+                                                rotate: get(part, 'id') == partId ? 90 : 0,
+                                            }}><Image width={18} height={18}
+                                                      src={get(part, 'id') == partId ? '/icons/arrow-down-category-active.svg' : '/icons/arrow-down-category.svg'}
+                                                      alt={'arrow'}/>
+                                            </motion.div>
+                                            <span>{get(part, 'part_name')}</span>
+                                        </li>)}
+                                    </ul>)}
                                 </li>)
                             }
 
