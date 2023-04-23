@@ -2,11 +2,17 @@ import React from 'react';
 import AuthLayout from "../../layouts/auth";
 import {useForm} from "react-hook-form";
 import Link from "next/link";
+import {signIn} from "next-auth/react";
 
 const Login = () => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
-    const onSubmit = (data) => {
-
+    const onSubmit = async ({username, password}) => {
+        const result = await signIn("credentials", {
+            username,
+            password,
+            redirect: true,
+            callbackUrl: "/dashboard"
+        })
     };
     return (
         <AuthLayout>
@@ -35,7 +41,8 @@ const Login = () => {
                     </button>
                 </div>
                 <div className="mt-5 text-center">
-                    <Link className={'text-[#525D89] text-sm underline'} href={'/auth/signup'}>Ro’yhatdan o’tmaganmisiz?</Link>
+                    <Link className={'text-[#525D89] text-sm underline'} href={'/auth/signup'}>Ro’yhatdan
+                        o’tmaganmisiz?</Link>
                 </div>
             </form>
         </AuthLayout>
