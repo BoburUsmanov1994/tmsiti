@@ -17,7 +17,8 @@ module.exports = {
                 mono: ['var(--font-rubik)'],
             },
             boxShadow:{
-                category:"0px 4px 4px rgba(40, 54, 109, 0.15)"
+                category:"0px 4px 4px rgba(40, 54, 109, 0.15)",
+                input:"5px 5px 15px rgba(0, 0, 0, 0.1)",
             },
             dropShadow:{
                 category:'5px 5px 10px rgba(40, 54, 109, 0.05)',
