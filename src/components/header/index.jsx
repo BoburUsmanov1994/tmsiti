@@ -2,8 +2,7 @@ import React from 'react';
 import Image from "next/image";
 import Brand from "../brand";
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
-import {isNil} from "lodash";
+import { useSession, signIn, signOut } from "next-auth/react"
 
 const Header = () => {
     const { data: session } = useSession()
@@ -45,14 +44,14 @@ const Header = () => {
                             </div>
                             <div className={'ml-6 flex items-center'}>
                                 <Image className={'mr-1'} width={36} height={36} alt={'map'} src={'/icons/user.svg'}/>
-                                {isNil(session) && <div>
-                                    <button onClick={()=>signIn()} className={'block text-base'} >
+                                <div>
+                                    <Link className={'block text-base'} href={'/auth/login'}>
                                         Kirish
-                                    </button>
+                                    </Link>
                                     <Link className={'block text-base'} href={'/auth/signup'}>
                                         Ro’yhatdan o’tish
                                     </Link>
-                                </div>}
+                                </div>
                             </div>
                         </div>
                     </div>
