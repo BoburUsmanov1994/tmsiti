@@ -42,10 +42,10 @@ const Header = () => {
                             <div className={'ml-6 flex items-center'}>
                                 <Image className={'mr-1'} width={36} height={36} alt={'map'} src={'/icons/user.svg'}/>
                                 <div>
-                                    <Link className={'block text-base'} href={'/'}>
+                                    <Link className={'block text-base'} href={'/auth/login'}>
                                         Kirish
                                     </Link>
-                                    <Link className={'block text-base'} href={'/'}>
+                                    <Link className={'block text-base'} href={'/auth/signup'}>
                                         Ro’yhatdan o’tish
                                     </Link>
                                 </div>

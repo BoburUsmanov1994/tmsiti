@@ -49,16 +49,11 @@ const Select = ({
     }, options = [],
     placeholder = 'Select ...',isClearable=false
                 }) => {
-    const [selectedOption, setSelectedOption] = useState();
+    const [selectedOption, setSelectedOption] = useState(defaultValue);
     useEffect(() => {
         getValue(selectedOption)
     }, [selectedOption])
 
-    useEffect(()=>{
-        if(defaultValue){
-            setSelectedOption(defaultValue)
-        }
-    },[defaultValue])
 
     return (
         <div className={clsx({'flex items-center': sm})}>
