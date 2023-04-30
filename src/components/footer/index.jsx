@@ -4,17 +4,18 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import Image from "next/image";
 import Button from "@/components/button";
+import {useTranslation} from "react-i18next";
 
 const Footer = () => {
+    const {t} = useTranslation()
     return (
         <footer className={'bg-[#28366D]  py-8 '}>
             <div className={'container text-white'}>
                 <div className="grid grid-cols-12">
                     <div className="col-span-4">
                         <Brand/>
-                        <p className={'my-5'}>Qurilish materiallari, mashina va mexanizmlari, ish turlari elektron
-                            portali</p>
-                        <h4 className={'font-medium'}>Bizni ijtimoiy tarmoqlarda kuzating:</h4>
+                        <p className={'my-5'}>{t('footer_desc')}</p>
+                        <h4 className={'font-medium'}>{t('social_media')}</h4>
                         <ul className={'flex my-2.5'}>
                             <li className={'mr-3'}>
                                 <Link href={'#'}>
@@ -37,42 +38,41 @@ const Footer = () => {
                                 </Link>
                             </li>
                         </ul>
-                        <span className={'text-sm font-light'}>All rights reserved © {dayjs().format("YYYY")}</span>
+                        <span className={'text-sm font-light'}>{t('All rights reserved')} © {dayjs().format("YYYY")}</span>
                     </div>
                     <div className="col-span-4">
-                        <h4 className={'text-xl font-bold mb-2.5'}>Menu</h4>
+                        <h4 className={'text-xl font-bold mb-2.5'}>{t('footer_menu_title')}</h4>
                         <ul>
                             <li className={'mb-2 hover:text-[#1890FF]'}>
-                                <Link href={'/'}>Qurilish materiallari</Link>
+                                <Link href={'/'}>{t('materials')}</Link>
                             </li>
                             <li className={'mb-2 hover:text-[#1890FF]'}>
-                                <Link href={'/machine-mechano'}>Mashina mexanizmlar</Link>
+                                <Link href={'/machine-mechano'}>{t('machine_mechanos')}</Link>
                             </li>
                             <li className={'mb-2 hover:text-[#1890FF]'}>
-                                <Link href={'/works'}>Qurilish ishlari</Link>
+                                <Link href={'/works'}>{t('works')}</Link>
                             </li>
                             <li className={'mb-2 hover:text-[#1890FF]'}>
-                                <Link href={'#'}>Korxonalar</Link>
+                                <Link href={'#'}>{t('companies')}</Link>
                             </li>
                             <li className={'mb-2 hover:text-[#1890FF]'}>
-                                <Link href={'/classifier'}>Klassifikator</Link>
+                                <Link href={'/classifier'}>{t('csr')}</Link>
                             </li>
                             <li className={'mb-2 hover:text-[#1890FF]'}>
-                                <Link href={'#'}>Yangiliklar</Link>
+                                <Link href={'#'}>{t('news')}</Link>
                             </li>
                             <li className={'hover:text-[#1890FF]'}>
-                                <Link href={'#'}>Aloqa</Link>
+                                <Link href={'#'}>{t('contacts')}</Link>
                             </li>
                         </ul>
                     </div>
                     <div className="col-span-4 text-center">
-                        <h4 className={'mt-16 '}>Yangiliklarga obuna bo‘ling!</h4>
-                        <p className={'text-sm mb-5'}>Tezkor yangiliklar e-mail orqali</p>
+                        <h4 className={'mt-16 '}>{t('subscription')}</h4>
+                        <p className={'text-sm mb-5'}>{t('subscription_mail')}</p>
                         <form action="#">
-                            <input placeholder={'Email kiriting'}
+                            <input placeholder={t('enter_email')}
                                    className={'w-[270px] rounded-[5px] p-2.5 text-center placeholder:text-[#28366D] text-[#28366D]'}/>
-                            <Button className={'bg-[#1890FF] !text-white !block mx-auto w-[270px] mt-2.5'}>Obuna
-                                bo‘lish</Button>
+                            <Button className={'bg-[#1890FF] !text-white !block mx-auto w-[270px] mt-2.5'}>{t('subscribe')}</Button>
                         </form>
                     </div>
                 </div>
