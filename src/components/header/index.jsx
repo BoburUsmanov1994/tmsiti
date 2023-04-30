@@ -42,16 +42,16 @@ const Header = () => {
                     <div className="col-span-8 ">
                         <div className="flex justify-end items-center">
                             <button><Image width={26} height={26} alt={'map'} src={'/icons/search.svg'}/></button>
-                            <div className={'relative ml-6 cursor-pointer'}>
+                            <Link href={'/selected'} className={'relative ml-6 cursor-pointer'}>
                                 <Image width={36} height={36} alt={'map'} src={'/icons/pin.svg'}/>
                                 <span
                                     className={'absolute p-1 bg-[#1890FF] text-sm rounded-full text-white w-5 h-5 inline-flex justify-center items-center -top-[5px] -right-[6px]'}>3</span>
-                            </div>
-                            <div className={'relative ml-6 cursor-pointer'}>
+                            </Link>
+                            <Link href={'/cart'} className={'relative ml-6 cursor-pointer'}>
                                 <Image width={36} height={36} alt={'map'} src={'/icons/shopping-bag.svg'}/>
                                 <span
                                     className={'absolute p-1 bg-[#1890FF] text-sm rounded-full text-white w-5 h-5 inline-flex justify-center items-center -top-[5px] -right-[6px]'}>4</span>
-                            </div>
+                            </Link>
                             <div className={'ml-6 flex items-center'}>
                                 <Image className={'mr-1'} width={36} height={36} alt={'map'} src={'/icons/user.svg'}/>
                                 {!get(session, 'user.key') ? <div>
@@ -62,7 +62,7 @@ const Header = () => {
                                         Ro’yhatdan o’tish
                                     </Link>
                                 </div> : <div>
-                                    <button className={'block text-base bg-transparent'} >
+                                    <button className={'block text-base bg-transparent'}>
                                         User
                                     </button>
                                     <button className={'block text-base'} onClick={() => signOut()}>
