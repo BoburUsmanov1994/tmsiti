@@ -6,6 +6,7 @@ import NextNProgress from 'nextjs-progressbar';
 import '@/styles/globals.css'
 import reactQueryClient from "@/config/react-query";
 import {SessionProvider} from "next-auth/react"
+import '@/services/i18n'
 
 
 export default function App({Component, pageProps: {session, ...pageProps}}) {

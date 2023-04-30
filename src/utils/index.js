@@ -1,4 +1,4 @@
-import {find, isEqual, get, isArray, isNil} from "lodash";
+import {find, get, isArray, isNil} from "lodash";
 
 export const getDefaultValue = (options, id) => {
     return find(options, (option) => get(option, 'value') == id)

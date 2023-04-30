@@ -7,10 +7,16 @@ import {get} from "lodash";
 import useGetQuery from "../../hooks/api/useGetQuery";
 import {KEYS} from "../../constants/key";
 import {URLS} from "../../constants/url";
-import Lang from "../lang";
-
+// import Lang from "../lang";
+import dynamic from "next/dynamic";
+import {useTranslation} from "react-i18next";
+const Lang = dynamic(
+    () => import('@/components/lang'),
+    { ssr: false }
+)
 const Header = () => {
     const {data: session} = useSession()
+    const {t} = useTranslation()
     const {data: user} = useGetQuery({
         key: KEYS.getMe,
         url: URLS.getMe,
@@ -54,17 +60,17 @@ const Header = () => {
                                 <Image className={'mr-1'} width={36} height={36} alt={'map'} src={'/icons/user.svg'}/>
                                 {!get(session, 'user.key') ? <div>
                                     <button className={'block text-base bg-transparent'} onClick={() => signIn()}>
-                                        Kirish
+                                        {t('signin')}
                                     </button>
                                     <Link className={'block text-base'} href={'/auth/signup'}>
-                                        Ro’yhatdan o’tish
+                                        {t("signup")}
                                     </Link>
                                 </div> : <div>
                                     <button className={'block text-base bg-transparent'}>
                                         User
                                     </button>
                                     <button className={'block text-base'} onClick={() => signOut()}>
-                                        Chiqish
+                                        {t('logout')}
                                     </button>
                                 </div>}
                             </div>
