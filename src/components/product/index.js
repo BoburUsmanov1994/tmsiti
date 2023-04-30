@@ -3,9 +3,14 @@ import Image from "next/image";
 import {get, isNil} from "lodash";
 import Button from "@/components/button";
 import {useTranslation} from "react-i18next";
+import {useSession,signIn} from "next-auth/react";
 
 const Product = ({data, name = 'material_name', code = 'material_csr_code', img = '',viewUrl='materials'}) => {
+    const {data:session} = useSession()
     const {t} = useTranslation()
+    const addCart = () => {
+
+    }
     return (
         <div className={'drop-shadow-category bg-white p-2.5 rounded-[5px] border border-transparent hover:border-[#017EFA]'}>
             <div className={'relative h-[170px] rounded overflow-hidden mb-2.5'}>
@@ -28,7 +33,7 @@ const Product = ({data, name = 'material_name', code = 'material_csr_code', img 
             </h2>
             <div className="flex justify-between">
                 <Button url={`/${viewUrl}/${get(data, code)}`}>{t('see')}</Button>
-                <Button className={'min-w-[48px] group '}>
+                <Button handleClick={get(session,'user.key') ? ()=>addCart(get(data, code)) : () =>signIn()} className={'min-w-[48px] group '}>
                     <svg className={'fill-[#28366D] group-hover:fill-white '}  width={25} height={25} viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_1611_1155)">
                             <path fillRule="evenodd" clipRule="evenodd" d="M12.5 12.1337C12.6989 12.1337 12.8897 12.2127 13.0303 12.3533C13.171 12.494 13.25 12.6848 13.25 12.8837V15.1337H15.5C15.6989 15.1337 15.8897 15.2127 16.0303 15.3533C16.171 15.494 16.25 15.6848 16.25 15.8837C16.25 16.0826 16.171 16.2733 16.0303 16.414C15.8897 16.5546 15.6989 16.6337 15.5 16.6337H13.25V18.8837C13.25 19.0826 13.171 19.2733 13.0303 19.414C12.8897 19.5546 12.6989 19.6337 12.5 19.6337C12.3011 19.6337 12.1103 19.5546 11.9697 19.414C11.829 19.2733 11.75 19.0826 11.75 18.8837V16.6337H9.5C9.30109 16.6337 9.11032 16.5546 8.96967 16.414C8.82902 16.2733 8.75 16.0826 8.75 15.8837C8.75 15.6848 8.82902 15.494 8.96967 15.3533C9.11032 15.2127 9.30109 15.1337 9.5 15.1337H11.75V12.8837C11.75 12.6848 11.829 12.494 11.9697 12.3533C12.1103 12.2127 12.3011 12.1337 12.5 12.1337Z"  />
