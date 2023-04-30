@@ -7,3 +7,16 @@ body {
     color: #28366D;
     font-weight: 400;
 }
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #ECECEC;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background:#28366D;
+}
