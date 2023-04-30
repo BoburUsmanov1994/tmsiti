@@ -16,12 +16,12 @@ i18n
     // Enables the hook initialization module
     .use(initReactI18next)
     .init({
-        lng: storage.get('lang') || config.DEFAULT_APP_LANG,
-        fallbackLng: storage.get('lang') || config.DEFAULT_APP_LANG,
+        lng: storage.get('i18nextLng') || config.DEFAULT_APP_LANG,
+        fallbackLng: storage.get('i18nextLng') || config.DEFAULT_APP_LANG,
         backend: {
             /* translation file path */
-            loadPath: `${config.API_URL}translations?lang={{lng}}`,
-            addPath: `${config.API_URL}translations`,
+            loadPath: `${config.API_URL}translations/?lang={{lng}}`,
+            addPath: `${config.API_URL}translations/`,
         },
         debug: false,
         keySeparator: false,

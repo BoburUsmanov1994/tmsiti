@@ -11,9 +11,11 @@ import {get, isEmpty} from "lodash"
 import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import {URLS} from "../constants/url";
+import {useTranslation} from "react-i18next";
 
 
 export default function Home() {
+    const {t} = useTranslation()
     const {
         data: volumes,
         isError,
@@ -45,7 +47,7 @@ export default function Home() {
                 </div>
                 <div className="grid grid-cols-12 gap-x-8 mt-[30px] min-h-fit">
                     <div className="col-span-12">
-                        <Title>Ko‘p ko‘rilganlar</Title>
+                        <Title>{t('most_seen')}</Title>
                     </div>
                     {
                         get(materials, 'results', []).map(material => <div key={get(material, 'material_csr_code')}
