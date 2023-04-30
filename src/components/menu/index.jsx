@@ -2,50 +2,52 @@ import React from 'react';
 import Link from "next/link";
 import {get, isEqual} from "lodash"
 import clsx from "clsx";
+import {useTranslation} from "react-i18next";
 
 export const menuData = [
     {
         id: 1,
-        title: 'Materiallar va buyumlar',
+        title: 'materials',
         url: '/',
         filterUrl:'/materials/volume'
     },
     {
         id: 2,
-        title: 'Mashina mexanizmlar',
+        title: 'machine_mechanos',
         url: '/machine-mechano',
         filterUrl:'/machine-mechano/category'
     },
     {
         id: 3,
-        title: 'Qurilish ishlari',
+        title: 'works',
         url: '/works',
         filterUrl:'/works/category'
     },
     {
         id: 4,
-        title: 'Kichik mexanizatsiya',
+        title: 'small_mechanos',
         url: '/small-mechano',
         filterUrl:'/small-mechano/category'
     },
     {
         id: 5,
-        title: 'Uskuna va qurilmalar',
+        title: 'technos',
         url: '/technos',
         filterUrl:'/technos/volume'
     },
     {
         id: 6,
-        title: 'Klassifikator',
+        title: 'csr',
         url: '/classifier',
     },
     {
         id: 7,
-        title: 'Bo’limlar',
+        title: 'blocks',
         url: '/volumes',
     }
 ]
 const Menu = ({active = 1}) => {
+    const {t} = useTranslation()
     return (
         <div className={' bg-[#28366D]  py-5 '}>
             <ul className={'container text-[#8D97AD] flex justify-between'}>
@@ -53,7 +55,7 @@ const Menu = ({active = 1}) => {
                     menuData.map(item => <li>
                         <Link
                             className={clsx('hover:text-white transition-all border-b border-b-transparent font-medium', {'!border-b-[#1890FF] text-white': isEqual(get(item, 'id'), active)})}
-                            href={get(item, 'url')}>{get(item, 'title')}</Link>
+                            href={get(item, 'url')}>{t(get(item, 'title'))}</Link>
                     </li>)
                 }
             </ul>
