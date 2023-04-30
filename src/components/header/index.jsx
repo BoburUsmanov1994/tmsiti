@@ -7,6 +7,7 @@ import {get} from "lodash";
 import useGetQuery from "../../hooks/api/useGetQuery";
 import {KEYS} from "../../constants/key";
 import {URLS} from "../../constants/url";
+import Lang from "../lang";
 
 const Header = () => {
     const {data: session} = useSession()
@@ -27,10 +28,7 @@ const Header = () => {
                             <span className={'ml-1.5 mr-1 cursor-pointer inline-block'}>Toshkent</span>
                             <Image width={9} height={6} alt={'map'} src={'/icons/arrow-down.svg'}/>
                         </div>
-                        <div className={'flex '}>
-                            <span className={'ml-1.5 mr-1 cursor-pointer inline-block'}>Uz</span>
-                            <Image width={9} height={6} alt={'map'} src={'/icons/arrow-down.svg'}/>
-                        </div>
+                        <Lang/>
                     </div>
                 </div>
             </div>
