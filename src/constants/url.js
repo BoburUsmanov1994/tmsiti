@@ -15,4 +15,6 @@ export const URLS = {
     classifierResources: 'classifier/resources/',
     classifier: 'classifier/',
     signup: 'api/v1/dj-rest-auth/registration/',
+    getMe: 'api/v1/dj-rest-auth/user/',
+    login: 'api/v1/dj-rest-auth/login/',
 };

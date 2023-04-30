@@ -16,4 +16,6 @@ export const KEYS = {
     classifierResources: 'classifierResources',
     classifier: 'classifier',
     signup: 'signup',
+    getMe: 'getMe',
+    login: 'login',
 };

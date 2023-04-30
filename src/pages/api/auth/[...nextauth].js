@@ -26,9 +26,17 @@ export const authOptions = {
             }
         })
     ],
-
-    session:{
-        strategy:"jwt"
+    callbacks: {
+        async jwt({token, user}) {
+            return {...token, ...user}
+        },
+        async session({session, token, user}) {
+            session.user = token;
+            return session;
+        }
+    },
+    session: {
+        strategy: "jwt"
     },
     pages: {
         signIn: "/auth/login",

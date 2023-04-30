@@ -2,11 +2,21 @@ import React from 'react';
 import Image from "next/image";
 import Brand from "../brand";
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react"
+import {useSession, signIn, signOut} from "next-auth/react"
+import {get} from "lodash";
+import useGetQuery from "../../hooks/api/useGetQuery";
+import {KEYS} from "../../constants/key";
+import {URLS} from "../../constants/url";
 
 const Header = () => {
-    const { data: session } = useSession()
-    console.log('session',session)
+    const {data: session} = useSession()
+    const {data: user} = useGetQuery({
+        key: KEYS.getMe,
+        url: URLS.getMe,
+        headers: {Authorization: `Basic ${get(session, 'user.key')}`},
+        enabled: !!(get(session, 'user.key'))
+    })
+    console.log('session', session)
     return (
         <header>
             <div className={' bg-[#182041]  py-2 '}>
@@ -44,14 +54,21 @@ const Header = () => {
                             </div>
                             <div className={'ml-6 flex items-center'}>
                                 <Image className={'mr-1'} width={36} height={36} alt={'map'} src={'/icons/user.svg'}/>
-                                <div>
-                                    <Link className={'block text-base'} href={'/auth/login'}>
+                                {!get(session, 'user.key') ? <div>
+                                    <button className={'block text-base bg-transparent'} onClick={() => signIn()}>
                                         Kirish
-                                    </Link>
+                                    </button>
                                     <Link className={'block text-base'} href={'/auth/signup'}>
                                         Ro’yhatdan o’tish
                                     </Link>
-                                </div>
+                                </div> : <div>
+                                    <button className={'block text-base bg-transparent'} >
+                                        User
+                                    </button>
+                                    <button className={'block text-base'} onClick={() => signOut()}>
+                                        Chiqish
+                                    </button>
+                                </div>}
                             </div>
                         </div>
                     </div>
