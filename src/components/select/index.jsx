@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import RSelect, {components} from 'react-select';
 import Image from "next/image";
 import clsx from "clsx";
-import {find, isEqual} from "lodash";
+import {useTranslation} from "react-i18next";
 
 const DropdownIndicator = props => {
     return (
@@ -47,8 +47,9 @@ const customStyles = (sm = false) => ({
 const Select = ({
                     name='',defaultValue = null, sm = false, label = '', getValue = () => {
     }, options = [],
-    placeholder = 'Select ...',isClearable=false
+    placeholder = 'select',isClearable=false
                 }) => {
+    const {t} = useTranslation()
     const [selectedOption, setSelectedOption] = useState(defaultValue);
     useEffect(() => {
         getValue(selectedOption)
@@ -68,7 +69,8 @@ const Select = ({
                 value={selectedOption}
                 onChange={setSelectedOption}
                 options={options}
-                placeholder={placeholder}
+                placeholder={t(placeholder)}
+                noOptionsMessage={() => t("No options")}
             />
         </div>
     );

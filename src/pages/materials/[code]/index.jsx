@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Main from "@/layouts/main";
 import Menu from "@/components/menu";
 import Section from "@/components/section";
@@ -14,6 +14,8 @@ import Select from "@/components/select";
 import GridView from "@/containers/grid-view";
 import {NumericFormat} from 'react-number-format';
 import dayjs from "dayjs";
+import {useTranslation} from "react-i18next";
+import {getOptionList} from "../../../utils";
 
 const columns = [
     {
@@ -79,9 +81,16 @@ const columns = [
 const ViewPage = () => {
     const router = useRouter()
     const {code} = router.query;
+    const {t} = useTranslation()
+    const [regionId, setRegionId] = useState(null)
     const {data: material, isLoading, isError} = useGetQuery({
         key: [KEYS.materials, code],
         url: `${URLS.materials}${code}/`,
+        enabled: !!(code)
+    });
+    const {data: price} = useGetQuery({
+        key: [KEYS.prices, code],
+        url: `${URLS.prices}?resource=${code}`,
         enabled: !!(code)
     });
     const {data: regions, isLoading: isLoadingRegion} = useGetQuery({
@@ -92,11 +101,13 @@ const ViewPage = () => {
         }
     });
     const {data: districts, isLoading: isLoadingDistrict} = useGetQuery({
-        key: [KEYS.territories, 'districts'],
+        key: [KEYS.territories, regionId,'districts'],
         url: `${URLS.territories}`,
         params: {
-            key: 'districts'
-        }
+            key: 'districts',
+            value: regionId
+        },
+        enable: !!(regionId)
     });
     if (isError) {
         return <ErrorPage/>
@@ -105,7 +116,7 @@ const ViewPage = () => {
     if (isLoading || isLoadingRegion || isLoadingDistrict) {
         return <Main><ContentLoader/></Main>;
     }
-
+    console.log('regions', regions)
     return (
         <>
             <Main>
@@ -132,18 +143,24 @@ const ViewPage = () => {
                                 <div className={'inline-flex mr-8 cursor-pointer'}>
                                     <Image className={'mr-1.5'} width={24} height={24} src={'/icons/stick.svg'}
                                            alt={'code'}/>
-                                    <span className={'font-medium'}>Saqlash</span>
+                                    <span className={'font-medium'}>{t('save')}</span>
                                 </div>
                             </div>
                             <h2 className={'my-3 text-xl font-semibold'}>{get(material, 'data.material_name')}</h2>
                             <div className="flex mb-5 ">
                                 <div className={'inline-flex mr-20'}>
-                                    <strong className={'font-medium text-[#212529] mr-1'}>O’rtacha narx: </strong><span
-                                    className={'text-[#4B5055]'}> 504 000 so’m</span>
+                                    <strong
+                                        className={'font-medium text-[#212529] mr-1'}>{t('average_price')}: </strong><span
+                                    className={'text-[#4B5055]'}> <NumericFormat displayType={'text'}
+                                                                                 thousandSeparator={' '}
+                                                                                 value={get(price, 'data.resource_average_price', 0)}/> so’m</span>
                                 </div>
                                 <div className={'inline-flex'}>
-                                    <strong className={'font-medium text-[#212529] mr-1'}>O’rtacha joriy narx: </strong><span
-                                    className={'text-[#4B5055]'}> 504 000 so’m</span>
+                                    <strong
+                                        className={'font-medium text-[#212529] mr-1'}>{t('current_price')}: </strong><span
+                                    className={'text-[#4B5055]'}> <NumericFormat displayType={'text'}
+                                                                                 thousandSeparator={' '}
+                                                                                 value={get(price, 'data.resource_current_average_price', 0)}/> so’m</span>
                                 </div>
                             </div>
                             <p className={'text-[#4B5055] text-sm'}>{get(material, 'data.material_desc', '-')}</p>
@@ -153,12 +170,15 @@ const ViewPage = () => {
                 <Section>
                     <div className="grid grid-cols-12">
                         <div className="col-span-12 ">
-                            <GridView HeaderBody={<div className="flex mb-5"><Select sm label={'Shahar / viloyat'}/>
-                                <div className="ml-8"><Select sm label={'Tuman'}/></div>
-                            </div>}
-                                      url={`${URLS.materialAds}${code}/`}
-                                      key={KEYS.materialAds}
-                                      columns={columns}
+                            <GridView
+                                HeaderBody={<div className="flex mb-5"><Select getValue={(val) => setRegionId(get(val,'value'))} sm
+                                                                               label={t('region')}
+                                                                               options={getOptionList(get(regions, 'data.results', []), 'id', 'region_name')}/>
+                                    <div className="ml-8"><Select sm label={t('district')} options={getOptionList(get(districts, 'data.results', []), 'id', 'district_name')}/></div>
+                                </div>}
+                                url={`${URLS.materialAds}${code}/`}
+                                key={KEYS.materialAds}
+                                columns={columns}
                             />
                         </div>
                     </div>

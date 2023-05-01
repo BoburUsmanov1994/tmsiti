@@ -12,9 +12,12 @@ import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import {URLS} from "../constants/url";
 import {useTranslation} from "react-i18next";
+import {useState} from "react";
+import {OverlayLoader} from "../components/loader";
 
 
 export default function Home() {
+    const [pageSize,setPageSize] = useState(24);
     const {t} = useTranslation()
     const {
         data: volumes,
@@ -27,7 +30,8 @@ export default function Home() {
         data: materials,
         isLoading: materialLoading,
         isError: materialError,
-    } = useQuery([KEYS.materials], () => getMostOrdered({url:URLS.materials,params:{key: KEYS.viewCounts}}));
+        isFetching:isFetchingMaterials
+    } = useQuery([KEYS.materials,pageSize], () => getMostOrdered({url:URLS.materials,params:{key: KEYS.viewCounts,page_size:pageSize}}));
     if (isError || materialError) {
         return <ErrorPage/>
     }
@@ -50,11 +54,17 @@ export default function Home() {
                         <Title>{t('most_seen')}</Title>
                     </div>
                     {
+                        isFetchingMaterials && <OverlayLoader />
+                    }
+                    {
                         get(materials, 'results', []).map(material => <div key={get(material, 'material_csr_code')}
                                                                            className={'col-span-3 mb-[30px] '}>
                             <Product data={material}/>
                         </div>)
                     }
+                    <div className="col-span-12 text-center">
+                       <span className={'cursor-pointer underline'} onClick={()=>setPageSize(prev => prev + 24)}> Barcha mahsulotlarni ko’rish</span>
+                    </div>
                 </div>
             </Section>
         </Main>

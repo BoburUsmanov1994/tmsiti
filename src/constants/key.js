@@ -18,4 +18,5 @@ export const KEYS = {
     signup: 'signup',
     getMe: 'getMe',
     login: 'login',
+    prices: 'prices',
 };
