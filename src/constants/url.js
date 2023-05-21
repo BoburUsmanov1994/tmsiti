@@ -14,8 +14,9 @@ export const URLS = {
     territories: 'companies/territories/',
     classifierResources: 'classifier/resources/',
     classifier: 'classifier/',
-    signup: 'api/v1/dj-rest-auth/registration/',
-    getMe: 'api/v1/dj-rest-auth/user/',
-    login: 'api/v1/dj-rest-auth/login/',
+    signup: 'api/register',
+    getMe: 'api/user',
+    login: 'api/login',
     prices: 'prices/',
+    logout: 'api/logout',
 };
