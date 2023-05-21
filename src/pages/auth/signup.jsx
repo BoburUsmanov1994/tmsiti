@@ -36,10 +36,10 @@ const Signup = () => {
                     {errors.email && <span className={'text-xs text-red-500'}>This field is required</span>}
                 </div>
                 <div className={'mb-4'}>
-                    <label className={'block mb-1.5'} htmlFor="#">Login*</label>
-                    <input {...register("username", {required: true})}
+                    <label className={'block mb-1.5'} htmlFor="#">INN*</label>
+                    <input {...register("company", {required: true})}
                            className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="text"/>
-                    {errors.username && <span className={'text-xs text-red-500'}>This field is required</span>}
+                    {errors.company && <span className={'text-xs text-red-500'}>This field is required</span>}
                 </div>
 
                 <div className={'mb-4'}>

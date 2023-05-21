@@ -6,9 +6,9 @@ import {signIn} from "next-auth/react";
 
 const Login = () => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
-    const onSubmit = async ({username, password}) => {
+    const onSubmit = async ({email, password}) => {
         const result = await signIn("credentials", {
-            username,
+            email,
             password,
             redirect: true,
             callbackUrl: "/dashboard"
@@ -20,9 +20,9 @@ const Login = () => {
             <form onSubmit={handleSubmit(onSubmit)} className={'text-left'}>
                 <div className={'mb-4'}>
                     <label className={'block mb-1.5'} htmlFor="#">Login</label>
-                    <input {...register("username", {required: true})}
+                    <input {...register("email", {required: true})}
                            className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="text"/>
-                    {errors.username && <span className={'text-xs text-red-500'}>This field is required</span>}
+                    {errors.email && <span className={'text-xs text-red-500'}>This field is required</span>}
                 </div>
 
                 <div className={'mb-4'}>
