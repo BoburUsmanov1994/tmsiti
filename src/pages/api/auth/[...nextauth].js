@@ -6,14 +6,14 @@ export const authOptions = {
         CredentialsProvider({
             credentials: {},
             async authorize(credentials, req) {
-                const {username, password} = credentials;
+                const {email, password} = credentials;
                 const res = await fetch("https://backend-market.tmsiti.uz/api/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        username,
+                        email,
                         password,
                     }),
                 });
