@@ -7,7 +7,7 @@ export const authOptions = {
             credentials: {},
             async authorize(credentials, req) {
                 const {username, password} = credentials;
-                const res = await fetch("https://backend-market.tmsiti.uz/api/v1/dj-rest-auth/login/", {
+                const res = await fetch("https://backend-market.tmsiti.uz/api/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -27,17 +27,17 @@ export const authOptions = {
         })
     ],
     callbacks: {
-        // async jwt({token, user}) {
-        //     return {...token, ...user}
-        // },
+        async jwt({token, user}) {
+            return {...token, ...user}
+        },
         async session({session, token, user}) {
             session.user = token;
             return session;
         }
     },
-    // session: {
-    //     strategy: "jwt"
-    // },
+    session: {
+        strategy: "jwt"
+    },
     pages: {
         signIn: "/auth/login",
     },
