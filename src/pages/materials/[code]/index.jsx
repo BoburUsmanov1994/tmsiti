@@ -37,6 +37,12 @@ const columns = [
         sorter: true
     },
     {
+        title: 'Mahsulot tavsifi',
+        key: 'material_description',
+        render: ({value}) => <span>{value}</span>,
+        sorter: true
+    },
+    {
         title: 'Sertifikat',
         key: 'sertificate_blank_num',
         render: () => <Image className={'mx-auto'} width={24} height={24} src={'/images/certificate.png'}

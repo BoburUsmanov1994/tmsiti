@@ -154,7 +154,7 @@ const ViewPage = () => {
                             {/*        className={'text-[#4B5055]'}> 504 000 so’m</span>*/}
                             {/*    </div>*/}
                             {/*</div>*/}
-                            <p className={'text-[#4B5055] text-sm'}>{get(material, 'data.material_desc', '-')}</p>
+                            <p className={'text-[#4B5055] text-sm'}>{get(material, 'data.material_description', '-')}</p>
                         </div>
                     </div>
                 </Section>
