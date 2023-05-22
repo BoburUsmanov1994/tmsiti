@@ -63,7 +63,7 @@ export default function Home() {
                         </div>)
                     }
                     <div className="col-span-12 text-center">
-                       <span className={'cursor-pointer underline'} onClick={()=>setPageSize(prev => prev + 24)}> Barcha mahsulotlarni ko’rish</span>
+                       <span className={'cursor-pointer underline'} onClick={()=>setPageSize(prev => prev + 24)}>{t('Barcha mahsulotlarni ko’rish')}</span>
                     </div>
                 </div>
             </Section>

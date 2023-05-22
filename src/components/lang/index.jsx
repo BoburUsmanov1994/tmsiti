@@ -24,7 +24,6 @@ const Lang = () => {
         setOpen(false);
     }
 
-
     return (
         <div ref={ref} className={'relative'}>
             <div className={'flex cursor-pointer '} onClick={() => setOpen(prev => !prev)}>
