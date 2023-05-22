@@ -52,14 +52,14 @@ const columns = [
         classnames: 'text-center',
         sorter: true
     },
-    {
-        title: 'Miqdori (kun-t)',
-        key: 'material_amount',
-        render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
-                                            thousandSeparator={' '} value={value}/>,
-        classnames: 'text-center',
-        sorter: true
-    },
+    // {
+    //     title: 'Miqdori (kun-t)',
+    //     key: 'material_amount',
+    //     render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+    //                                         thousandSeparator={' '} value={value}/>,
+    //     classnames: 'text-center',
+    //     sorter: true
+    // },
     {
         title: 'Oxirgi o’zgarish',
         key: 'material_updated_date',
@@ -147,16 +147,16 @@ const ViewPage = () => {
                                 </div>
                             </div>
                             <h2 className={'my-3 text-xl font-semibold'}>{get(material, 'data.smallmechano_name')}</h2>
-                            <div className="flex mb-5 ">
-                                <div className={'inline-flex mr-20'}>
-                                    <strong className={'font-medium text-[#212529] mr-1'}>O’rtacha narx: </strong><span
-                                    className={'text-[#4B5055]'}> 504 000 so’m</span>
-                                </div>
-                                <div className={'inline-flex'}>
-                                    <strong className={'font-medium text-[#212529] mr-1'}>O’rtacha joriy narx: </strong><span
-                                    className={'text-[#4B5055]'}> 504 000 so’m</span>
-                                </div>
-                            </div>
+                            {/*<div className="flex mb-5 ">*/}
+                            {/*    <div className={'inline-flex mr-20'}>*/}
+                            {/*        <strong className={'font-medium text-[#212529] mr-1'}>O’rtacha narx: </strong><span*/}
+                            {/*        className={'text-[#4B5055]'}> 504 000 so’m</span>*/}
+                            {/*    </div>*/}
+                            {/*    <div className={'inline-flex'}>*/}
+                            {/*        <strong className={'font-medium text-[#212529] mr-1'}>O’rtacha joriy narx: </strong><span*/}
+                            {/*        className={'text-[#4B5055]'}> 504 000 so’m</span>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                             <p className={'text-[#4B5055] text-sm'}>{get(material, 'data.material_desc', '-')}</p>
                         </div>
                     </div>
