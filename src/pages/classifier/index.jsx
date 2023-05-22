@@ -124,7 +124,7 @@ const Classifier = () => {
                             <span className={'text-red-500 text-xs font-light'}>Kamida 4 ta belgi kiriting</span>}
                         </div>
                     </div>
-                    <div className="col-span-3 overflow-y-auto max-h-[100vh]">
+                    <div className="col-span-3 overflow-y-auto max-h-[200vh]">
                         <ul className={'bg-white shadow-category p-2'}>
                             {
                                 get(volumes, 'data.results', []).map((volume,i) => <li
