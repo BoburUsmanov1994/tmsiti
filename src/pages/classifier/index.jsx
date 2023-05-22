@@ -11,8 +11,6 @@ import {get, debounce} from "lodash"
 import Image from "next/image";
 import {motion} from "framer-motion"
 import clsx from "clsx";
-import Select from "../../components/select";
-import {getDefaultValue, getOptionList} from "../../utils";
 import {NumericFormat} from "react-number-format";
 import GridView from "../../containers/grid-view";
 
@@ -40,23 +38,6 @@ const columns = [
         key: 'resource_measure',
         classnames: 'text-center text-sm'
     },
-    {
-        title: 'Joriy narx (so’m)',
-        key: 'resource_current_average_price',
-        render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
-                                            thousandSeparator={' '} value={value}/>,
-        classnames: 'text-center min-w-[150px] text-sm',
-        sorter: true
-    },
-    {
-        title: 'O’rtacha joriy narx (so’m) ',
-        key: 'resource_average_price',
-        render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
-                                            thousandSeparator={' '} value={value}/>,
-        classnames: 'text-center text-sm  min-w-[180px]',
-        sorter: true
-    },
-
     {
         title: 'Action',
         key: 'action',
@@ -114,12 +95,11 @@ const Classifier = () => {
         return <Main><ContentLoader/></Main>;
     }
 
-    console.log('partId', partId)
     return (
         <Main>
             <Menu active={6}/>
             <Section>
-                <div className="grid grid-cols-12 gap-x-8">
+                <div className="grid grid-cols-12 gap-x-8 min-h-full">
                     <div className="col-span-12 text-center mt-5">
                         <Title center>Qurilish resurslari Klassifikatori</Title>
                     </div>
@@ -144,7 +124,7 @@ const Classifier = () => {
                             <span className={'text-red-500 text-xs font-light'}>Kamida 4 ta belgi kiriting</span>}
                         </div>
                     </div>
-                    <div className="col-span-3">
+                    <div className="col-span-3 overflow-y-auto max-h-[100vh]">
                         <ul className={'bg-white shadow-category p-2'}>
                             {
                                 get(volumes, 'data.results', []).map((volume,i) => <li
@@ -245,40 +225,8 @@ const Classifier = () => {
                     </div>
                     <div className="col-span-9">
                         <div className="grid grid-cols-12 gap-x-8 ">
-                            <div className="col-span-6">
-                                <Select isClearable label={<div>
-                                    <label className={' font-medium text-primary'} htmlFor="#">
-                                        Tanlangan Razdel
-                                    </label>
-                                    <p className={'text-sm text-[#516164]'}>*<NumericFormat displayType={'text'}
-                                                                                            thousandSeparator={" "}
-                                                                                            value={get(volumes, 'data.count', 0)}/> natija
-                                        topildi</p>
-                                </div>}
-                                        defaultValue={getDefaultValue(getOptionList(get(volumes, 'data.results', []), 'id', 'volume_name'), volumeId)}
-                                        getValue={(val) => {
-                                            setGroupId(null);
-                                            setVolumeId(get(val, 'value'))
-                                        }}
-                                        options={getOptionList(get(volumes, 'data.results', []), 'id', 'volume_name')}
-                                        placeholder={'Barcha razdellar'}/>
-                            </div>
-                            <div className="col-span-6">
-                                <Select isClearable label={<div>
-                                    <label className={' font-medium text-primary'} htmlFor="#">
-                                        Tanlangan Guruh
-                                    </label>
-                                    <p className={'text-sm text-[#516164]'}>*<NumericFormat displayType={'text'}
-                                                                                            thousandSeparator={" "}
-                                                                                            value={get(groups, 'data.count', 0)}/> natija topildi</p>
-                                </div>}
-                                        defaultValue={getDefaultValue(getOptionList(get(groups, 'data.results', []), 'id', 'group_name'), groupId)}
-                                        getValue={(val) => {
-                                            setGroupId(get(val, 'value'))
-                                        }}
-                                        options={getOptionList(get(groups, 'data.results', []), 'id', 'group_name')} placeholder={'Barcha guruhlar'}/>
-                            </div>
-                            <div className="col-span-12 mt-5">
+
+                            <div className="col-span-12">
                                 {volumeId ? <GridView
                                         getCount={setCount}
                                         url={URLS.classifierResources}
