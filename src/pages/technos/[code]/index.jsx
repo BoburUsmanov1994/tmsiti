@@ -12,72 +12,98 @@ import Image from "next/image";
 import {get} from "lodash";
 import Select from "@/components/select";
 import GridView from "@/containers/grid-view";
-import { NumericFormat } from 'react-number-format';
+import {NumericFormat} from 'react-number-format';
 import dayjs from "dayjs";
+import {useTranslation} from "react-i18next";
+import {useState} from "react";
 
 const columns = [
     {
-        title:'№',
-        key:'id',
-        render:({index})=><span className={'font-semibold'}>{index}</span>
+        title: '№',
+        key: 'id',
+        render: ({index}) => <span className={'font-semibold'}>{index}</span>
     },
     {
-        title:'Logo',
-        key:'material_image',
-        render:()=><Image className={'mx-auto'} width={80} height={56} src={'/images/company.png'} alt={'logo'} />,
-        classnames:'text-center'
+        title: 'Logo',
+        key: 'material_image',
+        render: () => <Image className={'mx-auto'} width={80} height={56} src={'/images/company.png'} alt={'logo'}/>,
+        classnames: 'text-center'
     },
     {
-        title:'Korxona nomi',
-        key:'company_name',
-        render:({value})=><span className={'underline'}>{value}</span>,
-        classnames:'text-center',
-        sorter:true
+        title: 'Korxona nomi',
+        key: 'company_name',
+        render: ({value}) => <span className={'underline'}>{value}</span>,
+        classnames: 'text-center',
+        sorter: true
     },
     {
-        title:'Sertifikat',
-        key:'sertificate_blank_num',
-        render:()=><Image className={'mx-auto'} width={24} height={24} src={'/images/certificate.png'} alt={'certificate'} />,
-        classnames:'text-center'
+        title: 'Sertifikat',
+        key: 'sertificate_blank_num',
+        render: () => <Image className={'mx-auto'} width={24} height={24} src={'/images/certificate.png'}
+                             alt={'certificate'}/>,
+        classnames: 'text-center'
     },
     {
-        title:'Narxi (so’m)',
-        key:'material_price',
-        render:({value})=><NumericFormat displayType={'text'} className={'text-center bg-transparent'} thousandSeparator={' '} value={value}/>,
-        classnames:'text-center',
-        sorter:true
+        title: 'Narxi (so’m)',
+        key: 'material_price',
+        render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+                                            thousandSeparator={' '} value={value}/>,
+        classnames: 'text-center',
+        sorter: true
     },
     {
-        title:'Miqdori (kun-t)',
-        key:'material_amount',
-        render:({value})=><NumericFormat displayType={'text'} className={'text-center bg-transparent'} thousandSeparator={' '} value={value}/>,
-        classnames:'text-center',
-        sorter:true
+        title: 'Miqdori (kun-t)',
+        key: 'material_amount',
+        render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+                                            thousandSeparator={' '} value={value}/>,
+        classnames: 'text-center',
+        sorter: true
     },
     {
-        title:'Oxirgi o’zgarish',
-        key:'material_updated_date',
-        render:({value})=>dayjs(value).format("DD.MM.YYYY HH:mm"),
-        classnames:'text-center',
-        sorter:true
+        title: 'Oxirgi o’zgarish',
+        key: 'material_updated_date',
+        render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm"),
+        classnames: 'text-center',
+        sorter: true
     },
     {
-        title:'Action',
-        key:'action',
-        render:()=><div className={'flex items-center'}>
-            <Image  className={'mx-auto cursor-pointer'}  width={24} height={24} src={'/images/shopping.png'} alt={'certificate'} />
-            <Image className={'mx-auto cursor-pointer'}  width={24} height={24} src={'/icons/stick.svg'} alt={'certificate'} />
+        title: 'Action',
+        key: 'action',
+        render: () => <div className={'flex items-center'}>
+            <Image className={'mx-auto cursor-pointer'} width={24} height={24} src={'/images/shopping.png'}
+                   alt={'certificate'}/>
+            <Image className={'mx-auto cursor-pointer'} width={24} height={24} src={'/icons/stick.svg'}
+                   alt={'certificate'}/>
         </div>,
-        classnames:'text-center'
+        classnames: 'text-center'
     }
 ]
 const ViewPage = () => {
     const router = useRouter()
     const {code} = router.query;
+    const {t} = useTranslation()
+    const [regionId, setRegionId] = useState(null)
+    const [districtId, setDistrictId] = useState(null)
     const {data: material, isLoading, isError} = useGetQuery({
         key: [KEYS.technos, code],
         url: `${URLS.technos}${code}/`,
         enabled: !!(code)
+    });
+    const {data: regions, isLoading: isLoadingRegion} = useGetQuery({
+        key: [KEYS.territories, 'regions'],
+        url: `${URLS.territories}`,
+        params: {
+            key: 'regions'
+        }
+    });
+    const {data: districts, isLoading: isLoadingDistrict} = useGetQuery({
+        key: [KEYS.territories, regionId, 'districts'],
+        url: `${URLS.territories}`,
+        params: {
+            key: 'districts',
+            filter: regionId
+        },
+        enable: !!(regionId)
     });
 
     if (isError) {
@@ -135,11 +161,21 @@ const ViewPage = () => {
                 <Section>
                     <div className="grid grid-cols-12">
                         <div className="col-span-12 ">
-                            <GridView HeaderBody={<div className="flex mb-5"><Select sm label={'Shahar / viloyat'}/>
-                                <div className="ml-8"><Select sm label={'Tuman'}/></div>
+                            <GridView HeaderBody={<div className="flex mb-5"><Select
+                                getValue={(val) => setRegionId(get(val, 'value'))} sm
+                                label={t('region')}
+                                options={getOptionList(get(regions, 'data.results', []), 'id', 'region_name')}/>
+                                <div className="ml-8"><Select getValue={(val) => setDistrictId(get(val, 'value'))} sm
+                                                              label={t('district')}
+                                                              options={getOptionList(get(districts, 'data.results', []), 'id', 'district_name')}/>
+                                </div>
                             </div>}
                                       url={`${URLS.technosAds}${code}/`}
                                       key={KEYS.technosAds}
+                                      params={{
+                                          region: regionId,
+                                          district: districtId
+                                      }}
                                       columns={columns}
                             />
                         </div>

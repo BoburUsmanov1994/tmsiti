@@ -17,7 +17,7 @@ import {OverlayLoader} from "../components/loader";
 
 
 export default function Home() {
-    const [pageSize,setPageSize] = useState(24);
+    const [pageSize, setPageSize] = useState(24);
     const {t} = useTranslation()
     const {
         data: volumes,
@@ -25,13 +25,16 @@ export default function Home() {
         isLoading,
         isFetching,
         error
-    } = useQuery([KEYS.volumes], () => getVolumes({url:URLS.volumes,params:{key: KEYS.materials}}));
+    } = useQuery([KEYS.volumes], () => getVolumes({url: URLS.volumes, params: {key: KEYS.materials}}));
     const {
         data: materials,
         isLoading: materialLoading,
         isError: materialError,
-        isFetching:isFetchingMaterials
-    } = useQuery([KEYS.materials,pageSize], () => getMostOrdered({url:URLS.materials,params:{key: KEYS.viewCounts,page_size:pageSize}}));
+        isFetching: isFetchingMaterials
+    } = useQuery([KEYS.materials, pageSize], () => getMostOrdered({
+        url: URLS.materials,
+        params: {key: KEYS.viewCounts, page_size: pageSize}
+    }));
     if (isError || materialError) {
         return <ErrorPage/>
     }
@@ -46,7 +49,7 @@ export default function Home() {
                     {
                         !isEmpty(get(volumes, 'results', [])) && get(volumes, 'results', []).map(volume => <div
                             key={get(volume, 'id')} className={'col-span-3 mb-5'}><Category logo_url={'volume_logo'}
-                            data={volume}/></div>)
+                                                                                            data={volume}/></div>)
                     }
                 </div>
                 <div className="grid grid-cols-12 gap-x-8 mt-[30px] min-h-fit">
@@ -54,7 +57,7 @@ export default function Home() {
                         <Title>{t('most_seen')}</Title>
                     </div>
                     {
-                        isFetchingMaterials && <OverlayLoader />
+                        isFetchingMaterials && <OverlayLoader/>
                     }
                     {
                         get(materials, 'results', []).map(material => <div key={get(material, 'material_csr_code')}
@@ -63,7 +66,8 @@ export default function Home() {
                         </div>)
                     }
                     <div className="col-span-12 text-center">
-                       <span className={'cursor-pointer underline'} onClick={()=>setPageSize(prev => prev + 24)}>{t('Barcha mahsulotlarni ko’rish')}</span>
+                        <span className={'cursor-pointer underline'}
+                              onClick={() => setPageSize(prev => prev + 24)}>{t('Barcha mahsulotlarni ko’rish')}</span>
                     </div>
                 </div>
             </Section>
@@ -76,10 +80,10 @@ export const getStaticProps = async (context) => {
     const queryClient = new QueryClient();
 
     await queryClient.prefetchQuery([KEYS.volumes],
-        () => getVolumes({url:URLS.volumes,params:{key: KEYS.materials}}),
+        () => getVolumes({url: URLS.volumes, params: {key: KEYS.materials}}),
     );
     await queryClient.prefetchQuery([KEYS.materials],
-        () => getMostOrdered({url:URLS.materials,params:{key: KEYS.viewCounts}}),
+        () => getMostOrdered({url: URLS.materials, params: {key: KEYS.viewCounts}}),
     );
 
     return {

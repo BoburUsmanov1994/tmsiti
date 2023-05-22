@@ -12,9 +12,13 @@ import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import {URLS} from "@/constants/url";
 import {getVolumes} from "../../api";
+import {useState} from "react"
+import {useTranslation} from "react-i18next";
 
 
 export default function Technos() {
+    const [pageSize, setPageSize] = useState(24);
+    const {t} = useTranslation()
     const {
         data: volumes,
         isError,
@@ -26,9 +30,9 @@ export default function Technos() {
         data: items,
         isLoading: machineLoading,
         isError: machineError,
-    } = useQuery([KEYS.technos], () => getMostOrdered({
+    } = useQuery([KEYS.technos,pageSize], () => getMostOrdered({
         url: URLS.technos,
-        params: {key: KEYS.viewCounts}
+        params: {key: KEYS.viewCounts,page_size:pageSize}
     }));
     if (isError || machineError) {
         return <ErrorPage/>
@@ -44,7 +48,7 @@ export default function Technos() {
                     {
                         !isEmpty(get(volumes, 'results', [])) && get(volumes, 'results', []).map(volume => <div
                             key={get(volume, 'id')} className={'col-span-3 mb-5'}><Category url={'technos/volume'}
-                            data={volume}/></div>)
+                                                                                            data={volume}/></div>)
                     }
                 </div>
                 <div className="grid grid-cols-12 gap-x-8 mt-[30px] min-h-fit">
@@ -54,9 +58,13 @@ export default function Technos() {
                     {
                         get(items, 'results', []).map(item => <div key={get(item, 'material_csr_code')}
                                                                    className={'col-span-3 mb-[30px] '}>
-                            <Product viewUrl={'technos'} name={'techno_name'} code={'techno_csr_code'} img={'techno_image'} data={item}/>
+                            <Product viewUrl={'technos'} name={'techno_name'} code={'techno_csr_code'}
+                                     img={'techno_image'} data={item}/>
                         </div>)
                     }
+                    <div className="col-span-12 text-center">
+                        <span className={'cursor-pointer underline'} onClick={()=>setPageSize(prev => prev + 24)}>{t('Barcha mahsulotlarni ko’rish')}</span>
+                    </div>
                 </div>
             </Section>
         </Main>

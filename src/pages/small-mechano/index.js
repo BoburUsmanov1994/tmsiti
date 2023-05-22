@@ -11,9 +11,13 @@ import {get, isEmpty} from "lodash"
 import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import {URLS} from "@/constants/url";
+import {useState} from "react";
+import {useTranslation} from "react-i18next";
 
 
 export default function SmallMechanos() {
+    const [pageSize,setPageSize] = useState(24);
+    const {t} = useTranslation()
     const {
         data: volumes,
         isError,
@@ -25,9 +29,9 @@ export default function SmallMechanos() {
         data: items,
         isLoading: machineLoading,
         isError: machineError,
-    } = useQuery([KEYS.smallMechanos], () => getMostOrdered({
+    } = useQuery([KEYS.smallMechanos,pageSize], () => getMostOrdered({
         url: URLS.smallMechanos,
-        params: {key: KEYS.viewCounts}
+        params: {key: KEYS.viewCounts,page_size:pageSize}
     }));
     if (isError || machineError) {
         return <ErrorPage/>
@@ -56,6 +60,9 @@ export default function SmallMechanos() {
                             <Product viewUrl={'small-mechano'} name={'smallmechano_name'} code={'smallmechano_csr_code'} img={'smallmechano_image'} data={item}/>
                         </div>)
                     }
+                    <div className="col-span-12 text-center">
+                        <span className={'cursor-pointer underline'} onClick={()=>setPageSize(prev => prev + 24)}>{t('Barcha mahsulotlarni ko’rish')}</span>
+                    </div>
                 </div>
             </Section>
         </Main>

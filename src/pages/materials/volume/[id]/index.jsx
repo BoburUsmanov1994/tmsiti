@@ -14,10 +14,12 @@ import ErrorPage from "@/pages/500";
 import {useRouter} from "next/router";
 import {getDefaultValue, getOptionList} from "@/utils";
 import Pagination from "@/components/pagination";
+import {useTranslation} from "react-i18next";
 
 const Index = () => {
     const router = useRouter();
     const {id} = router.query;
+    const {t} = useTranslation()
     const [page, setPage] = useState(1);
     const [categoryId, setCategoryId] = useState(null)
     const [groupId, setGroupId] = useState(null)

@@ -10,7 +10,7 @@ export const URLS = {
     smallMechanos: 'small-mechanos/',
     smallMechanosAds: 'small-mechanos/ads/filter/',
     technos: 'technos/',
-    technosAds: 'materials/ads/',
+    technosAds: 'technos/ads/',
     territories: 'companies/territories/',
     classifierResources: 'classifier/resources/',
     classifier: 'classifier/',

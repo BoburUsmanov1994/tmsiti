@@ -83,6 +83,7 @@ const ViewPage = () => {
     const {code} = router.query;
     const {t} = useTranslation()
     const [regionId, setRegionId] = useState(null)
+    const [districtId, setDistrictId] = useState(null)
     const {data: material, isLoading, isError} = useGetQuery({
         key: [KEYS.materials, code],
         url: `${URLS.materials}${code}/`,
@@ -105,7 +106,7 @@ const ViewPage = () => {
         url: `${URLS.territories}`,
         params: {
             key: 'districts',
-            value: regionId
+            filter: regionId
         },
         enable: !!(regionId)
     });
@@ -116,7 +117,6 @@ const ViewPage = () => {
     if (isLoading || isLoadingRegion || isLoadingDistrict) {
         return <Main><ContentLoader/></Main>;
     }
-    console.log('regions', regions)
     return (
         <>
             <Main>
@@ -174,10 +174,14 @@ const ViewPage = () => {
                                 HeaderBody={<div className="flex mb-5"><Select getValue={(val) => setRegionId(get(val,'value'))} sm
                                                                                label={t('region')}
                                                                                options={getOptionList(get(regions, 'data.results', []), 'id', 'region_name')}/>
-                                    <div className="ml-8"><Select sm label={t('district')} options={getOptionList(get(districts, 'data.results', []), 'id', 'district_name')}/></div>
+                                    <div className="ml-8"><Select getValue={(val) => setDistrictId(get(val,'value'))} sm label={t('district')} options={getOptionList(get(districts, 'data.results', []), 'id', 'district_name')}/></div>
                                 </div>}
                                 url={`${URLS.materialAds}${code}/`}
                                 key={KEYS.materialAds}
+                                params={{
+                                    region:regionId,
+                                    district:districtId
+                                }}
                                 columns={columns}
                             />
                         </div>

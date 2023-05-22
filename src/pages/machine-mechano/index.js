@@ -1,3 +1,4 @@
+import {useState} from "react"
 import Main from "@/layouts/main";
 import Menu from "@/components/menu";
 import Section from "@/components/section";
@@ -11,9 +12,12 @@ import {get, isEmpty} from "lodash"
 import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import {URLS} from "@/constants/url";
+import {useTranslation} from "react-i18next";
 
 
 export default function MachinesMechanos() {
+    const [pageSize,setPageSize] = useState(24);
+    const {t} = useTranslation()
     const {
         data: volumes,
         isError,
@@ -25,9 +29,9 @@ export default function MachinesMechanos() {
         data: items,
         isLoading: machineLoading,
         isError: machineError,
-    } = useQuery([KEYS.machinesMechanos], () => getMostOrdered({
+    } = useQuery([KEYS.machinesMechanos,pageSize], () => getMostOrdered({
         url: URLS.machinesMechanos,
-        params: {key: KEYS.viewCounts}
+        params: {key: KEYS.viewCounts,page_size:pageSize}
     }));
     if (isError || machineError) {
         return <ErrorPage/>
@@ -56,6 +60,9 @@ export default function MachinesMechanos() {
                             <Product viewUrl={'machine-mechano'} name={'mmechano_name'} code={'mmechano_csr_code'} img={'mmechano_image'} data={item}/>
                         </div>)
                     }
+                    <div className="col-span-12 text-center">
+                        <span className={'cursor-pointer underline'} onClick={()=>setPageSize(prev => prev + 24)}>{t('Barcha mahsulotlarni ko’rish')}</span>
+                    </div>
                 </div>
             </Section>
         </Main>

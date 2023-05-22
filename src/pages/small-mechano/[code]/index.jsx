@@ -14,6 +14,9 @@ import Select from "@/components/select";
 import GridView from "@/containers/grid-view";
 import {NumericFormat} from 'react-number-format';
 import dayjs from "dayjs";
+import {useTranslation} from "react-i18next";
+import {useState} from "react";
+import {getOptionList} from "@/utils";
 
 const columns = [
     {
@@ -79,10 +82,30 @@ const columns = [
 const ViewPage = () => {
     const router = useRouter()
     const {code} = router.query;
+    const {t} = useTranslation()
+    const [regionId, setRegionId] = useState(null)
+    const [districtId, setDistrictId] = useState(null)
     const {data: material, isLoading, isError} = useGetQuery({
         key: [KEYS.smallMechanos, code],
         url: `${URLS.smallMechanos}${code}/`,
         enabled: !!(code)
+    });
+
+    const {data: regions, isLoading: isLoadingRegion} = useGetQuery({
+        key: [KEYS.territories, 'regions'],
+        url: `${URLS.territories}`,
+        params: {
+            key: 'regions'
+        }
+    });
+    const {data: districts, isLoading: isLoadingDistrict} = useGetQuery({
+        key: [KEYS.territories, regionId,'districts'],
+        url: `${URLS.territories}`,
+        params: {
+            key: 'districts',
+            filter: regionId
+        },
+        enable: !!(regionId)
     });
 
     if (isError) {
@@ -141,11 +164,17 @@ const ViewPage = () => {
                 <Section>
                     <div className="grid grid-cols-12">
                         <div className="col-span-12 ">
-                            <GridView HeaderBody={<div className="flex mb-5"><Select sm label={'Shahar / viloyat'}/>
-                                <div className="ml-8"><Select sm label={'Tuman'}/></div>
+                            <GridView HeaderBody={<div className="flex mb-5"><Select getValue={(val) => setRegionId(get(val,'value'))} sm
+                                                                                     label={t('region')}
+                                                                                     options={getOptionList(get(regions, 'data.results', []), 'id', 'region_name')}/>
+                                <div className="ml-8"><Select getValue={(val) => setDistrictId(get(val,'value'))} sm label={t('district')} options={getOptionList(get(districts, 'data.results', []), 'id', 'district_name')}/></div>
                             </div>}
                                       url={`${URLS.smallMechanosAds}${code}/`}
                                       key={KEYS.smallMechanosAds}
+                                      params={{
+                                          region:regionId,
+                                          district:districtId
+                                      }}
                                       columns={columns}
                             />
                         </div>
