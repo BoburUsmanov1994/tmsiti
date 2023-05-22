@@ -40,7 +40,6 @@ const columns = [
         title: 'Mahsulot tavsifi',
         key: 'material_description',
         render: ({value}) => <span>{value}</span>,
-        sorter: true
     },
     {
         title: 'Sertifikat',
