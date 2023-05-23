@@ -19,4 +19,5 @@ export const URLS = {
     login: 'api/login',
     prices: 'prices/',
     logout: 'api/logout',
+    search: 'search',
 };

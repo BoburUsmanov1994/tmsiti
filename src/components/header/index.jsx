@@ -7,9 +7,9 @@ import {get} from "lodash";
 import useGetQuery from "../../hooks/api/useGetQuery";
 import {KEYS} from "../../constants/key";
 import {URLS} from "../../constants/url";
-// import Lang from "../lang";
 import dynamic from "next/dynamic";
 import {useTranslation} from "react-i18next";
+import Search from "@/components/search";
 const Lang = dynamic(
     () => import('@/components/lang'),
     { ssr: false }
@@ -45,7 +45,7 @@ const Header = () => {
                     </div>
                     <div className="col-span-8 ">
                         <div className="flex justify-end items-center">
-                            <button><Image width={26} height={26} alt={'map'} src={'/icons/search.svg'}/></button>
+                         <Search />
                             <Link href={'/selected'} className={'relative ml-6 cursor-pointer'}>
                                 <Image width={36} height={36} alt={'map'} src={'/icons/pin.svg'}/>
                                 <span
