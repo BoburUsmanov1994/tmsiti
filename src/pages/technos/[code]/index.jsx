@@ -38,6 +38,10 @@ const columns = [
         sorter: true
     },
     {
+        title: 'Mahsulot tavsifi',
+        key: 'techno_description',
+    },
+    {
         title: 'Sertifikat',
         key: 'sertificate_blank_num',
         render: () => <Image className={'mx-auto'} width={24} height={24} src={'/images/certificate.png'}
@@ -46,7 +50,7 @@ const columns = [
     },
     {
         title: 'Narxi (so’m)',
-        key: 'material_price',
+        key: 'techno_price',
         render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
                                             thousandSeparator={' '} value={value}/>,
         classnames: 'text-center',
@@ -62,7 +66,7 @@ const columns = [
     // },
     {
         title: 'Oxirgi o’zgarish',
-        key: 'material_updated_date',
+        key: 'techno_updated_date',
         render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm"),
         classnames: 'text-center',
         sorter: true
