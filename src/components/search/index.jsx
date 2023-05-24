@@ -8,7 +8,7 @@ const Search = () => {
     const {register, handleSubmit} = useForm();
     const router = useRouter()
     const onSubmit = ({query}) => {
-        router.push(`/search?query=${query}`)
+        router.push(`/search?query=${query}&category=all`)
     }
     return (
         <div className={'flex items-center'}>
