@@ -15,3 +15,34 @@ export const langs = [
         title: 'en'
     }
 ]
+
+export const searchKeyList = [
+    {
+        key: 'all',
+        title: 'all',
+    },
+    {
+        key: 'resource',
+        title: 'resource',
+    },
+    {
+        key: 'materials',
+        title: 'materials',
+    },
+    {
+        key: 'machine-mechano',
+        title: 'machine-mechano',
+    },
+    {
+        key: 'small-mechano',
+        title: 'small-mechano',
+    },
+    {
+        key: 'works',
+        title: 'works',
+    },
+    {
+        key: 'techno',
+        title: 'techno',
+    }
+]
