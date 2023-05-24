@@ -16,7 +16,7 @@ const Search = () => {
                                                                                    src={'/icons/search.svg'}/>
             </button>}
             {open &&
-                <form onSubmit={handleSubmit(onSubmit)} className={'h-10 w-full bg-white w-[520px] rounded relative'}>
+                <form onSubmit={handleSubmit(onSubmit)} className={'h-10  bg-white w-[520px] rounded relative'}>
                     <input {...register("query")}
                            className={'absolute rounded h-full w-[calc(100%-40px)] outline-none text-[#28366D] p-3'}
                            type="text"/>
