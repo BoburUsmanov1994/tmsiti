@@ -13,6 +13,7 @@ import {motion} from "framer-motion"
 import clsx from "clsx";
 import {NumericFormat} from "react-number-format";
 import GridView from "../../containers/grid-view";
+import Link from "next/link";
 
 const columns = [
     {
@@ -25,7 +26,8 @@ const columns = [
         title: 'Resurs kodi',
         key: 'resource_code',
         sorter: true,
-        classnames: 'min-w-[175px] text-sm'
+        classnames: 'min-w-[175px] text-sm',
+        render:({value,row})=><Link href={get(row,'resource_type')}>{value}</Link>
     },
     {
         title: 'Resurs nomi',
