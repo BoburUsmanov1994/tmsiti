@@ -7,6 +7,7 @@ const Search = () => {
     const [open, setOpen] = useState(false)
     const {register, handleSubmit} = useForm();
     const router = useRouter()
+    const {query} = router
     const onSubmit = ({query}) => {
         router.push(`/search?query=${query}&category=all`)
     }
@@ -17,7 +18,7 @@ const Search = () => {
             </button>}
             {open &&
                 <form onSubmit={handleSubmit(onSubmit)} className={'h-10  bg-white w-[520px] rounded relative'}>
-                    <input {...register("query")}
+                    <input defaultValue={query} {...register("query")}
                            className={'absolute rounded h-full w-[calc(100%-40px)] outline-none text-[#28366D] p-3'}
                            type="text"/>
                     <button className={'absolute top-0 right-0 z-50 bg-[#1890FF] p-2.5 h-full rounded-r'}><Image
