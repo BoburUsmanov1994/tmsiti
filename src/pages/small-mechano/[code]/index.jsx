@@ -30,12 +30,17 @@ const columns = [
         render: () => <Image className={'mx-auto'} width={80} height={56} src={'/images/company.png'} alt={'logo'}/>,
         classnames: 'text-center'
     },
+
     {
         title: 'Korxona nomi',
         key: 'company_name',
         render: ({value}) => <span className={'underline'}>{value}</span>,
         classnames: 'text-center',
         sorter: true
+    },
+    {
+        title: 'Mahsulot tavsifi',
+        key: 'smallmechano_description',
     },
     {
         title: 'Sertifikat',
@@ -46,7 +51,7 @@ const columns = [
     },
     {
         title: 'Narxi (so’m)',
-        key: 'material_price',
+        key: 'smallmechano_rent_price',
         render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
                                             thousandSeparator={' '} value={value}/>,
         classnames: 'text-center',
@@ -62,7 +67,7 @@ const columns = [
     // },
     {
         title: 'Oxirgi o’zgarish',
-        key: 'material_updated_date',
+        key: 'smallmechano_updated_date',
         render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm"),
         classnames: 'text-center',
         sorter: true
