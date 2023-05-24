@@ -61,20 +61,17 @@ const Index = () => {
                     </div>
 
                 </div>
-                <div className="grid grid-cols-12 gap-x-8 mt-8 items-start">
+                <div className="grid grid-cols-12 gap-x-8 mt-8">
                     <div className="col-span-12">
                         <Title>Qidiruv natijalari</Title>
                     </div>
                     {
                         get(data, 'data.results', [])?.length == 0 ?
                             <div className={'col-span-12 mb-5 text-[#515D89] text-xl'}>Sizning so’rovingizga mos natija
-                                topilmadi</div> : get(data, 'data.results', []).map(material => <div
-                                key={get(material, 'resource_code')}
-                                className={'col-span-3 mb-[30px] '}>
-                                <Product viewUrl={get(split(get(material, 'resource_url'), '/'), '[1]')}
-                                         img={'resource_image'} code={'resource_code'}
-                                         name={'resource_name'} data={material}/>
-                            </div>)
+                                topilmadi</div> : get(data, 'data.results', []).map(material => <Product key={get(material, 'resource_code')}
+                                                                                                         classNames={'col-span-3 mb-[30px] '} viewUrl={get(split(get(material, 'resource_url'), '/'), '[1]')}
+                                                                                                         img={'resource_image'} code={'resource_code'}
+                                                                                                         name={'resource_name'} data={material}/>)
                     }
                     <div className={'col-span-12'}>
                         <Pagination page={page} setPage={setPage} pageCount={get(data, 'data.total_pages', 0)}/>

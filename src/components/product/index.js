@@ -4,21 +4,21 @@ import {get, isNil} from "lodash";
 import Button from "@/components/button";
 import {useTranslation} from "react-i18next";
 import {useSession,signIn} from "next-auth/react";
+import clsx from "clsx";
 
-const Product = ({data, name = 'material_name', code = 'material_csr_code', img = '',viewUrl='materials'}) => {
+const Product = ({data, name = 'material_name', code = 'material_csr_code', img = '',viewUrl='materials',classNames=''}) => {
     const {data:session} = useSession()
     const {t} = useTranslation()
     const addCart = () => {
 
     }
     return (
-        <div className={'drop-shadow-category bg-white p-2.5 rounded-[5px] border border-transparent hover:border-[#017EFA]'}>
+        <div className={clsx('drop-shadow-category bg-white p-2.5 rounded-[5px] border border-transparent hover:border-[#017EFA] ',classNames)}>
             <div className={'relative h-[170px] rounded overflow-hidden mb-2.5'}>
                 {
                     isNil(get(data,img)) ?   <Image layout={'fill'} objectFit={'cover'}
                                                     src={'/images/material.png'}/> : <Image  layout={'fill'} objectFit={'cover'} src={get(data,img)}  loader={() => get(data,img)} />
                 }
-
             </div>
             <div className={'flex justify-between mb-2.5'}>
                 <span className={'text-xs py-[5px] px-2.5 bg-[#D1E9FF] text-[#28366D] font-medium'}>

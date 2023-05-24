@@ -7,7 +7,7 @@ const Search = () => {
     const [open, setOpen] = useState(false)
     const {register, handleSubmit} = useForm();
     const router = useRouter()
-    const {query} = router
+    const {query} = router.query
     const onSubmit = ({query}) => {
         router.push(`/search?query=${query}&category=all`)
     }
