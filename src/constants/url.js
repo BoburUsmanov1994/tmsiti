@@ -8,7 +8,7 @@ export const URLS = {
     works: 'works/',
     machinesMechanosAds: 'machines-mechanos/ads/',
     smallMechanos: 'small-mechanos/',
-    smallMechanosAds: 'small-mechanos/ads/filter/',
+    smallMechanosAds: 'small-mechanos/ads/',
     technos: 'technos/',
     technosAds: 'technos/ads/',
     territories: 'companies/territories/',
