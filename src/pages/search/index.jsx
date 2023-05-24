@@ -14,6 +14,7 @@ import {useRouter} from "next/router";
 import {getDefaultValue, getOptionList} from "@/utils";
 import Pagination from "@/components/pagination";
 import {searchKeyList} from "@/constants";
+import {NumericFormat} from "react-number-format";
 
 const Index = () => {
     const router = useRouter();
@@ -62,16 +63,22 @@ const Index = () => {
 
                 </div>
                 <div className="grid grid-cols-12 gap-x-8 mt-8">
-                    <div className="col-span-12">
-                        <Title>Qidiruv natijalari</Title>
+                    <div className="col-span-12 mb-7">
+                        <Title classNames={'!mb-0'}>Qidiruv natijalari</Title>
+                        <p className={'mt-2.5 text-[#4B5055] text-sm'}><NumericFormat displayType={'text'}
+                                                                                      value={get(data, 'data.count', 0)}
+                                                                                      thousandSeparator={' '}/> natija
+                            topildi</p>
                     </div>
                     {
                         get(data, 'data.results', [])?.length == 0 ?
                             <div className={'col-span-12 mb-5 text-[#515D89] text-xl'}>Sizning so’rovingizga mos natija
-                                topilmadi</div> : get(data, 'data.results', []).map(material => <Product key={get(material, 'resource_code')}
-                                                                                                         classNames={'col-span-3 mb-[30px] '} viewUrl={get(split(get(material, 'resource_url'), '/'), '[1]')}
-                                                                                                         img={'resource_image'} code={'resource_code'}
-                                                                                                         name={'resource_name'} data={material}/>)
+                                topilmadi</div> : get(data, 'data.results', []).map(material => <div
+                                key={get(material, 'resource_code')}
+                                className={'col-span-3 mb-[30px] '}><Product
+                                viewUrl={get(split(get(material, 'resource_url'), '/'), '[1]')}
+                                img={'resource_image'} code={'resource_code'}
+                                name={'resource_name'} data={material}/></div>)
                     }
                     <div className={'col-span-12'}>
                         <Pagination page={page} setPage={setPage} pageCount={get(data, 'data.total_pages', 0)}/>

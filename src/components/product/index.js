@@ -13,7 +13,7 @@ const Product = ({data, name = 'material_name', code = 'material_csr_code', img 
 
     }
     return (
-        <div className={clsx('drop-shadow-category bg-white p-2.5 rounded-[5px] border border-transparent hover:border-[#017EFA] ',classNames)}>
+        <div className={clsx('drop-shadow-category bg-white p-2.5 rounded-[5px] border border-transparent hover:border-[#017EFA] pb-12 min-h-full')}>
             <div className={'relative h-[170px] rounded overflow-hidden mb-2.5'}>
                 {
                     isNil(get(data,img)) ?   <Image layout={'fill'} objectFit={'cover'}
@@ -28,10 +28,10 @@ const Product = ({data, name = 'material_name', code = 'material_csr_code', img 
                 </span>
                 <Image className={'cursor-pointer'} width={10} height={16} src={'/icons/label.svg'} alt={'label'}/>
             </div>
-            <h2 className={'text-[#28366D] font-medium text-sm min-h-[150px] mb-5'}>
+            <h2 className={'text-[#28366D] font-medium text-sm  mb-5'}>
                 {get(data, name)}
             </h2>
-            <div className="flex justify-between">
+            <div className="flex justify-between absolute bottom-2.5 left-2.5 right-2.5">
                 <Button url={`/${viewUrl}/${get(data, code)}`}>{t('see')}</Button>
                 <Button handleClick={get(session,'user.key') ? ()=>addCart(get(data, code)) : () =>signIn()} className={'min-w-[48px] group '}>
                     <svg className={'fill-[#28366D] group-hover:fill-white '}  width={25} height={25} viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
