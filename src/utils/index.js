@@ -13,7 +13,7 @@ export const getOptionList = (options, key = 'id', value = 'name', isFilter = fa
                 label: i18config.t(get(option, value))
             }))
         }
-        return options.map(option => ({value: get(option, key), label: get(option, value)}))
+        return options.map(option => ({value: get(option, key), label:  i18config.t(get(option, value))}))
     }
     return []
 }
