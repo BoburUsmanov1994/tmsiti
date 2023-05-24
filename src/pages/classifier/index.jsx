@@ -27,7 +27,7 @@ const columns = [
         key: 'resource_code',
         sorter: true,
         classnames: 'min-w-[175px] text-sm ',
-        render:({value,row})=><Link className={'whitespace-nowrap'} href={get(row,'resource_type')}>{value}</Link>
+        render:({value,row})=><Link className={'whitespace-nowrap text-[#1890FF]'} href={get(row,'resource_type')}>{value}</Link>
     },
     {
         title: 'Resurs nomi',
