@@ -51,7 +51,7 @@ const columns = [
     },
     {
         title: 'Narxi (so’m)',
-        key: 'material_price',
+        key: 'mmechano_rent_price',
         render: ({value}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
                                             thousandSeparator={' '} value={value}/>,
         classnames: 'text-center',
@@ -59,7 +59,7 @@ const columns = [
     },
     {
         title: 'Oxirgi o’zgarish',
-        key: 'material_updated_date',
+        key: 'mmechano_updated_date',
         render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm"),
         classnames: 'text-center',
         sorter: true
