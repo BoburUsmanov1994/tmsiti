@@ -6,6 +6,8 @@ import {config} from "../config";
 let store = (set) => ({
     user: null,
     setUser: (user) => set(state => ({...state, user})),
+    currencyList: [],
+    setCurrencyList: (currencyList) => set(state => ({...state, currencyList})),
 })
 
 let settingsStore = (set) => ({

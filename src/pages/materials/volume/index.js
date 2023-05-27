@@ -90,13 +90,13 @@ const Index = () => {
                                 label={'Tanlangan guruh'}/>
                     </div>
                 </div>
-                <div className="grid grid-cols-12 gap-x-8 mt-8 items-start">
+                <div className="grid grid-cols-12 gap-x-8 mt-8">
                     <div className="col-span-12">
                         <Title>mahsulotlar</Title>
                     </div>
                     {
                         get(materials, 'data.results', []).map(material => <div key={get(material, 'material_csr_code')}
-                                                                                className={'col-span-3 mb-[30px] '}>
+                                                                                className={'col-span-3 mb-[30px] min-h-full'}>
                             <Product data={material}/>
                         </div>)
                     }
