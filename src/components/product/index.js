@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 import {useSession,signIn} from "next-auth/react";
 import clsx from "clsx";
 
-const Product = ({data, name = 'material_name', code = 'material_csr_code', img = '',viewUrl='materials',classNames=''}) => {
+const Product = ({data, name = 'material_name', code = 'material_csr_code', img = 'material_image',viewUrl='materials',classNames=''}) => {
     const {data:session} = useSession()
     const {t} = useTranslation()
     const addCart = () => {
