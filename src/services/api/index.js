@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {config} from '../../config/index';
 import storage from "../storage";
+import {get} from "lodash"
 
 const request = axios.create({
     baseURL: config.API_URL,
