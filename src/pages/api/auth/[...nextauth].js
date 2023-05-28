@@ -41,6 +41,6 @@ export const authOptions = {
     pages: {
         signIn: "/auth/login",
     },
-    secret:'secret'
+    secret:'Ey7nTKnggBc0bRN8WUjyShw2qzOZ6KW4fUyqcKBePxY='
 }
 export default NextAuth(authOptions)
