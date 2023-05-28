@@ -20,7 +20,7 @@ const Header = () => {
     const {data: user} = useGetQuery({
         key: KEYS.getMe,
         url: URLS.getMe,
-        headers: {Authorization: `${get(session, 'user.token')}`},
+        headers: {token: `${get(session, 'user.token')}`},
         enabled: !!(get(session, 'user.token'))
     })
     console.log('session', session)
