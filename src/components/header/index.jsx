@@ -24,6 +24,7 @@ const Header = () => {
         enabled: !!(get(session, 'user.token'))
     })
     console.log('session', session)
+    console.log('user', user)
     return (
         <header>
             <div className={' bg-[#182041]  py-2 '}>

@@ -5,12 +5,11 @@ import usePostQuery from "../../hooks/api/usePostQuery";
 import {KEYS} from "../../constants/key";
 import {URLS} from "../../constants/url";
 import {OverlayLoader} from "../../components/loader";
-import {useRouter} from "next/router";
 import toast from "react-hot-toast";
+import {signIn} from "next-auth/react"
 
 const Signup = () => {
-    const router = useRouter()
-    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors}} = useForm();
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.signup})
     const onSubmit = (data) => {
         signupRequest({
@@ -20,7 +19,7 @@ const Signup = () => {
             {
                 onSuccess: () => {
                     toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
-                    router.push('/auth/login')
+                    signIn()
                 }
             })
     };
