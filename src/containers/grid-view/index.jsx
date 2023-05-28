@@ -4,7 +4,9 @@ import GridBody from "@/containers/grid-view/components/grid-body";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {ContentLoader, OverlayLoader} from "@/components/loader";
 import Pagination from "@/components/pagination";
-import {get,isNil} from "lodash";
+import {get, isNil} from "lodash";
+import {useTranslation} from "react-i18next";
+import EmptyData from "./components/empty-data";
 
 const GridView = ({
                       HeaderBody = null,
@@ -13,9 +15,12 @@ const GridView = ({
                       key,
                       params = {},
                       enabled = true,
-                      getCount = () => {},
-                      hasActionColumn = false
+                      getCount = () => {
+                      },
+                      hasActionColumn = false,
+                      viewUrl = '#',
                   }) => {
+    const {t} = useTranslation()
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(48)
     const [sort, setSort] = useState(undefined)
@@ -25,16 +30,16 @@ const GridView = ({
         params: {
             page,
             ...params,
-            sort_by:sort,
-            page_size:pageSize
+            sort_by: sort,
+            page_size: pageSize
         },
         enabled
     });
-    useEffect(()=>{
-        if(!isNil(get(data, 'data.count'))){
-            getCount(get(data, 'data.count',0))
+    useEffect(() => {
+        if (!isNil(get(data, 'data.count'))) {
+            getCount(get(data, 'data.count', 0))
         }
-    },[data])
+    }, [data])
 
 
     if (isLoading) {
@@ -45,9 +50,12 @@ const GridView = ({
         <>
             {isFetching && <OverlayLoader/>}
             <GridHeader>{HeaderBody}</GridHeader>
-            {get(data, 'data.results',[])?.length > 0 ? <>
-            <GridBody hasActionColumn={hasActionColumn} handleSort={setSort} columns={columns} rows={get(data, 'data.results',[])} pageSize={pageSize} page={page} setPage={setPage}/>
-            <Pagination page={page} setPage={setPage} pageCount={get(data, 'data.total_pages', 0)}/></>:<p className={'py-5'}>Ushbu mahsulot bo’yicha hozircha e’lonlar mavjud emas...</p>}
+            {get(data, 'data.results', [])?.length > 0 ? <>
+                    <GridBody hasActionColumn={hasActionColumn} handleSort={setSort} columns={columns}
+                              rows={get(data, 'data.results', [])} pageSize={pageSize} page={page} setPage={setPage}/>
+                    <Pagination page={page} setPage={setPage} pageCount={get(data, 'data.total_pages', 0)}/></> :
+                <p className={'py-5'}>{hasActionColumn ?
+                    <EmptyData viewUrl={viewUrl}/> : t("Ushbu mahsulot bo’yicha hozircha e’lonlar mavjud emas...")}</p>}
         </>
     );
 };
