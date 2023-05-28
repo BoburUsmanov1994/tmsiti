@@ -22,7 +22,7 @@ let settingsStore = (set) => ({
 
 store = devtools(store);
 settingsStore = devtools(settingsStore)
-settingsStore = persist(settingsStore, {name: 'setting'});
+settingsStore = persist(settingsStore, {name: 'settings'});
 
 export const useStore = create(store)
 export const useSettingsStore = create(settingsStore)
