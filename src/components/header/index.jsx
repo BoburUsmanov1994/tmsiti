@@ -20,7 +20,7 @@ const Header = () => {
     const {data: user} = useGetQuery({
         key: KEYS.getMe,
         url: URLS.getMe,
-        headers: {Authorization: `Bearer ${get(session, 'user.token')}`},
+        headers: {Authorization: `${get(session, 'user.token')}`},
         enabled: !!(get(session, 'user.token'))
     })
     console.log('session', session)
@@ -70,7 +70,7 @@ const Header = () => {
                                         User
                                     </button>
                                     <button className={'block text-base'} onClick={() => signOut()}>
-                                        {t('logout')}
+                                        {t('Logout')}
                                     </button>
                                 </div>}
                             </div>
