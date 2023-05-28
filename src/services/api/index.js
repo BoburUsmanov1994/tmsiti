@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { config } from '../../config/index';
+import {config} from '../../config/index';
+import storage from "../storage";
 
 const request = axios.create({
     baseURL: config.API_URL,
-    params: {
-    },
+    params: {},
     headers: {
         common: {
             'Accept': 'application/json',
@@ -14,6 +14,10 @@ const request = axios.create({
 
 });
 request.interceptors.request.use((config) => {
+    const token = get(storage.get('settings'), 'state.token', null);
+    if (token) {
+        config.headers['token'] = token;
+    }
     return config;
 }, (error) => {
     return Promise.reject(error);
@@ -25,4 +29,4 @@ request.interceptors.response.use((response) => {
     return Promise.reject(error);
 });
 
-export { request };
+export {request};

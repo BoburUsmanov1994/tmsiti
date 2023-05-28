@@ -2,8 +2,6 @@ import {useQuery} from '@tanstack/react-query';
 import {request} from '@/services/api';
 import {toast} from 'react-hot-toast';
 import {useTranslation} from 'react-i18next';
-import {useSession} from "next-auth/react";
-import {get} from "lodash";
 
 const useGetQuery = ({
                          key = 'get-all',
@@ -15,7 +13,7 @@ const useGetQuery = ({
                          enabled = true,
                      }) => {
     const {t} = useTranslation();
-    const {data: session} = useSession()
+
     const {
         isLoading,
         isError,
@@ -24,7 +22,7 @@ const useGetQuery = ({
         isFetching,
     } = useQuery([key, params], () => request.get(url, {
         params,
-        headers: get(session, 'user.token') ? {...headers, token: `${get(session, 'user.token', null)}`} : headers
+        headers
     }), {
         keepPreviousData: true,
         onSuccess: () => {
@@ -32,6 +30,7 @@ const useGetQuery = ({
                 toast.success(t('SUCCESS'));
             }
         },
+
         onError: (data) => {
             if (showErrorMsg) {
                 toast.error(t(`ERROR`));
