@@ -20,4 +20,5 @@ export const KEYS = {
     login: 'login',
     prices: 'prices',
     search: 'search',
+    myMaterials: 'myMaterials',
 };

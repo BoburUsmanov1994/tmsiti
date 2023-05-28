@@ -20,4 +20,5 @@ export const URLS = {
     prices: 'prices/',
     logout: 'api/logout',
     search: 'search',
+    myMaterials: 'materials/ads/my/',
 };

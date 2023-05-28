@@ -14,6 +14,7 @@ const GridView = ({
                       params = {},
                       enabled = true,
                       getCount = () => {},
+                      hasActionColumn = false
                   }) => {
     const [page, setPage] = useState(1)
     const [pageSize, setPageSize] = useState(48)
@@ -45,7 +46,7 @@ const GridView = ({
             {isFetching && <OverlayLoader/>}
             <GridHeader>{HeaderBody}</GridHeader>
             {get(data, 'data.results',[])?.length > 0 ? <>
-            <GridBody handleSort={setSort} columns={columns} rows={get(data, 'data.results',[])} pageSize={pageSize} page={page} setPage={setPage}/>
+            <GridBody hasActionColumn={hasActionColumn} handleSort={setSort} columns={columns} rows={get(data, 'data.results',[])} pageSize={pageSize} page={page} setPage={setPage}/>
             <Pagination page={page} setPage={setPage} pageCount={get(data, 'data.total_pages', 0)}/></>:<p className={'py-5'}>Ushbu mahsulot bo’yicha hozircha e’lonlar mavjud emas...</p>}
         </>
     );
