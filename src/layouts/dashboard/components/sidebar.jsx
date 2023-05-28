@@ -1,0 +1,72 @@
+import React from 'react';
+import Brand from "../../../components/brand";
+import {useTranslation} from "react-i18next";
+import Link from "next/link";
+import {useRouter} from "next/router";
+import clsx from "clsx";
+
+const Sidebar = () => {
+    const {t} = useTranslation()
+    const router = useRouter();
+    return (
+        <div className={'bg-[#28366D] shadow-[2px_0px_32px_rgba(0, 0, 0, 0.05)] w-[350px] h-screen fixed top-0 left-0'}>
+            <div className={'py-4 pl-5 pr-4 text-white text-sm'}>
+                <Brand/>
+            </div>
+            <ul className={'text-[#8D97AD] mt-3'}>
+                <li>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard'})} href={'/dashboard'}>
+                        {t("Bosh sahifa")}
+                    </Link>
+                </li>
+                <li>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/materials'})} href={'/dashboard/materials'}>
+                        {t("Materiallar va buyumlar")}
+                    </Link>
+                </li>
+                <li>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/machine-mechano'})} href={'/dashboard/machine-mechano'}>
+                        {t("Mashina mexanizmlar")}
+                    </Link>
+                </li>
+                <li>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/works'})} href={'/dashboard/works'}>
+                        {t("Qurilish ishlari")}
+                    </Link>
+                </li>
+                <li>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/small-mechano'})} href={'/dashboard/small-mechano'}>
+                        {t("Kichik mexanizatsiya")}
+                    </Link>
+                </li>
+                <li>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/technos'})} href={'/dashboard/technos'}>
+                        {t("Uskuna va qurilmalar")}
+                    </Link>
+                </li>
+                <li>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/about'})} href={'/dashboard/about'}>
+                        {t("Kompaniya haqida")}
+                    </Link>
+                </li>
+                <li>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/agreements'})} href={'/dashboard/agreements'}>
+                        {t("Shartnomalar")}
+                    </Link>
+                </li>
+                <li>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/archive'})} href={'/dashboard/archive'}>
+                        {t("Arxiv")}
+                    </Link>
+                </li>
+                <li>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/settings'})} href={'/dashboard/settings'}>
+                        {t("Sozlamalar")}
+                    </Link>
+                </li>
+            </ul>
+        </div>
+    );
+};
+
+export default Sidebar;

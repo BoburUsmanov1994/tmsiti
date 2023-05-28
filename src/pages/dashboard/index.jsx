@@ -1,14 +1,12 @@
 import React from 'react';
-import Main from "../../layouts/main";
-import Section from "../../components/section";
+import Dashboard from "../../layouts/dashboard";
+import Subheader from "../../layouts/dashboard/components/subheader";
 
 const Index = () => {
     return (
-        <Main>
-            <Section>
-                Dashboard page
-            </Section>
-        </Main>
+        <Dashboard>
+                <Subheader title={'Statistik ma’lumotlar'} />
+        </Dashboard>
     );
 };
 
