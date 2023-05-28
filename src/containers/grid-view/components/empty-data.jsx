@@ -13,7 +13,7 @@ const EmptyData = ({viewUrl}) => {
                 <Title classNames={'!mb-3'} center>{t("Ma’lumot Mavjud emas")}</Title>
                 <p>{t("Ushbu bo’limda ma’lumot mavjud emas, kiritish tugmasini bosing")}</p>
                 <Button url={`${viewUrl}/add`}
-                        className={'bg-[#1890FF] text-white border-[#1890FF] mt-6 inline-flex items-center'}><Image
+                        className={'bg-[#1890FF] text-white !border-[#1890FF] mt-6 inline-flex items-center'}><Image
                     className={'mr-1.5'} width={20} height={20} src={'/icons/plus.svg'}
                     alt={'plus'}/>{t("E’lon qo’shish")}</Button>
             </div>
