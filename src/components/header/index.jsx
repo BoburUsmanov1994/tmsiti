@@ -20,8 +20,8 @@ const Header = () => {
     const {data: user} = useGetQuery({
         key: KEYS.getMe,
         url: URLS.getMe,
-        headers: {Authorization: `Basic ${get(session, 'user.key')}`},
-        enabled: !!(get(session, 'user.key'))
+        headers: {Authorization: `Bearer ${get(session, 'user.token')}`},
+        enabled: !!(get(session, 'user.token'))
     })
     console.log('session', session)
     return (
@@ -58,7 +58,7 @@ const Header = () => {
                             </Link>
                             <div className={'ml-6 flex items-center'}>
                                 <Image className={'mr-1'} width={36} height={36} alt={'map'} src={'/icons/user.svg'}/>
-                                {!get(session, 'user.key') ? <div>
+                                {!get(session, 'user.token') ? <div>
                                     <button className={'block text-base bg-transparent'} onClick={() => signIn()}>
                                         {t('signin')}
                                     </button>
