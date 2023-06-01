@@ -11,9 +11,11 @@ import {get, isEmpty} from "lodash"
 import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import {URLS} from "@/constants/url";
+import {useTranslation} from "react-i18next";
 
 
 export default function Works() {
+    const {t} = useTranslation()
     const {
         data: volumes,
         isError,
@@ -42,18 +44,18 @@ export default function Works() {
                 <div className="grid grid-cols-12 gap-x-8 ">
                     {
                         !isEmpty(get(volumes, 'results', [])) && get(volumes, 'results', []).map(volume => <div
-                            key={get(volume, 'id')} className={'col-span-3 mb-5'}><Category
+                            key={get(volume, 'id')} className={'col-span-3 mb-5'}><Category url={'works/volume'} name={'category_name'} logo_url={'category_logo'}
                             data={volume}/></div>)
                     }
                 </div>
                 <div className="grid grid-cols-12 gap-x-8 mt-[30px] min-h-fit">
                     <div className="col-span-12">
-                        <Title>Ko‘p ko‘rilganlar</Title>
+                        <Title>{t("Ko‘p ko‘rilganlar")}</Title>
                     </div>
                     {
-                        get(items, 'results', []).map(item => <div key={get(item, 'material_csr_code')}
+                        get(items, 'results', []).map(item => <div key={get(item, 'work_csr_code')}
                                                                    className={'col-span-3 mb-[30px] '}>
-                            <Product data={item}/>
+                            <Product name={'work_name'} code={'work_csr_code'} data={item} img={'work_image'} viewUrl={'works'}/>
                         </div>)
                     }
                 </div>
