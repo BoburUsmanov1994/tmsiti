@@ -22,4 +22,5 @@ export const KEYS = {
     search: 'search',
     myMaterials: 'myMaterials',
     currency: 'currency',
+    worksAds: 'worksAds',
 };
