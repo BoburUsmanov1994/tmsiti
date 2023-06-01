@@ -18,81 +18,17 @@ import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {getOptionList} from "@/utils";
 
-const columns = [
-    {
-        title: '№',
-        key: 'id',
-        render: ({index}) => <span className={'font-semibold'}>{index}</span>
-    },
-    {
-        title: 'Logo',
-        key: 'material_image',
-        render: () => <Image className={'mx-auto'} width={80} height={56} src={'/images/company.png'} alt={'logo'}/>,
-        classnames: 'text-center'
-    },
-    {
-        title: 'Korxona nomi',
-        key: 'company_name',
-        render: ({value}) => <span className={'underline'}>{value}</span>,
-        classnames: 'text-center',
-        sorter: true
-    },
-    {
-        title: 'Mahsulot tavsifi',
-        key: 'techno_description',
-    },
-    {
-        title: 'Sertifikat',
-        key: 'sertificate_blank_num',
-        render: ({row}) => <div className={'group relative inline-block cursor-pointer'}>
-            <Image className={'mx-auto'} width={24} height={24} src={'/images/certificate.png'}
-                   alt={'certificate'}/>
-            <ul className="text-left text-white hidden group-hover:block absolute left-full bottom-full p-2.5 bg-[#3D7AB6] w-[200px] rounded shadow-[5px_5px_15px_rgba(0, 0, 0, 0.1)]">
-                {(get(row, 'sertificate_blank_num') && get(row, 'sertificate_reestr_num') && get(row, 'sertificate_reestr_num')?.length > 1 && get(row, 'sertificate_blank_num')?.length > 1) ? <>
-                    <li>Blank raqami: {get(row, 'sertificate_blank_num')}</li>
-                    <li>Reestr raqami: {get(row, 'sertificate_reestr_num')}</li>
-                    <li className={'underline'}><a target={"_blank"}
-                                                   href={`http://sert2.standart.uz/site/register?Search[number_of_blank]=${get(row, 'sertificate_blank_num')}&Search[gov_register]=${get(row, 'sertificate_reestr_num')}`}>Tekshirish</a>
-                    </li>
-                </> : <li>Ma’lumot mavjud emas</li>}
-            </ul>
-        </div>,
-        classnames: 'text-center'
-    },
-    {
-        title: 'Narxi(so`m)',
-        key: 'techno_price',
-        render: ({value, row}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
-                                                 thousandSeparator={' '} value={value}
-                                                 suffix={` (${get(row, 'techno_measure')})`}/>,
-        classnames: 'text-center',
-        sorter: true
-    },
-    {
-        title: 'Oxirgi o’zgarish',
-        key: 'techno_updated_date',
-        render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm"),
-        classnames: 'text-center',
-        sorter: true
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        render: () => <div className={'flex items-center'}>
-            <Image className={'mx-auto cursor-pointer'} width={24} height={24} src={'/images/shopping.png'}
-                   alt={'certificate'}/>
-            <Image className={'mx-auto cursor-pointer'} width={24} height={24} src={'/icons/stick.svg'}
-                   alt={'certificate'}/>
-        </div>,
-        classnames: 'text-center'
-    }
-]
+
 const ViewPage = () => {
     const router = useRouter()
     const {code} = router.query;
     const {t} = useTranslation()
     const [regionId, setRegionId] = useState(null)
     const [districtId, setDistrictId] = useState(null)
+    const {data: currency} = useGetQuery({
+        key: KEYS.currency,
+        url: URLS.currency,
+    });
     const {data: material, isLoading, isError} = useGetQuery({
         key: [KEYS.technos, code],
         url: `${URLS.technos}${code}/`,
@@ -115,6 +51,76 @@ const ViewPage = () => {
         enable: !!(regionId)
     });
 
+    const columns = [
+        {
+            title: '№',
+            key: 'id',
+            render: ({index}) => <span className={'font-semibold'}>{index}</span>
+        },
+        {
+            title: t('Logo'),
+            key: 'material_image',
+            render: () => <Image className={'mx-auto'} width={80} height={56} src={'/images/company.png'} alt={'logo'}/>,
+            classnames: 'text-center'
+        },
+        {
+            title: t('Korxona nomi'),
+            key: 'company_name',
+            render: ({value}) => <span className={'underline'}>{value}</span>,
+            classnames: 'text-center',
+            sorter: true
+        },
+        {
+            title: t('Mahsulot tavsifi'),
+            key: 'techno_description',
+        },
+        {
+            title: t('Sertifikat'),
+            key: 'sertificate_blank_num',
+            render: ({row}) => <div className={'group relative inline-block cursor-pointer'}>
+                <Image className={'mx-auto'} width={24} height={24} src={'/images/certificate.png'}
+                       alt={'certificate'}/>
+                <ul className="text-left text-white hidden group-hover:block absolute left-full bottom-full p-2.5 bg-[#3D7AB6] w-[200px] rounded shadow-[5px_5px_15px_rgba(0, 0, 0, 0.1)]">
+                    {(get(row, 'sertificate_blank_num') && get(row, 'sertificate_reestr_num') && get(row, 'sertificate_reestr_num')?.length > 1 && get(row, 'sertificate_blank_num')?.length > 1) ? <>
+                        <li>{t("Blank raqami")}: {get(row, 'sertificate_blank_num')}</li>
+                        <li>{t("Reestr raqami")}: {get(row, 'sertificate_reestr_num')}</li>
+                        <li className={'underline'}><a target={"_blank"}
+                                                       href={`http://sert2.standart.uz/site/register?Search[number_of_blank]=${get(row, 'sertificate_blank_num')}&Search[gov_register]=${get(row, 'sertificate_reestr_num')}`}>{t("Tekshirish")}</a>
+                        </li>
+                    </> : <li>{t("Ma’lumot mavjud emas")}</li>}
+                </ul>
+            </div>,
+            classnames: 'text-center'
+        },
+        {
+            title: t('Narxi(so`m)'),
+            key: 'techno_price',
+            render: ({value, row}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+                                                     thousandSeparator={' '} value={value*get(currency,`data[${get(row,'techno_price_currency')}]`,1)}
+                                                     suffix={` (${get(row, 'techno_measure')})`}/>,
+            classnames: 'text-center',
+            sorter: true
+        },
+        {
+            title: t('Oxirgi o’zgarish'),
+            key: 'techno_updated_date',
+            render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm"),
+            classnames: 'text-center',
+            sorter: true
+        },
+        {
+            title: t('Action'),
+            key: 'action',
+            render: () => <div className={'flex items-center'}>
+                <Image className={'mx-auto cursor-pointer'} width={24} height={24} src={'/images/shopping.png'}
+                       alt={'certificate'}/>
+                <Image className={'mx-auto cursor-pointer'} width={24} height={24} src={'/icons/stick.svg'}
+                       alt={'certificate'}/>
+            </div>,
+            classnames: 'text-center'
+        }
+    ]
+
     if (isError) {
         return <ErrorPage/>
     }
@@ -122,6 +128,7 @@ const ViewPage = () => {
     if (isLoading) {
         return <Main><ContentLoader/></Main>;
     }
+    console.log('currency',currency)
 
     return (
         <>
@@ -149,7 +156,7 @@ const ViewPage = () => {
                                 <div className={'inline-flex mr-8 cursor-pointer'}>
                                     <Image className={'mr-1.5'} width={24} height={24} src={'/icons/stick.svg'}
                                            alt={'code'}/>
-                                    <span className={'font-medium'}>Saqlash</span>
+                                    <span className={'font-medium'}>{t("Saqlash")}</span>
                                 </div>
                             </div>
                             <h2 className={'my-3 text-xl font-semibold'}>{get(material, 'data.techno_name')}</h2>

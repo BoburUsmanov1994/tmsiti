@@ -23,6 +23,6 @@ export const findCurrency = (currencyList = [], currency) => {
 }
 
 
-export const getUSDValue = (currencyList, currency) => {
+export const getPriceByCurrency = (currencyList, currency) => {
     return get(findCurrency(findCurrency, currency), 'Rate') || 0;
 }

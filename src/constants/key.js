@@ -21,4 +21,5 @@ export const KEYS = {
     prices: 'prices',
     search: 'search',
     myMaterials: 'myMaterials',
+    currency: 'currency',
 };

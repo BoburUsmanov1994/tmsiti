@@ -21,4 +21,5 @@ export const URLS = {
     logout: 'api/logout',
     search: 'search',
     myMaterials: 'materials/ads/my/',
+    currency: 'currency/',
 };
