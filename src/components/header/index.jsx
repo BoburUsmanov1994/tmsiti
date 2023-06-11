@@ -10,6 +10,7 @@ import {URLS} from "../../constants/url";
 import dynamic from "next/dynamic";
 import {useTranslation} from "react-i18next";
 import Search from "@/components/search";
+import {router} from "next/client";
 const Lang = dynamic(
     () => import('@/components/lang'),
     { ssr: false }
@@ -67,8 +68,8 @@ const Header = () => {
                                         {t("signup")}
                                     </Link>
                                 </div> : <div>
-                                    <button className={'block text-base bg-transparent'}>
-                                        User
+                                    <button onClick={()=>router.push('/dashboard')} className={'block text-base bg-transparent'}>
+                                        {get(user,'data.email')}
                                     </button>
                                     <button className={'block text-base'} onClick={() => signOut()}>
                                         {t('Logout')}
