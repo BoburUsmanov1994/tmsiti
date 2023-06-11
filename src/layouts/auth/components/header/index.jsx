@@ -3,6 +3,7 @@ import Image from "next/image";
 import Brand from "@/components/brand";
 
 const Header = () => {
+
     return (
         <header>
             <div className={' bg-[#182041]  py-2 '}>
