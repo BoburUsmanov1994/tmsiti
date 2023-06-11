@@ -26,7 +26,7 @@ const Pofile = () => {
     }, [session])
     return (
         <div className={'inline-flex items-center'}>
-            <span className={'mr-3'}>{get(user,'user.email')}</span>
+            <span className={'mr-3'}>{get(user,'data.email')}</span>
             <Image width={48} height={48} className={'rounded-full'} src={'/images/avatar.png'} alt={'avatar'}/>
         </div>
     );
