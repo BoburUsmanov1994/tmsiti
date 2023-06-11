@@ -10,7 +10,7 @@ import {URLS} from "../../constants/url";
 import dynamic from "next/dynamic";
 import {useTranslation} from "react-i18next";
 import Search from "@/components/search";
-import {router} from "next/client";
+import {useRouter} from "next/router";
 const Lang = dynamic(
     () => import('@/components/lang'),
     { ssr: false }
@@ -18,6 +18,7 @@ const Lang = dynamic(
 const Header = () => {
     const {data: session} = useSession()
     const {t} = useTranslation()
+    const router = useRouter()
     const {data: user} = useGetQuery({
         key: KEYS.getMe,
         url: URLS.getMe,
