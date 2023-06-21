@@ -128,7 +128,6 @@ const ViewPage = () => {
     if (isLoading) {
         return <Main><ContentLoader/></Main>;
     }
-    console.log('currency',currency)
 
     return (
         <>
@@ -136,9 +135,16 @@ const ViewPage = () => {
                 <Menu active={5}/>
                 <Section className={'!bg-white'}>
                     <div className="grid grid-cols-12">
-                        <div className="col-span-5 text-center">
-                            <Image className={'mx-auto'} width={370} height={260} src={'/images/material.png'}
-                                   alt={'company'}/>
+                        <div className="col-span-5 text-center relative h-64">
+                            {
+                                get(material, 'data.techno_image') ?
+                                    <Image className={'mr-2'} layout={'fill'} objectFit={'contain'}
+                                           loader={() => get(material, 'data.techno_image')}
+                                           src={get(material, 'data.techno_image')}
+                                           alt={'code'}/> :
+                                    <Image className={'mx-auto'} width={370} height={260} src={'/images/material.png'}
+                                           alt={'company'}/>
+                            }
                         </div>
                         <div className="col-span-7">
                             <div className="flex">

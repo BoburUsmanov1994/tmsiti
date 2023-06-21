@@ -62,7 +62,7 @@ const Index = () => {
                     </div>
 
                 </div>
-                <div className="grid grid-cols-12 gap-x-8 mt-8">
+                <div className="grid grid-cols-12 gap-x-8 mt-8 min-h-fit">
                     <div className="col-span-12 mb-7">
                         <Title classNames={'!mb-0'}>Qidiruv natijalari</Title>
                         <p className={'mt-2.5 text-[#4B5055] text-sm'}><NumericFormat displayType={'text'}
