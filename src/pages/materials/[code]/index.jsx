@@ -138,10 +138,10 @@ const ViewPage = () => {
             <Main>
                 <Menu active={1}/>
                 <Section className={'!bg-white'}>
-                    <div className="grid grid-cols-12">
-                        <div className="col-span-5 text-center">
+                    <div className="grid grid-cols-12 gap-x-10">
+                        <div className="col-span-5 text-center relative h-64">
                             {
-                                get(material,'data.material_image') ?  <Image className={'mr-2'} width={370} height={260} loader={()=>get(material,'data.material_image')} src={get(material,'data.material_image')}
+                                get(material,'data.material_image') ?  <Image className={'mr-2'} layout={'fill'} objectFit={'contain'} loader={()=>get(material,'data.material_image')} src={get(material,'data.material_image')}
                                        alt={'code'}/> :    <Image className={'mx-auto'} width={370} height={260} src={'/images/material.png'}
                                 alt={'company'}/>
                             }
