@@ -17,6 +17,7 @@ import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {getOptionList} from "@/utils";
+import Link from "next/link";
 
 
 const ViewPage = () => {
@@ -69,7 +70,7 @@ const ViewPage = () => {
         {
             title: t('Korxona nomi'),
             key: 'company_name',
-            render: ({value}) => <span className={'underline'}>{value}</span>,
+            render: ({value,row}) => <Link href={`/company/${get(row,'company_stir')}`} className={'underline'}>{value}</Link>,
             classnames: 'text-center',
             sorter: true
         },

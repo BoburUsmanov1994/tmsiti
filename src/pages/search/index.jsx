@@ -81,7 +81,8 @@ const Index = () => {
                                 name={'resource_name'} data={material}/></div>)
                     }
                     <div className={'col-span-12'}>
-                        {get(data, 'data.total_pages', 0) > 0 && <Pagination page={page} setPage={setPage} pageCount={get(data, 'data.total_pages', 0)}/>}
+                        {get(data, 'data.total_pages', 0) > 0 &&
+                            <Pagination page={page} setPage={setPage} pageCount={get(data, 'data.total_pages', 0)}/>}
                     </div>
                 </div>
             </Section>

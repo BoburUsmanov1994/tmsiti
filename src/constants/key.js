@@ -23,4 +23,6 @@ export const KEYS = {
     myMaterials: 'myMaterials',
     currency: 'currency',
     worksAds: 'worksAds',
+    companies: 'companies',
+    companyAds: 'companyAds',
 };

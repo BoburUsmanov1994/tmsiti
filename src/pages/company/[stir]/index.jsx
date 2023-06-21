@@ -9,52 +9,28 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 import Image from "next/image";
-import {get} from "lodash";
-import Select from "@/components/select";
+import {get, split} from "lodash";
 import GridView from "@/containers/grid-view";
 import {NumericFormat} from 'react-number-format';
 import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
-import {getOptionList} from "../../../utils";
+import Title from "@/components/title";
 import Link from "next/link";
 
 
 const ViewPage = () => {
     const router = useRouter()
-    const {code} = router.query;
+    const {stir} = router.query;
     const {t} = useTranslation()
-    const [regionId, setRegionId] = useState(null)
-    const [districtId, setDistrictId] = useState(null)
-
+    const [count, setCount] = useState(0)
+    const {data: company, isLoading, isError} = useGetQuery({
+        key: [KEYS.companies, stir],
+        url: `${URLS.companies}${stir}/`,
+        enabled: !!(stir)
+    });
     const {data: currency} = useGetQuery({
         key: KEYS.currency,
         url: URLS.currency,
-    });
-    const {data: material, isLoading, isError} = useGetQuery({
-        key: [KEYS.materials, code],
-        url: `${URLS.materials}${code}/`,
-        enabled: !!(code)
-    });
-    const {data: price} = useGetQuery({
-        key: [KEYS.prices, code],
-        url: `${URLS.prices}?resource=${code}`,
-        enabled: !!(code)
-    });
-    const {data: regions, isLoading: isLoadingRegion} = useGetQuery({
-        key: [KEYS.territories, 'regions'],
-        url: `${URLS.territories}`,
-        params: {
-            key: 'regions'
-        }
-    });
-    const {data: districts, isLoading: isLoadingDistrict} = useGetQuery({
-        key: [KEYS.territories, regionId, 'districts'],
-        url: `${URLS.territories}`,
-        params: {
-            key: 'districts',
-            filter: regionId
-        },
-        enable: !!(regionId)
     });
 
     const columns = [
@@ -64,20 +40,30 @@ const ViewPage = () => {
             render: ({index}) => <span className={'font-semibold'}>{index}</span>
         },
         {
-            title: t('Logo'),
+            title: t('Rasm'),
             key: 'material_image',
-            render: () => <Image className={'mx-auto'} width={80} height={56} src={'/images/company.png'} alt={'logo'}/>,
+            render: ({value}) => value ?
+                <Image className={'mx-auto'} width={80} height={56} loader={() => value} src={value}
+                       alt={'logo'}/> : <Image className={'mx-auto'} width={80} height={56} src={'/images/company.png'}
+                                               alt={'logo'}/>,
             classnames: 'text-center'
         },
         {
-            title: t('Korxona nomi'),
-            key: 'company_name',
-            render: ({value,row}) => <Link href={`/company/${get(row,'company_stir')}`} className={'underline'}>{value}</Link>,
+            title: t('Resurs turi'),
+            key: 'material_type',
+            render: ({value, row}) => <Link href={`/${get(split(get(row, 'material_url'), '/'), '[1]', '#')}`}
+                                            className={'underline text-[#146BBC] '}>{value}</Link>,
             classnames: 'text-center',
-            sorter: true
         },
         {
-            title: t('Mahsulot tavsifi'),
+            title: t('Kodi'),
+            key: 'material_name',
+            render: ({value, row}) => <Link href={get(row, 'material_url', '#')}
+                                            className={'underline text-[#146BBC] whitespace-nowrap '}>{value}</Link>,
+            classnames: 'text-center',
+        },
+        {
+            title: t('E’lon tavsifi'),
             key: 'material_description',
             render: ({value}) => <span>{value}</span>,
         },
@@ -103,14 +89,26 @@ const ViewPage = () => {
             title: t('Narxi(so`m)'),
             key: 'material_price',
             render: ({value, row}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
-                                                     thousandSeparator={' '} value={value*get(currency,`data[${get(row,'material_price_currency')}]`,1)}
+                                                     thousandSeparator={' '}
+                                                     value={value * get(currency, `data[${get(row, 'material_price_currency')}]`, 1)}
                                                      suffix={` (${get(row, 'material_measure')})`}/>,
+            classnames: 'text-center  whitespace-nowrap',
+            sorter: true
+        },
+        {
+            title: t('Miqdori'),
+            key: 'material_amount',
+            render: ({value, row}) => <NumericFormat displayType={'text'}
+                                                     className={'text-center bg-transparent  whitespace-nowrap'}
+                                                     thousandSeparator={' '}
+                                                     value={value}
+                                                     suffix={` ${get(row, 'material_measure')}`}/>,
             classnames: 'text-center',
             sorter: true
         },
         {
-            title: t('Oxirgi o’zgarish'),
-            key: 'material_updated_date',
+            title: t('Joylangan vaqt'),
+            key: 'material_created_date',
             render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm"),
             classnames: 'text-center',
             sorter: true
@@ -131,7 +129,7 @@ const ViewPage = () => {
         return <ErrorPage/>
     }
 
-    if (isLoading || isLoadingRegion || isLoadingDistrict) {
+    if (isLoading) {
         return <Main><ContentLoader/></Main>;
     }
     return (
@@ -140,35 +138,34 @@ const ViewPage = () => {
                 <Menu active={1}/>
                 <Section className={'!bg-white'}>
                     <div className="grid grid-cols-12 gap-x-10">
-                        <div className="col-span-5 text-center relative h-64">
+                        <div className="col-span-2 text-center relative h-28">
                             {
-                                get(material,'data.material_image') ?  <Image className={'mr-2'} layout={'fill'} objectFit={'contain'} loader={()=>get(material,'data.material_image')} src={get(material,'data.material_image')}
-                                       alt={'code'}/> :    <Image className={'mx-auto'} width={370} height={260} src={'/images/material.png'}
-                                alt={'company'}/>
+                                get(company, 'data.company_logo') ?
+                                    <Image className={'mr-2'} layout={'fill'} objectFit={'contain'}
+                                           loader={() => get(company, 'data.company_logo')}
+                                           src={get(company, 'data.company_logo')}
+                                           alt={'code'}/> :
+                                    <Image className={'mx-auto'} width={150} height={105} src={'/images/company.png'}
+                                           alt={'company'}/>
                             }
 
                         </div>
-                        <div className="col-span-7">
-                            <div className="flex">
-                                <div className={'inline-flex mr-8'}>
-                                    <Image className={'mr-2'} width={24} height={24} src={'/icons/code.svg'}
-                                           alt={'code'}/>
-                                    <span className={'font-medium'}>#{get(material, 'data.material_csr_code')}</span>
-                                </div>
-                                <div className={'inline-flex mr-8'}>
-                                    <Image className={'mr-2'} width={24} height={24} src={'/icons/eye.svg'}
-                                           alt={'code'}/>
-                                    <span
-                                        className={'font-medium'}>{get(material, 'data.material_views_count', 0)}</span>
-                                </div>
+                        <div className="col-span-10">
+                            <div className="flex mb-2.5">
+                                <h2 className={'text-[#212529] font-medium mr-3'}>{get(company, 'data.company_name')}</h2>
                                 <div className={'inline-flex mr-8 cursor-pointer'}>
                                     <Image className={'mr-1.5'} width={24} height={24} src={'/icons/stick.svg'}
                                            alt={'code'}/>
-                                    <span className={'font-medium'}>{t('save')}</span>
                                 </div>
                             </div>
-                            <h2 className={'my-3 text-xl font-semibold'}>{get(material, 'data.material_name')}</h2>
-                            <p className={'text-[#4B5055] text-sm'}>{get(material, 'data.material_desc', '-')}</p>
+                            <p className={'text-[#4B5055] text-sm'}>{get(company, 'data.company_desc', '-')}</p>
+                            <div className="flex mt-2.5">
+                                <div className={'mr-4'}>
+                                    <strong>{t("Rahbar")}:</strong> {get(company, 'data.company_owner')}</div>
+                                <div className={'mr-4'}>
+                                    <strong>{t("Telefon")}:</strong> {get(company, 'data.company_phone_main')}</div>
+                                <div><strong>{t("Manzil")}:</strong> {get(company, 'data.company_address')}</div>
+                            </div>
                         </div>
                     </div>
                 </Section>
@@ -176,22 +173,17 @@ const ViewPage = () => {
                     <div className="grid grid-cols-12">
                         <div className="col-span-12 ">
                             <GridView
-                                HeaderBody={<div className="flex mb-5"><Select
-                                    getValue={(val) => setRegionId(get(val, 'value'))} sm
-                                    label={t('region')}
-                                    options={getOptionList(get(regions, 'data.results', []), 'id', 'region_name')}/>
-                                    <div className="ml-8"><Select getValue={(val) => setDistrictId(get(val, 'value'))}
-                                                                  sm label={t('district')}
-                                                                  options={getOptionList(get(districts, 'data.results', []), 'id', 'district_name')}/>
-                                    </div>
+                                HeaderBody={<div className={'mb-5'}>
+                                    <Title classNames={'!mb-2.5'}>Korxonaning bARCHA TAKLIFLARI</Title>
+                                    <p className={'text-sm text-[#4B5055]'}><NumericFormat value={count}
+                                                                                           displayType={'text'}
+                                                                                           thousandSeparator={" "}/> e’lon
+                                        mavjud</p>
                                 </div>}
-                                url={`${URLS.materialAds}${code}/`}
-                                key={KEYS.materialAds}
-                                params={{
-                                    region: regionId,
-                                    district: districtId
-                                }}
+                                url={`${URLS.companyAds}${stir}/`}
+                                key={KEYS.companyAds}
                                 columns={columns}
+                                getCount={setCount}
                             />
                         </div>
                     </div>

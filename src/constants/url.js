@@ -23,4 +23,6 @@ export const URLS = {
     search: 'search',
     myMaterials: 'materials/ads/my/',
     currency: 'currency/',
+    companies: 'companies/',
+    companyAds: 'companies/ads/',
 };
