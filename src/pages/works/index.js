@@ -12,24 +12,25 @@ import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import {URLS} from "@/constants/url";
 import {useTranslation} from "react-i18next";
+import {useState} from "react";
 
 
 export default function Works() {
     const {t} = useTranslation()
+    const [pageSize,setPageSize] = useState(24);
     const {
         data: volumes,
         isError,
         isLoading,
         isFetching,
-        error
     } = useQuery([KEYS.categories], () => getCategories({url: URLS.categories, params: {key: KEYS.works}}));
     const {
         data: items,
         isLoading: machineLoading,
         isError: machineError,
-    } = useQuery([KEYS.works], () => getMostOrdered({
+    } = useQuery([KEYS.works,pageSize], () => getMostOrdered({
         url: URLS.works,
-        params: {key: KEYS.viewCounts}
+        params: {key: KEYS.viewCounts,page_size:pageSize}
     }));
     if (isError || machineError) {
         return <ErrorPage/>
@@ -44,7 +45,7 @@ export default function Works() {
                 <div className="grid grid-cols-12 gap-x-8 ">
                     {
                         !isEmpty(get(volumes, 'results', [])) && get(volumes, 'results', []).map(volume => <div
-                            key={get(volume, 'id')} className={'col-span-3 mb-5'}><Category url={'works/volume'} name={'category_name'} logo_url={'category_logo'}
+                            key={get(volume, 'id')} className={'col-span-3 mb-5'}><Category url={'works/category'} name={'category_name'} logo_url={'category_logo'}
                             data={volume}/></div>)
                     }
                 </div>
@@ -58,6 +59,9 @@ export default function Works() {
                             <Product name={'work_name'} code={'work_csr_code'} data={item} img={'work_image'} viewUrl={'works'}/>
                         </div>)
                     }
+                    <div className="col-span-12 text-center">
+                        <span className={'cursor-pointer underline'} onClick={()=>setPageSize(prev => prev + 24)}>{t('Barcha mahsulotlarni ko’rish')}</span>
+                    </div>
                 </div>
             </Section>
         </Main>

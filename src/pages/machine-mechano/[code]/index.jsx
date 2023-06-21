@@ -59,7 +59,8 @@ const ViewPage = () => {
         {
             title: t('Logo'),
             key: 'material_image',
-            render: () => <Image className={'mx-auto'} width={80} height={56} src={'/images/company.png'} alt={'logo'}/>,
+            render: () => <Image className={'mx-auto'} width={80} height={56} src={'/images/company.png'}
+                                 alt={'logo'}/>,
             classnames: 'text-center'
         },
         {
@@ -96,7 +97,8 @@ const ViewPage = () => {
             title: t('Narxi(so`m)'),
             key: 'mmechano_rent_price',
             render: ({value, row}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
-                                                     thousandSeparator={' '} value={value*get(currency,`data[${get(row,'mmechano_rent_price_currency')}]`,1)}
+                                                     thousandSeparator={' '}
+                                                     value={value * get(currency, `data[${get(row, 'mmechano_rent_price_currency')}]`, 1)}
                                                      suffix={` (${get(row, 'mmechano_measure')})`}/>,
             classnames: 'text-center',
             sorter: true
@@ -134,9 +136,16 @@ const ViewPage = () => {
                 <Menu active={2}/>
                 <Section className={'!bg-white'}>
                     <div className="grid grid-cols-12">
-                        <div className="col-span-5 text-center">
-                            <Image className={'mx-auto'} width={370} height={260} src={'/images/material.png'}
-                                   alt={'company'}/>
+                        <div className="col-span-5 text-center relative h-64">
+                            {
+                                get(material, 'data.mmechano_image') ?
+                                    <Image className={'mr-2'} layout={'fill'} objectFit={'contain'}
+                                           loader={() => get(material, 'data.mmechano_image')}
+                                           src={get(material, 'data.mmechano_image')}
+                                           alt={'code'}/> :
+                                    <Image className={'mx-auto'} width={370} height={260} src={'/images/material.png'}
+                                           alt={'company'}/>
+                            }
                         </div>
                         <div className="col-span-7">
                             <div className="flex">
@@ -158,16 +167,6 @@ const ViewPage = () => {
                                 </div>
                             </div>
                             <h2 className={'my-3 text-xl font-semibold'}>{get(material, 'data.mmechano_name')}</h2>
-                            {/*<div className="flex mb-5 ">*/}
-                            {/*    <div className={'inline-flex mr-20'}>*/}
-                            {/*        <strong className={'font-medium text-[#212529] mr-1'}>O’rtacha narx: </strong><span*/}
-                            {/*        className={'text-[#4B5055]'}> 504 000 so’m</span>*/}
-                            {/*    </div>*/}
-                            {/*    <div className={'inline-flex'}>*/}
-                            {/*        <strong className={'font-medium text-[#212529] mr-1'}>O’rtacha joriy narx: </strong><span*/}
-                            {/*        className={'text-[#4B5055]'}> 504 000 so’m</span>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
                             <p className={'text-[#4B5055] text-sm'}>{get(material, 'data.mmechano_description', '-')}</p>
                         </div>
                     </div>

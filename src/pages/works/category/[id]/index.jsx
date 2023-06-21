@@ -18,49 +18,41 @@ import {useTranslation} from "react-i18next";
 
 const Index = () => {
     const router = useRouter();
-    const {id} = router.query;
     const {t} = useTranslation()
+    const {id} = router.query;
     const [page, setPage] = useState(1);
-    const [categoryId, setCategoryId] = useState(null)
     const [groupId, setGroupId] = useState(null)
     const {data: materials, isLoading, isError: isErrorMaterials, isFetching} = useGetQuery({
         key: KEYS.works,
         url: URLS.works,
         params: {
             page,
-            key: groupId ? 'group' : categoryId ? 'category' : 'volume',
-            value: groupId ? groupId : categoryId ? categoryId : id,
+            key: groupId ? 'group' : 'category',
+            value: groupId ? groupId : id,
         },
         enabled: !!(id)
     });
     const {
-        data: volumes,
-        isLoading: isLoadingVolumes,
-        isError: isErrorVolumes
-    } = useGetQuery({key: KEYS.volumes, url: URLS.volumes, params: {key: KEYS.works}});
-    const {
         data: categories,
-    } = useGetQuery({
-        key: [KEYS.categories, id],
-        url: URLS.categories,
-        params: {key: KEYS.works, parent: id},
-        enabled: !!(id)
-    });
+        isLoading: isLoadingCategory,
+        isError: isErrorCategory
+    } = useGetQuery({key: KEYS.categories, url: URLS.categories, params: {key: KEYS.works}});
+
 
     const {
         data: groups,
     } = useGetQuery({
-        key: [KEYS.groups, id, categoryId],
+        key: [KEYS.groups, id],
         url: URLS.groups,
-        params: {key: KEYS.works, parent: categoryId},
-        enabled: !!(categoryId)
+        params: {key: KEYS.works, parent: id},
+        enabled: !!(id)
     });
 
-    if (isErrorVolumes || isErrorMaterials) {
+    if (isErrorCategory || isErrorMaterials) {
         return <ErrorPage/>
     }
 
-    if (isLoading || isLoadingVolumes) {
+    if (isLoading || isLoadingCategory) {
         return <Main><ContentLoader/></Main>;
     }
 
@@ -77,14 +69,14 @@ const Index = () => {
                     <div className="col-span-12 mb-5">
                         <Select
                             name={'material'}
-                            defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title', true), '/works/volume')}
+                            defaultValue={getDefaultValue(getOptionList(menuData, 'filterUrl', 'title', true), '/works/category')}
                             getValue={(val) => {
-                                if (get(val, 'value') && !isEqual(get(val, 'value'), '/works/volume')) {
+                                if (get(val, 'value') && !isEqual(get(val, 'value'), '/works/category')) {
                                     router.push(get(val, 'value'))
                                 }
                             }}
                             options={getOptionList(menuData, 'filterUrl', 'title', true)}
-                            label={t('Tanlangan mahsulot turi')}/>
+                            label={'Tanlangan mahsulot turi'}/>
                     </div>
                     <div className="col-span-12 mb-5">
                         <Select
@@ -92,37 +84,30 @@ const Index = () => {
                             getValue={(val) => {
                                 if (get(val, 'value')) {
                                     setPage(1)
-                                    setCategoryId(null);
                                     setGroupId(null);
-                                    router.push(`/works/volume/${get(val, 'value')}`)
+                                    router.push(`/works/category/${get(val, 'value')}`)
                                 }
                             }}
-                            defaultValue={getDefaultValue(getOptionList(get(volumes, 'data.results', []), 'id', 'volume_name'), id)}
-                            options={getOptionList(get(volumes, 'data.results', []), 'id', 'volume_name')}
-                            label={t('Tanlangan bo‘lim')}/>
+                            defaultValue={getDefaultValue(getOptionList(get(categories, 'data.results', []), 'id', 'category_name'), id)}
+                            options={getOptionList(get(categories, 'data.results', []), 'id', 'category_name')}
+                            label={'Tanlangan kategoriya'}/>
                     </div>
-                    <div className="col-span-12 mb-5">
-                        <Select name={`category-${categoryId}`} defaultValue={null} getValue={(val) => {
-                            setGroupId(null)
-                            setCategoryId(get(val, 'value'))
-                        }}
-                                options={getOptionList(get(categories, 'data.results', []), 'id', 'category_name')}
-                                label={t('Tanlangan kategoriya')}/>
-                    </div>
+
                     <div className="col-span-12 mb-5">
                         <Select name={`group-${groupId}`} getValue={(val) => setGroupId(get(val, 'value'))}
                                 options={getOptionList(get(groups, 'data.results', []), 'id', 'group_name')}
-                                label={t('Tanlangan guruh')}/>
+                                label={'Tanlangan guruh'}/>
                     </div>
                 </div>
-                <div className="grid grid-cols-12 gap-x-8 mt-8 items-start">
+                <div className="grid grid-cols-12 gap-x-8 mt-8  min-h-fit">
                     <div className="col-span-12">
-                        <Title>{t("mahsulotlar")}</Title>
+                        <Title>mahsulotlar</Title>
                     </div>
                     {
-                        get(materials, 'data.results', []).map(material => <div key={get(material, 'techno_csr_code')}
-                                                                                className={'col-span-3 mb-[30px] '}>
-                            <Product viewUrl={'technos'} name={'techno_name'} img={'techno_image'} code={'techno_csr_code'} data={material}/>
+                        get(materials, 'data.results', []).map(material => <div
+                            key={get(material, 'work_csr_code')}
+                            className={'col-span-3 mb-[30px] '}>
+                            <Product  name={'work_name'} code={'work_csr_code'}img={'work_image'} data={material} viewUrl={'works'}/>
                         </div>)
                     }
                     <div className={'col-span-12'}>
