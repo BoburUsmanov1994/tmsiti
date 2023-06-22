@@ -9,7 +9,7 @@ const Main = ({children}) => {
     return (
         <Wrapper>
             <marquee className="absolute top-0 pt-1 text-red-600 z-50">
-                <span class="font-semibold text-sm">{t("Tizim test rejimida ishlamoqda")}</span>
+                <span className="font-semibold text-sm">{t("Tizim test rejimida ishlamoqda")}</span>
             </marquee>
             <Header/>
             <main>
