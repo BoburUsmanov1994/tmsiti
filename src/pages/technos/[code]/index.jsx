@@ -67,7 +67,7 @@ const ViewPage = () => {
         {
             title: t('Korxona nomi'),
             key: 'company_name',
-            render: ({value,row}) => <Link href={`/company/${get(row,'company_stir')}`} className={'underline'}>{value}</Link>,
+            render: ({value,row}) => <Link href={`/company/${get(row,'company_stir')}`} className={'underline text-[#146BBC]'}>{value}</Link>,
             classnames: 'text-center',
             sorter: true
         },
@@ -96,16 +96,16 @@ const ViewPage = () => {
         {
             title: t('Narxi(so`m)'),
             key: 'techno_price',
-            render: ({value, row}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
-                                                     thousandSeparator={' '} value={value*get(currency,`data[${get(row,'techno_price_currency')}]`,1)}
-                                                     suffix={` (${get(row, 'techno_measure')})`}/>,
+            render: ({value, row}) => ( value*get(currency,`data[${get(row,'material_price_currency')}]`,1) > 0 ? <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+                                                                                                                                 thousandSeparator={' '} value={value*get(currency,`data[${get(row,'material_price_currency')}]`,1)}
+                                                                                                                                 suffix={` (${get(row, 'material_measure')})`}/> : t("by_order")),
             classnames: 'text-center',
             sorter: true
         },
         {
             title: t('Kompaniya telefon raqami'),
             key: 'phone_number',
-            render: ({value})=> <span><a href={`tel:${value}`}>{value}</a></span>,
+            render: ({value}) => <Link href={`tel:${value}`} className={'text-[#146BBC]'}>{value}</Link>,
             classnames: 'text-center'
         },
         {

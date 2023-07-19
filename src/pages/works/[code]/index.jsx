@@ -96,9 +96,9 @@ const ViewPage = () => {
         {
             title: t('Narxi(so`m)'),
             key: 'techno_price',
-            render: ({value, row}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+            render: ({value, row}) => (value*get(currency,`data[${get(row,'techno_price_currency')}]`,1) > 0 ? <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
                                                      thousandSeparator={' '} value={value*get(currency,`data[${get(row,'techno_price_currency')}]`,1)}
-                                                     suffix={` (${get(row, 'techno_measure')})`}/>,
+                                                     suffix={` (${get(row, 'techno_measure')})`}/> : t("by_order")),
             classnames: 'text-center',
             sorter: true
         },

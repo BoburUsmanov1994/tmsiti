@@ -9,7 +9,7 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 import Image from "next/image";
-import {get} from "lodash";
+import {get, isEqual} from "lodash";
 import Select from "@/components/select";
 import GridView from "@/containers/grid-view";
 import {NumericFormat} from 'react-number-format';
@@ -72,7 +72,7 @@ const ViewPage = () => {
         {
             title: t('Korxona nomi'),
             key: 'company_name',
-            render: ({value,row}) => <Link href={`/company/${get(row,'company_stir')}`} className={'underline'}>{value}</Link>,
+            render: ({value,row}) => <Link href={`/company/${get(row,'company_stir')}`} className={'underline text-[#146BBC]'}>{value}</Link>,
             classnames: 'text-center',
             sorter: true
         },
@@ -102,16 +102,16 @@ const ViewPage = () => {
         {
             title: t('Narxi(so`m)'),
             key: 'material_price',
-            render: ({value, row}) => <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+            render: ({value, row}) => ( value*get(currency,`data[${get(row,'material_price_currency')}]`,1) > 0 ? <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
                                                      thousandSeparator={' '} value={value*get(currency,`data[${get(row,'material_price_currency')}]`,1)}
-                                                     suffix={` (${get(row, 'material_measure')})`}/>,
+                                                     suffix={` (${get(row, 'material_measure')})`}/> : t("by_order")),
             classnames: 'text-center',
             sorter: true
         },
         {
             title: t('Kompaniya telefon raqami'),
             key: 'phone_number',
-            render: ({value})=> <span><a href={`tel:${value}`}>{value}</a></span>,
+            render: ({value}) => <Link href={`tel:${value}`} className={'text-[#146BBC]'}>{value}</Link>,
             classnames: 'text-center'
         },
 
