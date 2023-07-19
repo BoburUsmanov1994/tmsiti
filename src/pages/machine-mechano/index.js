@@ -13,7 +13,7 @@ import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import {URLS} from "@/constants/url";
 import {useTranslation} from "react-i18next";
-import Format1 from "@/components/product/format2";
+import Format1 from "@/components/product/format1";
 
 
 export default function MachinesMechanos() {

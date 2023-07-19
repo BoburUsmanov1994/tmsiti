@@ -161,7 +161,7 @@ const ViewPage = () => {
                             <p className={'text-[#4B5055] text-sm'}>{get(company, 'data.company_desc', '-')}</p>
                             <div className="flex mt-2.5">
                                 <div className={'mr-4'}>
-                                    <strong>{t("Rahbar")}:</strong> {get(company, 'data.company_owner')}</div>
+                                    <strong>{t("Rahbar")}:</strong> {get(company, 'data.company_ceo')}</div>
                                 <div className={'mr-4'}>
                                     <strong>{t("Telefon")}:</strong> {get(company, 'data.company_phone_main')}</div>
                                 <div><strong>{t("Manzil")}:</strong> {get(company, 'data.company_address')}</div>

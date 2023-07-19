@@ -14,7 +14,7 @@ import {URLS} from "@/constants/url";
 import {getVolumes} from "../../api";
 import {useState} from "react"
 import {useTranslation} from "react-i18next";
-import Format1 from "@/components/product/format2";
+import Format1 from "@/components/product/format1";
 
 
 export default function Technos() {

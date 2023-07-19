@@ -109,6 +109,13 @@ const ViewPage = () => {
             sorter: true
         },
         {
+            title: t('Kompaniya telefon raqami'),
+            key: 'phone_number',
+            render: ({value})=> <span><a href={`tel:${value}`}>{value}</a></span>,
+            classnames: 'text-center'
+        },
+
+        {
             title: t('Oxirgi o’zgarish'),
             key: 'material_updated_date',
             render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm"),

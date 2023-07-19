@@ -15,7 +15,7 @@ import {URLS} from "../constants/url";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {OverlayLoader} from "../components/loader";
-import Format1 from "@/components/product/format2";
+import Format1 from "@/components/product/format1";
 
 
 export default function Home() {
