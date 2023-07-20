@@ -8,7 +8,7 @@ const Main = ({children}) => {
     const {t} = useTranslation()
     return (
         <Wrapper>
-            <marquee className="absolute top-0 pt-1 text-red-600 z-50">
+            <marquee className="absolute top-0 pt-1 text-red-600">
                 <span className="font-semibold text-sm">{t("Tizim test rejimida ishlamoqda")}</span>
             </marquee>
             <Header/>
