@@ -6,6 +6,7 @@ import {KEYS} from "../../../constants/key";
 import {URLS} from "../../../constants/url";
 
 const Materials = () => {
+
     const columns = [
         {
             title: '№',

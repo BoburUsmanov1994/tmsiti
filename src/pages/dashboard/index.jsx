@@ -1,11 +1,140 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Dashboard from "../../layouts/dashboard";
 import Subheader from "../../layouts/dashboard/components/subheader";
+import {useTranslation} from "react-i18next";
+import {get} from 'lodash';
+import PopChart from "@/layouts/dashboard/components/chart";
+import {color} from "framer-motion";
+
+export const menuData = [
+    {
+        id: 1,
+        title: 'Qurilish materiallari',
+        color: '#FFD615',
+        quantity: 0,
+    },
+    {
+        id: 2,
+        title: 'Mashina va mexanizmlar',
+        color: '#08BFC1',
+        quantity: 0,
+    },
+    {
+        id: 3,
+        title: 'Qurilish ishlari',
+        color: '#43DB57',
+        quantity: 0,
+    },
+    {
+        id: 4,
+        title: 'Kichik mexanizatsiya',
+        color: '#8A7FE2',
+        quantity: 0,
+    },
+    {
+        id: 5,
+        title: 'Uskuna va qurilmalar',
+        color: '#95B36E',
+        quantity: 0,
+    },
+    {
+        id: 6,
+        title: 'Qurilish buyumlari',
+        color: '#B36E97',
+        quantity: 0,
+    },
+
+]
 
 const Index = () => {
+    const {t} = useTranslation();
+    const [isActive, setIsActive] = useState(3);
+    const [statistics, setStatistics] = useState(1)
+    const Viewed = () => {
+        setStatistics(1)
+    };
+    const Sold = ()  => {
+        setStatistics(2)
+    }
+
+    const Activate1 = () => {
+        setIsActive(3)
+    }
+
+    const Activate2 = () => {
+        setIsActive(4);
+    }
+    const Activate3 = () => {
+        setIsActive(5);
+    }
+
     return (
         <Dashboard>
-                <Subheader title={'Statistik ma’lumotlar'} />
+                <Subheader title={'Statistik ma’lumotla'} />
+                <div className={'grid grid-cols-12 gap-x-[30px] p-[30px]'}>
+                    <div className={'col-span-3 bg-white mt-[30px] p-[30px]'}>
+                        <h2 className={'text-xl text-[#000] font-bold mb-[18px]'}>Yuklangan e’lonlar</h2>
+
+                        <ul className={'text-[#000]'}>
+                            {
+                                menuData.map(item =>
+                                    <li key={get(item, 'id')} className={'flex justify-between'}>
+                                        <div className={'flex gap-[10px]'}>
+                                            <div className={`w-[20px] h-[20px] bg-[${(get(item, 'color'))} ]`}></div>
+
+                                            <h3>{get(item, 'title')}</h3>
+                                        </div>
+
+                                        <span>{get(item, 'quantity')}</span>
+                                    </li>
+                                )
+                            }
+                        </ul>
+                    </div>
+
+                    <div className={'col-span-7 bg-white mt-[30px] p-[30px]'}>
+                        <div className={'flex items-center gap-x-[30px] mb-[19px]'}>
+                            <h2 className={'text-xl text-[#000] font-bold'}>Top mahsulotlar</h2>
+
+                            <div className={'flex gap-x-[5px]'}>
+                                <button onClick={Viewed} className={`text-xs  ${statistics === 1 ? "text-[#017EFA]" : "text-[#697299]"}`}>
+                                    Ko'rilganlar
+                                </button>
+
+                                <div className={`h-[auto] w-[1px] ${statistics === 1 ? 'bg-[#017EFA]' : "bg-[#697299]"}`}></div>
+
+                                <button onClick={Sold} className={`text-xs  ${statistics === 2 ? "text-[#017EFA]" : "text-[#697299]"}`}>
+                                    Sotilganlar
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            {statistics === 1 && <p>Ko'rilgan mahsulotlar mavjud emas</p>}
+                            {statistics === 2 && <p>Sotilgan mahsulotlar  mavjud emas</p>}
+
+                        </div>
+                    </div>
+
+                    <div className={'col-span-10 mt-[30px] bg-[#fff]'}>
+                        <div className={'p-[30px] flex justify-between '}>
+                            <h2 className={'text-xl text-[#000] font-bold mb-[18px]'}>Tizimda mavjud e’lonlarni ko’rish dinamikasi </h2>
+                            <div className={'flex gap-x-[5px]'}>
+                                <button onClick={Activate1} className={`px-[15px] py-[15px] rounded-[6px] ${isActive === 3 ? "bg-[#017EFA] text-[#fff]" : "bg-transparent text-[#017EFA]"}`}>
+                                    Kunlik
+                                </button>
+                                <button onClick={Activate2} className={`px-[15px] py-[15px] rounded-[6px] ${isActive === 4 ? "bg-[#017EFA] text-[#fff]" : "bg-transparent text-[#017EFA]"}`}>
+                                    Haftalik
+                                </button>
+                                <button onClick={Activate3} className={`px-[15px] py-[15px] rounded-[6px] ${isActive === 5 ? "bg-[#017EFA] text-[#fff]" : "bg-transparent text-[#017EFA]"}`}>
+                                    Oylik
+                                </button>
+                            </div>
+
+                        </div>
+                        <PopChart/>
+                    </div>
+                </div>
         </Dashboard>
     );
 };

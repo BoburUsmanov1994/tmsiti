@@ -46,7 +46,7 @@ export const menuData = [
         url: '/volumes',
     }
 ]
-const Menu = ({active = 1}) => {
+const Menu = ({active = 0}) => {
     const {t} = useTranslation()
     return (
         <div className={' bg-[#28366D]  py-5 '}>
