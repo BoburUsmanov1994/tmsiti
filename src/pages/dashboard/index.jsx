@@ -70,7 +70,7 @@ const Index = () => {
 
     return (
         <Dashboard>
-                <Subheader title={'Statistik ma’lumotla'} />
+                <Subheader title={'Statistik ma’lumotlar'} />
                 <div className={'grid grid-cols-12 gap-x-[30px] p-[30px]'}>
                     <div className={'col-span-3 bg-white mt-[30px] p-[30px]'}>
                         <h2 className={'text-xl text-[#000] font-bold mb-[18px]'}>Yuklangan e’lonlar</h2>
