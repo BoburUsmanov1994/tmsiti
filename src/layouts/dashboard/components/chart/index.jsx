@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import Chart from 'react-apexcharts';
+import dynamic from 'next/dynamic';
 import {menuData} from "@/pages/dashboard";
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 class PopChart extends Component {
     constructor(props) {
         super(props);
