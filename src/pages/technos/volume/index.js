@@ -106,7 +106,7 @@ const Index = () => {
                     {
                         get(materials, 'data.results', []).map(material => <div key={get(material, 'techno_csr_code')}
                                                                                 className={` ${isActive === 1 && isActive === 2 && 'col-span-3'} ${isActive === 0 && 'col-span-6'} col-span-3 mb-[30px] `}>
-                            <Product viewUrl={'technos'} name={'techno_name'} img={'techno_image'} code={'techno_csr_code'} data={material}/>
+                            <Product template={(isActive == 0 || isActive == 2) ? 'list' : 'card'} viewUrl={'technos'} name={'techno_name'} img={'techno_image'} code={'techno_csr_code'} data={material}/>
                         </div>)
                     }
                     <div className={'col-span-12'}>
