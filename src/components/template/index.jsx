@@ -63,7 +63,7 @@ const Template = ({
             </button>
 
             <button onClick={() => handleClickFormat(2)}
-                    className={clsx("bg-transparent text-[#28366D] rounded-[5px]",{"!bg-[#1890FF] !text-white": active == 2})}>
+                    className={clsx("bg-transparent text-[#28366D] rounded-[5px]",{"!bg-[#1890FF] !git pulltext-white": active == 2})}>
                 <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_475_3038)">
                         <path
