@@ -80,7 +80,7 @@ const Index = () => {
                                 menuData.map(item =>
                                     <li key={get(item, 'id')} className={'flex justify-between'}>
                                         <div className={'flex gap-[10px]'}>
-                                            <div className={`w-[20px] h-[20px] bg-[${(get(item, 'color'))} ]`}></div>
+                                            <div style={{backgroundColor:`${(get(item, 'color'))}`}} className={`w-[20px] h-[20px] ]`}></div>
 
                                             <h3>{get(item, 'title')}</h3>
                                         </div>

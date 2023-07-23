@@ -48,6 +48,9 @@ const Materials = () => {
             <Subheader title={'Qurilish materiallari'}/>
             <div className="p-7">
                 <div className="grid grid-cols-12">
+                    <div>
+                        
+                    </div>
                     <div className="col-span-12 ">
                         <GridView
                             hasActionColumn

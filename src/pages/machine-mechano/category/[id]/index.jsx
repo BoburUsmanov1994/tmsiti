@@ -14,11 +14,18 @@ import ErrorPage from "@/pages/500";
 import {useRouter} from "next/router";
 import {getDefaultValue, getOptionList} from "@/utils";
 import Pagination from "@/components/pagination";
+import Template from "@/components/template";
 
 const Index = () => {
     const router = useRouter();
     const {id} = router.query;
     const [page, setPage] = useState(1);
+    const [isActive, setIsActive] = useState(0);
+
+
+    const handleClickFormat = (type) => {
+        setIsActive(type)
+    }
     const [groupId, setGroupId] = useState(null)
     const {data: materials, isLoading, isError: isErrorMaterials, isFetching} = useGetQuery({
         key: KEYS.machinesMechanos,
@@ -100,11 +107,13 @@ const Index = () => {
                 <div className="grid grid-cols-12 gap-x-8 mt-8 items-start">
                     <div className="col-span-12">
                         <Title>mahsulotlar</Title>
+
+                        <Template active={isActive} handleClickFormat={setIsActive}/>
                     </div>
                     {
                         get(materials, 'data.results', []).map(material => <div key={get(material, 'mmechano_csr_code')}
-                                                                                className={'col-span-3 mb-[30px] '}>
-                            <Product viewUrl={'machine-mechano'} img={'mmechano_image'} code={'mmechano_csr_code'} name={'mmechano_name'} data={material}/>
+                                                                                className={`${isActive === 1 && isActive === 2 && 'col-span-3'} ${isActive === 0 && 'col-span-6'} col-span-3 mb-[30px] `}>
+                            <Product template={(isActive == 0 || isActive == 2) ? 'list' : 'card'} viewUrl={'machine-mechano'} img={'mmechano_image'} code={'mmechano_csr_code'} name={'mmechano_name'} data={material}/>
                         </div>)
                     }
                     <div className={'col-span-12'}>

@@ -19,10 +19,11 @@ const GridView = ({
                       },
                       hasActionColumn = false,
                       viewUrl = '#',
+                      defaultPageSize = 48
                   }) => {
     const {t} = useTranslation()
     const [page, setPage] = useState(1)
-    const [pageSize, setPageSize] = useState(48)
+    const [pageSize, setPageSize] = useState(defaultPageSize)
     const [sort, setSort] = useState(undefined)
     const {data, isLoading, isFetching} = useGetQuery({
         key: key,

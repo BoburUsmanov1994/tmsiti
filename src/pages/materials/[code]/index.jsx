@@ -26,6 +26,7 @@ const ViewPage = () => {
     const [regionId, setRegionId] = useState(null)
     const [districtId, setDistrictId] = useState(null)
 
+
     const {data: currency} = useGetQuery({
         key: KEYS.currency,
         url: URLS.currency,
