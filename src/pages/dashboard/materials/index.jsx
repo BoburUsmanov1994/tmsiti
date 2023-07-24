@@ -4,6 +4,7 @@ import Subheader from "../../../layouts/dashboard/components/subheader";
 import GridView from "../../../containers/grid-view";
 import {KEYS} from "../../../constants/key";
 import {URLS} from "../../../constants/url";
+import Select from "@/layouts/dashboard/components/select";
 
 const Materials = () => {
 
@@ -48,8 +49,11 @@ const Materials = () => {
             <Subheader title={'Qurilish materiallari'}/>
             <div className="p-7">
                 <div className="grid grid-cols-12">
-                    <div>
-                        
+                    <div className={'col-span-12'}>
+                        <div className={'flex gap-x-[10px] items-center'}>
+                            <Select/>
+                            <span> tadan ko'rish </span>
+                        </div>
                     </div>
                     <div className="col-span-12 ">
                         <GridView

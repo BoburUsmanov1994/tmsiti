@@ -9,7 +9,7 @@ import {color} from "framer-motion";
 export const menuData = [
     {
         id: 1,
-        title: 'Qurilish materiallari',
+        title: 'Qurilish materiallari va buyumlari',
         color: '#FFD615',
         quantity: 0,
     },
@@ -37,12 +37,7 @@ export const menuData = [
         color: '#95B36E',
         quantity: 0,
     },
-    {
-        id: 6,
-        title: 'Qurilish buyumlari',
-        color: '#B36E97',
-        quantity: 0,
-    },
+
 
 ]
 

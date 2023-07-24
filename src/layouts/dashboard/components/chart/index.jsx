@@ -113,14 +113,7 @@ class PopChart extends Component {
 
                 },
 
-                {
-                    name: menuData[5].title,
-                    color: menuData[5].color,
-                    data: [
-                        70,139,20,78,313,24,184,33,45,106,180,90
-                    ],
 
-                },
 
 
 
