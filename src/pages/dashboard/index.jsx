@@ -127,8 +127,8 @@ const Index = () => {
                                 <div>
                                     <ul>
                                         {get(userTopAds, 'data', []).map(item =>
-                                            <li className={'flex gap-x-[66px]'}>
-                                                <span className={'text-[#28366D]'}>#{get(item, 'material_name')}</span>
+                                            <li className={'flex justify-between'}>
+                                                <span className={'text-[#28366D] text-xs'}>#{get(item, 'material_name')}</span>
                                                 <Link href={`/${get(item, 'material_url')}`} >
                                                     <p>{get(item, 'material_type')}</p>
                                                 </Link>

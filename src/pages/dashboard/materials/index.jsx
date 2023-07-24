@@ -54,7 +54,7 @@ const Materials = () => {
             <Subheader title={'Qurilish materiallari'}/>
             <div className="p-7">
                 <div className="grid grid-cols-12">
-                    <div className={'col-span-12 flex items-center justify-between'}>
+                    <div className={'col-span-12 flex items-center justify-between mb-[30px]'}>
                         <div className={'flex  items-center'}>
                             <Select/>
                             <span className={'ml-[10px]'}> tadan ko'rish </span>
