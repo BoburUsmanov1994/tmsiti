@@ -76,6 +76,11 @@ const Index = () => {
         enabled: !!(get(session, 'user.token'))
     })
 
+
+    const {data: userTopAds} = useGetQuery({
+        key: KEYS.userTopAds,
+        url: URLS.userTopAds,
+    })
     return (
         <Dashboard>
                 <Subheader title={'Statistik ma’lumotlar'} />
@@ -118,7 +123,16 @@ const Index = () => {
                         </div>
 
                         <div>
-                            {statistics === 1 && <p>Ko'rilgan mahsulotlar mavjud emas</p>}
+                            {statistics === 1 &&
+                                <div>
+                                    <ul>
+                                        <li>
+                                            <span>{get(userTopAds, 'material_type')}</span>
+                                            <p>{get(userTopAds, 'material_name')}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
                             {statistics === 2 && <p>Sotilgan mahsulotlar  mavjud emas</p>}
 
                         </div>

@@ -25,5 +25,6 @@ export const KEYS = {
     worksAds: 'worksAds',
     companies: 'companies',
     companyAds: 'companyAds',
-    userStat: 'userStat'
+    userStat: 'userStat',
+    userTopAds: '/api/user/top',
 };

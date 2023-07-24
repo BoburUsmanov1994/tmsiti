@@ -26,4 +26,6 @@ export const URLS = {
     companies: 'companies/',
     companyAds: 'companies/ads/',
     userStat: 'api/user/state',
+    userTopAds: '/api/user/top',
+
 };
