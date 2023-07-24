@@ -89,6 +89,7 @@ const Index = () => {
                         <h2 className={'text-xl text-[#000] font-bold mb-[18px]'}>Yuklangan e’lonlar</h2>
 
                         <ul className={'text-[#000]'}>
+
                             {
                                 menuData.map(item =>
                                     <li key={get(item, 'id')} className={'flex justify-between mb-[11px]'}>
@@ -98,7 +99,7 @@ const Index = () => {
                                             <h3>{get(item, 'title')}</h3>
                                         </div>
 
-                                        <span>{get(userStat, 'data', 0)}</span>
+                                        <span>{get(userStat, '', 0)}</span>
                                     </li>
                                 )
                             }
