@@ -17,30 +17,35 @@ export const menuData = [
         title: 'Qurilish materiallari va buyumlari',
         color: '#FFD615',
         quantity: 0,
+        ads:'materials-ads'
     },
     {
         id: 2,
         title: 'Mashina va mexanizmlar',
         color: '#08BFC1',
         quantity: 0,
+        ads:'machine-mechanos-ads'
     },
     {
         id: 3,
         title: 'Qurilish ishlari',
         color: '#43DB57',
         quantity: 0,
+        ads:'works-ads'
     },
     {
         id: 4,
         title: 'Kichik mexanizatsiya',
         color: '#8A7FE2',
         quantity: 0,
+        ads:'small-mechanos-ads'
     },
     {
         id: 5,
         title: 'Uskuna va qurilmalar',
         color: '#95B36E',
         quantity: 0,
+        ads:'technos-ads'
     },
 
 
@@ -81,6 +86,7 @@ const Index = () => {
         key: KEYS.userTopAds,
         url: URLS.userTopAds,
     })
+    console.log('userStat',userStat)
     return (
         <Dashboard>
                 <Subheader title={'Statistik ma’lumotlar'} />
@@ -99,7 +105,7 @@ const Index = () => {
                                             <h3>{get(item, 'title')}</h3>
                                         </div>
 
-                                        <span>{get(userStat, '', 0)}</span>
+                                        <span>{get(userStat, get(item,'ads'), 0)}</span>
                                     </li>
                                 )
                             }
