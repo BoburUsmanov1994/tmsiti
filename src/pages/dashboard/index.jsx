@@ -4,7 +4,11 @@ import Subheader from "../../layouts/dashboard/components/subheader";
 import {useTranslation} from "react-i18next";
 import {get} from 'lodash';
 import PopChart from "@/layouts/dashboard/components/chart";
-import {color} from "framer-motion";
+import {KEYS} from "@/constants/key";
+import {URLS} from "@/constants/url";
+import useGetQuery from "@/hooks/api/useGetQuery";
+import {useSession} from "next-auth/react";
+import {useSettingsStore} from "@/store";
 
 export const menuData = [
     {
@@ -43,6 +47,8 @@ export const menuData = [
 
 const Index = () => {
     const {t} = useTranslation();
+    const {data: session} = useSession();
+    const setToken = useSettingsStore(state => get(state, 'setToken', ()=>{}))
     const [isActive, setIsActive] = useState(3);
     const [statistics, setStatistics] = useState(1)
     const Viewed = () => {
@@ -63,6 +69,13 @@ const Index = () => {
         setIsActive(5);
     }
 
+    const {data: userStat} = useGetQuery({
+        key: KEYS.userStat,
+        url: URLS.userStat,
+        headers: {token: `${get(session, 'user.token')}`},
+        enabled: !!(get(session, 'user.token'))
+    })
+
     return (
         <Dashboard>
                 <Subheader title={'Statistik ma’lumotlar'} />
@@ -80,7 +93,7 @@ const Index = () => {
                                             <h3>{get(item, 'title')}</h3>
                                         </div>
 
-                                        <span>{get(item, 'quantity')}</span>
+                                        <span>{get(userStat, 'data', 0)}</span>
                                     </li>
                                 )
                             }
