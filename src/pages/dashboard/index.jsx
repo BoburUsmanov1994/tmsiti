@@ -9,6 +9,7 @@ import {URLS} from "@/constants/url";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {useSession} from "next-auth/react";
 import {useSettingsStore} from "@/store";
+import Link from "next/link";
 
 export const menuData = [
     {
@@ -72,8 +73,7 @@ const Index = () => {
     const {data: userStat} = useGetQuery({
         key: KEYS.userStat,
         url: URLS.userStat,
-        headers: {token: `${get(session, 'user.token')}`},
-        enabled: !!(get(session, 'user.token'))
+
     })
 
 
@@ -127,9 +127,11 @@ const Index = () => {
                                 <div>
                                     <ul>
                                         {get(userTopAds, 'data', []).map(item =>
-                                            <li>
-                                                <span>{get(item, 'material_type')}</span>
-                                                <p>{get(item, 'material_name')}</p>
+                                            <li className={'flex gap-x-[66px]'}>
+                                                <span className={'text-[#28366D]'}>#{get(item, 'material_type')}</span>
+                                                <Link href={`/${get(item, 'material_url')}`} >
+                                                    <p>{get(item, 'material_name')}</p>
+                                                </Link>
                                             </li>
                                         )}
 
