@@ -126,10 +126,13 @@ const Index = () => {
                             {statistics === 1 &&
                                 <div>
                                     <ul>
-                                        <li>
-                                            <span>{get(userTopAds, 'material_type')}</span>
-                                            <p>{get(userTopAds, 'material_name')}</p>
-                                        </li>
+                                        {get(userTopAds, 'data', []).map(item =>
+                                            <li>
+                                                <span>{get(item, 'material_type')}</span>
+                                                <p>{get(item, 'material_name')}</p>
+                                            </li>
+                                        )}
+
                                     </ul>
                                 </div>
                             }
