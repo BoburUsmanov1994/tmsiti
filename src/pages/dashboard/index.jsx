@@ -105,7 +105,7 @@ const Index = () => {
                                             <h3>{get(item, 'title')}</h3>
                                         </div>
 
-                                        <span>{get(userStat, get(item,'ads'), 0)}</span>
+                                        <span>{get(userStat, `data.${get(item,'ads')}`, 0)}</span>
                                     </li>
                                 )
                             }
