@@ -5,8 +5,13 @@ import GridView from "../../../containers/grid-view";
 import {KEYS} from "../../../constants/key";
 import {URLS} from "../../../constants/url";
 import Select from "@/layouts/dashboard/components/select";
+import Image from "next/image";
+import Button from "@/components/button";
+import {useTranslation} from "react-i18next";
+import Search from "@/layouts/dashboard/components/search";
 
 const Materials = () => {
+    const {t} = useTranslation();
 
     const columns = [
         {
@@ -49,11 +54,24 @@ const Materials = () => {
             <Subheader title={'Qurilish materiallari'}/>
             <div className="p-7">
                 <div className="grid grid-cols-12">
-                    <div className={'col-span-12'}>
-                        <div className={'flex gap-x-[10px] items-center'}>
+                    <div className={'col-span-12 flex items-center justify-between'}>
+                        <div className={'flex  items-center'}>
                             <Select/>
-                            <span> tadan ko'rish </span>
+                            <span className={'ml-[10px]'}> tadan ko'rish </span>
+
+                            <Search classname={'ml-[31px]'}/>
                         </div>
+
+                        <Button
+                                className={'bg-[#1890FF] text-white !border-[#1890FF]  inline-flex items-center'}>
+                            <Image
+
+                                className={'mr-1.5'} width={20} height={40} src={'/icons/plus.svg'}
+                                alt={'plus'}
+                            />{
+
+                            t("E’lon qo’shish")}
+                        </Button>
                     </div>
                     <div className="col-span-12 ">
                         <GridView

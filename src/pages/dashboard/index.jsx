@@ -91,7 +91,7 @@ const Index = () => {
                         <ul className={'text-[#000]'}>
                             {
                                 menuData.map(item =>
-                                    <li key={get(item, 'id')} className={'flex justify-between'}>
+                                    <li key={get(item, 'id')} className={'flex justify-between mb-[11px]'}>
                                         <div className={'flex gap-[10px]'}>
                                             <div style={{backgroundColor:`${(get(item, 'color'))}`}} className={`w-[20px] h-[20px] ]`}></div>
 
@@ -128,9 +128,9 @@ const Index = () => {
                                     <ul>
                                         {get(userTopAds, 'data', []).map(item =>
                                             <li className={'flex gap-x-[66px]'}>
-                                                <span className={'text-[#28366D]'}>#{get(item, 'material_type')}</span>
+                                                <span className={'text-[#28366D]'}>#{get(item, 'material_name')}</span>
                                                 <Link href={`/${get(item, 'material_url')}`} >
-                                                    <p>{get(item, 'material_name')}</p>
+                                                    <p>{get(item, 'material_type')}</p>
                                                 </Link>
                                             </li>
                                         )}
