@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import Image from "next/image";
-import {useSession} from "next-auth/react";
+import {signOut, useSession} from "next-auth/react";
 import {useSettingsStore} from "../../../store";
 import {get} from "lodash"
 import {useTranslation} from "react-i18next";
@@ -25,8 +25,14 @@ const Pofile = () => {
         }
     }, [session])
     return (
-        <div className={'inline-flex items-center'}>
-            <span className={'mr-3'}>{get(user,'data.email')}</span>
+        <div className={'inline-flex items-center gap-x-[5px]'}>
+
+            <div>
+                <span className={'mr-3'}>{get(user,'data.email')}</span>
+                <button className={'block text-base'} onClick={() => signOut()}>
+                    {t('Logout')}
+                </button>
+            </div>
             <Image width={48} height={48} className={'rounded-full'} src={'/images/avatar.png'} alt={'avatar'}/>
         </div>
     );

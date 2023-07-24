@@ -72,7 +72,7 @@ const Index = () => {
         <Dashboard>
                 <Subheader title={'Statistik ma’lumotlar'} />
                 <div className={'grid grid-cols-12 gap-x-[30px] p-[30px]'}>
-                    <div className={'col-span-3 bg-white mt-[30px] p-[30px]'}>
+                    <div className={'col-span-4 bg-white mt-[30px] p-[30px]'}>
                         <h2 className={'text-xl text-[#000] font-bold mb-[18px]'}>Yuklangan e’lonlar</h2>
 
                         <ul className={'text-[#000]'}>
@@ -92,7 +92,7 @@ const Index = () => {
                         </ul>
                     </div>
 
-                    <div className={'col-span-7 bg-white mt-[30px] p-[30px]'}>
+                    <div className={'col-span-8 bg-white mt-[30px] p-[30px]'}>
                         <div className={'flex items-center gap-x-[30px] mb-[19px]'}>
                             <h2 className={'text-xl text-[#000] font-bold'}>Top mahsulotlar</h2>
 
@@ -116,7 +116,7 @@ const Index = () => {
                         </div>
                     </div>
 
-                    <div className={'col-span-10 mt-[30px] bg-[#fff]'}>
+                    <div className={'col-span-12 mt-[30px] bg-[#fff]'}>
                         <div className={'p-[30px] flex justify-between '}>
                             <h2 className={'text-xl text-[#000] font-bold mb-[18px]'}>Tizimda mavjud e’lonlarni ko’rish dinamikasi </h2>
                             <div className={'flex gap-x-[5px]'}>
@@ -130,6 +130,7 @@ const Index = () => {
                                     Oylik
                                 </button>
                             </div>
+
 
                         </div>
                         <PopChart/>
