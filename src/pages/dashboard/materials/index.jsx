@@ -12,14 +12,8 @@ import PageSizeSelector from "@/layouts/dashboard/components/select";
 
 const Materials = () => {
     const {t} = useTranslation();
-    const [select, setSelect] = useState(20);
+    const [pageSize, setPageSize] = useState(20);
 
-
-    const handlePageSizeChange = (event) => {
-        const selectedPageSize = event.target.value;
-
-        console.log('Selected Page Size:', selectedPageSize);
-    };
 
     const columns = [
         {
@@ -65,7 +59,7 @@ const Materials = () => {
                     <div className={'col-span-12 flex items-center justify-between mb-[30px]'}>
                         <div className={'flex  items-center'}>
 
-                            <select id="page-size-select" onChange={handlePageSizeChange} value="10">
+                            <select onChange={(e)=>setPageSize(e?.target?.value)} value={pageSize}>
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="20">20</option>
@@ -93,7 +87,7 @@ const Materials = () => {
                             url={URLS.myMaterials}
                             key={KEYS.myMaterials}
                             columns={columns}
-                            defaultPageSize={handlePageSizeChange}
+                            defaultPageSize={pageSize}
                         />
                     </div>
                 </div>
