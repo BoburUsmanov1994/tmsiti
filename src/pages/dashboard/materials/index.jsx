@@ -65,12 +65,11 @@ const Materials = () => {
                     <div className={'col-span-12 flex items-center justify-between mb-[30px]'}>
                         <div className={'flex  items-center'}>
 
-                                <select id="page-size-select" onChange={handlePageSizeChange} value="10">
-                                    <option value="5">5</option>
-                                    <option value="10">10</option>
-                                    <option value="20">20</option>
-
-                                </select>
+                            <select id="page-size-select" onChange={handlePageSizeChange} value="10">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                            </select>
 
                             <span className={'ml-[10px]'}> {t("tadan ko'rish")} </span>
 
