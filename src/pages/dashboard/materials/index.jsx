@@ -60,9 +60,9 @@ const Materials = () => {
                         <div className={'flex  items-center'}>
 
                             <select onChange={(e)=>setPageSize(e?.target?.value)} value={pageSize}>
-                                <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="20">20</option>
+                                <option value="30">30</option>
                             </select>
 
                             <span className={'ml-[10px]'}> {t("tadan ko'rish")} </span>
