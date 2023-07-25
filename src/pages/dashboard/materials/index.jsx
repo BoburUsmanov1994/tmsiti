@@ -85,7 +85,7 @@ const Materials = () => {
                         <GridView
                             hasActionColumn
                             url={URLS.myMaterials}
-                            key={KEYS.myMaterials}
+                            key={[KEYS.myMaterials,pageSize]}
                             columns={columns}
                             defaultPageSize={pageSize}
                         />
