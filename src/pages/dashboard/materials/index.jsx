@@ -1,17 +1,25 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Dashboard from "../../../layouts/dashboard";
 import Subheader from "../../../layouts/dashboard/components/subheader";
 import GridView from "../../../containers/grid-view";
 import {KEYS} from "../../../constants/key";
 import {URLS} from "../../../constants/url";
-import Select from "@/layouts/dashboard/components/select";
 import Image from "next/image";
 import Button from "@/components/button";
 import {useTranslation} from "react-i18next";
 import Search from "@/layouts/dashboard/components/search";
+import PageSizeSelector from "@/layouts/dashboard/components/select";
 
 const Materials = () => {
     const {t} = useTranslation();
+    const [select, setSelect] = useState(20);
+
+
+    const handlePageSizeChange = (event) => {
+        const selectedPageSize = event.target.value;
+
+        console.log('Selected Page Size:', selectedPageSize);
+    };
 
     const columns = [
         {
@@ -56,8 +64,15 @@ const Materials = () => {
                 <div className="grid grid-cols-12">
                     <div className={'col-span-12 flex items-center justify-between mb-[30px]'}>
                         <div className={'flex  items-center'}>
-                            <Select/>
-                            <span className={'ml-[10px]'}> tadan ko'rish </span>
+
+                                <select id="page-size-select" onChange={handlePageSizeChange} value="10">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+
+                                </select>
+
+                            <span className={'ml-[10px]'}> {t("tadan ko'rish")} </span>
 
                             <Search classname={'ml-[31px]'}/>
                         </div>
@@ -79,6 +94,7 @@ const Materials = () => {
                             url={URLS.myMaterials}
                             key={KEYS.myMaterials}
                             columns={columns}
+                            defaultPageSize={handlePageSizeChange}
                         />
                     </div>
                 </div>

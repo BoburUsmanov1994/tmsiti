@@ -11,17 +11,17 @@ const Template = ({
             <button onClick={() => handleClickFormat(0)}
                     className={clsx("bg-transparent text-[#28366D] rounded-[5px]",{"!bg-[#1890FF] !text-white": active == 0})}>
                 <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0_475_3020)">
-                        <path d="M7.3335 11H17.4168" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"
-                              stroke-linejoin="round"/>
-                        <path d="M7.3335 18.3335H17.4168" stroke="currentColor" stroke-width="2.75"
-                              stroke-linecap="round" stroke-linejoin="round"/>
+                    <g clipPath="url(#clip0_475_3020)">
+                        <path d="M7.3335 11H17.4168" stroke="currentColor" strokeWidth="2.75" stroke-linecap="round"
+                              strokeLinejoin="round"/>
+                        <path d="M7.3335 18.3335H17.4168" stroke="currentColor" strokeWidth="2.75"
+                              strokeLinecap="round" strokeLinejoin="round"/>
                         <path d="M7.3335 25.6665H17.4168" stroke="currentColor" stroke-width="2.75"
-                              stroke-linecap="round" stroke-linejoin="round"/>
+                              strokeLinecap="round" strokeLinejoin="round"/>
                         <path d="M7.3335 33H17.4168" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"
-                              stroke-linejoin="round"/>
+                              strokeLinejoin="round"/>
                         <path d="M26.5835 11H36.6668" stroke="currentColor" stroke-width="2.75" stroke-linecap="round"
-                              stroke-linejoin="round"/>
+                              strokeLinejoin="round"/>
                         <path d="M26.5835 18.3335H36.6668" stroke="currentColor" stroke-width="2.75"
                               stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M26.5835 25.6665H36.6668" stroke="currentColor" stroke-width="2.75"

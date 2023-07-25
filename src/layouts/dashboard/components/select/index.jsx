@@ -1,15 +1,28 @@
 import React from 'react';
 
+const PageSizeSelector = () => {
+    const handlePageSizeChange = (event) => {
+        const selectedPageSize = event.target.value;
 
-const Select = () => {
+        console.log('Selected Page Size:', selectedPageSize);
+    };
+
     return (
-        <select name="select" className={'w-[50px] h-[40px] text-xs pl-[7px]'}>
+        <div>
+            <select id="page-size-select" onChange={handlePageSizeChange} value="10">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
 
-            <option value="value1" selected>20</option>
-            <option value="value2">30</option>
-            <option value="value3">40</option>
-        </select>
-    )
-}
+            </select>
+        </div>
+    );
+};
 
-export default Select
+export default PageSizeSelector;
+
+
+
+
+
+
