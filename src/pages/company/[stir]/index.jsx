@@ -152,19 +152,28 @@ const ViewPage = () => {
                         </div>
                         <div className="col-span-10">
                             <div className="flex mb-2.5">
-                                <h2 className={'text-[#212529] font-medium mr-3'}>{get(company, 'data.company_name')}</h2>
-                                <div className={'inline-flex mr-8 cursor-pointer'}>
+                                <div className={'inline-flex mr-[10px] cursor-pointer'}>
                                     <Image className={'mr-1.5'} width={24} height={24} src={'/icons/stick.svg'}
                                            alt={'code'}/>
                                 </div>
+                                <h2 className={'text-[#212529] font-medium'}>{get(company, 'data.company_name')}</h2>
+
                             </div>
                             <p className={'text-[#4B5055] text-sm'}>{get(company, 'data.company_desc', '-')}</p>
-                            <div className="flex mt-2.5">
-                                <div className={'mr-4'}>
-                                    <strong>{t("Rahbar")}:</strong> {get(company, 'data.company_ceo')}</div>
-                                <div className={'mr-4'}>
-                                    <strong>{t("Telefon")}:</strong> {get(company, 'data.company_phone_main')}</div>
-                                <div><strong>{t("Manzil")}:</strong> {get(company, 'data.company_address')}</div>
+                            <div className="flex flex-col mt-2.5">
+                                <div className={'mb-[10px] text-[#4B5055]'}>
+                                    <strong className={'text-[#000]'}>{t("Rahbar")}:</strong> {get(company, 'data.company_ceo')}
+                                </div>
+                                <div className={'mb-[10px] text-[#4B5055]'}>
+                                    <strong className={'text-[#000]'}>{t("Elektron-pochta")}:</strong> {get(company, 'data.company_email', '-')}
+                                </div>
+
+                                <div className={'mb-[10px] text-[#4B5055]'}>
+                                    <strong className={'text-[#000]'}>{t("Telefon")}:</strong> {get(company, 'data.company_phone_main')}
+                                </div>
+                                <div className={'text-[#4B5055]'}>
+                                    <strong className={'text-[#000] '}>{t("Manzil")}:</strong> {get(company, 'data.company_address')}
+                                </div>
                             </div>
                         </div>
                     </div>
