@@ -159,7 +159,7 @@ const ViewPage = () => {
                                 <h2 className={'text-[#212529] font-medium'}>{get(company, 'data.company_name')}</h2>
 
                             </div>
-                            <p className={'text-[#4B5055] text-sm'}>{get(company, 'data.company_desc', '-')}</p>
+
                             <div className="flex flex-col mt-2.5">
                                 <div className={'mb-[10px] text-[#4B5055]'}>
                                     <strong className={'text-[#000]'}>{t("Rahbar")}:</strong> {get(company, 'data.company_ceo')}
