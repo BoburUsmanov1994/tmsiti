@@ -21,10 +21,10 @@ export const searchKeyList = [
         key: 'all',
         title: 'all',
     },
-    {
-        key: 'resource',
-        title: 'resource',
-    },
+    // {
+    //     key: 'resource',
+    //     title: 'resource',
+    // },
     {
         key: 'materials',
         title: 'materials',

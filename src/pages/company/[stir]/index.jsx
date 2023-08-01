@@ -9,7 +9,7 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 import Image from "next/image";
-import {get, split} from "lodash";
+import {get, split, round} from "lodash";
 import GridView from "@/containers/grid-view";
 import {NumericFormat} from 'react-number-format';
 import dayjs from "dayjs";
@@ -90,7 +90,7 @@ const ViewPage = () => {
             key: 'material_price',
             render: ({value, row}) => (value * get(currency, `data[${get(row, 'material_price_currency')}]`, 1) > 0 ? <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
                                                      thousandSeparator={' '}
-                                                     value={value * get(currency, `data[${get(row, 'material_price_currency')}]`, 1)}
+                                                     value={Math.round(value * get(currency, `data[${(get(row, 'material_price_currency'))}]`, 1))}
                                                      suffix={` (${get(row, 'material_measure')})`}/> : t("by_order")),
             classnames: 'text-center  whitespace-nowrap',
             sorter: true
