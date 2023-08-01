@@ -41,10 +41,10 @@ const Header = () => {
             </div>
             <div className={'bg-[#202B57]  py-4 '}>
                 <div className={'container text-white text-sm grid grid-cols-12 items-center'}>
-                    <div className="col-span-4">
+                    <div className="col-span-5">
                         <Brand/>
                     </div>
-                    <div className="col-span-8 ">
+                    <div className="col-span-6 ">
                         <div className="flex justify-end items-center">
                          <Search />
                             <Link href={'/selected'} className={'relative ml-6 cursor-pointer'}>

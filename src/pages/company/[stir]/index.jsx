@@ -157,16 +157,19 @@ const ViewPage = () => {
                                            alt={'code'}/>
                                 </div>
                                 <h2 className={'text-[#212529] font-medium'}>{get(company, 'data.company_name')}</h2>
-
                             </div>
 
                             <div className="flex flex-col mt-2.5">
                                 <div className={'mb-[10px] text-[#4B5055]'}>
                                     <strong className={'text-[#000]'}>{t("Rahbar")}:</strong> {get(company, 'data.company_ceo')}
                                 </div>
-                                <div className={'mb-[10px] text-[#4B5055]'}>
-                                    <strong className={'text-[#000]'}>{t("Elektron-pochta")}:</strong> {get(company, 'data.company_email', '-')}
-                                </div>
+
+
+                                {get(company, 'data.company_email', '-') ?
+                                    <div className={'mb-[10px] text-[#4B5055]'}>
+                                        <strong className={'text-[#000]'}>{t("Elektron-pochta")}:</strong> {get(company, 'data.company_email', '-')}
+                                    </div> : ''
+                                }
 
                                 <div className={'mb-[10px] text-[#4B5055]'}>
                                     <strong className={'text-[#000]'}>{t("Telefon")}:</strong> {get(company, 'data.company_phone_main')}
