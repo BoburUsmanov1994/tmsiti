@@ -88,7 +88,7 @@ const EimzoLogin = () => {
                     <h4 className={'text-base'}>ERI kalit tanlang.</h4>
                 </div>
 
-                <div onClick={openModal} className={'p-[30px] grid grid-cols-12 gap-x-[20px] container mx-auto !text-start rounded-[5px] border-[1px] cursor-pointer hover:border-[#017EFA] hover: text-base bg-[#fff] transition-all duration-300'}>
+                <div onClick={openModal} className={'p-[30px] grid grid-cols-12 gap-x-[20px] container mx-auto !text-start rounded-[5px] border-[1px] border-transparent cursor-pointer hover:border-[1px] hover:border-[#017EFA]  text-base bg-[#fff] transition-all duration-300'}>
                     <h3 className={'col-span-12 mb-[10px] font-semibold'}>FAMILIYA ISM SHARIF</h3>
 
                     <div className={'col-span-12 flex gap-x-[20px] flex-wrap'}>
@@ -126,7 +126,7 @@ const EimzoLogin = () => {
                     </div>
                 </div>
 
-                <div onClick={openModal} className={'p-[30px] grid grid-cols-12 gap-x-[20px] container mx-auto !text-start rounded-[5px] border-[1px] cursor-pointer hover:border-[#017EFA] text-base bg-[#fff] rounded-[5px] my-[10px] transition-all duration-300'}>
+                <div onClick={openModal} className={'p-[30px] grid grid-cols-12 gap-x-[20px] container mx-auto !text-start border-[1px] border-transparent cursor-pointer hover:border-[1px] hover:border-[#017EFA] text-base bg-[#fff] rounded-[5px] my-[10px] transition-all duration-300'}>
                     <h3 className={'col-span-12 mb-[10px] font-semibold'}>FAMILIYA ISM SHARIF</h3>
 
                     <div className={'col-span-12 flex gap-x-[20px] flex-wrap'}>
@@ -202,6 +202,8 @@ const EimzoLogin = () => {
                         <button className={'mt-[30px] bg-[#017EFA] rounded-[5px] font-medium text-2xl py-[10px] px-[26px] text-white text-center mx-auto'}>Tekshirish</button>
                     </div>
                 </Modal>
+
+                <Button className={'mt-[30px]'}>Yangilash</Button>
             </AuthLayout>}
 
 
