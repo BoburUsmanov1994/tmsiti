@@ -13,7 +13,7 @@ const Modal = () => {
             </div>
 
 
-            <form className={'container mx-auto'} onSubmit={handleSubmit(onSubmit)}>
+            <form className={'container mx-auto'}>
                 <label className={''}>DS0000000000000.pfx</label>
                 <input type={'password'} className={'w-[430px] h-[48px] px-[30px] py-[15px] focus:outline-[#017EFA] border-[1px]  rounded-[5px] shadow-xl'}/>
             </form>

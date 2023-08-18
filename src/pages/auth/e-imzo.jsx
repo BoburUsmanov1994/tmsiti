@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import AuthLayout from "@/layouts/auth";
 import Link from "next/link";
 import Button from "@/components/button";
-import Modal from 'react-modal';
 import Image from "next/image";
 import {useForm} from "react-hook-form";
 import {signIn} from "next-auth/react";
@@ -10,43 +9,7 @@ import {signIn} from "next-auth/react";
 
 const EimzoLogin = () => {
     const [choose, setChoose] = useState(true)
-    const {register, handleSubmit, watch, formState: {errors}} = useForm();
-    const onSubmit = async ({email, password}) => {
-        const result = await signIn("credentials", {
-            password,
-            redirect: true,
-            callbackUrl: "/dashboard"
-        })
-    };
 
-
-
-    const customStyles = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            width: '550px',
-            padding: '30px',
-
-            transform: 'translate(-50%, -50%)',
-
-        },
-    };
-
-    let subtitle;
-    const [modalIsOpen, setIsOpen] = React.useState(false);
-
-    function openModal() {
-        setIsOpen(true);
-    }
-
-
-
-    function closeModal() {
-        setIsOpen(false);
-    }
 
     return (
         <>
@@ -163,45 +126,6 @@ const EimzoLogin = () => {
                         </div>
                     </div>
                 </div>
-
-                <Modal
-                    isOpen={modalIsOpen}
-
-                    onRequestClose={closeModal}
-                    style={{
-
-                        content: {
-                            top: '50%',
-                            left: '50%',
-                            right: 'auto',
-                            bottom: 'auto',
-                            width: '550px',
-                            padding: '30px',
-                            transform: 'translate(-50%, -50%)',
-
-                        }
-                    }}
-                    contentLabel="Example Modal"
-
-                >
-                    <div className={'mb-[20px]'}>
-                        <Image onClick={closeModal} src={'/icons/closeModal.svg'} alt={'modalcloser'} width={24} height={24} className={'float-right block cursor-pointer'} />
-                    </div>
-
-                    <div className={' text-center !font-semibold mb-[20px]'}>
-                        <h4 className={'text-base'}>ERI kalit parolini kiriting.</h4>
-                    </div>
-
-
-                    <form className={'container mx-auto'} onSubmit={handleSubmit(onSubmit)}>
-                        <label className={''}>DS0000000000000.pfx</label>
-                        <input type={'password'} className={'w-[430px] h-[48px] px-[30px] py-[15px] focus:outline-[#017EFA] border-[1px]  rounded-[5px] shadow-xl'}/>
-                    </form>
-
-                    <div className={'text-center'}>
-                        <button className={'mt-[30px] bg-[#017EFA] rounded-[5px] font-medium text-2xl py-[10px] px-[26px] text-white text-center mx-auto'}>Tekshirish</button>
-                    </div>
-                </Modal>
 
                 <Button className={'mt-[30px]'}>Yangilash</Button>
             </AuthLayout>}
