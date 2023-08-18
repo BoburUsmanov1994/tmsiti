@@ -20,3 +20,7 @@ body {
 ::-webkit-scrollbar-thumb {
     background:#28366D;
 }
+
+.Modal {
+    background: transparent;
+}
