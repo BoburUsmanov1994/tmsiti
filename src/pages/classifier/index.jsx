@@ -222,7 +222,6 @@ const Classifier = () => {
                                         </ul>)}
                                 </li>)
                             }
-
                         </ul>
                     </div>
                     <div className="col-span-9">

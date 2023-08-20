@@ -11,7 +11,7 @@ import {URLS} from "@/constants/url";
 import {ContentLoader, OverlayLoader} from "@/components/loader";
 import Product from "@/components/product";
 import {useRouter} from "next/router";
-import {getDefaultValue, getOptionList} from "@/utils";
+import {getDefaultValue, getOptionList} from "../../../../tmsiti.uz/src/utils";
 import Pagination from "@/components/pagination";
 import {searchKeyList} from "@/constants";
 import {NumericFormat} from "react-number-format";
