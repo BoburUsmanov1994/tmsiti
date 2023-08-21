@@ -12,7 +12,8 @@ import {ContentLoader, OverlayLoader} from "@/components/loader";
 import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import {useRouter} from "next/router";
-import {getDefaultValue, getOptionList} from "../../../../../tmsiti.uz/src/utils";
+// import {getDefaultValue, getOptionList} from "../../../../../tmsiti.uz/src/utils";
+import {getDefaultValue, getOptionList} from "@/utils";
 import Pagination from "@/components/pagination";
 import Template from "@/components/template";
 
