@@ -9,12 +9,18 @@ import Button from "@/components/button";
 import {useTranslation} from "react-i18next";
 import Search from "@/layouts/dashboard/components/search";
 import PageSizeSelector from "@/layouts/dashboard/components/select";
+import {get} from "lodash";
+import {NumericFormat} from "react-number-format";
+import useGetQuery from "@/hooks/api/useGetQuery";
 
 const Materials = () => {
     const {t} = useTranslation();
     const [pageSize, setPageSize] = useState(20);
 
-
+    const {data, isLoading} =useGetQuery({
+        key: KEYS.myMaterials,
+        url: URLS.myMaterials
+    })
     const columns = [
         {
             title: '№',
@@ -23,7 +29,7 @@ const Materials = () => {
         },
         {
             title: 'Kodi',
-            key: 'material_csr_code',
+            key: 'material_code',
             render: ({value}) => <span className={'text-[#28366D]'}>{value}</span>
         },
         {
@@ -33,6 +39,13 @@ const Materials = () => {
         {
             title: 'Narxi',
             key: 'material_price',
+            render: ({
+                         value,
+                         row
+                     }) => (value * get(data, `data[${get(row, 'mmechano_rent_price_currency')}]`, 1) > 0 ?
+                <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+                               thousandSeparator={' '}
+                               value={(value * get(data, `data[${(get(row, 'material_price_currency'))}]`, 1)).toFixed(2)}/> : t("by_order")),
             classnames: 'text-center'
         },
         {
@@ -42,7 +55,7 @@ const Materials = () => {
         },
         {
             title: 'Joylangan vaqti',
-            key: 'material_date',
+            key: 'material_created_date',
             classnames: 'text-center'
         },
         {
@@ -59,7 +72,7 @@ const Materials = () => {
                     <div className={'col-span-12 flex items-center justify-between mb-[30px]'}>
                         <div className={'flex  items-center'}>
 
-                            <select onChange={(e)=>setPageSize(e?.target?.value)} value={pageSize}>
+                            <select className={'p-[10px] cursor-pointer'}  onChange={(e)=>setPageSize(e?.target?.value)} value={pageSize}>
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="30">30</option>

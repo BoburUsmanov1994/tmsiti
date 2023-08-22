@@ -16,6 +16,7 @@ const request = axios.create({
 });
 request.interceptors.request.use((config) => {
     const token = get(JSON.parse(storage.get('settings')), 'state.token', null);
+
     if (token) {
         config.headers['token'] = `${token}`
     }
