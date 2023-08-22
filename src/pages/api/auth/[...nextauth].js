@@ -6,15 +6,16 @@ export const authOptions = {
         CredentialsProvider({
             credentials: {},
             async authorize(credentials, req) {
-                const {email, password} = credentials;
-                const res = await fetch("https://backend-market.tmsiti.uz/api/login", {
+                const {company_name, company_stir, company_ceo} = credentials;
+                const res = await fetch("https://backend-market.tmsiti.uz/api/imzo", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        email,
-                        password,
+                        company_name,
+                        company_stir,
+                        company_ceo
                     }),
                 });
 
@@ -39,7 +40,7 @@ export const authOptions = {
     //     strategy: "jwt"
     // },
     pages: {
-        signIn: "/auth/login",
+        signIn: "/auth/e-imzo",
     },
     secret: process.env.NEXTAUTH_SECRET || 'Ey7nTKnggBc0bRN8WUjyShw2qzOZ6KW4fUyqcKBePxY='
 }

@@ -27,5 +27,6 @@ export const URLS = {
     companyAds: 'companies/ads/',
     userStat: 'api/user/stat',
     userTopAds: '/api/user/top',
+    esign: '/api/imzo',
 
 };

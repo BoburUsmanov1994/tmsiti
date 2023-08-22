@@ -67,7 +67,8 @@ const ViewPage = () => {
         {
             title: t('Korxona nomi'),
             key: 'company_name',
-            render: ({value,row}) => <Link href={`/company/${get(row,'company_stir')}`} className={'underline text-[#146BBC]'}>{value}</Link>,
+            render: ({value, row}) => <Link href={`/company/${get(row, 'company_stir')}`}
+                                            className={'underline text-[#146BBC]'}>{value}</Link>,
             classnames: 'text-center',
             sorter: true
         },
@@ -97,10 +98,14 @@ const ViewPage = () => {
         {
             title: t('Narxi(so`m)'),
             key: 'mmechano_rent_price',
-            render: ({value, row}) => (value * get(currency, `data[${get(row, 'mmechano_rent_price_currency')}]`, 1) > 0 ? <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
-                                                     thousandSeparator={' '}
-                                                     value={value * get(currency, `data[${get(row, 'mmechano_rent_price_currency')}]`, 1)}
-                                                     suffix={` (${get(row, 'mmechano_measure')})`}/> : t("by_order")),
+            render: ({
+                         value,
+                         row
+                     }) => (value * get(currency, `data[${get(row, 'mmechano_rent_price_currency')}]`, 1) > 0 ?
+                <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+                               thousandSeparator={' '}
+                               value={value * get(currency, `data[${get(row, 'mmechano_rent_price_currency')}]`, 1)}
+                               suffix={` (${get(row, 'mmechano_measure')})`}/> : t("by_order")),
             classnames: 'text-center',
             sorter: true
         },
