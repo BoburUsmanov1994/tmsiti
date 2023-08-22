@@ -68,9 +68,9 @@ const Header = () => {
                                     <button className={'block text-base bg-transparent'} onClick={() => signIn()}>
                                         {t('signin')}
                                     </button>
-                                    <Link className={'block text-base'} href={'/auth/signup'}>
-                                        {t("signup")}
-                                    </Link>
+                                    {/*<Link className={'block text-base'} href={'/auth/signup'}>*/}
+                                    {/*    {t("signup")}*/}
+                                    {/*</Link>*/}
                                 </div> : <div>
                                     <button onClick={()=>router.push('/dashboard')} className={'block text-base bg-transparent'}>
                                         {get(user,'data.email')}
