@@ -1,31 +1,57 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Dashboard from "@/layouts/dashboard";
 import Subheader from "@/layouts/dashboard/components/subheader";
 import Button from "@/components/button";
 import Image from "next/image";
 import {useTranslation} from "react-i18next";
 import usePostQuery from "@/hooks/api/usePostQuery";
+import {KEYS} from "@/constants/key";
+import {URLS} from "@/constants/url";
+import {get} from "lodash";
 
+
+import {useForm} from "react-hook-form";
+import {toast} from "react-hot-toast";
+import Form from "@/containers/form";
+import Input from "@/containers/form/components/Input";
 const Ads = () => {
     const {t} = useTranslation();
-    const {mutate: addAds, isLoading} = usePostQuery({
+    const { handleSubmit, formState: {errors}} = useForm()
 
-    })
+
+    const [materialData, setMaterialData] = useState([]);
+    const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.addAds})
+
+    const onSubmit = (data) => {
+        addAds({
+            url: URLS.addAds,
+            attributes: {...data}
+        },
+            {
+                onSuccess: () => {
+                    toast.success('All details were sent correctly,  ', {position: 'top-right'});
+                }
+            }
+
+        )
+    }
+
     return (
         <Dashboard>
             <Subheader title={'Qurilish materiallari e’lon qo’shish'} />
             <div className="p-7">
-                <div className={'grid grid-cols-12 gap-x-[30px]'}>
-                    {/*qidiruv qismi*/}
+                <Form  className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>
                     <div className={'col-span-12 mb-[10px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Qidiruv</h4>
                     </div>
 
                     <div className={'col-span-12 flex gap-x-[30px]'}>
-                        <input placeholder={'nomni rus tilida kiriting'}
-                               className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
+                        <input  placeholder={'nomni rus tilida kiriting'}
+
+                                className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
                         />
-                        <Button className={'bg-[#1890FF] text-white !border-[#1890FF]  inline-flex items-center text-center'}>
+
+                        <Button  className={'bg-[#1890FF] text-white !border-[#1890FF]  inline-flex items-center text-center'}>
                             <Image
                                 className={'mr-1.5'} width={20} height={40} src={'/icons/search.svg'}
                                 alt={'plus'}
@@ -37,8 +63,9 @@ const Ads = () => {
                     <div className={'col-span-12  gap-x-[30px] mt-[10px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Material bo’limi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
-                        <input placeholder={'Pardozbop va dekorativ materiallar'}
-                               className={'placeholder py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+
+                        <input  placeholder={'Pardozbop va dekorativ materiallar'}
+                                className={'placeholder py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
                     </div>
 
@@ -71,6 +98,9 @@ const Ads = () => {
                         <input placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
+
+                        <Input name={'material_name'}/>
+
                     </div>
 
 
@@ -83,9 +113,12 @@ const Ads = () => {
 
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material narxi</h4>
-                        <input placeholder={'123213'}
+                        <input placeholder={'123213'} onChange={(e) => setPrice(e.target.value)}
+
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
+                        <Input name={'material_price'}/>
+
                     </div>
 
                     <div className={'col-span-6'}>
@@ -97,9 +130,12 @@ const Ads = () => {
 
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material miqdori</h4>
+
                         <input placeholder={'123213'}
+
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
+                        <Input name={'material_amount'}/>
                     </div>
 
                     <div className={'col-span-6'}>
@@ -124,7 +160,29 @@ const Ads = () => {
                         />
                     </div>
 
-                </div>
+                    <div className={'col-span-6'}>
+                        <h4 className={'text-[#28366D] text-base '}>Mahsulot sertifikati blank raqami</h4>
+                        <input placeholder={'123213'}
+
+                               className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                        />
+
+                        <Input name={'sertificate_blank_num'}/>
+                    </div>
+
+                    <div className={'col-span-6'}>
+                        <h4 className={'text-[#28366D] text-base '}>Mahsulot sertifikati reestr raqami</h4>
+                        <input placeholder={'123213'}
+
+                               className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                        />
+                        <Input name={'sertificate_reestr_num'}/>
+                    </div>
+
+                    <Button>
+                        Yuborish
+                    </Button>
+                </Form>
             </div>
         </Dashboard>
     );
