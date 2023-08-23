@@ -8,8 +8,18 @@ import Image from "next/image";
 import GridView from "@/containers/grid-view";
 import {URLS} from "@/constants/url";
 import {KEYS} from "@/constants/key";
+import {get} from "lodash";
+import {NumericFormat} from "react-number-format";
+import useGetQuery from "@/hooks/api/useGetQuery";
+import dayjs from "dayjs";
 
 const MachineMechano = () => {
+
+    const {data, isLoading} =useGetQuery({
+        key: KEYS.myMaterials,
+        url: URLS.myMaterials
+    })
+
     const {t} = useTranslation();
     const [pageSize, setPageSize] = useState(20);
 
@@ -32,6 +42,13 @@ const MachineMechano = () => {
         {
             title: 'Narxi',
             key: 'material_price',
+            render: ({
+                         value,
+                         row
+                     }) => (value * get(data, `data[${get(row, 'material_price_currency')}]`, 1) > 0 ?
+                <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+                               thousandSeparator={' '}
+                               value={(value * get(data, `data[${(get(row, 'material_price_currency'))}]`, 1)).toFixed(2)}/> : t("by_order")),
             classnames: 'text-center'
         },
         {
@@ -42,13 +59,14 @@ const MachineMechano = () => {
         {
             title: 'Joylangan vaqti',
             key: 'material_date',
+            render: ({date}) => <span>{dayjs(get(data, `data[${get(date, 'material_created_date')}]`)).format("DD.MM.YYYY, HH:mm")}</span>,
             classnames: 'text-center'
         },
-        {
-            title: 'Ko’rildi',
-            key: 'material_views_count',
-            classnames: 'text-center'
-        },
+        // {
+        //     title: 'Ko’rildi',
+        //     key: 'material_views_count',
+        //     classnames: 'text-center'
+        // },
     ]
     return (
         <Dashboard>

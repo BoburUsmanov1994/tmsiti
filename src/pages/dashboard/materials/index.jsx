@@ -12,10 +12,12 @@ import PageSizeSelector from "@/layouts/dashboard/components/select";
 import {get} from "lodash";
 import {NumericFormat} from "react-number-format";
 import useGetQuery from "@/hooks/api/useGetQuery";
+import dayjs from "dayjs";
 
 const Materials = () => {
     const {t} = useTranslation();
     const [pageSize, setPageSize] = useState(20);
+
 
     const {data, isLoading} =useGetQuery({
         key: KEYS.myMaterials,
@@ -42,7 +44,7 @@ const Materials = () => {
             render: ({
                          value,
                          row
-                     }) => (value * get(data, `data[${get(row, 'mmechano_rent_price_currency')}]`, 1) > 0 ?
+                     }) => (value * get(data, `data[${get(row, 'material_price_currency')}]`, 1) > 0 ?
                 <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
                                thousandSeparator={' '}
                                value={(value * get(data, `data[${(get(row, 'material_price_currency'))}]`, 1)).toFixed(2)}/> : t("by_order")),
@@ -56,13 +58,17 @@ const Materials = () => {
         {
             title: 'Joylangan vaqti',
             key: 'material_created_date',
-            classnames: 'text-center'
+            render: ({date}) => <span>{dayjs(get(data, `data[${get(date, 'material_created_date')}]`)).format("DD.MM.YYYY, HH:mm")}</span>,
+            classnames: 'text-center',
+
+
+
         },
-        {
-            title: 'Ko’rildi',
-            key: 'material_views_count',
-            classnames: 'text-center'
-        },
+        // {
+        //     title: 'Ko’rildi',
+        //     key: 'material_views_count',
+        //     classnames: 'text-center'
+        // },
     ]
     return (
         <Dashboard>
@@ -83,7 +89,7 @@ const Materials = () => {
                             <Search classname={'ml-[31px]'}/>
                         </div>
 
-                        <Button
+                        <Button url={'/dashboard/materials/add-ads'}
                                 className={'bg-[#1890FF] text-white !border-[#1890FF]  inline-flex items-center'}>
                             <Image
 
