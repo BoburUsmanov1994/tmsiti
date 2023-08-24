@@ -16,7 +16,7 @@ import Form from "@/containers/form";
 import Input from "@/containers/form/components/Input";
 const Ads = () => {
     const {t} = useTranslation();
-    const { handleSubmit, formState: {errors}} = useForm()
+    const { register, handleSubmit, formState: {errors}} = useForm()
 
 
     const [materialData, setMaterialData] = useState([]);
@@ -40,7 +40,7 @@ const Ads = () => {
         <Dashboard>
             <Subheader title={'Qurilish materiallari e’lon qo’shish'} />
             <div className="p-7">
-                <Form  className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>
+                <form  className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>
                     <div className={'col-span-12 mb-[10px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Qidiruv</h4>
                     </div>
@@ -65,6 +65,7 @@ const Ads = () => {
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
                         <input  placeholder={'Pardozbop va dekorativ materiallar'}
+                                {...register('material_volume_name', {required: true})}
                                 className={'placeholder py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
                     </div>
@@ -74,6 +75,7 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base'}>Material kategoriyasi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input placeholder={'Грунтовки на основе сложных полиэфиров, акриловых или виниловых полимеров в наведной среде'}
+                               {...register('material_category_name', {required: true}) }
                                className={' py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
                     </div>
@@ -86,6 +88,7 @@ const Ads = () => {
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
                         <input placeholder={'Грунтовки полимерные'}
+                               {...register('material_group_name', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
                     </div>
@@ -97,9 +100,10 @@ const Ads = () => {
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                               {...register('material_name', {required: true})}
                         />
 
-                        <Input name={'material_name'}/>
+
 
                     </div>
 
@@ -108,81 +112,91 @@ const Ads = () => {
 
                     <div className={'col-span-12 gap-x-[30px]'}>
                         <h4 className={'text-[#28366D] text-base my-[10px]'}>Material tavsifi</h4>
-                        <textarea rows={5} className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
+                        <textarea {...register('material_desc', {required: true})} rows={5} className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
                     </div>
 
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material narxi</h4>
-                        <input placeholder={'123213'} onChange={(e) => setPrice(e.target.value)}
-
+                        <input placeholder={'123213'}
+                               {...register('material_price', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
-                        <Input name={'material_price'}/>
+
 
                     </div>
+
+
 
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material o’lchov birligi</h4>
-                        <input placeholder={'123213'}
+                        <input placeholder={'tonna'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                               {...register('material_owner', {required: true})}
                         />
                     </div>
-
+                    {/*Material miqdori*/}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material miqdori</h4>
 
                         <input placeholder={'123213'}
-
+                               {...register('material_amount', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
-                        <Input name={'material_amount'}/>
-                    </div>
 
+                    </div>
+                    {/*Material miqdor o’lchov birligi*/}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material miqdor o’lchov birligi</h4>
-                        <input placeholder={'123213'}
+                        <input placeholder={'kilogram'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
                     </div>
 
 
-                    <div className={'col-span-6 float-right'}>
-                        <h4 className={'text-[#28366D] text-base '}>Material miqdori</h4>
-                        <input placeholder={'123213'}
-                               className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+
+
+
+                    {/*Material rasmi*/}
+                    <div className={'col-span-6'}>
+                        <h4 className={'text-[#28366D] text-base '}>Material rasmi</h4>
+                        <label for="dropzone-file"  className={'shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white'}>
+                            <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>
+                            <p>yuklash</p>
+                        </label>
+                        <input id={"dropzone-file"} className={'hidden '} type={"file"}
+                               {...register('material_image')}
                         />
                     </div>
 
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Material miqdor o’lchov birligi</h4>
-                        <input placeholder={'123213'}
-                               className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                        />
+
+                        {/*Mahsulot sertifikati reestr raqami*/}
+                        <div>
+                            <h4 className={'text-[#28366D] text-base '}>Mahsulot sertifikati blank raqami</h4>
+                            <input placeholder={'123213'}
+                                   {...register('sertificate_blank_num')}
+                                   className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                            />
+                        </div>
+
+                        {/*Mahsulot sertifikati reestr raqami*/}
+                        <div>
+                            <h4 className={'text-[#28366D] text-base '}>Mahsulot sertifikati reestr raqami</h4>
+                            <input placeholder={'123213'}
+                                   {...register('sertificate_reestr_num')}
+                                   className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                            />
+                        </div>
                     </div>
 
-                    <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Mahsulot sertifikati blank raqami</h4>
-                        <input placeholder={'123213'}
 
-                               className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                        />
 
-                        <Input name={'sertificate_blank_num'}/>
-                    </div>
 
-                    <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Mahsulot sertifikati reestr raqami</h4>
-                        <input placeholder={'123213'}
 
-                               className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                        />
-                        <Input name={'sertificate_reestr_num'}/>
-                    </div>
-
-                    <Button>
-                        Yuborish
-                    </Button>
-                </Form>
+                    <button className={' col-span-12 w-[170px] text-base text-white bg-[#1890FF] py-[12px] px-[54px] rounded-[5px] mt-[30px]'}>
+                        <p>Saqlash</p>
+                    </button>
+                </form>
             </div>
         </Dashboard>
     );
