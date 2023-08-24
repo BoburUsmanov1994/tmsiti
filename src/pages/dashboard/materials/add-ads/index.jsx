@@ -47,7 +47,6 @@ const Ads = () => {
         }
     }, [materials])
 
-    console.log('material', material,materials)
 
     return (
         <Dashboard>
