@@ -65,9 +65,12 @@ const Ads = () => {
                                }, 500)}
                                className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
                         />
-                        <datalist id={'search-list'}>
-                            <option value={search}></option>
-                        </datalist>
+                            <datalist id={'search-list'}>
+
+                                {
+                                    get(materials, 'data.results', []).map(item=><option value={get(item,'material_name')}></option>)
+                                }
+                            </datalist>
                     </div>
 
                     {/*  material bo'limi  */}
