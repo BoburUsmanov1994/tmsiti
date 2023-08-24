@@ -1,10 +1,9 @@
 import React from 'react';
 import RSelect, {components} from 'react-select';
 import clsx from "clsx";
-import arrowIcon from "../../../assets/icons/select-arrow.svg";
+import arrowIcon from "public/icons/arrow-down-category.svg";
 import {Controller} from "react-hook-form";
 import {get, hasIn} from "lodash";
-import placeholder from "lodash/fp/placeholder";
 
 const DropdownIndicator = props => {
     return (

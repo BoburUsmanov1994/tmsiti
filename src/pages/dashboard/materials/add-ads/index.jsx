@@ -1,68 +1,70 @@
 import React, {useEffect, useState} from 'react';
 import Dashboard from "@/layouts/dashboard";
 import Subheader from "@/layouts/dashboard/components/subheader";
-import Button from "@/components/button";
 import Image from "next/image";
 import {useTranslation} from "react-i18next";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
-import {debounce, get} from "lodash";
-
-
+import {debounce, head, get, isEmpty} from "lodash";
 import {useForm} from "react-hook-form";
 import {toast} from "react-hot-toast";
-import Form from "@/containers/form";
-import Input from "@/containers/form/components/Input";
 import useGetQuery from "@/hooks/api/useGetQuery";
-import {useRouter} from "next/router";
+import {OverlayLoader} from "@/components/loader";
+
 const Ads = () => {
     const {t} = useTranslation();
-    const { register, handleSubmit, formState: {errors}} = useForm()
-    const router = useRouter();
-    const {query = '', category = 'all'} = router.query;
-    const {data, isLoadingMaterial} = useGetQuery({
+    const {register, handleSubmit, formState: {errors}} = useForm()
+    const [search, setSearch] = useState('')
+    const [material, setMaterial] = useState(null)
+    const {data: materials, isLoadingMaterial} = useGetQuery({
         key: KEYS.materials,
         url: URLS.materials,
         params: {
-            key: category,
-            value: query,
-        }
+            key: 'name',
+            value: search,
+        },
+        enabled: !!(search)
     })
-    const [materialData, setMaterialData] = useState([]);
-
     const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.addAds})
-
 
     const onSubmit = (data) => {
         addAds({
-            url: URLS.addAds,
-            attributes: {...data}
-        },
+                url: URLS.addAds,
+                attributes: {...data}
+            },
             {
                 onSuccess: () => {
                     toast.success('All details were sent correctly,  ', {position: 'top-right'});
                 }
             }
-
         )
     }
 
+    useEffect(() => {
+        if (!isEmpty(head(get(materials, 'data.results', [])))) {
+            setMaterial(head(get(materials, 'data.results', [])))
+        }
+    }, [materials])
+
+    console.log('material', material,materials)
+
     return (
         <Dashboard>
-            <Subheader title={'Qurilish materiallari e’lon qo’shish'} />
+            <Subheader title={'Qurilish materiallari e’lon qo’shish'}/>
             <div className="p-7">
-                <form  className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>
+                {(isLoadingMaterial || isLoading) && <OverlayLoader/>}
+                <form className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>
                     <div className={'col-span-12 mb-[10px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Qidiruv</h4>
                     </div>
 
                     <div className={'col-span-12 flex gap-x-[30px]'}>
-                        <input defaultValue={category}  placeholder={'nomni rus tilida kiriting'}
-                                onChange={debounce(function (e) {
-                                    router.push(`dashboard/materials/?key=${e.target.value}&value=${category}`)
-                                }, 500)}
-                                className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
+                        <input defaultValue={search} placeholder={'nomni rus tilida kiriting'}
+                               onChange={debounce(function (e) {
+                                   setSearch(e.target.value)
+                               }, 500)}
+                               className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
                         />
                     </div>
 
@@ -71,9 +73,9 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base'}>Material bo’limi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
-                        <input  placeholder={'Pardozbop va dekorativ materiallar'}
-                                {...register('material_volume_name', )}
-                                className={'placeholder py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                        <input defaultValue={get(material,'material_volume_name')} placeholder={'Pardozbop va dekorativ materiallar'}
+                               {...register('material_volume_name',)}
+                               className={'placeholder py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
                     </div>
 
@@ -81,10 +83,11 @@ const Ads = () => {
                     <div className={'col-span-12  gap-x-[30px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Material kategoriyasi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
-                        <input placeholder={'Грунтовки на основе сложных полиэфиров, акриловых или виниловых полимеров в наведной среде'}
-                               {...register('material_category_name', ) }
-
-                               className={' py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                        <input
+                            defaultValue={get(material,'material_category_name')}
+                            placeholder={'Грунтовки на основе сложных полиэфиров, акриловых или виниловых полимеров в наведной среде'}
+                            {...register('material_category_name')}
+                            className={' py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
                     </div>
 
@@ -96,6 +99,7 @@ const Ads = () => {
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
                         <input placeholder={'Грунтовки полимерные'}
+                               defaultValue={get(material,'material_group_name')}
                                {...register('material_group_name', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
@@ -106,23 +110,25 @@ const Ads = () => {
                     <div className={'col-span-12  gap-x-[30px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Material nomi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
-                        <input placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
-                               className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                               {...register('material_name', {required: true})}
+                        <input
+                            defaultValue={get(material,'material_name')}
+                            placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
+                            className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                            {...register('material_name', {required: true})}
                         />
-                        <input placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
-                               className={'hidden'} value={1}
-                               {...register('material_owner', {required: true})}
+                        <input
+                            placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
+                            className={'hidden'} value={1}
+                            {...register('material_owner', {required: true})}
                         />
 
                     </div>
 
 
-
-
                     <div className={'col-span-12 gap-x-[30px]'}>
                         <h4 className={'text-[#28366D] text-base my-[10px]'}>Material tavsifi</h4>
-                        <textarea {...register('material_desc' )} rows={5} className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
+                        <textarea {...register('material_desc')} rows={5}
+                                  className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
                     </div>
 
                     <div className={'col-span-6'}>
@@ -134,7 +140,6 @@ const Ads = () => {
 
 
                     </div>
-
 
 
                     <div className={'col-span-6'}>
@@ -164,13 +169,11 @@ const Ads = () => {
                     </div>
 
 
-
-
-
                     {/*Material rasmi*/}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material rasmi</h4>
-                        <label for="dropzone-file"  className={'shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white'}>
+                        <label for="dropzone-file"
+                               className={'shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white'}>
                             <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>
                             <p>yuklash</p>
                         </label>
@@ -201,11 +204,8 @@ const Ads = () => {
                     </div>
 
 
-
-
-
-
-                    <button className={' col-span-12 w-[170px] text-base text-white bg-[#1890FF] py-[12px] px-[54px] rounded-[5px] mt-[30px]'}>
+                    <button
+                        className={' col-span-12 w-[170px] text-base text-white bg-[#1890FF] py-[12px] px-[54px] rounded-[5px] mt-[30px]'}>
                         <p>Saqlash</p>
                     </button>
                 </form>
