@@ -7,19 +7,30 @@ import {useTranslation} from "react-i18next";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
-import {get} from "lodash";
+import {debounce, get} from "lodash";
 
 
 import {useForm} from "react-hook-form";
 import {toast} from "react-hot-toast";
 import Form from "@/containers/form";
 import Input from "@/containers/form/components/Input";
+import useGetQuery from "@/hooks/api/useGetQuery";
+import {useRouter} from "next/router";
 const Ads = () => {
     const {t} = useTranslation();
     const { register, handleSubmit, formState: {errors}} = useForm()
-
-
+    const router = useRouter();
+    const {query = '', category = 'all'} = router.query;
+    const {data, isLoadingMaterial} = useGetQuery({
+        key: KEYS.materials,
+        url: URLS.materials,
+        params: {
+            key: category,
+            value: query,
+        }
+    })
     const [materialData, setMaterialData] = useState([]);
+
     const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.addAds})
 
 
@@ -47,8 +58,10 @@ const Ads = () => {
                     </div>
 
                     <div className={'col-span-12 flex gap-x-[30px]'}>
-                        <input  placeholder={'nomni rus tilida kiriting'}
-
+                        <input defaultValue={category}  placeholder={'nomni rus tilida kiriting'}
+                                onChange={debounce(function (e) {
+                                    router.push(`dashboard/materials/?key=${e.target.value}&value=${category}`)
+                                }, 500)}
                                 className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
                         />
                     </div>
