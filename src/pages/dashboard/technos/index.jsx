@@ -18,6 +18,7 @@ import Link from "next/link";
 const Technos = () => {
     const {t} = useTranslation();
     const [pageSize, setPageSize] = useState(20);
+    const [count, setCount] = useState(0)
 
 
     const {data, isLoading} =useGetQuery({
@@ -103,8 +104,15 @@ const Technos = () => {
                             t("E’lon qo’shish")}
                         </Button>
                     </div>
+                    <div className={'col-span-12 mb-[10px]'}>
+                        <p className={'text-sm text-[#516164]'}>*<NumericFormat value={count}
+                                                                                displayType={'text'}
+                                                                                thousandSeparator={" "}/> ta natija
+                            mavjud</p>
+                    </div>
                     <div className="col-span-12 ">
                         <GridView
+                            getCount={setCount}
                             hasActionColumn
                             url={URLS.myTechnos}
                             key={[KEYS.myTechnos,pageSize]}

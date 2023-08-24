@@ -42,8 +42,8 @@ const Ads = () => {
     }
 
     useEffect(() => {
-        if (!isEmpty(head(get(materials, 'data.results', [])))) {
-            setMaterial(head(get(materials, 'data.results', [])))
+        if (!isEmpty(get(materials, 'data.results', []))) {
+            setMaterial(get(materials, 'data.results', []))
         }
     }, [materials])
 
@@ -59,12 +59,15 @@ const Ads = () => {
                     </div>
 
                     <div className={'col-span-12 flex gap-x-[30px]'}>
-                        <input defaultValue={search} placeholder={'nomni rus tilida kiriting'}
+                        <input list={'search-list'} defaultValue={search} placeholder={'nomni rus tilida kiriting'}
                                onChange={debounce(function (e) {
                                    setSearch(e.target.value)
                                }, 500)}
                                className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
                         />
+                        <datalist id={'search-list'}>
+                            <option value={search}></option>
+                        </datalist>
                     </div>
 
                     {/*  material bo'limi  */}

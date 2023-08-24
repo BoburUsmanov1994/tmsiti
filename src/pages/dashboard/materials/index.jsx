@@ -18,11 +18,18 @@ import Link from "next/link";
 const Materials = () => {
     const {t} = useTranslation();
     const [pageSize, setPageSize] = useState(20);
+    const [count, setCount] = useState(0);
 
 
     const {data, isLoading} =useGetQuery({
         key: KEYS.myMaterials,
         url: URLS.myMaterials
+    })
+
+    const {data: userStat} = useGetQuery({
+        key: KEYS.userStat,
+        url: URLS.userStat,
+
     })
     const columns = [
         {
@@ -33,7 +40,7 @@ const Materials = () => {
         {
             title: 'Kodi',
             key: 'material_code',
-            render: ({value, row}) =><Link className={'underline'} href={`${URLS.materials}${get(data, 'data.material_code')}/`}>
+            render: ({value, row}) =><Link className={'underline'} href={`materials/${get(row, 'material_code')}`}>
                 <span className={'text-[#28366D]'}>{value}</span>
             </Link>
         },
@@ -103,8 +110,15 @@ const Materials = () => {
                             t("E’lon qo’shish")}
                         </Button>
                     </div>
+                    <div className={'col-span-12 mb-[10px]'}>
+                        <p className={'text-sm text-[#516164]'}>*<NumericFormat value={count}
+                                                                                displayType={'text'}
+                                                                                thousandSeparator={" "}/> ta natija
+                            mavjud</p>
+                    </div>
                     <div className="col-span-12 ">
                         <GridView
+                            getCount={setCount}
                             hasActionColumn
                             url={URLS.myMaterials}
                             key={[KEYS.myMaterials,pageSize]}

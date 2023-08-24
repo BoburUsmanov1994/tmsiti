@@ -3,7 +3,7 @@ import React from 'react';
 const Search = ({classname}) => {
     return (
         <div className={classname}>
-            <form className={'w-[370px] h-[40px] flex '} >
+            <form className={'w-[370px] h-[40px] flex relative z-30'} >
                 <input type="search"
                        placeholder={'Qidirish...'}
                        className="bg-white h-[40px] w-[370px] pl-[50px]  rounded-lg focus:outline-none hover:cursor-pointer"
