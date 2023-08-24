@@ -13,6 +13,7 @@ import {get} from "lodash";
 import {NumericFormat} from "react-number-format";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import dayjs from "dayjs";
+import Link from "next/link";
 
 const Materials = () => {
     const {t} = useTranslation();
@@ -32,7 +33,9 @@ const Materials = () => {
         {
             title: 'Kodi',
             key: 'material_code',
-            render: ({value}) => <span className={'text-[#28366D]'}>{value}</span>
+            render: ({value, row}) =><Link className={'underline'} href={`${URLS.materials}${get(data, 'data.material_code')}/`}>
+                <span className={'text-[#28366D]'}>{value}</span>
+            </Link>
         },
         {
             title: 'Nomi',

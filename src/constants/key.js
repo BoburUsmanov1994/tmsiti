@@ -29,5 +29,7 @@ export const KEYS = {
     userTopAds: 'userTopAds',
     esign: 'esign',
     addAds: 'addAdsNew',
+    technoAddAds: 'technoAddAds',
+    myTechnos: 'myTechnos',
 
 };

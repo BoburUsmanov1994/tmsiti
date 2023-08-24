@@ -28,5 +28,7 @@ export const URLS = {
     userStat: 'api/user/stat',
     userTopAds: '/api/user/top',
     esign: '/api/imzo',
-    addAds: 'materials/ads/add/new'
+    addAds: 'materials/ads/add/new',
+    technoAddAds: 'technos/ads/add/new',
+    myTechnos: 'technos/ads/my',
 };

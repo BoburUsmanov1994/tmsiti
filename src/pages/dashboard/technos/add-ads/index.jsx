@@ -1,3 +1,4 @@
+
 import React, {useEffect, useState} from 'react';
 import Dashboard from "@/layouts/dashboard";
 import Subheader from "@/layouts/dashboard/components/subheader";
@@ -20,14 +21,14 @@ const Ads = () => {
 
 
     const [materialData, setMaterialData] = useState([]);
-    const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.addAds})
+    const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.technoAddAds})
 
 
     const onSubmit = (data) => {
         addAds({
-            url: URLS.addAds,
-            attributes: {...data}
-        },
+                url: URLS.technoAddAds,
+                attributes: {...data}
+            },
             {
                 onSuccess: () => {
                     toast.success('All details were sent correctly,  ', {position: 'top-right'});
@@ -39,7 +40,7 @@ const Ads = () => {
 
     return (
         <Dashboard>
-            <Subheader title={'Qurilish materiallari e’lon qo’shish'} />
+            <Subheader title={'Uskunalar va qurilmalar e’lon qo’shish'} />
             <div className="p-7">
                 <form  className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>
                     <div className={'col-span-12 mb-[10px]'}>
@@ -48,7 +49,6 @@ const Ads = () => {
 
                     <div className={'col-span-12 flex gap-x-[30px]'}>
                         <input  placeholder={'nomni rus tilida kiriting'}
-
                                 className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
                         />
                     </div>
@@ -59,7 +59,7 @@ const Ads = () => {
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
                         <input  placeholder={'Pardozbop va dekorativ materiallar'}
-                                {...register('material_volume_name', )}
+                                {...register('techno_volume_name', )}
                                 className={'placeholder py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
                     </div>
@@ -69,7 +69,7 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base'}>Material kategoriyasi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input placeholder={'Грунтовки на основе сложных полиэфиров, акриловых или виниловых полимеров в наведной среде'}
-                               {...register('material_category_name', ) }
+                               {...register('techno_category_name', ) }
 
                                className={' py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
@@ -83,7 +83,7 @@ const Ads = () => {
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
                         <input placeholder={'Грунтовки полимерные'}
-                               {...register('material_group_name', {required: true})}
+                               {...register('techno_group_name', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
                     </div>
@@ -95,11 +95,11 @@ const Ads = () => {
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                               {...register('material_name', {required: true})}
+                               {...register('techno_name', {required: true})}
                         />
                         <input placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
                                className={'hidden'} value={1}
-                               {...register('material_owner', {required: true})}
+                               {...register('techno_owner', {required: true})}
                         />
 
                     </div>
@@ -109,13 +109,13 @@ const Ads = () => {
 
                     <div className={'col-span-12 gap-x-[30px]'}>
                         <h4 className={'text-[#28366D] text-base my-[10px]'}>Material tavsifi</h4>
-                        <textarea {...register('material_desc' )} rows={5} className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
+                        <textarea {...register('techno_desc' )} rows={5} className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
                     </div>
 
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material narxi</h4>
                         <input placeholder={'123213'}
-                               {...register('material_price', {required: true})}
+                               {...register('techno_price', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
 
@@ -136,7 +136,7 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base '}>Material miqdori</h4>
 
                         <input placeholder={'123213'}
-                               {...register('material_amount', {required: true})}
+                               {...register('techno_amount', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
 
@@ -146,7 +146,7 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base '}>Material miqdor o’lchov birligi</h4>
                         <input placeholder={'kilogram'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                               {...register('material_amount_measure')}
+                               {...register('techno_amount_measure')}
                         />
                     </div>
 
