@@ -14,17 +14,27 @@ import {NumericFormat} from "react-number-format";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import dayjs from "dayjs";
 import Link from "next/link";
+import usePutQuery from "@/hooks/api/usePutQuery";
 
 const Materials = () => {
     const {t} = useTranslation();
     const [pageSize, setPageSize] = useState(20);
     const [count, setCount] = useState(0);
 
+    const {data: currency} = useGetQuery({
+        key: KEYS.currency,
+        url: URLS.currency,
+    })
+    const {data: deactivate} = usePutQuery({
+
+    })
 
     const {data, isLoading} =useGetQuery({
         key: KEYS.myMaterials,
         url: URLS.myMaterials
     })
+
+    console.log(get(data, 'data.results[techno_name]'))
 
     const {data: userStat} = useGetQuery({
         key: KEYS.userStat,
@@ -40,7 +50,7 @@ const Materials = () => {
         {
             title: 'Kodi',
             key: 'material_code',
-            render: ({value, row}) =><Link className={'underline'} href={`materials/${get(row, 'material_code')}`}>
+            render: ({value, row}) =><Link className={'underline'} href={`/materials/${get(row, 'material_code')}`}>
                 <span className={'text-[#28366D]'}>{value}</span>
             </Link>
         },
@@ -54,10 +64,11 @@ const Materials = () => {
             render: ({
                          value,
                          row
-                     }) => (value * get(data, `data[${get(row, 'material_price_currency')}]`, 1) > 0 ?
+                     }) => (value * get(currency, `data[${get(row, 'material_price_currency')}]`, 1) > 0 ?
                 <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
                                thousandSeparator={' '}
-                               value={(value * get(data, `data[${(get(row, 'material_price_currency'))}]`, 1)).toFixed(2)}/> : t("by_order")),
+
+                               value={(value * get(currency, `data[${(get(row, 'material_price_currency'))}]`, 1)).toFixed(2)}/> : t("by_order")),
             classnames: 'text-center'
         },
         {
@@ -68,7 +79,7 @@ const Materials = () => {
         {
             title: 'Joylangan vaqti',
             key: 'material_created_date',
-            render: ({date}) => <span>{dayjs(get(data, `data[${get(date, 'material_created_date')}]`)).format("DD.MM.YYYY, HH:mm")}</span>,
+            render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm"),
             classnames: 'text-center',
 
 
@@ -118,6 +129,7 @@ const Materials = () => {
                     </div>
                     <div className="col-span-12 ">
                         <GridView
+                            eyeUrl={`/materials/${get(data, 'material_code')}`}
                             getCount={setCount}
                             hasActionColumn
                             url={URLS.myMaterials}

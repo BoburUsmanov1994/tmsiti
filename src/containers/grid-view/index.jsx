@@ -13,6 +13,7 @@ const GridView = ({
                       columns = [],
                       url,
                       key,
+                      eyeUrl,
                       params = {},
                       enabled = true,
                       getCount = () => {
@@ -52,7 +53,7 @@ const GridView = ({
             {isFetching && <OverlayLoader/>}
             <GridHeader>{HeaderBody}</GridHeader>
             {get(data, 'data.results', [])?.length > 0 ? <>
-                    <GridBody hasActionColumn={hasActionColumn} handleSort={setSort} columns={columns}
+                    <GridBody eyeUrl={eyeUrl} hasActionColumn={hasActionColumn} handleSort={setSort} columns={columns}
                               rows={get(data, 'data.results', [])} pageSize={pageSize} page={page} setPage={setPage}/>
                     <Pagination page={page} setPage={setPage} pageCount={get(data, 'data.total_pages', 0)}/></> :
                 <p className={'py-5'}>{hasActionColumn ?

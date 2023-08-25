@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const GridBody = ({
-                      hasActionColumn = false, columns = [], rows = [], pageSize = 24, page = 1, handleSort = () => {
+                      hasActionColumn = false, eyeUrl, columns = [], rows = [], pageSize = 24, page = 1, handleSort = () => {
     }
                   }) => {
     return (
@@ -59,7 +59,7 @@ const GridBody = ({
                             )}
                             {
                                 hasActionColumn && <td className={'align-middle py-2.5 px-5 text-center inline-flex'}>
-                                    <Link href={'#'} className={'mr-1.5 inline'}> <Image className={'inline'} width={20} height={20}
+                                    <Link href={eyeUrl} className={'mr-1.5 inline'}> <Image className={'inline'} width={20} height={20}
                                                                                   src={'/icons/eye-icon.svg'}
                                                                                   alt={'eye'}/></Link>
                                     <Link href={'#'} className={'inline'}> <Image className={'inline'} width={20} height={20} src={'/icons/edit-icon.svg'}

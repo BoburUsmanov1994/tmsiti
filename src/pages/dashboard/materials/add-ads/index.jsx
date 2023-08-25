@@ -26,6 +26,7 @@ const Ads = () => {
         },
         enabled: !!(search)
     })
+
     const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.addAds})
 
     const onSubmit = (data) => {
@@ -43,7 +44,7 @@ const Ads = () => {
 
     useEffect(() => {
         if (!isEmpty(get(materials, 'data.results', []))) {
-            setMaterial(find(get(materials, 'data.results', []),({material_name})=>material_name == search))
+            setMaterial(find(get(materials, 'data.results', []),({material_name})=>material_name === search))
         }
     }, [materials])
 
@@ -78,9 +79,10 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base'}>Material bo’limi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
-                        <input defaultValue={get(material,'material_volume_name')} placeholder={'Pardozbop va dekorativ materiallar'}
+                        <input defaultValue={get(material,'material_volume_name')} placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                {...register('material_volume_name',)}
                                className={'placeholder py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                               disabled={true}
                         />
                     </div>
 
@@ -90,9 +92,10 @@ const Ads = () => {
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
                             defaultValue={get(material,'material_category_name')}
-                            placeholder={'Грунтовки на основе сложных полиэфиров, акриловых или виниловых полимеров в наведной среде'}
+                            placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             {...register('material_category_name')}
                             className={' py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                            disabled={true}
                         />
                     </div>
 
@@ -103,10 +106,11 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base '}>Material guruhi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
-                        <input placeholder={'Грунтовки полимерные'}
+                        <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                defaultValue={get(material,'material_group_name')}
-                               {...register('material_group_name', {required: true})}
+                               {...register('material_group_name')}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                               disabled={true}
                         />
                     </div>
 
@@ -117,14 +121,17 @@ const Ads = () => {
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
                             defaultValue={get(material,'material_name')}
-                            placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
+                            placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                            {...register('material_name', {required: true})}
+                            value={get(material, 'material_csr_code')}
+                            {...register('material_csr_code', {required: true})}
+                            disabled={true}
                         />
                         <input
                             placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
                             className={'hidden'} value={1}
                             {...register('material_owner', {required: true})}
+
                         />
 
                     </div>
@@ -136,15 +143,21 @@ const Ads = () => {
                                   className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
                     </div>
 
-                    <div className={'col-span-6'}>
+                    <div className={'col-span-6 '}>
                         <h4 className={'text-[#28366D] text-base '}>Material narxi</h4>
-                        <input placeholder={'123213'}
-                               {...register('material_price', {required: true})}
-                               className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                        />
-
-
+                        <div className={'flex items-center rounded-[5px]'}>
+                            <input placeholder={''}
+                                   {...register('material_price', {required: true})}
+                                   className={'py-[15px] px-[20px] w-full shadow-xl  my-[10px]'}
+                            />
+                            <select className={'p-[16px]'} {...register('material_price_currency')}>
+                                <option>USD</option>
+                                <option>RUB</option>
+                            </select>
+                        </div>
                     </div>
+
+
 
 
                     <div className={'col-span-6'}>

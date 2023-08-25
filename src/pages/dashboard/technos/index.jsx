@@ -2,13 +2,12 @@ import React, {useState} from 'react';
 import Dashboard from "../../../layouts/dashboard";
 import Subheader from "../../../layouts/dashboard/components/subheader";
 import GridView from "../../../containers/grid-view";
-import {KEYS} from "../../../constants/key";
-import {URLS} from "../../../constants/url";
+import {KEYS} from "@/constants/key";
+import {URLS} from "@/constants/url";
 import Image from "next/image";
 import Button from "@/components/button";
 import {useTranslation} from "react-i18next";
 import Search from "@/layouts/dashboard/components/search";
-import PageSizeSelector from "@/layouts/dashboard/components/select";
 import {get} from "lodash";
 import {NumericFormat} from "react-number-format";
 import useGetQuery from "@/hooks/api/useGetQuery";
@@ -25,6 +24,12 @@ const Technos = () => {
         key: KEYS.myTechnos,
         url: URLS.myTechnos
     })
+    const {data: currency} = useGetQuery({
+        key: KEYS.currency,
+        url: URLS.currency,
+    })
+
+
     const columns = [
         {
             title: '№',
@@ -34,7 +39,7 @@ const Technos = () => {
         {
             title: 'Kodi',
             key: 'techno_code',
-            render: ({value, row}) =><Link className={'underline'} href={`/technos/${get(data, `data.techno_code`)}`}>
+            render: ({value, row}) =><Link className={'underline'} href={`/technos/${get(row, `techno_code`)}`}>
                 <span className={'text-[#28366D]'}>{value}</span>
             </Link>
         },
@@ -48,10 +53,11 @@ const Technos = () => {
             render: ({
                          value,
                          row
-                     }) => (value * get(data, `data[${get(row, 'techno_price_currency')}]`, 1) > 0 ?
+                     }) => (value * get(currency, `data[${get(row, 'techno_price_currency')}]`, 1) > 0 ?
                 <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
                                thousandSeparator={' '}
-                               value={(value * get(data, `data[${(get(row, 'techno_price_currency'))}]`, 1)).toFixed(2)}/> : t("by_order")),
+                               suffix={` (${get(row, 'techno_measure')})`}
+                               value={(value * get(currency, `data[${(get(row, 'techno_price_currency'))}]`, 1)).toFixed(2)}/> : t("by_order")),
             classnames: 'text-center'
         },
         {
@@ -62,7 +68,7 @@ const Technos = () => {
         {
             title: 'Joylangan vaqti',
             key: 'techno_created_date',
-            render: ({date}) => <span>{dayjs(get(data, `data[${get(date, 'techno_created_date')}]`)).format("DD.MM.YYYY, HH:mm")}</span>,
+            render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm"),
             classnames: 'text-center',
 
 
@@ -112,6 +118,7 @@ const Technos = () => {
                     </div>
                     <div className="col-span-12 ">
                         <GridView
+                            eyeUrl={`/technos/${get(data, `techno_code`)}`}
                             getCount={setCount}
                             hasActionColumn
                             url={URLS.myTechnos}
