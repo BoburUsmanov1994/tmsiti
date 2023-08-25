@@ -2,19 +2,19 @@ import React, {useState} from 'react';
 import Dashboard from "../../../layouts/dashboard";
 import Subheader from "../../../layouts/dashboard/components/subheader";
 import GridView from "../../../containers/grid-view";
-import {KEYS} from "../../../constants/key";
-import {URLS} from "../../../constants/url";
+import {KEYS} from "@/constants/key";
+import {URLS} from "@/constants/url";
 import Image from "next/image";
 import Button from "@/components/button";
 import {useTranslation} from "react-i18next";
 import Search from "@/layouts/dashboard/components/search";
-import PageSizeSelector from "@/layouts/dashboard/components/select";
 import {get} from "lodash";
 import {NumericFormat} from "react-number-format";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import dayjs from "dayjs";
 import Link from "next/link";
 import usePutQuery from "@/hooks/api/usePutQuery";
+import {OverlayLoader} from "@/components/loader";
 
 const Materials = () => {
     const {t} = useTranslation();
@@ -25,8 +25,8 @@ const Materials = () => {
         key: KEYS.currency,
         url: URLS.currency,
     })
-    const {data: deactivate} = usePutQuery({
-
+    const {mutate: deactivateRequest,isLoading:isLoadingDeActivate} = usePutQuery({
+    listKeyId:[KEYS.myMaterials,pageSize]
     })
 
     const {data, isLoading} =useGetQuery({
@@ -90,11 +90,20 @@ const Materials = () => {
         //     key: 'material_views_count',
         //     classnames: 'text-center'
         // },
-    ]
+    ];
+
+    const deActivate = (_id) => {
+        deactivateRequest({
+
+        })
+    }
     return (
         <Dashboard>
             <Subheader title={'Qurilish materiallari'}/>
             <div className="p-7">
+                {
+                    isLoadingDeActivate && <OverlayLoader />
+                }
                 <div className="grid grid-cols-12">
                     <div className={'col-span-12 flex items-center justify-between mb-[30px]'}>
                         <div className={'flex  items-center'}>
