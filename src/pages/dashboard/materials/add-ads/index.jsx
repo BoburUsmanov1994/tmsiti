@@ -6,7 +6,7 @@ import {useTranslation} from "react-i18next";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
-import {debounce, head, get, isEmpty} from "lodash";
+import {debounce, head, get, isEmpty, find} from "lodash";
 import {useForm} from "react-hook-form";
 import {toast} from "react-hot-toast";
 import useGetQuery from "@/hooks/api/useGetQuery";
@@ -43,7 +43,7 @@ const Ads = () => {
 
     useEffect(() => {
         if (!isEmpty(get(materials, 'data.results', []))) {
-            setMaterial(get(materials, 'data.results', []))
+            setMaterial(find(get(materials, 'data.results', []),({material_name})=>material_name == search))
         }
     }, [materials])
 
