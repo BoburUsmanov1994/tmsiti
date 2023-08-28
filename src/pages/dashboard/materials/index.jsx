@@ -34,7 +34,7 @@ const Materials = () => {
         url: URLS.myMaterials
     })
 
-    console.log(get(data, 'data.results[techno_name]'))
+    console.log(get(data, 'data.results[1]["material_code"]'))
 
     const {data: userStat} = useGetQuery({
         key: KEYS.userStat,
@@ -138,7 +138,7 @@ const Materials = () => {
                     </div>
                     <div className="col-span-12 ">
                         <GridView
-                            eyeUrl={`/materials/${get(data, 'material_code')}`}
+                            eyeUrl={ (index) =>  `/materials/${    get(data, `data.results[${index}]["material_code"]`)}`}
                             getCount={setCount}
                             hasActionColumn
                             url={URLS.myMaterials}
@@ -154,3 +154,5 @@ const Materials = () => {
 };
 
 export default Materials;
+// ko'z iconi uchun
+//eyeUrl={ (index) =>  `/materials/${    get(data, `data.results[${index}]["material_code"]`)}`}

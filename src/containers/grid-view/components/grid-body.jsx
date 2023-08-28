@@ -62,8 +62,8 @@ const GridBody = ({
                                     <Link href={eyeUrl} className={'mr-1.5 inline'}> <Image className={'inline'} width={20} height={20}
                                                                                   src={'/icons/eye-icon.svg'}
                                                                                   alt={'eye'}/></Link>
-                                    <Link href={'#'} className={'inline'}> <Image className={'inline'} width={20} height={20} src={'/icons/edit-icon.svg'}
-                                                             alt={'edit'}/></Link>
+                                    {/*<Link href={'#'} className={'inline'}> <Image className={'inline'} width={20} height={20} src={'/icons/edit-icon.svg'}*/}
+                                    {/*                         alt={'edit'}/></Link>*/}
                                     <Link href={'#'} className={'ml-1.5 inline'}> <Image className={'inline'} width={20} height={20}
                                                                                   src={'/icons/trash-icon.svg'}
                                                                                   alt={'trash'}/></Link>

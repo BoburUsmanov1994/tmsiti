@@ -52,9 +52,12 @@ const Ads = () => {
 
     useEffect(() => {
         if (!isEmpty(get(technos, 'data.results', []))) {
-            setTechno(find(get(technos, 'data.results', []),({techno_name})=> techno_name == search))
+            setTechno(find(get(technos, 'data.results', []),({techno_name})=> techno_name === search))
         }
     }, [technos])
+
+    console.log("technos", techno, technos);
+
 
     return (
         <Dashboard>
@@ -131,10 +134,10 @@ const Ads = () => {
                                {...register('techno_name', {required: true})}
                                disabled={true}
                         />
-                        <input placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
-                               className={'hidden'} value={1}
-                               {...register('techno_owner', {required: true})}
-                        />
+                        {/*<input placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}*/}
+                        {/*       className={'hidden'} value={1}*/}
+                        {/*       {...register('techno_owner', {required: true})}*/}
+                        {/*/>*/}
 
                     </div>
 
@@ -146,19 +149,19 @@ const Ads = () => {
                         <textarea {...register('techno_desc' )} rows={5} className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
                     </div>
 
-                    <div className={'col-span-6'}>
+                    <div className={'col-span-6 '}>
                         <h4 className={'text-[#28366D] text-base '}>Material narxi</h4>
-                        <form className={'flex items-center rounded-[5px]'}>
-                            <input placeholder={'123213'}
+                        <div className={'flex items-center rounded-[5px]'}>
+                            <input placeholder={''}
                                    {...register('techno_price', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl  my-[10px]'}
                             />
 
-                            <select className={'p-[16px] shadow-xl'} {...register('material_price_currency')}>
+                            <select className={'p-[16px]'} {...register('techno_price_currency')}>
                                 <option>USD</option>
                                 <option>RUB</option>
                             </select>
-                        </form>
+                        </div>
                     </div>
 
 

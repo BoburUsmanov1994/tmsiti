@@ -11,11 +11,13 @@ import {useForm} from "react-hook-form";
 import {toast} from "react-hot-toast";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {OverlayLoader} from "@/components/loader";
+import {lightGreen} from "@mui/material/colors";
 
 const Ads = () => {
     const {t} = useTranslation();
     const {register, handleSubmit, formState: {errors}} = useForm()
     const [search, setSearch] = useState('')
+    const [fromCurrency, setCurrency] = useState('');
     const [material, setMaterial] = useState(null)
     const {data: materials, isLoadingMaterial} = useGetQuery({
         key: KEYS.materials,
@@ -27,6 +29,14 @@ const Ads = () => {
         enabled: !!(search)
     })
 
+    const {data: currency, isLoadingCurrency} = useGetQuery({
+        key: KEYS.currency,
+        url: URLS.currency
+    })
+
+
+
+
     const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.addAds})
 
     const onSubmit = (data) => {
@@ -37,17 +47,21 @@ const Ads = () => {
             {
                 onSuccess: () => {
                     toast.success('All details were sent correctly,  ', {position: 'top-right'});
+                },
+                onError: () => {
+                    toast.error("Error is occured,", {position: 'top-right'})
                 }
             }
         )
     }
 
     useEffect(() => {
-        if (!isEmpty(get(materials, 'data.results', []))) {
-            setMaterial(find(get(materials, 'data.results', []),({material_name})=>material_name === search))
+        if (!isEmpty(head(get(materials, 'data.results', [])))) {
+            setMaterial(find(get(materials, 'data.results', []),({material_name})=> material_name === search))
         }
     }, [materials])
 
+    console.log('material',  materials)
 
     return (
         <Dashboard>
@@ -123,7 +137,7 @@ const Ads = () => {
                             defaultValue={get(material,'material_name')}
                             placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                            value={get(material, 'material_csr_code')}
+
                             {...register('material_csr_code', {required: true})}
                             disabled={true}
                         />
@@ -136,20 +150,24 @@ const Ads = () => {
 
                     </div>
 
-
+                    {/* Material tavsifi */}
                     <div className={'col-span-12 gap-x-[30px]'}>
                         <h4 className={'text-[#28366D] text-base my-[10px]'}>Material tavsifi</h4>
                         <textarea {...register('material_desc')} rows={5}
                                   className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
                     </div>
 
+
+                    {/* Material narxi */}
                     <div className={'col-span-6 '}>
                         <h4 className={'text-[#28366D] text-base '}>Material narxi</h4>
                         <div className={'flex items-center rounded-[5px]'}>
                             <input placeholder={''}
                                    {...register('material_price', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl  my-[10px]'}
+                                   defaultValue={(value, set) => (value * get(currency, `data[${get(set, 'material_price_currency')}]`, 1) > 0)}
                             />
+
                             <select className={'p-[16px]'} {...register('material_price_currency')}>
                                 <option>USD</option>
                                 <option>RUB</option>
@@ -159,14 +177,17 @@ const Ads = () => {
 
 
 
-
+                    {/* Material o'lchov birligi */}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material o’lchov birligi</h4>
                         <input placeholder={'tonna'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                               {...register('material_measure')}
 
                         />
                     </div>
+
+
                     {/*Material miqdori*/}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material miqdori</h4>
@@ -177,6 +198,8 @@ const Ads = () => {
                         />
 
                     </div>
+
+
                     {/*Material miqdor o’lchov birligi*/}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material miqdor o’lchov birligi</h4>
@@ -196,7 +219,7 @@ const Ads = () => {
                             <p>yuklash</p>
                         </label>
                         <input id={"dropzone-file"} className={'hidden '} type={"file"}
-
+                               {...register('material_image')}
                         />
                     </div>
 
@@ -205,7 +228,7 @@ const Ads = () => {
                         {/*Mahsulot sertifikati reestr raqami*/}
                         <div>
                             <h4 className={'text-[#28366D] text-base '}>Mahsulot sertifikati blank raqami</h4>
-                            <input placeholder={'123213'}
+                            <input placeholder={'Mahsulot sertifikati blank raqami'}
                                    {...register('sertificate_blank_num', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                             />
@@ -214,7 +237,7 @@ const Ads = () => {
                         {/*Mahsulot sertifikati reestr raqami*/}
                         <div>
                             <h4 className={'text-[#28366D] text-base '}>Mahsulot sertifikati reestr raqami</h4>
-                            <input placeholder={'123213'}
+                            <input placeholder={'Mahsulot sertifikati reestr raqami'}
                                    {...register('sertificate_reestr_num', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                             />
@@ -222,10 +245,13 @@ const Ads = () => {
                     </div>
 
 
-                    <button
-                        className={' col-span-12 w-[170px] text-base text-white bg-[#1890FF] py-[12px] px-[54px] rounded-[5px] mt-[30px]'}>
-                        <p>Saqlash</p>
-                    </button>
+                    <div>
+                        <button
+
+                            className={' col-span-12 w-[170px] text-base text-white bg-[#1890FF] py-[12px] px-[54px] rounded-[5px] mt-[30px]'}>
+                            <p>Saqlash</p>
+                        </button>
+                    </div>
                 </form>
             </div>
         </Dashboard>
@@ -233,3 +259,7 @@ const Ads = () => {
 };
 
 export default Ads;
+
+// converting money
+
+// defaultValue={(value, set) => (value * get(currency, `data[${get(set, 'material_price_currency')}]`, 1) > 0)}
