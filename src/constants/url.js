@@ -31,4 +31,5 @@ export const URLS = {
     addAds: 'materials/ads/add/new',
     technoAddAds: 'technos/ads/add/new',
     myTechnos: 'technos/ads/my',
+    deactivateMaterial: 'materials/ads/deactivate',
 };

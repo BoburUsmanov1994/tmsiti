@@ -11,15 +11,13 @@ import {useForm} from "react-hook-form";
 import {toast} from "react-hot-toast";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {OverlayLoader} from "@/components/loader";
-import {lightGreen} from "@mui/material/colors";
-import {data} from "autoprefixer";
+import { redirect } from 'next/navigation'
 
 const Ads = () => {
     const {t} = useTranslation();
-    const {register, handleSubmit, formState: {errors}} = useForm()
     const [search, setSearch] = useState('')
-    const [fromCurrency, setCurrency] = useState('');
-    const [material, setMaterial] = useState(null)
+    const [material, setMaterial] = useState({})
+    const {register, handleSubmit, formState: {errors}} = useForm({values:material})
     const {data: materials, isLoadingMaterial} = useGetQuery({
         key: KEYS.materials,
         url: URLS.materials,
@@ -30,25 +28,50 @@ const Ads = () => {
         enabled: !!(search)
     })
 
-    const {data: currency, isLoadingCurrency} = useGetQuery({
-        key: KEYS.currency,
-        url: URLS.currency
-    })
+
+
+    const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.myMaterials})
 
 
 
+    useEffect(() => {
+        if (!isEmpty(head(get(materials, 'data.results', [])))) {
+            setMaterial(find(get(materials, 'data.results', []), ({material_name}) => material_name === search))
+        }
+    }, [materials])
 
-    const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.addAds})
-
-    const onSubmit = (data) => {
-
+    const onSubmit = ({
+                          material_name,
+                          material_description,
+                          material_price,
+                          material_price_currency,
+                          material_image,
+                          material_amount,
+                          sertificate_blank_num,
+                          sertificate_reestr_num,
+                          material_owner,
+                          material_measure
+                      }) => {
+        let formData = new FormData();
+        formData.append('material_name',material_name)
+        formData.append('material_description',material_description)
+        formData.append('material_price',material_price)
+        formData.append('material_price_currency',material_price_currency)
+        formData.append('material_image',material_image[0])
+        formData.append('material_amount',material_amount)
+        formData.append('sertificate_blank_num',sertificate_blank_num)
+        formData.append('sertificate_reestr_num',sertificate_reestr_num)
+        formData.append('material_owner',material_owner)
+        formData.append('material_amount_measure',material_measure)
+        formData.append('material_measure',material_measure)
         addAds({
                 url: URLS.addAds,
-                attributes: {...data}
+                attributes:formData
             },
             {
                 onSuccess: () => {
                     toast.success('All details were sent correctly,  ', {position: 'top-right'});
+                    redirect('/dashboard/materials');
                 },
                 onError: () => {
                     toast.error("Error is occured,", {position: 'top-right'})
@@ -57,23 +80,15 @@ const Ads = () => {
         )
     }
 
-    console.log(onSubmit)
-
-    useEffect(() => {
-
-        if (!isEmpty(head(get(materials, 'data.results', [])))) {
-            setMaterial(find(get(materials, 'data.results', []),({material_name})=> material_name === search))
-        }
-    }, [materials])
-
-    console.log('material',  materials)
+    console.log('material', material)
+    console.log('errors', errors)
 
     return (
         <Dashboard>
             <Subheader title={'Qurilish materiallari e’lon qo’shish'}/>
             <div className="p-7">
                 {(isLoadingMaterial || isLoading) && <OverlayLoader/>}
-                <form className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)} method={"POST"}>
+                <form className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>
                     <div className={'col-span-12 mb-[10px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Qidiruv</h4>
                     </div>
@@ -85,12 +100,13 @@ const Ads = () => {
                                }, 500)}
                                className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
                         />
-                            <datalist id={'search-list'}>
+                        <datalist id={'search-list'}>
 
-                                {
-                                    get(materials, 'data.results', []).map(item=><option value={get(item,'material_name')}></option>)
-                                }
-                            </datalist>
+                            {
+                                get(materials, 'data.results', []).map(item => <option
+                                    value={get(item, 'material_name')}></option>)
+                            }
+                        </datalist>
                     </div>
 
                     {/*  material bo'limi  */}
@@ -98,7 +114,8 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base'}>Material bo’limi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
-                        <input defaultValue={get(material,'material_volume_name')} placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
+                        <input defaultValue={get(material, 'material_volume_name')}
+                               placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                className={'placeholder py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                disabled={true}
                         />
@@ -109,7 +126,7 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base'}>Material kategoriyasi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
-                            defaultValue={get(material,'material_category_name')}
+                            defaultValue={get(material, 'material_category_name')}
                             placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             className={' py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                             disabled={true}
@@ -124,7 +141,7 @@ const Ads = () => {
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
-                               defaultValue={get(material,'material_group_name')}
+                               defaultValue={get(material, 'material_group_name')}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                disabled={true}
                         />
@@ -136,7 +153,7 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base'}>Material nomi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
-                            defaultValue={get(material,'material_name')}
+                            defaultValue={get(material, 'material_name', ' ')}
                             placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                             {...register('material_name', {required: true})}
@@ -166,7 +183,7 @@ const Ads = () => {
                             <input placeholder={''}
                                    {...register('material_price', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl  my-[10px]'}
-                                    required={true}
+                                   required={true}
                             />
 
                             <select className={'p-[16px]'} {...register('material_price_currency')}>
@@ -176,7 +193,6 @@ const Ads = () => {
                             </select>
                         </div>
                     </div>
-
 
 
                     {/* Material o'lchov birligi */}
@@ -222,7 +238,7 @@ const Ads = () => {
                             <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>
                             <p>yuklash</p>
                         </label>
-                        <input id={"dropzone-file"} className={'hidden '} type={"file"}
+                        <input id={"dropzone-file"} className={'hidden'} type={"file"}
                                {...register('material_image')}
                         />
                     </div>
@@ -251,8 +267,7 @@ const Ads = () => {
                     </div>
 
                     <button
-                        type={"submit"}
-                        className={' col-span-12 w-[170px] text-base text-white bg-[#1890FF] py-[12px] px-[54px] rounded-[5px] mt-[30px]'}>
+                        className={'col-span-12 w-[170px] text-base text-white bg-[#1890FF] py-[12px] px-[54px] rounded-[5px] mt-[30px]'}>
                         <p>Saqlash</p>
                     </button>
                 </form>

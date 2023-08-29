@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import usePutQuery from "@/hooks/api/usePutQuery";
 import {OverlayLoader} from "@/components/loader";
+import {toast} from "react-hot-toast";
 
 const Materials = () => {
     const {t} = useTranslation();
@@ -26,22 +27,11 @@ const Materials = () => {
         key: KEYS.currency,
         url: URLS.currency,
     })
-    const {mutate: deactivateRequest,isLoading:isLoadingDeActivate} = usePutQuery({
-    listKeyId:[KEYS.myMaterials,pageSize]
+    const {mutate: deactivateRequest, isLoading: isLoadingDeActivate} = usePutQuery({
+        listKeyId: KEYS.myMaterials
     })
 
-    const {data, isLoading} =useGetQuery({
-        key: KEYS.myMaterials,
-        url: URLS.myMaterials
-    })
 
-    console.log(get(data, 'data.results[1]["material_code"]'))
-
-    const {data: userStat} = useGetQuery({
-        key: KEYS.userStat,
-        url: URLS.userStat,
-
-    })
     const columns = [
         {
             title: '№',
@@ -51,7 +41,7 @@ const Materials = () => {
         {
             title: 'Kodi',
             key: 'material_code',
-            render: ({value, row}) =><Link className={'underline'} href={`/materials/${get(row, 'material_code')}`}>
+            render: ({value, row}) => <Link className={'underline'} href={`/materials/${get(row, 'material_code')}`}>
                 <span className={'text-[#28366D]'}>{value}</span>
             </Link>
         },
@@ -82,20 +72,31 @@ const Materials = () => {
             key: 'material_created_date',
             render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
             classnames: 'text-center',
-
-
-
         },
-        // {
-        //     title: 'Ko’rildi',
-        //     key: 'material_views_count',
-        //     classnames: 'text-center'
-        // },
-    ];
+        {
+            title: 'Action',
+            key: 'action',
+            render: ({row}) => <> <Link href={`/materials/${get(row, 'material_code')}`} className={'mr-1.5 inline'}>
+                <Image className={'inline'} width={20} height={20}
+                       src={'/icons/eye-icon.svg'}
+                       alt={'eye'}/></Link>
+                <span className={'cursor-pointer'} onClick={() => deActivate(get(row, 'id'))}> <Image
+                    className={'inline'} width={20} height={20}
+                    src={'/icons/trash-icon.svg'}
+                    alt={'trash'}/></span></>
+        }
+    ]
 
     const deActivate = (_id) => {
         deactivateRequest({
-
+            url: URLS.deactivateMaterial,
+            attributes: {
+                id: _id
+            }
+        }, {
+            onSuccess: () => {
+                toast.success('E‘lon muvaffaqiyatli o‘chirildi!', {position: 'top-right'})
+            }
         })
     }
     return (
@@ -103,13 +104,14 @@ const Materials = () => {
             <Subheader title={'Qurilish materiallari'}/>
             <div className="p-7">
                 {
-                    isLoadingDeActivate && <OverlayLoader />
+                    isLoadingDeActivate && <OverlayLoader/>
                 }
                 <div className="grid grid-cols-12">
                     <div className={'col-span-12 flex items-center justify-between mb-[30px]'}>
                         <div className={'flex  items-center gap-x-[30px]'}>
 
-                            <select className={'p-[10px] cursor-pointer'}  onChange={(e)=>setPageSize(e?.target?.value)} value={pageSize}>
+                            <select className={'p-[10px] cursor-pointer'}
+                                    onChange={(e) => setPageSize(e?.target?.value)} value={pageSize}>
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="30">30</option>
@@ -117,18 +119,23 @@ const Materials = () => {
 
                             <span className={'ml-[10px]'}> {t("tadan ko'rish")} </span>
 
-                            <form className={'w-[370px] h-[40px] flex relative '} >
+                            <form className={'w-[370px] h-[40px] flex relative '}>
                                 <input type="search"
                                        placeholder={'Qidirish...'}
                                        onChange={(e) => setSearch(e?.target?.value)} value={search}
                                        className="bg-white h-[40px] w-[370px] pl-[50px]  rounded-lg focus:outline-none hover:cursor-pointer"
                                        name=""/>
                                 <span className="absolute top-2 left-0 pl-4 z-50">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                     viewBox="0 0 24 24" fill="none">
                                                     <g clipPath="url(#clip0_1_1276)">
                                                         <rect width="24" height="24" fill="white"/>
-                                                        <path d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z" stroke="#516164" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
-                                                        <path d="M21 21L15 15" stroke="#516164" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+                                                        <path
+                                                            d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
+                                                            stroke="#516164" strokeWidth="1.25" strokeLinecap="round"
+                                                            strokeLinejoin="round"/>
+                                                        <path d="M21 21L15 15" stroke="#516164" strokeWidth="1.25"
+                                                              strokeLinecap="round" strokeLinejoin="round"/>
                                                     </g>
                                                     <defs>
                                                         <clipPath id="clip0_1_1276">
@@ -159,11 +166,9 @@ const Materials = () => {
                     </div>
                     <div className="col-span-12 ">
                         <GridView
-                            eyeUrl={ `/materials/${get(data, `data.results[1]["material_code"]`)}`}
                             getCount={setCount}
-                            hasActionColumn
                             url={URLS.myMaterials}
-                            key={[KEYS.myMaterials,pageSize]}
+                            key={KEYS.myMaterials}
                             columns={columns}
                             defaultPageSize={pageSize}
                         />
