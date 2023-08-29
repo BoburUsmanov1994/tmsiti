@@ -89,7 +89,7 @@ const Materials = () => {
 
     const deActivate = (_id) => {
         deactivateRequest({
-            url: URLS.deactivateMaterial,
+            url: URLS.deactivateTechnos,
             attributes: {
                 id: _id
             }
