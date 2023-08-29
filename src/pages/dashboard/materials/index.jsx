@@ -20,6 +20,7 @@ const Materials = () => {
     const {t} = useTranslation();
     const [pageSize, setPageSize] = useState(20);
     const [count, setCount] = useState(0);
+    const [search, setSearch] = useState("")
 
     const {data: currency} = useGetQuery({
         key: KEYS.currency,
@@ -79,7 +80,7 @@ const Materials = () => {
         {
             title: 'Joylangan vaqti',
             key: 'material_created_date',
-            render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm"),
+            render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
             classnames: 'text-center',
 
 
@@ -106,7 +107,7 @@ const Materials = () => {
                 }
                 <div className="grid grid-cols-12">
                     <div className={'col-span-12 flex items-center justify-between mb-[30px]'}>
-                        <div className={'flex  items-center'}>
+                        <div className={'flex  items-center gap-x-[30px]'}>
 
                             <select className={'p-[10px] cursor-pointer'}  onChange={(e)=>setPageSize(e?.target?.value)} value={pageSize}>
                                 <option value="10">10</option>
@@ -116,7 +117,27 @@ const Materials = () => {
 
                             <span className={'ml-[10px]'}> {t("tadan ko'rish")} </span>
 
-                            <Search classname={'ml-[31px]'}/>
+                            <form className={'w-[370px] h-[40px] flex relative '} >
+                                <input type="search"
+                                       placeholder={'Qidirish...'}
+                                       onChange={(e) => setSearch(e?.target?.value)} value={search}
+                                       className="bg-white h-[40px] w-[370px] pl-[50px]  rounded-lg focus:outline-none hover:cursor-pointer"
+                                       name=""/>
+                                <span className="absolute top-2 left-0 pl-4 z-50">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                    <g clipPath="url(#clip0_1_1276)">
+                                                        <rect width="24" height="24" fill="white"/>
+                                                        <path d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z" stroke="#516164" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+                                                        <path d="M21 21L15 15" stroke="#516164" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_1_1276">
+                                                            <rect width="24" height="24" fill="white"/>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                    </span>
+                            </form>
                         </div>
 
                         <Button url={'/dashboard/materials/add-ads'}
@@ -138,7 +159,7 @@ const Materials = () => {
                     </div>
                     <div className="col-span-12 ">
                         <GridView
-                            eyeUrl={ (index) =>  `/materials/${    get(data, `data.results[${index}]["material_code"]`)}`}
+                            eyeUrl={ `/materials/${get(data, `data.results[1]["material_code"]`)}`}
                             getCount={setCount}
                             hasActionColumn
                             url={URLS.myMaterials}

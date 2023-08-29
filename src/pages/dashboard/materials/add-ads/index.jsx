@@ -12,6 +12,7 @@ import {toast} from "react-hot-toast";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {OverlayLoader} from "@/components/loader";
 import {lightGreen} from "@mui/material/colors";
+import {data} from "autoprefixer";
 
 const Ads = () => {
     const {t} = useTranslation();
@@ -40,6 +41,7 @@ const Ads = () => {
     const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.addAds})
 
     const onSubmit = (data) => {
+
         addAds({
                 url: URLS.addAds,
                 attributes: {...data}
@@ -55,7 +57,10 @@ const Ads = () => {
         )
     }
 
+    console.log(onSubmit)
+
     useEffect(() => {
+
         if (!isEmpty(head(get(materials, 'data.results', [])))) {
             setMaterial(find(get(materials, 'data.results', []),({material_name})=> material_name === search))
         }
@@ -68,7 +73,7 @@ const Ads = () => {
             <Subheader title={'Qurilish materiallari e’lon qo’shish'}/>
             <div className="p-7">
                 {(isLoadingMaterial || isLoading) && <OverlayLoader/>}
-                <form className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>
+                <form className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)} method={"POST"}>
                     <div className={'col-span-12 mb-[10px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Qidiruv</h4>
                     </div>
@@ -94,7 +99,6 @@ const Ads = () => {
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
                         <input defaultValue={get(material,'material_volume_name')} placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
-                               {...register('material_volume_name',)}
                                className={'placeholder py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                disabled={true}
                         />
@@ -107,7 +111,6 @@ const Ads = () => {
                         <input
                             defaultValue={get(material,'material_category_name')}
                             placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
-                            {...register('material_category_name')}
                             className={' py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                             disabled={true}
                         />
@@ -122,7 +125,6 @@ const Ads = () => {
 
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                defaultValue={get(material,'material_group_name')}
-                               {...register('material_group_name')}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                disabled={true}
                         />
@@ -137,8 +139,7 @@ const Ads = () => {
                             defaultValue={get(material,'material_name')}
                             placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-
-                            {...register('material_csr_code', {required: true})}
+                            {...register('material_name', {required: true})}
                             disabled={true}
                         />
                         <input
@@ -153,7 +154,7 @@ const Ads = () => {
                     {/* Material tavsifi */}
                     <div className={'col-span-12 gap-x-[30px]'}>
                         <h4 className={'text-[#28366D] text-base my-[10px]'}>Material tavsifi</h4>
-                        <textarea {...register('material_desc')} rows={5}
+                        <textarea {...register('material_description')} rows={5}
                                   className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
                     </div>
 
@@ -165,10 +166,11 @@ const Ads = () => {
                             <input placeholder={''}
                                    {...register('material_price', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl  my-[10px]'}
-                                   defaultValue={(value, set) => (value * get(currency, `data[${get(set, 'material_price_currency')}]`, 1) > 0)}
+                                    required={true}
                             />
 
                             <select className={'p-[16px]'} {...register('material_price_currency')}>
+                                <option>UZS</option>
                                 <option>USD</option>
                                 <option>RUB</option>
                             </select>
@@ -180,10 +182,11 @@ const Ads = () => {
                     {/* Material o'lchov birligi */}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material o’lchov birligi</h4>
-                        <input placeholder={'tonna'}
+                        <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                {...register('material_measure')}
-
+                               defaultValue={get(material, 'material_measure')}
+                               disabled={true}
                         />
                     </div>
 
@@ -191,7 +194,6 @@ const Ads = () => {
                     {/*Material miqdori*/}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material miqdori</h4>
-
                         <input placeholder={'123213'}
                                {...register('material_amount', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
@@ -203,9 +205,11 @@ const Ads = () => {
                     {/*Material miqdor o’lchov birligi*/}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material miqdor o’lchov birligi</h4>
-                        <input placeholder={'kilogram'}
+                        <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                               defaultValue={get(material, 'material_measure')}
                                {...register('material_amount_measure')}
+                               disabled={true}
                         />
                     </div>
 
@@ -231,6 +235,7 @@ const Ads = () => {
                             <input placeholder={'Mahsulot sertifikati blank raqami'}
                                    {...register('sertificate_blank_num', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                                   required={true}
                             />
                         </div>
 
@@ -240,18 +245,16 @@ const Ads = () => {
                             <input placeholder={'Mahsulot sertifikati reestr raqami'}
                                    {...register('sertificate_reestr_num', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
+                                   required={true}
                             />
                         </div>
                     </div>
 
-
-                    <div>
-                        <button
-
-                            className={' col-span-12 w-[170px] text-base text-white bg-[#1890FF] py-[12px] px-[54px] rounded-[5px] mt-[30px]'}>
-                            <p>Saqlash</p>
-                        </button>
-                    </div>
+                    <button
+                        type={"submit"}
+                        className={' col-span-12 w-[170px] text-base text-white bg-[#1890FF] py-[12px] px-[54px] rounded-[5px] mt-[30px]'}>
+                        <p>Saqlash</p>
+                    </button>
                 </form>
             </div>
         </Dashboard>
