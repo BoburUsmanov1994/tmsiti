@@ -41,7 +41,7 @@ const Ads = () => {
     }, [materials])
 
     const onSubmit = ({
-                          material_name,
+                          material_csr_code,
                           material_description,
                           material_price,
                           material_price_currency,
@@ -53,11 +53,11 @@ const Ads = () => {
                           material_measure
                       }) => {
         let formData = new FormData();
-        formData.append('material_name',material_name)
+        formData.append('material_name',material_csr_code)
         formData.append('material_description',material_description)
         formData.append('material_price',material_price)
-        formData.append('material_price_currency',material_price_currency)
-        formData.append('material_image',material_image[0])
+        formData.append('material_price_currency', material_price_currency)
+        formData.append('material_image', material_image[0])
         formData.append('material_amount',material_amount)
         formData.append('sertificate_blank_num',sertificate_blank_num)
         formData.append('sertificate_reestr_num',sertificate_reestr_num)
@@ -70,11 +70,11 @@ const Ads = () => {
             },
             {
                 onSuccess: () => {
-                    toast.success('All details were sent correctly,  ', {position: 'top-right'});
+                    toast.success("E'lon muvaffaqiyatli joylandi", {position: 'top-center'});
                     redirect('/dashboard/materials');
                 },
-                onError: () => {
-                    toast.error("Error is occured,", {position: 'top-right'})
+                onError: (error) => {
+                     toast.error(`Error is ${error},`, {position: 'top-right'})
                 }
             }
         )
@@ -153,11 +153,11 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base'}>Material nomi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
+
                             defaultValue={get(material, 'material_name', ' ')}
                             placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                             {...register('material_name', {required: true})}
-                            disabled={true}
                         />
                         <input
                             placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}

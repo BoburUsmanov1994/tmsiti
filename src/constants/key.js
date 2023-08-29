@@ -31,5 +31,7 @@ export const KEYS = {
     addAds: 'addAdsNew',
     technoAddAds: 'technoAddAds',
     myTechnos: 'myTechnos',
+    materialDeactivate: 'materialDeactivate',
+
 
 };
