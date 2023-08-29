@@ -95,7 +95,7 @@ const Materials = () => {
             }
         }, {
             onSuccess: () => {
-                toast.success('E‘lon muvaffaqiyatli o‘chirildi!', {position: 'top-right'})
+                toast.success('E‘lon muvaffaqiyatli o‘chirildi!', {position: 'top-center'})
             }
         })
     }
