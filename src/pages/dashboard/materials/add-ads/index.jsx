@@ -11,13 +11,14 @@ import {useForm} from "react-hook-form";
 import {toast} from "react-hot-toast";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {OverlayLoader} from "@/components/loader";
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 const Ads = () => {
     const {t} = useTranslation();
     const [search, setSearch] = useState('')
     const [material, setMaterial] = useState({})
     const {register, handleSubmit, formState: {errors}} = useForm({values:material})
+    const router = useRouter();
     const {data: materials, isLoadingMaterial} = useGetQuery({
         key: KEYS.materials,
         url: URLS.materials,
@@ -71,7 +72,7 @@ const Ads = () => {
             {
                 onSuccess: () => {
                     toast.success("E'lon muvaffaqiyatli joylandi", {position: 'top-center'});
-                    redirect('/dashboard/materials');
+                    router.push('/dashboard/materials');
                 },
                 onError: (error) => {
                      toast.error(`Error is ${error},`, {position: 'top-right'})
