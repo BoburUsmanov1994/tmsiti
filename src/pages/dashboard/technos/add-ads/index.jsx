@@ -12,6 +12,7 @@ import {toast} from "react-hot-toast";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {OverlayLoader} from "@/components/loader";
 import { useRouter } from 'next/navigation';
+import materials from "@/pages/dashboard/materials";
 
 const Ads = () => {
     const {t} = useTranslation();
@@ -235,11 +236,11 @@ const Ads = () => {
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma rasmi</h4>
                         <label for="dropzone-file"
-                               className={'shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white'}>
-                            <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>
-                            <p>yuklash</p>
+                               className={`shadow-2xl py-[20px] px-[30px] my-[10px] bg-${get(techno, 'techno_image')} rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] `}>
+                                <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>
+                                <p>yuklash</p>
                         </label>
-                        <input id={"dropzone-file"} className={'hidden'} type={"file"}
+                        <input id={"dropzone-file"}  type={"file"} accept={"image/png, image/jpeg"}
                                {...register('techno_image')}
                         />
                     </div>

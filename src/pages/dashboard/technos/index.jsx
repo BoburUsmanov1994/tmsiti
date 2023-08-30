@@ -8,7 +8,7 @@ import Image from "next/image";
 import Button from "@/components/button";
 import {useTranslation} from "react-i18next";
 import Search from "@/layouts/dashboard/components/search";
-import {get} from "lodash";
+import {get, isNil} from "lodash";
 import {NumericFormat} from "react-number-format";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import dayjs from "dayjs";
@@ -22,6 +22,7 @@ const Materials = () => {
     const [pageSize, setPageSize] = useState(20);
     const [count, setCount] = useState(0);
     const [search, setSearch] = useState("")
+    const [itemId, setItemId] = useState(null);
 
     const {data: currency} = useGetQuery({
         key: KEYS.currency,
@@ -76,14 +77,22 @@ const Materials = () => {
         {
             title: 'Action',
             key: 'action',
-            render: ({row}) => <> <Link href={`/technos/${get(row, 'techno_code')}`} className={'mr-1.5 inline'}>
-                <Image className={'inline'} width={20} height={20}
-                       src={'/icons/eye-icon.svg'}
-                       alt={'eye'}/></Link>
-                <span className={'cursor-pointer'} onClick={() => deActivate(get(row, 'id'))}> <Image
-                    className={'inline'} width={20} height={20}
-                    src={'/icons/trash-icon.svg'}
-                    alt={'trash'}/></span></>
+            render: ({row}) =>                 <div className={"flex"}>
+                <Link href={`/techno/${get(row, 'techno_code')}`} className={'mr-1.5 inline'}>
+                    <Image className={'inline'} width={20} height={20}
+                           src={'/icons/eye-icon.svg'}
+                           alt={'eye'}/>
+                </Link>
+                <div className={'cursor-pointer'}>
+                    <Image
+                        className={'inline'} width={20} height={20}
+                        src={'/icons/trash-icon.svg'}
+                        onClick={() => setItemId(get(row, 'id'))}
+                        alt={'trash'}
+                    />
+
+                </div>
+            </div>
         }
     ]
 
@@ -173,6 +182,42 @@ const Materials = () => {
                             defaultPageSize={pageSize}
                         />
                     </div>
+                </div>
+            </div>
+
+            <div
+                className={`fixed inset-0 bg-black z-50 bg-opacity-30 flex justify-center items-center ${isNil(itemId) ? 'hidden' : 'visible'}`}>
+                <div className={'w-[550px] p-[30px] rounded-[5px] bg-white'}>
+                    <div>
+                        <Image onClick={() => setItemId(null)} src={'/icons/closeModal.svg'} alt={'modalcloser'}
+                               width={24} height={24} className={'float-right block cursor-pointer'}/>
+                    </div>
+                    <br/>
+
+                    <div className={'flex items-center gap-x-[15px]'}>
+                        <div
+                            className="rounded-full border border-gray-300 flex items-center justify-center w-16 h-16 flex-shrink-0 mx-auto">
+                            <Image src={'/images/warning.png'} alt={'warning'} width={30} height={30}/>
+                        </div>
+                        <div className="mt-4 md:mt-0 md:ml-6  md:text-left">
+                            <p className="font-bold">E'lonni o‘chirmoqchimisiz?</p>
+                            <p className="text-sm text-gray-700 mt-1">O'chirish tugmasi bosilganidan so‘ng siz tanlagan
+                                e'lon o‘chiriladi.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className={'text-center flex items-center gap-x-[20px] mt-[20px]'}>
+                        <button onClick={() => deActivate(itemId)}
+                                className={'block w-full px-4 py-3 md:py-2 bg-red-200 hover:bg-red-400 duration-300 transition-all text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2'}>O'chirish
+                        </button>
+                        <button onClick={() => setItemId(null)}
+                                className={"block w-full  md:w-auto px-4 py-3 md:py-2 bg-gray-200 hover:bg-gray-400 transition-all duration-300 rounded-lg font-semibold text-sm  md:mt-0 md:order-1"}>Bekor
+                            qilish
+                        </button>
+                    </div>
+
+
                 </div>
             </div>
         </Dashboard>
