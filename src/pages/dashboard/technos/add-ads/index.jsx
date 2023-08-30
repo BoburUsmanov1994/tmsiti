@@ -25,6 +25,7 @@ const Ads = () => {
         params: {
             key: 'name',
             value: search,
+            page_size: 100
         },
         enabled: !!(search)
     })
@@ -86,7 +87,7 @@ const Ads = () => {
 
     return (
         <Dashboard>
-            <Subheader title={'Qurilish technolari e’lon qo’shish'}/>
+            <Subheader title={'Uskuna va qurilmalar e’loni qo’shish'}/>
             <div className="p-7">
                 {(isLoadingTechno || isLoading) && <OverlayLoader/>}
                 <form className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>
@@ -111,7 +112,7 @@ const Ads = () => {
 
                     {/*  techno bo'limi  */}
                     <div className={'col-span-12  gap-x-[30px] mt-[10px]'}>
-                        <h4 className={'text-[#28366D] text-base'}>Material bo’limi</h4>
+                        <h4 className={'text-[#28366D] text-base'}>Uskuna/qurilma bo’limi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
                         <input defaultValue={get(techno, 'techno_volume_name')}
@@ -123,7 +124,7 @@ const Ads = () => {
 
                     {/*  techno kategoriyasi  */}
                     <div className={'col-span-12  gap-x-[30px]'}>
-                        <h4 className={'text-[#28366D] text-base'}>Material kategoriyasi</h4>
+                        <h4 className={'text-[#28366D] text-base'}>Uskuna/qurilma kategoriyasi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
                             defaultValue={get(techno, 'techno_category_name')}
@@ -137,7 +138,7 @@ const Ads = () => {
 
                     <div className={'col-span-12   gap-x-[30px]'}>
 
-                        <h4 className={'text-[#28366D] text-base '}>Material guruhi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma guruhi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
@@ -150,7 +151,7 @@ const Ads = () => {
                     {/*  techno nomi  */}
 
                     <div className={'col-span-12  gap-x-[30px]'}>
-                        <h4 className={'text-[#28366D] text-base'}>Material nomi</h4>
+                        <h4 className={'text-[#28366D] text-base'}>Uskuna/qurilma nomi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
 
@@ -168,17 +169,17 @@ const Ads = () => {
 
                     </div>
 
-                    {/* Material tavsifi */}
+                    {/* Uskuna/qurilma tavsifi */}
                     <div className={'col-span-12 gap-x-[30px]'}>
-                        <h4 className={'text-[#28366D] text-base my-[10px]'}>Material tavsifi</h4>
+                        <h4 className={'text-[#28366D] text-base my-[10px]'}>Uskuna/qurilma tavsifi</h4>
                         <textarea {...register('techno_description')} rows={5}
                                   className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
                     </div>
 
 
-                    {/* Material narxi */}
+                    {/* Uskuna/qurilma narxi */}
                     <div className={'col-span-6 '}>
-                        <h4 className={'text-[#28366D] text-base '}>Material narxi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma narxi</h4>
                         <div className={'flex items-center rounded-[5px]'}>
                             <input placeholder={''}
                                    {...register('techno_price', {required: true})}
@@ -195,9 +196,9 @@ const Ads = () => {
                     </div>
 
 
-                    {/* Material o'lchov birligi */}
+                    {/* Uskuna/qurilma o'lchov birligi */}
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Material o’lchov birligi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma o’lchov birligi</h4>
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                {...register('techno_measure')}
@@ -207,9 +208,9 @@ const Ads = () => {
                     </div>
 
 
-                    {/*Material miqdori*/}
+                    {/*Uskuna/qurilma miqdori*/}
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Material miqdori</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma miqdori</h4>
                         <input placeholder={'123213'}
                                {...register('techno_amount', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
@@ -218,9 +219,9 @@ const Ads = () => {
                     </div>
 
 
-                    {/*Material miqdor o’lchov birligi*/}
+                    {/*Uskuna/qurilma miqdor o’lchov birligi*/}
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Material miqdor o’lchov birligi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma miqdor o’lchov birligi</h4>
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                defaultValue={get(techno, 'techno_measure')}
@@ -230,9 +231,9 @@ const Ads = () => {
                     </div>
 
 
-                    {/*Material rasmi*/}
+                    {/*Uskuna/qurilma rasmi*/}
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Material rasmi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma rasmi</h4>
                         <label for="dropzone-file"
                                className={'shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white'}>
                             <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>
@@ -245,20 +246,20 @@ const Ads = () => {
 
                     <div className={'col-span-6'}>
 
-                        {/*Mahsulot sertifikati reestr raqami*/}
+                        {/*Uskuna/qurilma sertifikati reestr raqami*/}
                         <div>
-                            <h4 className={'text-[#28366D] text-base '}>Mahsulot sertifikati blank raqami</h4>
-                            <input placeholder={'Mahsulot sertifikati blank raqami'}
+                            <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma sertifikati blank raqami</h4>
+                            <input placeholder={'Uskuna/qurilma sertifikati blank raqami'}
                                    {...register('sertificate_blank_num', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                    required={true}
                             />
                         </div>
 
-                        {/*Mahsulot sertifikati reestr raqami*/}
+                        {/*Uskuna/qurilma sertifikati reestr raqami*/}
                         <div>
-                            <h4 className={'text-[#28366D] text-base '}>Mahsulot sertifikati reestr raqami</h4>
-                            <input placeholder={'Mahsulot sertifikati reestr raqami'}
+                            <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma sertifikati reestr raqami</h4>
+                            <input placeholder={'Uskuna/qurilma sertifikati reestr raqami'}
                                    {...register('sertificate_reestr_num', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                    required={true}

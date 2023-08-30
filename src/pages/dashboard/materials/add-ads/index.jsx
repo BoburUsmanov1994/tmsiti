@@ -16,15 +16,18 @@ import { useRouter } from 'next/navigation';
 const Ads = () => {
     const {t} = useTranslation();
     const [search, setSearch] = useState('')
+    const [pageSize, setPageSize] = useState(10);
     const [material, setMaterial] = useState({})
     const {register, handleSubmit, formState: {errors}} = useForm({values:material})
     const router = useRouter();
+
     const {data: materials, isLoadingMaterial} = useGetQuery({
         key: KEYS.materials,
         url: URLS.materials,
         params: {
             key: 'name',
             value: search,
+            page_size: 100
         },
         enabled: !!(search)
     })
@@ -79,6 +82,8 @@ const Ads = () => {
                 }
             }
         )
+
+
     }
 
     console.log('material', material)
@@ -101,13 +106,14 @@ const Ads = () => {
                                }, 500)}
                                className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
                         />
-                        <datalist id={'search-list'}>
+                        <datalist id={'search-list'} className={'w-[1000px]'} onChange={(e) => setPageSize(e?.target?.value)}>
 
                             {
                                 get(materials, 'data.results', []).map(item => <option
                                     value={get(item, 'material_name')}></option>)
                             }
                         </datalist>
+
                     </div>
 
                     {/*  material bo'limi  */}

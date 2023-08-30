@@ -101,7 +101,7 @@ const Materials = () => {
     }
     return (
         <Dashboard>
-            <Subheader title={'Qurilish technolari'}/>
+            <Subheader title={'Uskuna va qurilmalar'}/>
             <div className="p-7">
                 {
                     isLoadingDeActivate && <OverlayLoader/>
@@ -124,7 +124,7 @@ const Materials = () => {
                                        placeholder={'Qidirish...'}
                                        onChange={(e) => setSearch(e?.target?.value)} value={search}
                                        className="bg-white h-[40px] w-[370px] pl-[50px]  rounded-lg focus:outline-none hover:cursor-pointer"
-                                       name=""/>
+                                       />
                                 <span className="absolute top-2 left-0 pl-4 z-50">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                      viewBox="0 0 24 24" fill="none">
