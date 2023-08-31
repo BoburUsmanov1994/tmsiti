@@ -21,6 +21,30 @@ const Ads = () => {
     const {register, handleSubmit, formState: {errors}} = useForm({values:material})
     const router = useRouter();
 
+    const [files, setFiles] = useState([]);
+    const [previews, setPreviews] = useState([])
+
+    useEffect(()=> {
+        if(!files) return;
+
+        let tmp = [];
+
+        for (let i = 0; i < files.length; i++) {
+            tmp.push(URL.createObjectURL(files[i]))
+        }
+
+        const objectURLS = tmp;
+        setPreviews(objectURLS)
+
+        for (let i = 0; i < objectURLS.length; i ++) {
+            return () => {
+                URL.revokeObjectURL(objectURLS[i])
+            }
+        }
+
+
+    },[files])
+
     const {data: materials, isLoadingMaterial} = useGetQuery({
         key: KEYS.materials,
         url: URLS.materials,
@@ -245,9 +269,15 @@ const Ads = () => {
                             <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>
                             <p>yuklash</p>
                         </label>
-                        <input id={"dropzone-file"} className={'hidden'} type={"file"}
+                        <input id={"dropzone-file"} type={"file"} onChange={(e) => {
+                            if(e.target.files && e.target.files.length > 0) {
+                                setFiles(e.target.files)
+                        }}}
                                {...register('material_image')}
                         />
+                        {previews && previews.map((pic) => {
+                            return <img src={pic} alt={'image'}/>
+                        })}
                     </div>
 
                     <div className={'col-span-6'}>

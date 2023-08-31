@@ -128,12 +128,12 @@ const Materials = () => {
 
                             <span className={'ml-[10px]'}> {t("tadan ko'rish")} </span>
 
-                            <form className={'w-[370px] h-[40px] flex relative '}>
+                            <div className={'w-[370px] h-[40px] flex relative '}>
                                 <input type="search"
                                        placeholder={'Qidirish...'}
                                        onChange={(e) => setSearch(e?.target?.value)} value={search}
                                        className="bg-white h-[40px] w-[370px] pl-[50px]  rounded-lg focus:outline-none hover:cursor-pointer"
-                                       />
+                                       name=""/>
                                 <span className="absolute top-2 left-0 pl-4 z-50">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                      viewBox="0 0 24 24" fill="none">
@@ -153,7 +153,7 @@ const Materials = () => {
                                                     </defs>
                                                 </svg>
                                     </span>
-                            </form>
+                            </div>
                         </div>
 
                         <Button url={'/dashboard/technos/add-ads'}
@@ -180,6 +180,7 @@ const Materials = () => {
                             key={KEYS.myTechnos}
                             columns={columns}
                             defaultPageSize={pageSize}
+                            params={{value:search,key:'all'}}
                         />
                     </div>
                 </div>
