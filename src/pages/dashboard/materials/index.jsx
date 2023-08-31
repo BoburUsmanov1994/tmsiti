@@ -132,7 +132,7 @@ const Materials = () => {
 
                             <span className={'ml-[10px]'}> {t("tadan ko'rish")} </span>
 
-                            <form className={'w-[370px] h-[40px] flex relative '}>
+                            <div className={'w-[370px] h-[40px] flex relative '}>
                                 <input type="search"
                                        placeholder={'Qidirish...'}
                                        onChange={(e) => setSearch(e?.target?.value)} value={search}
@@ -157,7 +157,7 @@ const Materials = () => {
                                                     </defs>
                                                 </svg>
                                     </span>
-                            </form>
+                            </div>
                         </div>
 
                         <Button url={'/dashboard/materials/add-ads'}
@@ -184,6 +184,7 @@ const Materials = () => {
                             key={KEYS.myMaterials}
                             columns={columns}
                             defaultPageSize={pageSize}
+                            params={{value:search,key:'all'}}
                         />
                     </div>
                 </div>
