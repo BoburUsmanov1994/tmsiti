@@ -17,7 +17,7 @@ import usePutQuery from "@/hooks/api/usePutQuery";
 import {OverlayLoader} from "@/components/loader";
 import {toast} from "react-hot-toast";
 
-const Materials = () => {
+const Technos = () => {
     const {t} = useTranslation();
     const [pageSize, setPageSize] = useState(20);
     const [count, setCount] = useState(0);
@@ -78,7 +78,7 @@ const Materials = () => {
             title: 'Action',
             key: 'action',
             render: ({row}) =>                 <div className={"flex"}>
-                <Link href={`/techno/${get(row, 'techno_code')}`} className={'mr-1.5 inline'}>
+                <Link href={`/technos/${get(row, 'techno_code')}`} className={'mr-1.5 inline'}>
                     <Image className={'inline'} width={20} height={20}
                            src={'/icons/eye-icon.svg'}
                            alt={'eye'}/>
@@ -97,16 +97,21 @@ const Materials = () => {
     ]
 
     const deActivate = (_id) => {
-        deactivateRequest({
-            url: URLS.deactivateTechnos,
-            attributes: {
-                id: _id
-            }
-        }, {
-            onSuccess: () => {
-                toast.success('E‘lon muvaffaqiyatli o‘chirildi!', {position: 'top-center'})
-            }
-        })
+        if(_id) {
+            deactivateRequest({
+                url: URLS.deactivateTechnos,
+                attributes: {
+                    id: _id
+                }
+            }, {
+                onSuccess: () => {
+                    toast.success('E‘lon muvaffaqiyatli o‘chirildi!', {position: 'top-center'})
+                    setItemId(null);
+                }
+            })
+        }
+
+
     }
     return (
         <Dashboard>
@@ -225,6 +230,4 @@ const Materials = () => {
     );
 };
 
-export default Materials;
-// ko'z iconi uchun
-//eyeUrl={ (index) =>  `/technos/${    get(data, `data.results[${index}]["techno_code"]`)}`}
+export default Technos;

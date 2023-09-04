@@ -13,11 +13,14 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import {OverlayLoader} from "@/components/loader";
 import { useRouter } from 'next/navigation';
 import materials from "@/pages/dashboard/materials";
+import {motion} from "framer-motion";
 
 const Ads = () => {
     const {t} = useTranslation();
     const [search, setSearch] = useState('')
+    const [warning, setWarning] = useState(false)
     const [techno, setTechno] = useState({})
+
     const {register, handleSubmit, formState: {errors}} = useForm({values:techno})
     const router = useRouter();
     const {data: technos, isLoadingTechno} = useGetQuery({
@@ -96,13 +99,24 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base'}>Qidiruv</h4>
                     </div>
 
-                    <div className={'col-span-12 flex gap-x-[30px]'}>
+                    <div className={'col-span-12  gap-x-[30px]'}>
                         <input list={'search-list'} defaultValue={search} placeholder={'nomni rus tilida kiriting'}
                                onChange={debounce(function (e) {
-                                   setSearch(e.target.value)
+                                   if(e.target.value.length > 3) {
+                                        setSearch(e.target.value)
+                                       setWarning(false)
+
+                                   } else {
+                                       setWarning(true)
+                                   }
                                }, 500)}
                                className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
                         />
+                        {warning === true && <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1, marginTop:100 }}
+                            className={'text-red-800 mt-[10px]'}>Iltimos kamida 4 ta belgi kiriting.</motion.p>}
+
                         <datalist id={'search-list'}>
                             {
                                 get(technos, 'data.results', []).map(item => <option
@@ -155,17 +169,16 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base'}>Uskuna/qurilma nomi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
-
-                            defaultValue={get(techno, 'techno_name', ' ')}
+                            defaultValue={get(techno, 'techno_name', )}
                             placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                             {...register('techno_name', {required: true})}
+                            disabled={true}
                         />
                         <input
                             placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
                             className={'hidden'} value={1}
                             {...register('techno_owner', {required: true})}
-
                         />
 
                     </div>
@@ -182,7 +195,7 @@ const Ads = () => {
                     <div className={'col-span-6 '}>
                         <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma narxi</h4>
                         <div className={'flex items-center rounded-[5px]'}>
-                            <input placeholder={''}
+                            <input placeholder={'Uskuna/qurilma narxi'}
                                    {...register('techno_price', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl  my-[10px]'}
                                    required={true}
@@ -212,7 +225,7 @@ const Ads = () => {
                     {/*Uskuna/qurilma miqdori*/}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma miqdori</h4>
-                        <input placeholder={'123213'}
+                        <input placeholder={'Uskuna/qurilma miqdori'}
                                {...register('techno_amount', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />

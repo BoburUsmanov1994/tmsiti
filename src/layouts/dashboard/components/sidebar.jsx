@@ -20,27 +20,27 @@ const Sidebar = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/materials'})} href={'/dashboard/materials'}>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname === '/dashboard/materials'}, {'bg-[#3F54A5] text-white':router.pathname === '/dashboard/materials/add-ads'})} href={'/dashboard/materials'}>
                         {t("Materiallar va buyumlar")}
                     </Link>
                 </li>
                 <li>
-                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/machine-mechano'})} href={'/dashboard/machine-mechano'}>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/machine-mechano'}, {'bg-[#3F54A5] text-white':router.pathname === '/dashboard/machine-mechano/add-ads'})} href={'/dashboard/machine-mechano'}>
                         {t("Mashina mexanizmlar")}
                     </Link>
                 </li>
                 <li>
-                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/works'})} href={'/dashboard/works'}>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/works'}, {'bg-[#3F54A5] text-white':router.pathname === '/dashboard/works/add-ads'})} href={'/dashboard/works'}>
                         {t("Qurilish ishlari")}
                     </Link>
                 </li>
                 <li>
-                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/small-mechano'})} href={'/dashboard/small-mechano'}>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/small-mechano'} , {'bg-[#3F54A5] text-white':router.pathname === '/dashboard/small-mechano/add-ads'})} href={'/dashboard/small-mechano'}>
                         {t("Kichik mexanizatsiya")}
                     </Link>
                 </li>
                 <li>
-                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/technos'})} href={'/dashboard/technos'}>
+                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname === '/dashboard/technos'}, {'bg-[#3F54A5] text-white':router.pathname === '/dashboard/technos/add-ads'})} href={'/dashboard/technos'}>
                         {t("Uskuna va qurilmalar")}
                     </Link>
                 </li>

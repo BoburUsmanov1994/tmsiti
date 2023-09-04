@@ -12,12 +12,15 @@ import {toast} from "react-hot-toast";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {OverlayLoader} from "@/components/loader";
 import { useRouter } from 'next/navigation';
+import {motion} from "framer-motion";
+import {warn} from "next/dist/build/output/log";
 
 const Ads = () => {
     const {t} = useTranslation();
     const [search, setSearch] = useState('')
     const [pageSize, setPageSize] = useState(10);
     const [material, setMaterial] = useState({})
+    const [warning, setWarning] = useState(false)
     const {register, handleSubmit, formState: {errors}} = useForm({values:material})
     const router = useRouter();
 
@@ -123,13 +126,24 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base'}>Qidiruv</h4>
                     </div>
 
-                    <div className={'col-span-12 flex gap-x-[30px]'}>
+                    <div className={'col-span-12  gap-x-[30px]'}>
                         <input list={'search-list'} defaultValue={search} placeholder={'nomni rus tilida kiriting'}
                                onChange={debounce(function (e) {
-                                   setSearch(e.target.value)
+                                   if(e.target.value.length > 3) {
+                                       setSearch(e.target.value)
+                                       setWarning(false)
+
+                                   } else {
+                                       setWarning(true)
+                                   }
                                }, 500)}
                                className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
                         />
+                        {warning === true && <motion.p initial={{ opacity: 0 }}
+                                                       animate={{ opacity: 1, marginTop:100 }}
+
+                                                       className={'text-red-800 mt-[10px]'}>Iltimos kamida 4 ta belgi kiriting.</motion.p>}
+
                         <datalist id={'search-list'} className={'w-[1000px]'} onChange={(e) => setPageSize(e?.target?.value)}>
 
                             {
@@ -185,7 +199,7 @@ const Ads = () => {
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
 
-                            defaultValue={get(material, 'material_name', ' ')}
+                            defaultValue={get(material, 'material_name')}
                             placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                             {...register('material_name', {required: true})}
