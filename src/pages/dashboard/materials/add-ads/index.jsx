@@ -255,7 +255,7 @@ const Ads = () => {
                     {/*Material miqdori*/}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material miqdori</h4>
-                        <input placeholder={'123213'}
+                        <input placeholder={'Material miqdori'} type={'number'}
                                {...register('material_amount', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
@@ -283,7 +283,7 @@ const Ads = () => {
                             <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>
                             <p>yuklash</p>
                         </label>
-                        <input id={"dropzone-file"} type={"file"} onChange={(e) => {
+                        <input id={"dropzone-file"} type={"file"} accept={"image/png, image/jpeg, image/jpg"} onChange={(e) => {
                             if(e.target.files && e.target.files.length > 0) {
                                 setFiles(e.target.files)
                         }}}

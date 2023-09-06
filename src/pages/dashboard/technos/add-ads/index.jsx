@@ -195,7 +195,7 @@ const Ads = () => {
                     <div className={'col-span-6 '}>
                         <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma narxi</h4>
                         <div className={'flex items-center rounded-[5px]'}>
-                            <input placeholder={'Uskuna/qurilma narxi'}
+                            <input placeholder={'Uskuna/qurilma narxi'} type={'number'}
                                    {...register('techno_price', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl  my-[10px]'}
                                    required={true}
@@ -225,7 +225,7 @@ const Ads = () => {
                     {/*Uskuna/qurilma miqdori*/}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Uskuna/qurilma miqdori</h4>
-                        <input placeholder={'Uskuna/qurilma miqdori'}
+                        <input placeholder={'Uskuna/qurilma miqdori'} type={'number'}
                                {...register('techno_amount', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
@@ -253,7 +253,7 @@ const Ads = () => {
                                 <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>
                                 <p>yuklash</p>
                         </label>
-                        <input id={"dropzone-file"}  type={"file"} accept={"image/png, image/jpeg"}
+                        <input id={"dropzone-file"}  type={"file"} accept={"image/png, image/jpeg, image/jpg"}
                                {...register('techno_image')}
                         />
                     </div>

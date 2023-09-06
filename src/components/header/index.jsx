@@ -35,7 +35,12 @@ const Header = () => {
                             <span className={'ml-1.5 mr-1 cursor-pointer inline-block'}>Toshkent</span>
                             <Image width={9} height={6} alt={'map'} src={'/icons/arrow-down.svg'}/>
                         </div>
-                        <Lang/>
+                        <div className={'flex items-center gap-x-[30px] z-50'}>
+                            <Link href={'https://www.youtube.com/playlist?list=PLO9ysq-3nKVUoY3rBerX7_XkwNkmw6I_h'} className={'cursor-pointer'}>
+                                Yo‘riqnoma
+                            </Link>
+                            <Lang/>
+                        </div>
                     </div>
                 </div>
             </div>
