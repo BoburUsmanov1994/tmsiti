@@ -225,7 +225,7 @@ const Ads = () => {
                     <div className={'col-span-6 '}>
                         <h4 className={'text-[#28366D] text-base '}>Material narxi</h4>
                         <div className={'flex items-center rounded-[5px]'}>
-                            <input placeholder={''}
+                            <input placeholder={''} type={'number'}
                                    {...register('material_price', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl  my-[10px]'}
                                    required={true}

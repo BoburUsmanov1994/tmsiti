@@ -114,7 +114,7 @@ const Materials = () => {
     }
     return (
         <Dashboard>
-            <Subheader title={'Qurilish materiallari'}/>
+            <Subheader title={'Qurilish materiallari va buyumlari'}/>
             <div className="p-7">
                 {
                     isLoadingDeActivate && <OverlayLoader/>
