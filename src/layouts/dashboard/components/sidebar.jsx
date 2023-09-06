@@ -49,21 +49,21 @@ const Sidebar = () => {
                         {t("Kompaniya haqida")}
                     </Link>
                 </li>
-                <li>
-                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/agreements'})} href={'/dashboard/agreements'}>
-                        {t("Shartnomalar")}
-                    </Link>
-                </li>
-                <li>
-                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/archive'})} href={'/dashboard/archive'}>
-                        {t("Arxiv")}
-                    </Link>
-                </li>
-                <li>
-                    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/settings'})} href={'/dashboard/settings'}>
-                        {t("Sozlamalar")}
-                    </Link>
-                </li>
+                {/*<li>*/}
+                {/*    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/agreements'})} href={'/dashboard/agreements'}>*/}
+                {/*        {t("Shartnomalar")}*/}
+                {/*    </Link>*/}
+                {/*</li>*/}
+                {/*<li>*/}
+                {/*    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/archive'})} href={'/dashboard/archive'}>*/}
+                {/*        {t("Arxiv")}*/}
+                {/*    </Link>*/}
+                {/*</li>*/}
+                {/*<li>*/}
+                {/*    <Link className={clsx('py-3.5 px-7 block hover:text-white',{'bg-[#3F54A5] text-white':router.pathname == '/dashboard/settings'})} href={'/dashboard/settings'}>*/}
+                {/*        {t("Sozlamalar")}*/}
+                {/*    </Link>*/}
+                {/*</li>*/}
             </ul>
         </div>
     );
