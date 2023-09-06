@@ -118,7 +118,7 @@ const Ads = () => {
 
     return (
         <Dashboard>
-            <Subheader title={'Qurilish materiallari e’lon qo’shish'}/>
+            <Subheader title={'Qurilish materiallari va buyumlari e’lonini qo’shish'}/>
             <div className="p-7">
                 {(isLoadingMaterial || isLoading) && <OverlayLoader/>}
                 <form className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>
