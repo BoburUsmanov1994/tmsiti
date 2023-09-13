@@ -16,7 +16,7 @@ import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
 import Title from "@/components/title";
 import Link from "next/link";
-import {YMaps, Map, Placemark} from "@pbe/react-yandex-maps";
+import {YMaps, Map, Placemark, FullscreenControl} from "@pbe/react-yandex-maps";
 
 
 const ViewPage = () => {
@@ -185,9 +185,18 @@ const ViewPage = () => {
 
                         <div className={'col-span-3'}>
                             <div className={'shadow-md'}>
+                                {/*<YMaps>*/}
+                                {/*    <Map defaultState={{ center: [get(company, 'data.company_latitude'), get(company, 'data.company_longitude')], zoom: 9 }}   height={160}>*/}
+                                {/*        <Placemark defaultGeometry={[get(company, 'data.company_latitude'), get(company, 'data.company_longitude')]}/>*/}
+                                {/*    </Map>*/}
+                                {/*</YMaps>*/}
+
                                 <YMaps>
-                                    <Map defaultState={{ center: [get(company, 'data.company_latitude'), get(company, 'data.company_longitude')], zoom: 9 }} options={['zoomControl', 'fullscreenControl']} height={160}>
-                                        <Placemark defaultGeometry={[get(company, 'data.company_latitude'), get(company, 'data.company_longitude')]}/>
+                                    <Map
+                                        defaultState={{center: [get(company, 'data.company_latitude'), get(company, 'data.company_longitude')], zoom: 9,}} height={160}>
+                                        <Placemark defaultGeometry={[get(company, 'data.company_latitude'), get(company, 'data.company_longitude')]}
+                                        />
+                                        <FullscreenControl/>
                                     </Map>
                                 </YMaps>
 
