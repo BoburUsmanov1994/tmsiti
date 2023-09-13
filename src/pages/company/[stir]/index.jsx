@@ -190,7 +190,7 @@ const ViewPage = () => {
                                     <Image src={'/icons/error.svg'} alt={'error'} width={30} height={30}/>
                                     <div>
                                         <h4 className={'text-base text-black'}>Hozircha koordinata topilmadi</h4>
-                                        <p className={'text-xs'}>Geojoylashuv bo'yicha</p>
+                                        <p className={'text-xs'}>Tez fursatda Geojoylashuv bo'yicha ma'lumot kiritiladi</p>
                                     </div>
                                 </div> :
                                 <div className={'shadow-lg'}>
