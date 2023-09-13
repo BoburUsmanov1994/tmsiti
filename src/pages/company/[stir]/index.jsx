@@ -139,7 +139,7 @@ const ViewPage = () => {
         <>
             <Main>
                 <Menu active={1}/>
-                <Section className={'!bg-white'}>
+                <Section>
                     <div className="grid grid-cols-12 gap-x-10">
                         <div className="col-span-2 text-center relative h-28">
                             {
