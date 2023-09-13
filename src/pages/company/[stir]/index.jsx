@@ -16,7 +16,7 @@ import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
 import Title from "@/components/title";
 import Link from "next/link";
-import {YMaps, Map, Placemark} from "react-yandex-maps";
+import {YMaps, Map, Placemark} from "@pbe/react-yandex-maps";
 
 
 const ViewPage = () => {
@@ -139,7 +139,7 @@ const ViewPage = () => {
         <>
             <Main>
                 <Menu active={1}/>
-                <Section>
+                <Section className={'!bg-white'}>
                     <div className="grid grid-cols-12 gap-x-10">
                         <div className="col-span-2 text-center relative h-28">
                             {
