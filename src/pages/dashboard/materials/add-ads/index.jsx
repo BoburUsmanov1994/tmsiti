@@ -14,6 +14,8 @@ import {OverlayLoader} from "@/components/loader";
 import { useRouter } from 'next/navigation';
 import {motion} from "framer-motion";
 import {warn} from "next/dist/build/output/log";
+import {getDefaultValue, getOptionList} from "@/utils";
+import Select from "react-select";
 
 const Ads = () => {
     const {t} = useTranslation();
@@ -143,6 +145,15 @@ const Ads = () => {
                                                        animate={{ opacity: 1, marginTop:100 }}
 
                                                        className={'text-red-800 mt-[10px]'}>Iltimos kamida 4 ta belgi kiriting.</motion.p>}
+
+                        {/*<Select*/}
+                        {/*    placeholder={'nomni rus tilida kiriting'}*/}
+                        {/*    options={get(materials, 'data.results', []).map(item => <option value={get(item, 'material_name')}></option>)}*/}
+                        {/*    defaultValue={get(materials, 'data.results', []), 'id', 'material_name')}*/}
+
+
+                        {/*/>*/}
+
 
                         <datalist id={'search-list'} className={'w-[1000px]'} onChange={(e) => setPageSize(e?.target?.value)}>
 

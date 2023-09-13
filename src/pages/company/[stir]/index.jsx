@@ -16,6 +16,7 @@ import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
 import Title from "@/components/title";
 import Link from "next/link";
+import {YMaps, Map, Placemark} from "react-yandex-maps";
 
 
 const ViewPage = () => {
@@ -32,6 +33,8 @@ const ViewPage = () => {
         key: KEYS.currency,
         url: URLS.currency,
     });
+
+
 
     const columns = [
         {
@@ -150,7 +153,7 @@ const ViewPage = () => {
                             }
 
                         </div>
-                        <div className="col-span-10">
+                        <div className="col-span-7">
                             <div className="flex mb-2.5">
                                 <div className={'inline-flex mr-[10px] cursor-pointer'}>
                                     <Image className={'mr-1.5'} width={24} height={24} src={'/icons/stick.svg'}
@@ -177,6 +180,17 @@ const ViewPage = () => {
                                 <div className={'text-[#4B5055]'}>
                                     <strong className={'text-[#000] '}>{t("Manzil")}:</strong> {get(company, 'data.company_address')}
                                 </div>
+                            </div>
+                        </div>
+
+                        <div className={'col-span-3'}>
+                            <div className={'shadow-md'}>
+                                <YMaps>
+                                    <Map defaultState={{ center: [get(company, 'data.company_latitude'), get(company, 'data.company_longitude')], zoom: 9 }} options={['zoomControl', 'fullscreenControl']} height={160}>
+                                        <Placemark defaultGeometry={[get(company, 'data.company_latitude'), get(company, 'data.company_longitude')]}/>
+                                    </Map>
+                                </YMaps>
+
                             </div>
                         </div>
                     </div>

@@ -17,7 +17,7 @@ const Main = ({children}) => {
                 {children}
                 <Link href={'https://www.youtube.com/playlist?list=PLO9ysq-3nKVUoY3rBerX7_XkwNkmw6I_h'}>
                     <button className={'fixed -right-[140px] py-[7px] px-[73px] rounded-t-[5px] top-[494px] hover:py-[20px] hover:text-lg   transition-all duration-400 text-base bg-[#017EFA] z-50 text-white -rotate-90'}>
-                        Tizim bo‘yicha qo‘llama
+                        Tizim bo‘yicha qo‘llanma
                     </button>
                 </Link>
             </main>
