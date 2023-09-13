@@ -9,7 +9,7 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 import Image from "next/image";
-import {get, split, round} from "lodash";
+import {get, split, round, isEmpty, isNil} from "lodash";
 import GridView from "@/containers/grid-view";
 import {NumericFormat} from 'react-number-format';
 import dayjs from "dayjs";
@@ -184,23 +184,26 @@ const ViewPage = () => {
                         </div>
 
                         <div className={'col-span-3'}>
-                            <div className={'shadow-md'}>
-                                {/*<YMaps>*/}
-                                {/*    <Map defaultState={{ center: [get(company, 'data.company_latitude'), get(company, 'data.company_longitude')], zoom: 9 }}   height={160}>*/}
-                                {/*        <Placemark defaultGeometry={[get(company, 'data.company_latitude'), get(company, 'data.company_longitude')]}/>*/}
-                                {/*    </Map>*/}
-                                {/*</YMaps>*/}
 
-                                <YMaps>
-                                    <Map
-                                        defaultState={{center: [get(company, 'data.company_latitude'), get(company, 'data.company_longitude')], zoom: 9,}} height={160}>
-                                        <Placemark defaultGeometry={[get(company, 'data.company_latitude'), get(company, 'data.company_longitude')]}
-                                        />
-                                        <FullscreenControl/>
-                                    </Map>
-                                </YMaps>
-
-                            </div>
+                            {isNil(get(company, 'data.company_latitude')) ?
+                                <div className={'flex items-start gap-x-[10px] shadow-md p-[10px]'}>
+                                    <Image src={'/icons/error.svg'} alt={'error'} width={30} height={30}/>
+                                    <div>
+                                        <h4 className={'text-base text-black'}>Hozircha lokatsiya topilmadi</h4>
+                                        <p className={'text-xs'}>lekin hozir berilgan barcha korxonalar uchun lokatsiya qo'yildi</p>
+                                    </div>
+                                </div> :
+                                <div className={'shadow-lg'}>
+                                    <YMaps>
+                                        <Map
+                                            defaultState={{center: [get(company, 'data.company_latitude'), get(company, 'data.company_longitude')], zoom: 9,}} height={160}>
+                                            <Placemark defaultGeometry={[get(company, 'data.company_latitude'), get(company, 'data.company_longitude')]}
+                                            />
+                                            <FullscreenControl/>
+                                        </Map>
+                                    </YMaps>
+                                </div>
+                            }
                         </div>
                     </div>
                 </Section>
