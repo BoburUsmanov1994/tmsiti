@@ -189,8 +189,8 @@ const ViewPage = () => {
                                 <div className={'flex items-start gap-x-[10px] shadow-md p-[10px]'}>
                                     <Image src={'/icons/error.svg'} alt={'error'} width={30} height={30}/>
                                     <div>
-                                        <h4 className={'text-base text-black'}>Hozircha lokatsiya topilmadi</h4>
-                                        <p className={'text-xs'}>lekin hozir berilgan barcha korxonalar uchun lokatsiya qo'yildi</p>
+                                        <h4 className={'text-base text-black'}>Hozircha koordinata topilmadi</h4>
+                                        <p className={'text-xs'}>Geojoylashuv bo'yicha</p>
                                     </div>
                                 </div> :
                                 <div className={'shadow-lg'}>
