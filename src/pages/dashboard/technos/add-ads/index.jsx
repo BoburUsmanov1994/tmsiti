@@ -14,11 +14,13 @@ import {OverlayLoader} from "@/components/loader";
 import { useRouter } from 'next/navigation';
 import materials from "@/pages/dashboard/materials";
 import {motion} from "framer-motion";
+import Select from "react-select";
 
 const Ads = () => {
     const {t} = useTranslation();
     const [search, setSearch] = useState('')
     const [warning, setWarning] = useState(false)
+    const [technoValue, setTechnoValue] = useState(null)
     const [techno, setTechno] = useState({})
 
     const {register, handleSubmit, formState: {errors}} = useForm({values:techno})
@@ -42,9 +44,9 @@ const Ads = () => {
 
     useEffect(() => {
         if (!isEmpty(head(get(technos, 'data.results', [])))) {
-            setTechno(find(get(technos, 'data.results', []), ({techno_name}) => techno_name === search))
+            setTechno(find(get(technos, 'data.results', []), ({techno_csr_code}) => techno_csr_code === technoValue))
         }
-    }, [technos])
+    }, [technos, technoValue])
 
     const onSubmit = ({
                           techno_csr_code,
@@ -100,29 +102,48 @@ const Ads = () => {
                     </div>
 
                     <div className={'col-span-12  gap-x-[30px]'}>
-                        <input list={'search-list'} defaultValue={search} placeholder={'nomni rus tilida kiriting'}
-                               onChange={debounce(function (e) {
-                                   if(e.target.value.length > 3) {
-                                        setSearch(e.target.value)
-                                       setWarning(false)
+                        {/*<input list={'search-list'} defaultValue={search} placeholder={'nomni rus tilida kiriting'}*/}
+                        {/*       onChange={debounce(function (e) {*/}
+                        {/*           if(e.target.value.length > 3) {*/}
+                        {/*                setSearch(e.target.value)*/}
+                        {/*               setWarning(false)*/}
 
-                                   } else {
-                                       setWarning(true)
-                                   }
-                               }, 500)}
-                               className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
+                        {/*           } else {*/}
+                        {/*               setWarning(true)*/}
+                        {/*           }*/}
+                        {/*       }, 500)}*/}
+                        {/*       className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}*/}
+                        {/*/>*/}
+                        {/*{warning === true && <motion.p*/}
+                        {/*    initial={{ opacity: 0 }}*/}
+                        {/*    animate={{ opacity: 1, marginTop:100 }}*/}
+                        {/*    className={'text-red-800 mt-[10px]'}>Iltimos kamida 4 ta belgi kiriting.</motion.p>}*/}
+
+                        {/*<datalist id={'search-list'}>*/}
+                        {/*    {*/}
+                        {/*        get(technos, 'data.results', []).map(item => <option*/}
+                        {/*            value={get(item, 'techno_name')}></option>)*/}
+                        {/*    }*/}
+                        {/*</datalist>*/}
+
+                        <Select
+                            isClearable
+                            placeholder={'nomni rus tilida kiriting'}
+                            options={get(technos, 'data.results', []).map(techno => ({
+                                value: get(techno, 'techno_csr_code'),
+                                label: get(techno, 'techno_name')
+                            }))}
+                            defaultValue={search}
+                            onChange={(val) => setTechnoValue(get(val, 'value'))}
+                            onKeyDown={debounce(function (e)  {
+                                if(e.target.value.length > 3) {
+                                    setSearch(e.target.value)
+                                    setWarning(false)
+                                } else {
+                                    setWarning(true)
+                                }
+                            }, 500)}
                         />
-                        {warning === true && <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1, marginTop:100 }}
-                            className={'text-red-800 mt-[10px]'}>Iltimos kamida 4 ta belgi kiriting.</motion.p>}
-
-                        <datalist id={'search-list'}>
-                            {
-                                get(technos, 'data.results', []).map(item => <option
-                                    value={get(item, 'techno_name')}></option>)
-                            }
-                        </datalist>
                     </div>
 
                     {/*  techno bo'limi  */}
