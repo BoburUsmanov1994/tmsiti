@@ -11,7 +11,7 @@ import {useForm} from "react-hook-form";
 import {toast} from "react-hot-toast";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {OverlayLoader} from "@/components/loader";
-import { useRouter } from 'next/navigation';
+import {useRouter} from 'next/navigation';
 import {motion} from "framer-motion";
 import {warn} from "next/dist/build/output/log";
 import {getDefaultValue, getOptionList} from "@/utils";
@@ -22,15 +22,16 @@ const Ads = () => {
     const [search, setSearch] = useState('')
     const [pageSize, setPageSize] = useState(10);
     const [material, setMaterial] = useState({})
+    const [materialValue, setMaterialValue] = useState(null)
     const [warning, setWarning] = useState(false)
-    const {register, handleSubmit, formState: {errors}} = useForm({values:material})
+    const {register, handleSubmit, formState: {errors}} = useForm({values: material})
     const router = useRouter();
 
     const [files, setFiles] = useState([]);
     const [previews, setPreviews] = useState([])
 
-    useEffect(()=> {
-        if(!files) return;
+    useEffect(() => {
+        if (!files) return;
 
         let tmp = [];
 
@@ -41,14 +42,14 @@ const Ads = () => {
         const objectURLS = tmp;
         setPreviews(objectURLS)
 
-        for (let i = 0; i < objectURLS.length; i ++) {
+        for (let i = 0; i < objectURLS.length; i++) {
             return () => {
                 URL.revokeObjectURL(objectURLS[i])
             }
         }
 
 
-    },[files])
+    }, [files])
 
     const {data: materials, isLoadingMaterial} = useGetQuery({
         key: KEYS.materials,
@@ -62,16 +63,14 @@ const Ads = () => {
     })
 
 
-
     const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.myMaterials})
-
 
 
     useEffect(() => {
         if (!isEmpty(head(get(materials, 'data.results', [])))) {
-            setMaterial(find(get(materials, 'data.results', []), ({material_name}) => material_name === search))
+            setMaterial(find(get(materials, 'data.results', []), ({material_csr_code}) => material_csr_code === materialValue))
         }
-    }, [materials])
+    }, [materials,materialValue])
 
     const onSubmit = ({
                           material_csr_code,
@@ -86,20 +85,20 @@ const Ads = () => {
                           material_measure
                       }) => {
         let formData = new FormData();
-        formData.append('material_name',material_csr_code)
-        formData.append('material_description',material_description)
-        formData.append('material_price',material_price)
+        formData.append('material_name', material_csr_code)
+        formData.append('material_description', material_description)
+        formData.append('material_price', material_price)
         formData.append('material_price_currency', material_price_currency)
         formData.append('material_image', material_image[0])
-        formData.append('material_amount',material_amount)
-        formData.append('sertificate_blank_num',sertificate_blank_num)
-        formData.append('sertificate_reestr_num',sertificate_reestr_num)
-        formData.append('material_owner',material_owner)
-        formData.append('material_amount_measure',material_measure)
-        formData.append('material_measure',material_measure)
+        formData.append('material_amount', material_amount)
+        formData.append('sertificate_blank_num', sertificate_blank_num)
+        formData.append('sertificate_reestr_num', sertificate_reestr_num)
+        formData.append('material_owner', material_owner)
+        formData.append('material_amount_measure', material_measure)
+        formData.append('material_measure', material_measure)
         addAds({
                 url: URLS.addAds,
-                attributes:formData
+                attributes: formData
             },
             {
                 onSuccess: () => {
@@ -107,7 +106,7 @@ const Ads = () => {
                     router.push('/dashboard/materials');
                 },
                 onError: (error) => {
-                     toast.error(`Error is ${error},`, {position: 'top-right'})
+                    toast.error(`Error is ${error},`, {position: 'top-right'})
                 }
             }
         )
@@ -129,56 +128,51 @@ const Ads = () => {
                     </div>
 
                     <div className={'col-span-12  gap-x-[30px]'}>
-                        <input list={'search-list'} defaultValue={search} placeholder={'nomni rus tilida kiriting'}
-                               onChange={debounce(function (e) {
-                                   if(e.target.value.length > 3) {
-                                       setSearch(e.target.value)
-                                       setWarning(false)
+                        {/*<input list={'search-list'} defaultValue={search} placeholder={'nomni rus tilida kiriting'}*/}
+                        {/*       onChange={debounce(function (e) {*/}
+                        {/*           if (e.target.value.length > 3) {*/}
+                        {/*               setSearch(e.target.value)*/}
+                        {/*               setWarning(false)*/}
 
-                                   } else {
-                                       setWarning(true)
-                                   }
-                               }, 500)}
-                               className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px] relative'}
-                        />
-                        {warning === true && <motion.p initial={{ opacity: 0 }}
-                                                       animate={{ opacity: 1, marginTop:100 }}
-                                                       className={'text-red-800 mt-[10px]'}>Iltimos kamida 4 ta belgi kiriting.</motion.p>}
-
-                        <datalist id={'search-list'} className={'w-[1000px]'} onChange={(e) => setPageSize(e?.target?.value)}>
-
-                            {
-                                get(materials, 'data.results', []).map(item => <option
-                                    value={get(item, 'material_name')}></option>)
-                            }
-                        </datalist>
-
-                        {/*bu oddiy selectda qilganim bunda o'xshadi, lekin custom css qilib bo'lmadi va keyingi o'rinlarni to'ldira olmadim*/}
-                        {/*<div className={'w-[600px]'}>*/}
-                        {/*    <select id={'search-list'} className={'absolute'}>*/}
-                        {/*        {*/}
-                        {/*            get(materials, 'data.results', []).map(item => <option className={'py-[5px]'}*/}
-                        {/*            >{get(item, 'material_name')}</option>)*/}
-                        {/*        }*/}
-                        {/*    </select>*/}
-                        {/*</div>*/}
-
-                        {/*bu packageni uncha tushuna olmadim*/}
-                        {/*<Select*/}
-                        {/*    placeholder={'nomni rus tilida kiriting'}*/}
-                        {/*    options={get(materials, 'data.results', []).map(material => ({value: get(material, 'id'), label: get(material, 'material_name')}))}*/}
-                        {/*    defaultValue={search}*/}
-                        {/*    onChange={debounce(function (e) {*/}
-                        {/*        if(e.target.value.length > 3) {*/}
-                        {/*            setSearch(e.target.value)*/}
-                        {/*            setWarning(false)*/}
-
-                        {/*        } else {*/}
-                        {/*            setWarning(true)*/}
-                        {/*        }*/}
-                        {/*    }, 500)}*/}
-
+                        {/*           } else {*/}
+                        {/*               setWarning(true)*/}
+                        {/*           }*/}
+                        {/*       }, 500)}*/}
+                        {/*       className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px] relative'}*/}
                         {/*/>*/}
+                        {/*{warning === true && <motion.p initial={{opacity: 0}}*/}
+                        {/*                               animate={{opacity: 1, marginTop: 100}}*/}
+                        {/*                               className={'text-red-800 mt-[10px]'}>Iltimos kamida 4 ta belgi*/}
+                        {/*    kiriting.</motion.p>}*/}
+
+                        {/*<datalist id={'search-list'} className={'w-[1000px]'}*/}
+                        {/*          onChange={(e) => setPageSize(e?.target?.value)}>*/}
+
+                        {/*    {*/}
+                        {/*        get(materials, 'data.results', []).map(item => <option*/}
+                        {/*            value={get(item, 'material_name')}></option>)*/}
+                        {/*    }*/}
+                        {/*</datalist>*/}
+
+                        <Select
+                            isClearable
+                            placeholder={'nomni rus tilida kiriting'}
+                            options={get(materials, 'data.results', []).map(material => ({
+                                value: get(material, 'material_csr_code'),
+                                label: get(material, 'material_name')
+                            }))}
+                            defaultValue={search}
+                            onChange={(val)=>setMaterialValue(get(val,'value'))}
+                            onKeyDown={debounce(function (e) {
+                                if(e.target.value.length > 3) {
+                                    setSearch(e.target.value)
+                                    setWarning(false)
+
+                                } else {
+                                    setWarning(true)
+                                }
+                            }, 500)}
+                        />
 
 
                     </div>
@@ -312,10 +306,12 @@ const Ads = () => {
                             <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>
                             <p>yuklash</p>
                         </label>
-                        <input id={"dropzone-file"} type={"file"} accept={"image/png, image/jpeg, image/jpg"} onChange={(e) => {
-                            if(e.target.files && e.target.files.length > 0) {
-                                setFiles(e.target.files)
-                        }}}
+                        <input id={"dropzone-file"} type={"file"} accept={"image/png, image/jpeg, image/jpg"}
+                               onChange={(e) => {
+                                   if (e.target.files && e.target.files.length > 0) {
+                                       setFiles(e.target.files)
+                                   }
+                               }}
                                {...register('material_image')}
                         />
                         {previews && previews.map((pic) => {
