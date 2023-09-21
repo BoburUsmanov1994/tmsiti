@@ -140,20 +140,20 @@ const ViewPage = () => {
             <Main>
                 <Menu active={1}/>
                 <Section className={'!bg-white'}>
-                    <div className="grid grid-cols-12 gap-x-10">
-                        <div className="col-span-2 text-center relative h-28">
+                    <div className="grid grid-cols-12 gap-x-[30px]">
+                        <div className="col-span-2 w-[220px] text-center relative ">
                             {
                                 get(company, 'data.company_logo') ?
-                                    <Image className={'mr-2'} layout={'fill'} objectFit={'contain'}
+                                    <Image className={'w-[220px] h-[160px]'} layout={'fill'} objectFit={'contain'}
                                            loader={() => get(company, 'data.company_logo')}
                                            src={get(company, 'data.company_logo')}
-                                           alt={'code'}/> :
-                                    <Image className={'mx-auto'} width={150} height={105} src={'/images/company.png'}
+                                           alt={'code'} width={220} height={160}/> :
+                                    <Image className={' w-[220px] h-[160px]'} width={220} height={160} src={'/images/company.png'}
                                            alt={'company'}/>
                             }
 
                         </div>
-                        <div className="col-span-7">
+                        <div className="col-span-7 !ml-0">
                             <div className="flex mb-2.5">
                                 <div className={'inline-flex mr-[10px] cursor-pointer'}>
                                     <Image className={'mr-1.5'} width={24} height={24} src={'/icons/stick.svg'}

@@ -139,21 +139,11 @@ const Ads = () => {
                                        setWarning(true)
                                    }
                                }, 500)}
-                               className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px]'}
+                               className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px] relative'}
                         />
                         {warning === true && <motion.p initial={{ opacity: 0 }}
                                                        animate={{ opacity: 1, marginTop:100 }}
-
                                                        className={'text-red-800 mt-[10px]'}>Iltimos kamida 4 ta belgi kiriting.</motion.p>}
-
-                        {/*<Select*/}
-                        {/*    placeholder={'nomni rus tilida kiriting'}*/}
-                        {/*    options={get(materials, 'data.results', []).map(item => <option value={get(item, 'material_name')}></option>)}*/}
-                        {/*    defaultValue={get(materials, 'data.results', []), 'id', 'material_name')}*/}
-
-
-                        {/*/>*/}
-
 
                         <datalist id={'search-list'} className={'w-[1000px]'} onChange={(e) => setPageSize(e?.target?.value)}>
 
@@ -162,6 +152,34 @@ const Ads = () => {
                                     value={get(item, 'material_name')}></option>)
                             }
                         </datalist>
+
+                        {/*bu oddiy selectda qilganim bunda o'xshadi, lekin custom css qilib bo'lmadi va keyingi o'rinlarni to'ldira olmadim*/}
+                        {/*<div className={'w-[600px]'}>*/}
+                        {/*    <select id={'search-list'} className={'absolute'}>*/}
+                        {/*        {*/}
+                        {/*            get(materials, 'data.results', []).map(item => <option className={'py-[5px]'}*/}
+                        {/*            >{get(item, 'material_name')}</option>)*/}
+                        {/*        }*/}
+                        {/*    </select>*/}
+                        {/*</div>*/}
+
+                        {/*bu packageni uncha tushuna olmadim*/}
+                        {/*<Select*/}
+                        {/*    placeholder={'nomni rus tilida kiriting'}*/}
+                        {/*    options={get(materials, 'data.results', []).map(material => ({value: get(material, 'id'), label: get(material, 'material_name')}))}*/}
+                        {/*    defaultValue={search}*/}
+                        {/*    onChange={debounce(function (e) {*/}
+                        {/*        if(e.target.value.length > 3) {*/}
+                        {/*            setSearch(e.target.value)*/}
+                        {/*            setWarning(false)*/}
+
+                        {/*        } else {*/}
+                        {/*            setWarning(true)*/}
+                        {/*        }*/}
+                        {/*    }, 500)}*/}
+
+                        {/*/>*/}
+
 
                     </div>
 
