@@ -15,6 +15,7 @@ import Link from "next/link";
 import usePutQuery from "@/hooks/api/usePutQuery";
 import {OverlayLoader} from "@/components/loader";
 import {toast} from "react-hot-toast";
+import {useRouter} from "next/router";
 
 const Materials = () => {
     const {t} = useTranslation();
@@ -22,6 +23,8 @@ const Materials = () => {
     const [count, setCount] = useState(0);
     const [search, setSearch] = useState("")
     const [itemId, setItemId] = useState(null);
+    const router = useRouter();
+    const {id} = router.query
 
 
     const {data: currency} = useGetQuery({
@@ -30,6 +33,11 @@ const Materials = () => {
     })
     const {mutate: deactivateRequest, isLoading: isLoadingDeActivate} = usePutQuery({
         listKeyId: KEYS.myMaterials
+    })
+
+    const {mutate: editRequest, isLoading: isLoadingEdit} = usePutQuery({
+        listKeyId: KEYS.myMaterials
+
     })
 
 
@@ -84,6 +92,9 @@ const Materials = () => {
                                src={'/icons/eye-icon.svg'}
                                alt={'eye'}/>
                     </Link>
+                    <Link href={`${URLS.materials}/${id}/`}>
+                        <Image src={'/icons/edit-icon.svg'} className={'mr-1.5 inline'} width={20} height={20} alt={'edit'}/>
+                    </Link>
                     <div className={'cursor-pointer'}>
                         <Image
                             className={'inline'} width={20} height={20}
@@ -91,8 +102,8 @@ const Materials = () => {
                             onClick={() => setItemId(get(row, 'id'))}
                             alt={'trash'}
                         />
-
                     </div>
+
                 </div>
         }
     ]
@@ -156,7 +167,7 @@ const Materials = () => {
                                                         </clipPath>
                                                     </defs>
                                                 </svg>
-                                    </span>
+                                </span>
                             </div>
                         </div>
 
