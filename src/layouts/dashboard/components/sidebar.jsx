@@ -5,11 +5,11 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import clsx from "clsx";
 
-const Sidebar = () => {
+const Sidebar = ({openSidebar}) => {
     const {t} = useTranslation()
     const router = useRouter();
     return (
-        <div className={'bg-[#28366D] shadow-[2px_0px_32px_rgba(0, 0, 0, 0.05)] w-[350px] h-screen fixed top-0 left-0'}>
+        <div className={clsx('bg-[#28366D] shadow-[2px_0px_32px_rgba(0, 0, 0, 0.05)] w-[350px] h-screen fixed top-0 transition-transform duration-300 ease-linear' , openSidebar ? 'left-0':"-translate-x-full")}>
             <div className={'py-4 pl-5 pr-4 text-white text-sm'}>
                 <Brand/>
             </div>

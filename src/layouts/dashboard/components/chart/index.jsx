@@ -125,7 +125,7 @@ class PopChart extends Component {
 
     render() {
         return (
-            <React.Fragment>
+            <div className={'max-w-full duration-300 transition-[max-width] ease-linear'}>
                 <Chart
                     options={this.state.options}
                     series={this.state.series}
@@ -134,7 +134,7 @@ class PopChart extends Component {
                     width={"100%"}
                 />
 
-            </React.Fragment>
+            </div>
         )
     }
 }

@@ -27,29 +27,15 @@ const Ads = () => {
     const {register, handleSubmit, formState: {errors}} = useForm({values: material})
     const router = useRouter();
 
-    const [files, setFiles] = useState([]);
-    const [previews, setPreviews] = useState([])
 
-    useEffect(() => {
-        if (!files) return;
+    const [file, setFile] = useState();
 
-        let tmp = [];
-
-        for (let i = 0; i < files.length; i++) {
-            tmp.push(URL.createObjectURL(files[i]))
-        }
-
-        const objectURLS = tmp;
-        setPreviews(objectURLS)
-
-        for (let i = 0; i < objectURLS.length; i++) {
-            return () => {
-                URL.revokeObjectURL(objectURLS[i])
-            }
-        }
+    function handleChange(e) {
+        console.log(e.target.files);
+        setFile(URL.createObjectURL(e.target.files[0]));
+    }
 
 
-    }, [files])
 
     const {data: materials, isLoadingMaterial} = useGetQuery({
         key: KEYS.materials,
@@ -226,6 +212,7 @@ const Ads = () => {
                             placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                             {...register('material_name', {required: true})}
+                            disabled={true}
                         />
                         <input
                             placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
@@ -307,16 +294,10 @@ const Ads = () => {
                             <p>yuklash</p>
                         </label>
                         <input id={"dropzone-file"} type={"file"} accept={"image/png, image/jpeg, image/jpg"}
-                               onChange={(e) => {
-                                   if (e.target.files && e.target.files.length > 0) {
-                                       setFiles(e.target.files)
-                                   }
-                               }}
+                               onChange={handleChange}
                                {...register('material_image')}
                         />
-                        {previews && previews.map((pic) => {
-                            return <img src={pic} alt={'image'}/>
-                        })}
+
                     </div>
 
                     <div className={'col-span-6'}>

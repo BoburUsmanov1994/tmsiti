@@ -2,10 +2,12 @@ import React from 'react';
 import Image from "next/image";
 import Lang from "../../../components/lang";
 
-const Header = () => {
+const Header = ({setOpenSidebar,openSidebar}) => {
     return (
         <header className={'bg-[#202B57] py-4 px-7 text-white flex justify-between sticky top-0'}>
+            <button onClick={()=>setOpenSidebar(!openSidebar)}>
             <Image className={'cursor-pointer'} width={22} height={14} src={'/icons/menu.svg'} alt={'menu'}/>
+            </button>
             <div className={'flex'}>
                 <div className={'flex mr-6'}>
                     <Image width={10} height={12.5} alt={'map'} src={'/icons/map.svg'}/>
