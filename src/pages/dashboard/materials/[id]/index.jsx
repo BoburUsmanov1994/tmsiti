@@ -161,7 +161,7 @@ const Index = () => {
             </p>
 
             <input
-              defaultValue={get(oldData, "data.results.material_volume_name")}
+              defaultValue={get(oldData, "data.material_volume_name")}
               placeholder={"*qidiruv natijasiga ko’ra avtomatik to’ldiriladi"}
               className={
                 "placeholder py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
@@ -179,7 +179,7 @@ const Index = () => {
               *qidiruv natijasiga ko’ra avtomatik to’ldiriladi
             </p>
             <input
-              defaultValue={get(oldData, "data.results.material_category_name")}
+              defaultValue={get(oldData, "data.material_category_name")}
               placeholder={"*qidiruv natijasiga ko’ra avtomatik to’ldiriladi"}
               className={
                 " py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
