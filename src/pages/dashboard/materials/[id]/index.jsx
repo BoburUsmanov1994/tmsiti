@@ -138,8 +138,8 @@ const Index = () => {
               isClearable
               placeholder={"nomni rus tilida kiriting"}
               defaultValue={{
-                value: get(oldData, "data.results.material_csr_code"),
-                label: get(oldData, "data.results.material_name"),
+                value: get(oldData, "data.material_csr_code"),
+                label: get(oldData, "data.material_name"),
               }}
               options={get(materials, "data.results", []).map((material) => ({
                 value: get(material, "material_csr_code"),
@@ -198,7 +198,7 @@ const Index = () => {
 
             <input
               placeholder={"*qidiruv natijasiga ko’ra avtomatik to’ldiriladi"}
-              defaultValue={get(oldData, "data.results.material_group_name")}
+              defaultValue={get(oldData, "data.material_group_name")}
               className={
                 "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
               }
@@ -338,7 +338,7 @@ const Index = () => {
             <input
               id={"dropzone-file"}
               type={"file"}
-              defaultValue={get(oldData, "data.results.material_image")}
+              defaultValue={get(oldData, "data.material_image")}
               accept={"image/png, image/jpeg, image/jpg"}
               {...register("material_image")}
             />
@@ -371,7 +371,7 @@ const Index = () => {
                 {...register("sertificate_reestr_num", { required: true })}
                 defaultValue={get(
                   oldData,
-                  "data.results.sertificate_reestr_num",
+                  "data.sertificate_reestr_num",
                 )}
                 className={
                   "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
