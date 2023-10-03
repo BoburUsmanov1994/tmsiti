@@ -28,7 +28,6 @@ const Index = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  console.log(id, "IDDS");
   const { data: oldData } = useGetOneQuery({
     key: "material-one",
     url: URLS.updateMaterial,
@@ -215,7 +214,7 @@ const Index = () => {
               *qidiruv natijasiga ko’ra avtomatik to’ldiriladi
             </p>
             <input
-              defaultValue={get(oldData, "data.results.material_name")}
+              defaultValue={get(oldData, "data.material_name")}
               placeholder={"*qidiruv natijasiga ko’ra avtomatik to’ldiriladi"}
               className={
                 "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
@@ -240,7 +239,7 @@ const Index = () => {
             </h4>
             <textarea
               {...register("material_description")}
-              defaultValue={get(oldData, "data.results.material_description")}
+              defaultValue={get(oldData, "data.material_description")}
               rows={5}
               className={
                 "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
@@ -255,7 +254,7 @@ const Index = () => {
               <input
                 placeholder={""}
                 type={"number"}
-                defaultValue={get(oldData, "data.results.material_price")}
+                defaultValue={get(oldData, "data.material_price")}
                 {...register("material_price", { required: true })}
                 className={"py-[15px] px-[20px] w-full shadow-xl  my-[10px]"}
                 required={true}
@@ -263,10 +262,7 @@ const Index = () => {
 
               <select
                 className={"p-[16px]"}
-                defaultValue={get(
-                  oldData,
-                  "data.results.material_price_currency",
-                )}
+                defaultValue={get(oldData, "data.material_price_currency")}
                 {...register("material_price_currency")}
               >
                 <option>UZS</option>
@@ -287,7 +283,7 @@ const Index = () => {
                 "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
               }
               {...register("material_measure")}
-              defaultValue={get(oldData, "data.results.material_measure")}
+              defaultValue={get(oldData, "data.material_measure")}
               disabled={true}
             />
           </div>
@@ -298,7 +294,7 @@ const Index = () => {
             <input
               placeholder={"Material miqdori"}
               type={"number"}
-              defaultValue={get(oldData, "data.results.material_amount")}
+              defaultValue={get(oldData, "data.material_amount")}
               {...register("material_amount", { required: true })}
               className={
                 "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
@@ -316,7 +312,7 @@ const Index = () => {
               className={
                 "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
               }
-              defaultValue={get(oldData, "data.results.material_measure")}
+              defaultValue={get(oldData, "data.material_measure")}
               {...register("material_amount_measure")}
               disabled={true}
             />
@@ -356,10 +352,7 @@ const Index = () => {
               </h4>
               <input
                 placeholder={"Mahsulot sertifikati blank raqami"}
-                defaultValue={get(
-                  oldData,
-                  "data.results.sertificate_blank_num",
-                )}
+                defaultValue={get(oldData, "data.sertificate_blank_num")}
                 {...register("sertificate_blank_num", { required: true })}
                 className={
                   "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
