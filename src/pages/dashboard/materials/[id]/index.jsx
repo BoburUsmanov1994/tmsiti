@@ -31,11 +31,9 @@ const Index = () => {
   const { data: oldData } = useGetOneQuery({
     key: "material-one",
     url: URLS.updateMaterial,
-    id: id,
+    id: `${id}/`,
     enabled: !!id,
   });
-
-  console.log(oldData, "oldDataoldDataoldData");
 
   const { data: materials, isLoadingMaterial } = useGetQuery({
     key: KEYS.materials,
@@ -62,6 +60,13 @@ const Index = () => {
       );
     }
   }, [materials, materialValue]);
+
+  useEffect(() => {
+    if (get(oldData, "data") && !isEmpty(get(oldData, "data"))) {
+      setMaterial(get(oldData, "data"));
+      setSearch(get(oldData, "data.material_name"));
+    }
+  }, [oldData]);
 
   const onSubmit = ({
     material_csr_code,
@@ -118,7 +123,7 @@ const Index = () => {
   };
 
   console.log("material", material);
-  console.log("errors", errors);
+  console.log("search", search);
 
   return (
     <Dashboard>
@@ -138,12 +143,12 @@ const Index = () => {
               isClearable
               placeholder={"nomni rus tilida kiriting"}
               defaultValue={{
-                value: get(oldData, "data.material_csr_code"),
-                label: get(oldData, "data.material_name"),
-              }}
-              options={get(materials, "data.results", []).map((material) => ({
                 value: get(material, "material_csr_code"),
                 label: get(material, "material_name"),
+              }}
+              options={get(materials, "data.results", []).map((_material) => ({
+                value: get(_material, "material_csr_code"),
+                label: get(_material, "material_name"),
               }))}
               onKeyDown={debounce(function (e) {
                 if (e.target.value.length > 3) {
@@ -369,10 +374,7 @@ const Index = () => {
               <input
                 placeholder={"Mahsulot sertifikati reestr raqami"}
                 {...register("sertificate_reestr_num", { required: true })}
-                defaultValue={get(
-                  oldData,
-                  "data.sertificate_reestr_num",
-                )}
+                defaultValue={get(oldData, "data.sertificate_reestr_num")}
                 className={
                   "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
                 }
