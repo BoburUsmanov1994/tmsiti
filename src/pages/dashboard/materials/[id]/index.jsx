@@ -219,7 +219,7 @@ const Index = () => {
               *qidiruv natijasiga ko’ra avtomatik to’ldiriladi
             </p>
             <input
-              defaultValue={get(oldData, "data.material_name")}
+              defaultValue={get(oldData, "data.material_сsr_code")}
               placeholder={"*qidiruv natijasiga ko’ra avtomatik to’ldiriladi"}
               className={
                 "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"

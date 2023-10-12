@@ -120,7 +120,7 @@ const Classifier = () => {
                                     setSearch(e.target.value)
                                 }, 500
                             )} placeholder={'Kerakli mahsulot nomini yozing'}
-                                   className={'border border-transparent w-full px-5 py-2.5 rounded-[5px] bg-white placeholder:italic placeholder:text-[#516164] h-[46px] rounded-[5px] outline-none focus:border-[#28366D]'}
+                                   className={'border border-transparent w-full px-5 py-2.5  bg-white placeholder:italic placeholder:text-[#516164] h-[46px] rounded-[5px] outline-none focus:border-[#28366D]'}
                                    type="text"/>
                             {search && search.length < 4 &&
                             <span className={'text-red-500 text-xs font-light'}>Kamida 4 ta belgi kiriting</span>}

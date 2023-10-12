@@ -7,8 +7,8 @@ const Brand = () => {
     const {t} = useTranslation()
     return (
         <Link className={'flex items-center'} href={'/'}>
-            <Image className={'mr-5'} width={56} height={60} src={'/images/logo.svg'}/>
-            <span className={'font-bold text-base w-auto'}>{t('name')}</span>
+            <Image className={'mr-5'} width={56} height={60} src={'/images/logo.svg'} alt={'image'}/>
+            <span className={'font-bold text-base w-auto'}>{t('name_uz')}</span>
         </Link>
     );
 };
