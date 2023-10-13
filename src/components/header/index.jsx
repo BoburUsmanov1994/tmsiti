@@ -111,10 +111,8 @@ const Header = () => {
                   alt={"map"}
                   src={"/icons/user.svg"}
                 />
-                {/*<button className={'block text-base bg-transparent'}>*/}
-                {/*    <Link href={'/dashboard'}>*/}
-                {/*        sign in*/}
-                {/*    </Link>*/}
+                {/*<button className={"block text-base bg-transparent"}>*/}
+                {/*  <Link href={"/dashboard"}>sign in</Link>*/}
                 {/*</button>*/}
                 {!get(session, "user.token") ? (
                   <div>

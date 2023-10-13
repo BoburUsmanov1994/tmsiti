@@ -158,59 +158,6 @@ const Index = () => {
             />
           </div>
 
-          {/*  material bo'limi  */}
-          <div className={"col-span-12  gap-x-[30px] mt-[10px]"}>
-            <h4 className={"text-[#28366D] text-base"}>Material bo’limi</h4>
-            <p className={"text-[12px] text-[#516164]"}>
-              *qidiruv natijasiga ko’ra avtomatik to’ldiriladi
-            </p>
-
-            <input
-              defaultValue={get(oldData, "data.material_volume_name")}
-              placeholder={"*qidiruv natijasiga ko’ra avtomatik to’ldiriladi"}
-              className={
-                "placeholder py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
-              }
-              disabled={true}
-            />
-          </div>
-
-          {/*  material kategoriyasi  */}
-          <div className={"col-span-12  gap-x-[30px]"}>
-            <h4 className={"text-[#28366D] text-base"}>
-              Material kategoriyasi
-            </h4>
-            <p className={"text-[12px] text-[#516164]"}>
-              *qidiruv natijasiga ko’ra avtomatik to’ldiriladi
-            </p>
-            <input
-              defaultValue={get(oldData, "data.material_category_name")}
-              placeholder={"*qidiruv natijasiga ko’ra avtomatik to’ldiriladi"}
-              className={
-                " py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
-              }
-              disabled={true}
-            />
-          </div>
-
-          {/*  material guruhi  */}
-
-          <div className={"col-span-12   gap-x-[30px]"}>
-            <h4 className={"text-[#28366D] text-base "}>Material guruhi</h4>
-            <p className={"text-[12px] text-[#516164]"}>
-              *qidiruv natijasiga ko’ra avtomatik to’ldiriladi
-            </p>
-
-            <input
-              placeholder={"*qidiruv natijasiga ko’ra avtomatik to’ldiriladi"}
-              defaultValue={get(oldData, "data.material_group_name")}
-              className={
-                "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
-              }
-              disabled={true}
-            />
-          </div>
-
           {/*  material nomi  */}
 
           <div className={"col-span-12  gap-x-[30px]"}>
