@@ -94,7 +94,7 @@ const Index = () => {
     formData.append("material_measure", material_measure);
     editAdds(
       {
-        url: URLS.updateMaterial,
+        url: `${URLS.updateMaterial}/${id}`,
         attributes: formData,
       },
       {
@@ -122,8 +122,7 @@ const Index = () => {
     }
   };
 
-  console.log("material", material);
-  console.log("search", search);
+
 
   return (
     <Dashboard>
