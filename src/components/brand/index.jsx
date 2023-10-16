@@ -8,7 +8,7 @@ const Brand = () => {
     return (
         <Link className={'flex items-center'} href={'/'}>
             <Image className={'mr-5'} width={56} height={60} src={'/images/logo.svg'} alt={'image'}/>
-            <span className={'font-bold text-base w-auto'}>{t('name_uz')}</span>
+            <span className={'font-bold text-base w-auto'}>{t('name')}</span>
         </Link>
     );
 };
