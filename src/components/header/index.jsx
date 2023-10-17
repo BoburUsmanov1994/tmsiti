@@ -111,37 +111,37 @@ const Header = () => {
                   alt={"map"}
                   src={"/icons/user.svg"}
                 />
-                {/*<button className={"block text-base bg-transparent"}>*/}
-                {/*  <Link href={"/dashboard"}>sign in</Link>*/}
-                {/*</button>*/}
-                {!get(session, "user.token") ? (
-                  <div>
-                    <button
-                      className={"block text-base bg-transparent"}
-                      onClick={() => signIn()}
-                    >
-                      {t("signin")}
-                    </button>
-                    {/*<Link className={'block text-base'} href={'/auth/signup'}>*/}
-                    {/*    {t("signup")}*/}
-                    {/*</Link>*/}
-                  </div>
-                ) : (
-                  <div>
-                    <button
-                      onClick={() => router.push("/dashboard")}
-                      className={"block text-base bg-transparent"}
-                    >
-                      {get(user, "data.email")}
-                    </button>
-                    <button
-                      className={"block text-base"}
-                      onClick={() => signOut()}
-                    >
-                      {t("Logout")}
-                    </button>
-                  </div>
-                )}
+                <button className={"block text-base bg-transparent"}>
+                  <Link href={"/dashboard"}>sign in</Link>
+                </button>
+                {/*{!get(session, "user.token") ? (*/}
+                {/*  <div>*/}
+                {/*    <button*/}
+                {/*      className={"block text-base bg-transparent"}*/}
+                {/*      onClick={() => signIn()}*/}
+                {/*    >*/}
+                {/*      {t("signin")}*/}
+                {/*    </button>*/}
+                {/*    /!*<Link className={'block text-base'} href={'/auth/signup'}>*!/*/}
+                {/*    /!*    {t("signup")}*!/*/}
+                {/*    /!*</Link>*!/*/}
+                {/*  </div>*/}
+                {/*) : (*/}
+                {/*  <div>*/}
+                {/*    <button*/}
+                {/*      onClick={() => router.push("/dashboard")}*/}
+                {/*      className={"block text-base bg-transparent"}*/}
+                {/*    >*/}
+                {/*      {get(user, "data.email")}*/}
+                {/*    </button>*/}
+                {/*    <button*/}
+                {/*      className={"block text-base"}*/}
+                {/*      onClick={() => signOut()}*/}
+                {/*    >*/}
+                {/*      {t("Logout")}*/}
+                {/*    </button>*/}
+                {/*  </div>*/}
+                {/*)}*/}
               </div>
             </div>
           </div>

@@ -69,27 +69,27 @@ const Index = () => {
   }, [oldData]);
 
   const onSubmit = ({
-    material_csr_code,
+
     material_description,
     material_price,
     material_price_currency,
-    material_image,
+
     material_amount,
     sertificate_blank_num,
     sertificate_reestr_num,
-    material_owner,
+
     material_measure,
   }) => {
     let formData = new FormData();
-    formData.append("material_name", material_csr_code);
+
     formData.append("material_description", material_description);
     formData.append("material_price", material_price);
     formData.append("material_price_currency", material_price_currency);
-    formData.append("material_image", material_image[0]);
+
     formData.append("material_amount", material_amount);
     formData.append("sertificate_blank_num", sertificate_blank_num);
     formData.append("sertificate_reestr_num", sertificate_reestr_num);
-    formData.append("material_owner", material_owner);
+
     formData.append("material_amount_measure", material_measure);
     formData.append("material_measure", material_measure);
     editAdds(
@@ -133,55 +133,55 @@ const Index = () => {
           className={"grid grid-cols-12 gap-x-[30px]"}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className={"col-span-12 mb-[10px]"}>
-            <h4 className={"text-[#28366D] text-base"}>Qidiruv</h4>
-          </div>
+          {/*<div className={"col-span-12 mb-[10px]"}>*/}
+          {/*  <h4 className={"text-[#28366D] text-base"}>Qidiruv</h4>*/}
+          {/*</div>*/}
 
-          <div className={"col-span-12  gap-x-[30px]"}>
-            <Select
-              isClearable
-              placeholder={"nomni rus tilida kiriting"}
-              defaultValue={{
-                value: get(material, "material_csr_code"),
-                label: get(material, "material_name"),
-              }}
-              options={get(materials, "data.results", []).map((_material) => ({
-                value: get(_material, "material_csr_code"),
-                label: get(_material, "material_name"),
-              }))}
-              onKeyDown={debounce(function (e) {
-                if (e.target.value.length > 3) {
-                  setSearch(e.target.value);
-                }
-              })}
-            />
-          </div>
+          {/*<div className={"col-span-12  gap-x-[30px]"}>*/}
+          {/*  <Select*/}
+          {/*    isClearable*/}
+          {/*    placeholder={"nomni rus tilida kiriting"}*/}
+          {/*    defaultValue={{*/}
+          {/*      value: get(material, "material_csr_code"),*/}
+          {/*      label: get(material, "material_name"),*/}
+          {/*    }}*/}
+          {/*    options={get(materials, "data.results", []).map((_material) => ({*/}
+          {/*      value: get(_material, "material_csr_code"),*/}
+          {/*      label: get(_material, "material_name"),*/}
+          {/*    }))}*/}
+          {/*    onKeyDown={debounce(function (e) {*/}
+          {/*      if (e.target.value.length > 3) {*/}
+          {/*        setSearch(e.target.value);*/}
+          {/*      }*/}
+          {/*    })}*/}
+          {/*  />*/}
+          {/*</div>*/}
 
           {/*  material nomi  */}
 
-          <div className={"col-span-12  gap-x-[30px]"}>
-            <h4 className={"text-[#28366D] text-base"}>Material nomi</h4>
-            <p className={"text-[12px] text-[#516164]"}>
-              *qidiruv natijasiga ko’ra avtomatik to’ldiriladi
-            </p>
-            <input
-              defaultValue={get(oldData, "data.material_сsr_code")}
-              placeholder={"*qidiruv natijasiga ko’ra avtomatik to’ldiriladi"}
-              className={
-                "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
-              }
-              {...register("material_name", { required: true })}
-              disabled={true}
-            />
-            <input
-              placeholder={
-                "Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта"
-              }
-              className={"hidden"}
-              value={1}
-              {...register("material_owner", { required: true })}
-            />
-          </div>
+          {/*<div className={"col-span-12  gap-x-[30px]"}>*/}
+          {/*  <h4 className={"text-[#28366D] text-base"}>Material nomi</h4>*/}
+          {/*  <p className={"text-[12px] text-[#516164]"}>*/}
+          {/*    *qidiruv natijasiga ko’ra avtomatik to’ldiriladi*/}
+          {/*  </p>*/}
+          {/*  <input*/}
+          {/*    defaultValue={get(oldData, "data.material_сsr_code")}*/}
+          {/*    placeholder={"*qidiruv natijasiga ko’ra avtomatik to’ldiriladi"}*/}
+          {/*    className={*/}
+          {/*      "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"*/}
+          {/*    }*/}
+          {/*    */}
+          {/*    disabled={true}*/}
+          {/*  />*/}
+          {/*  <input*/}
+          {/*    placeholder={*/}
+          {/*      "Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта"*/}
+          {/*    }*/}
+          {/*    className={"hidden"}*/}
+          {/*    value={1}*/}
+          {/*    {...register("material_owner", { required: true })}*/}
+          {/*  />*/}
+          {/*</div>*/}
 
           {/* Material tavsifi */}
           <div className={"col-span-12 gap-x-[30px]"}>
@@ -270,30 +270,30 @@ const Index = () => {
           </div>
 
           {/*Material rasmi*/}
-          {/*<div className={"col-span-6"}>*/}
-          {/*  <h4 className={"text-[#28366D] text-base "}>Material rasmi</h4>*/}
-          {/*  <label*/}
-          {/*    for="dropzone-file"*/}
-          {/*    className={*/}
-          {/*      "shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white"*/}
-          {/*    }*/}
-          {/*  >*/}
-          {/*    <Image*/}
-          {/*      src={"/icons/upload.svg"}*/}
-          {/*      alt={"upload"}*/}
-          {/*      width={48}*/}
-          {/*      height={48}*/}
-          {/*    />*/}
-          {/*    <p>yuklash</p>*/}
-          {/*  </label>*/}
-          {/*  <input*/}
-          {/*    id={"dropzone-file"}*/}
-          {/*    type={"file"}*/}
-          {/*    defaultValue={get(oldData, "data.material_image")}*/}
-          {/*    accept={"image/png, image/jpeg, image/jpg"}*/}
-          {/*    {...register("material_image")}*/}
-          {/*  />*/}
-          {/*</div>*/}
+          <div className={"col-span-6"}>
+            <h4 className={"text-[#28366D] text-base "}>Material rasmi</h4>
+            <label
+              for="dropzone-file"
+              className={
+                "shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white"
+              }
+            >
+              <Image
+                src={"/icons/upload.svg"}
+                alt={"upload"}
+                width={48}
+                height={48}
+              />
+              <p>yuklash</p>
+            </label>
+            <input
+              id={"dropzone-file"}
+              type={"file"}
+              defaultValue={get(oldData, "data.material_image")}
+              accept={"image/png, image/jpeg, image/jpg"}
+              {...register("material_image")}
+            />
+          </div>
 
           <div className={"col-span-6"}>
             {/*Mahsulot sertifikati reestr raqami*/}
