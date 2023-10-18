@@ -98,7 +98,7 @@ const Materials = () => {
       title: "Action",
       key: "action",
       render: ({ row }) => {
-        console.log(row, "RPWWWW");
+
         return (
           <div className={"flex"}>
             <Link

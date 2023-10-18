@@ -14,15 +14,18 @@ import GridView from "@/containers/grid-view";
 import {NumericFormat} from 'react-number-format';
 import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
+import {motion} from "framer-motion";
 import Title from "@/components/title";
 import Link from "next/link";
 import {YMaps, Map, Placemark, FullscreenControl} from "@pbe/react-yandex-maps";
 
 
+
 const ViewPage = () => {
     const router = useRouter()
     const {stir} = router.query;
-    const {t} = useTranslation()
+    const {t} = useTranslation();
+    const [itemId, setItemId] = useState(null);
     const [count, setCount] = useState(0)
     const {data: company, isLoading, isError} = useGetQuery({
         key: [KEYS.companies, stir],
@@ -74,7 +77,7 @@ const ViewPage = () => {
             title: t('Sertifikat'),
             key: 'sertificate_blank_num',
             render: ({row}) => <div className={'group relative inline-block cursor-pointer'}>
-                <Image className={'mx-auto'} width={24} height={24} src={'/images/certificate.png'}
+                <Image onClick={()=> setItemId(row, "id")}  className={'mx-auto'} width={24} height={24} src={'/images/certificate.png'}
                        alt={'certificate'}/>
                 <ul className="text-left text-white hidden group-hover:block absolute left-full bottom-full p-2.5 bg-[#3D7AB6] w-[200px] rounded shadow-[5px_5px_15px_rgba(0, 0, 0, 0.1)]">
                     {(get(row, 'sertificate_blank_num') && get(row, 'sertificate_reestr_num') && get(row, 'sertificate_reestr_num')?.length > 1 && get(row, 'sertificate_blank_num')?.length > 1) ? <>
@@ -226,6 +229,40 @@ const ViewPage = () => {
                         </div>
                     </div>
                 </Section>
+
+                <div
+                    className={`fixed inset-0 bg-black z-50 bg-opacity-70 flex justify-center items-center ${isNil(itemId) ? "hidden" : "visible"}`}
+                >
+                    <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{delay: .8}}  className={'w-[700px]  '}>
+                        <div className={''}>
+                            <Image
+                                onClick={() => setItemId(null)}
+                                src={"/icons/closeModal.svg"}
+                                alt={"modalcloser"}
+                                width={24}
+                                height={24}
+                                className={"float-right block cursor-pointer bg-white p-1 rounded-[2px]"}
+                            />
+                        </div>
+                        <br/>
+                        <div className={'flex items-center justify-center'}>
+                            {get(company, 'data.company_name') === '"OHANGARONSEMENT" aksiyadorlik jamiyati' ? <Image src={'/images/ohangaron.jpg'} alt={'sertificat'} width={400} height={200}/> :
+                                <div className={'w-[350px]  bg-white p-10 rounded-[5px] flex items-center gap-x-[20px]'}>
+                                    <motion.div transition={{ repeat: Infinity, repeatDelay: 0.25 }}  animate={{
+                                        scale: [1, 1, 1, 1, 1],
+                                        rotate: 360,
+                                    }}>
+                                        <Image src={'/images/wait.png'} alt={'wait'} width={120} height={120}/>
+                                    </motion.div>
+                                    <p className={'text-xl text-center inline-block p-2 border-[1px] border-[#c5c5c5] rounded-[5px] text-black'}>
+                                        Tez orada bu korxonaning sertifikati taqdim etiladi!
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    </motion.div>
+
+                </div>
             </Main>
         </>
     );

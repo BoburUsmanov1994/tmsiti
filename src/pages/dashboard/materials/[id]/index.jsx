@@ -7,7 +7,7 @@ import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
 import usePutQuery from "@/hooks/api/usePutQuery";
 import { debounce, find, get, head, isEmpty } from "lodash";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import Subheader from "@/layouts/dashboard/components/subheader";
 import { OverlayLoader } from "@/components/loader";
 import Select from "react-select";
@@ -331,7 +331,7 @@ const Index = () => {
 
           <button
             className={
-              "col-span-12 w-[170px] text-base text-white bg-[#1890FF] py-[12px] px-[54px] rounded-[5px] mt-[30px]"
+              "col-span-12 w-[190px] text-base text-white bg-[#1890FF] py-[12px] px-[54px] rounded-[5px] mt-[30px]"
             }
           >
             <p>Tahrirlash</p>
