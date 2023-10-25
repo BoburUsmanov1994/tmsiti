@@ -16,9 +16,10 @@ const FondStock = () => {
       <Marquee autoFill={true} pauseOnClick={true} direction={"right"}>
         {get(birja, "data", []).map((item) => (
           <div
+            key={get(item, "id")}
             className={"px-[5px] py-[8px] border border-[#c5c5c5] w-[180px] "}
           >
-            <div className={"grid grid-rows-5"}>
+            <div className={"grid grid-rows-6 "}>
               <h4
                 className={"line-clamp-3 row-span-4 text-[14px] text-[#F0F3F5]"}
               >
@@ -27,12 +28,24 @@ const FondStock = () => {
               <p className={"text-xs  row-span-1  neon float-right"}>
                 {Number(get(item, "price")).toFixed(2)}
               </p>
-              <span className={"text-green-500 row-span-1 text-sm "}>
-                +798.90
-              </span>
+              <div
+                className={"flex items-end justify-end float-right row-span-1"}
+              >
+                <Image
+                  src={"/images/increase.png"}
+                  alt={"increase"}
+                  width={20}
+                  height={20}
+                />
+                <span
+                  className={
+                    "text-green-500 row-span-1 place-items-end text-sm "
+                  }
+                >
+                  +798.90(+2.04%)
+                </span>
+              </div>
             </div>
-
-            <div></div>
           </div>
         ))}
 
