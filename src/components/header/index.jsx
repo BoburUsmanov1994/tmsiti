@@ -24,8 +24,13 @@ const Header = () => {
   });
   return (
     <header>
-      <div className={" bg-[#182041]  py-2 "}>
+      <div className={" bg-[#182041]  py-2 relative"}>
         <div className={"container text-white text-sm"}>
+          <marquee className="absolute top-0 pt-1 text-red-600">
+            <span className="font-semibold text-sm">
+              {t("Tizim test rejimida ishlamoqda")}
+            </span>
+          </marquee>
           <div className={"flex justify-between items-center"}>
             <div className={"flex "}>
               <Image
