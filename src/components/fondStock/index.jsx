@@ -1,69 +1,99 @@
-import React from "react";
+import React, { useState } from "react";
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
 import { get } from "lodash";
+import { motion } from "framer-motion";
 
 const FondStock = () => {
+  const [open, setOpen] = useState(false);
   const { data: birja, isLoading } = useGetQuery({
     key: KEYS.apiBirja,
     url: URLS.apiBirja,
   });
+
+  const Collapse = () => {
+    setOpen(!open);
+  };
   return (
-    <div className={"bg-[#475ADC] "}>
-      <Marquee autoFill={true} pauseOnClick={true} direction={"right"}>
-        {get(birja, "data", []).map((item) => (
-          <div
-            key={get(item, "id")}
-            className={"px-[5px] py-[8px] border border-[#c5c5c5] w-[180px] "}
-          >
-            <div className={"grid grid-rows-6 "}>
-              <h4
-                className={"line-clamp-3 row-span-4 text-[14px] text-[#F0F3F5]"}
-              >
-                {get(item, "name")}
-              </h4>
-              <p className={"text-xs  row-span-1  neon float-right"}>
-                {Number(get(item, "price")).toFixed(2)}
-              </p>
+    <>
+      <div
+        className={"text-center bg-[#202B57] cursor-pointer "}
+        onClick={Collapse}
+      >
+        <h3
+          className={
+            "!text-[#fff] tracking-normal hover:tracking-wider transition-all duration-500 py-3"
+          }
+        >
+          Haftalik kotirovkalar
+        </h3>
+      </div>
+      <div className={`${open ? "hidden opacity-0" : "block"}  bg-[#475ADC]`}>
+        <motion.div>
+          <Marquee autoFill={true} pauseOnClick={true} direction={"right"}>
+            {get(birja, "data", []).map((item) => (
               <div
-                className={"flex items-end justify-end float-right row-span-1"}
+                key={get(item, "id")}
+                className={
+                  "px-[5px] py-[8px] border border-[#c5c5c5] w-[180px] "
+                }
               >
-                <Image
-                  src={"/images/increase.png"}
-                  alt={"increase"}
-                  width={20}
-                  height={20}
-                />
-                <span
-                  className={
-                    "text-green-500 row-span-1 place-items-end text-sm "
-                  }
-                >
-                  +798.90(+2.04%)
-                </span>
+                <div className={"grid grid-rows-6"}>
+                  <h4
+                    className={
+                      "line-clamp-3 row-span-4 text-[14px] text-[#F0F3F5]"
+                    }
+                  >
+                    {get(item, "name")}
+                  </h4>
+                  <p className={"text-xs  row-span-1  neon float-right"}>
+                    {Number(get(item, "price")).toFixed(2)}
+                  </p>
+                  <div
+                    className={
+                      "flex items-center justify-end float-right row-span-1"
+                    }
+                  >
+                    {Number(get(item, "changeSum")) > 0 ? (
+                      <Image
+                        src={"/images/increase.png"}
+                        alt={"increase"}
+                        width={20}
+                        height={20}
+                      />
+                    ) : Number(get(item, "changeSum")) < 0 ? (
+                      <Image
+                        src={"/images/decrease.png"}
+                        alt={"decrease"}
+                        width={20}
+                        height={20}
+                      />
+                    ) : (
+                      ""
+                    )}
+
+                    <span
+                      className={`${
+                        Number(get(item, "changeSum")) > 0
+                          ? "text-green-500"
+                          : Number(get(item, "changeSum")) < 0
+                          ? "text-red-500"
+                          : "text-[#DE9C00]"
+                      }  row-span-1  text-sm `}
+                    >
+                      {get(item, "changeSum")}({get(item, "changePresent")})
+                    </span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
-
-        {/*<div className={"px-[5px] py-[8px] border border-[#c5c5c5]"}>*/}
-        {/*  <div>*/}
-        {/*    <h4>Paxta yog'i</h4>*/}
-        {/*    <p className={"text-xs"}>16 817.00</p>*/}
-        {/*  </div>*/}
-
-        {/*  <Image*/}
-        {/*    src={"/images/decrease.png"}*/}
-        {/*    alt={"increase"}*/}
-        {/*    width={20}*/}
-        {/*    height={20}*/}
-        {/*  />*/}
-        {/*</div>*/}
-      </Marquee>
-    </div>
+            ))}
+          </Marquee>
+        </motion.div>
+      </div>
+    </>
   );
 };
 
