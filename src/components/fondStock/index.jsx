@@ -31,7 +31,11 @@ const FondStock = () => {
           Haftalik kotirovkalar
         </h3>
       </div>
-      <div className={`${open ? "hidden opacity-0" : "block"}  bg-[#475ADC]`}>
+      <div
+        className={`${
+          !open ? "opacity-0 hidden" : "opacity-100"
+        }  bg-[#475ADC] transition-all duration-500`}
+      >
         <motion.div>
           <Marquee autoFill={true} pauseOnClick={true} direction={"right"}>
             {get(birja, "data", []).map((item) => (
