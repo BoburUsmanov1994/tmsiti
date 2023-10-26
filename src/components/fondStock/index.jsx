@@ -4,8 +4,9 @@ import Image from "next/image";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
-import { get } from "lodash";
+import { get, head } from "lodash";
 import { motion } from "framer-motion";
+import dayjs from "dayjs";
 
 const FondStock = () => {
   const [open, setOpen] = useState(false);
@@ -20,16 +21,25 @@ const FondStock = () => {
   return (
     <>
       <div
-        className={"text-center bg-[#202B57] cursor-pointer "}
+        className={"text-center bg-[#202B57] cursor-pointer py-3"}
         onClick={Collapse}
       >
         <h3
           className={
-            "!text-[#fff] tracking-normal hover:tracking-wider transition-all duration-500 py-3"
+            "!text-[#fff] tracking-normal hover:tracking-wide transition-all duration-500  hover:underline"
           }
         >
-          Haftalik kotirovkalar
+          Tovar-xom ashyo birjasi
         </h3>
+
+        {head(
+          get(birja, "data")?.map((item) => (
+            <p className={"text-[#fff] text-sm"}>
+              ({dayjs(get(item, "startdate")).format("DD.MM.YYYY")} -
+              {dayjs(get(item, "enddate")).format("DD.MM.YYYY")})
+            </p>
+          )),
+        )}
       </div>
       <div
         className={`${
