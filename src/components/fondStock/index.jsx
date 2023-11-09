@@ -98,7 +98,8 @@ const FondStock = () => {
                           : "text-[#DE9C00]"
                       }  row-span-1  text-sm `}
                     >
-                      {get(item, "changeSum")}({get(item, "changePresent")})
+                      {Number(get(item, "changeSum")).toFixed(2)}(
+                      {get(item, "changePresent")})
                     </span>
                   </div>
                 </div>

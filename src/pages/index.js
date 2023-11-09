@@ -95,7 +95,7 @@ export default function Home() {
           ))}
           <div className="col-span-12 text-center">
             <span
-              className={"cursor-pointer underline"}
+              className={"cursor-pointer underline laptop:text-base text-sm"}
               onClick={() => setPageSize((prev) => prev + 24)}
             >
               {t("Barcha mahsulotlarni ko’rish")}

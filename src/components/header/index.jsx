@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Brand from "../brand";
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { get } from "lodash";
 import useGetQuery from "../../hooks/api/useGetQuery";
-import { KEYS } from "../../constants/key";
-import { URLS } from "../../constants/url";
+import { KEYS } from "@/constants/key";
+import { URLS } from "@/constants/url";
 import dynamic from "next/dynamic";
 import { useTranslation } from "react-i18next";
 import Search from "@/components/search";
 import { useRouter } from "next/router";
+import BurgerMenu from "@/components/burger-menu";
 const Lang = dynamic(() => import("@/components/lang"), { ssr: false });
 const Header = () => {
+  const [openMenu, setOpenMenu] = useState(false);
   const { data: session } = useSession();
   const { t } = useTranslation();
   const router = useRouter();
@@ -22,6 +24,10 @@ const Header = () => {
     headers: { token: `${get(session, "user.token")}` },
     enabled: !!get(session, "user.token"),
   });
+
+  const toggleMenu = () => {
+    setOpenMenu(!openMenu);
+  };
   return (
     <header>
       <div className={" bg-[#182041]  py-2 relative"}>
@@ -66,7 +72,7 @@ const Header = () => {
       <div className={"bg-[#202B57]  py-4 "}>
         <div
           className={
-            "container text-white text-sm grid grid-cols-12 items-center"
+            "container text-white text-sm grid grid-cols-12 justify-center items-center"
           }
         >
           <div className="col-span-6">
@@ -74,10 +80,11 @@ const Header = () => {
           </div>
           <div className="col-span-6 ">
             <div className="flex justify-end items-center">
+              <BurgerMenu handleClick={toggleMenu} />
               <Search />
               <Link
                 href={"/selected"}
-                className={"relative ml-6 cursor-pointer"}
+                className={"hidden tablet:block relative ml-6 cursor-pointer"}
               >
                 <Image
                   width={36}
@@ -93,7 +100,10 @@ const Header = () => {
                   3
                 </span>
               </Link>
-              <Link href={"/cart"} className={"relative ml-6 cursor-pointer"}>
+              <Link
+                href={"/cart"}
+                className={"hidden tablet:block relative ml-6 cursor-pointer"}
+              >
                 <Image
                   width={36}
                   height={36}
@@ -110,7 +120,9 @@ const Header = () => {
               </Link>
               <div className={"ml-6 flex items-center"}>
                 <Image
-                  className={"mr-1"}
+                  className={
+                    "mr-1 w-[20px] h-[20px] laptop:w-[36px] laptop:h-[36px]"
+                  }
                   width={36}
                   height={36}
                   alt={"map"}
@@ -122,7 +134,9 @@ const Header = () => {
                 {!get(session, "user.token") ? (
                   <div>
                     <button
-                      className={"block text-base bg-transparent"}
+                      className={
+                        "block laptop:text-base text-xs bg-transparent"
+                      }
                       onClick={() => signIn()}
                     >
                       {t("signin")}
