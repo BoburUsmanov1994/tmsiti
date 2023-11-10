@@ -22,7 +22,7 @@ const Main = ({ children }) => {
         >
           <button
             className={
-              "fixed -right-[140px] py-[7px] px-[73px] rounded-t-[5px] top-[494px] hover:py-[20px] hover:text-lg   transition-all duration-400 text-base bg-[#017EFA] z-50 text-white -rotate-90"
+              "fixed laptop:-right-[140px] tablet:-right-[135px] mobile:-right-[130px] -right-[130px] py-[7px] px-[73px] rounded-t-[5px] top-[494px] hover:py-[20px] hover:text-lg   transition-all duration-400 laptop:text-base tablet:text-sm mobile:text-xs text-xs bg-[#017EFA] z-50 text-white -rotate-90"
             }
           >
             Tizim bo‘yicha qo‘llanma

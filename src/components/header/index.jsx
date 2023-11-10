@@ -75,10 +75,10 @@ const Header = () => {
             "container text-white text-sm grid grid-cols-12 justify-center items-center"
           }
         >
-          <div className="col-span-6">
+          <div className="laptop:col-span-6 col-span-12 laptop:mb-0 mb-[10px]">
             <Brand />
           </div>
-          <div className="col-span-6 ">
+          <div className="laptop:col-span-6 col-span-12 ">
             <div className="flex justify-end items-center">
               <BurgerMenu handleClick={toggleMenu} />
               <Search />
