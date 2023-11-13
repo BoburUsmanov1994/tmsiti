@@ -204,7 +204,9 @@ const ViewPage = () => {
             alt={"certificate"}
           />
           <Image
-            className={"mx-auto cursor-pointer"}
+            className={
+              "mx-auto cursor-pointer laptop:w-[24px] laptop:h-[24px] tablet:w-[21px] tablet:h-[21px] w-[18px] h-[18px]"
+            }
             width={24}
             height={24}
             src={"/icons/stick.svg"}
@@ -232,7 +234,7 @@ const ViewPage = () => {
         <Menu active={1} />
         <Section className={"!bg-white"}>
           <div className="grid grid-cols-12 gap-x-10">
-            <div className="tablet:col-span-5 col-span-12 text-center tablet:text-start  relative h-64">
+            <div className="tablet:col-span-5 col-span-12  text-start relative h-64">
               {get(material, "data.material_image") ? (
                 <Image
                   className={"mr-2"}
@@ -245,7 +247,7 @@ const ViewPage = () => {
               ) : (
                 <Image
                   className={
-                    "tablet:mx-0 mx-auto laptop:w-[370px] laptop:h-[260px] tablet:w-[330px] tablet:h-[220px] w-[300px] h-[200px] "
+                    " laptop:w-[370px] laptop:h-[260px] tablet:w-[330px] tablet:h-[220px] w-[300px] h-[200px] "
                   }
                   width={370}
                   height={260}
@@ -255,7 +257,7 @@ const ViewPage = () => {
               )}
             </div>
             <div className="tablet:col-span-7 col-span-12">
-              <div className="flex tablet:justify-start justify-center">
+              <div className="flex justify-start">
                 <div className={"inline-flex mr-8"}>
                   <Image
                     className={
@@ -313,7 +315,7 @@ const ViewPage = () => {
               </div>
               <h2
                 className={
-                  "my-3 laptop:text-xl tablet:tex-lg text-base text-center tablet:text-start  font-semibold"
+                  "my-3 laptop:text-xl tablet:tex-lg text-base text-start  font-semibold"
                 }
               >
                 {get(material, "data.material_name")}
@@ -326,7 +328,7 @@ const ViewPage = () => {
         </Section>
         <Section>
           <div className="grid grid-cols-12">
-            <div className="col-span-12 ">
+            <div className="col-span-12">
               <GridView
                 HeaderBody={
                   <div className="flex tablet:flex-row  flex-col mb-5">

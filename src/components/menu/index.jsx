@@ -78,7 +78,7 @@ const Menu = ({ active = 0 }) => {
       {/*  mobile version*/}
       <ul
         className={
-          " laptop:hidden container text-[#8D97AD] flex justify-between"
+          " laptop:hidden container text-[#8D97AD] flex flex-col items-center gap-y-[10px] justify-between"
         }
       >
         {menuData.map((item) => (
