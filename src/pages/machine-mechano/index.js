@@ -93,7 +93,7 @@ export default function MachinesMechanos() {
               } col-span-3 mb-[30px] `}
             >
               <Product
-                template={isActive == 0 || isActive == 2 ? "list" : "card"}
+                template={isActive === 0 || isActive === 2 ? "list" : "card"}
                 viewUrl={"machine-mechano"}
                 name={"mmechano_name"}
                 code={"mmechano_csr_code"}

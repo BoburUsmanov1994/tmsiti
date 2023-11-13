@@ -14,7 +14,7 @@ const GridBody = ({
   handleSort = () => {},
 }) => {
   return (
-    <div className={"overflow-x-scroll"}>
+    <div className={"overflow-x-scroll laptop:overflow-x-auto"}>
       <table className={"bg-white w-full overflow-x-scroll  mb-8 align-middle"}>
         <thead className={"font-medium text-black text-left align-middle"}>
           <tr className={"align-middle"}>
