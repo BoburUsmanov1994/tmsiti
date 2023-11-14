@@ -68,7 +68,7 @@ const Select = ({
   return (
     <div
       className={clsx({
-        "flex items-center ": sm,
+        "flex laptop:flex-row flex-col laptop:items-center ": sm,
       })}
     >
       <label

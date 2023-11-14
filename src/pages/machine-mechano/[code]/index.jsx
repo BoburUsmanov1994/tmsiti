@@ -327,7 +327,7 @@ const ViewPage = () => {
             <div className="col-span-12 ">
               <GridView
                 HeaderBody={
-                  <div className="flex mb-5">
+                  <div className="flex tablet:flex-row  flex-col mb-5">
                     <Select
                       getValue={(val) => setRegionId(get(val, "value"))}
                       sm
@@ -338,7 +338,7 @@ const ViewPage = () => {
                         "region_name",
                       )}
                     />
-                    <div className="ml-8">
+                    <div className="tablet:ml-8 tablet:mt-0 mt-[15px]">
                       <Select
                         getValue={(val) => setDistrictId(get(val, "value"))}
                         sm
