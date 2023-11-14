@@ -316,10 +316,12 @@ const ViewPage = () => {
                   ""
                 )}
 
-                <div className={"mb-[10px] text-[#4B5055]"}>
-                  <strong className={"text-[#000] laptop:text-base text-sm"}>
-                    {t("Telefon")}:
-                  </strong>{" "}
+                <div
+                  className={
+                    "mb-[10px] text-[#4B5055] laptop:text-base text-sm"
+                  }
+                >
+                  <strong className={"text-[#000] "}>{t("Telefon")}:</strong>{" "}
                   {get(company, "data.company_phone_main")}
                 </div>
                 <div className={"text-[#4B5055] laptop:text-base text-sm"}>
