@@ -330,14 +330,14 @@ const Classifier = () => {
                                                     " transition cursor-pointer mb-1.5  hover:text-[#1B41C6] text-sm text-[#28366D] font-normal",
                                                     {
                                                       "!text-[#017EFA] !font-medium":
-                                                        get(group, "id") ==
+                                                        get(group, "id") ===
                                                         groupId,
                                                       "!mb-0":
                                                         get(
                                                           groups,
                                                           "data.results",
                                                           [],
-                                                        )?.length ==
+                                                        )?.length ===
                                                         l + 1,
                                                     },
                                                   )}
@@ -366,7 +366,7 @@ const Classifier = () => {
               ))}
             </ul>
           </div>
-          <div className="col-span-12 tablet:col-span-7 laptop:col-span-8 desktop:col-span-9">
+          <div className="col-span-12 tablet:col-span-7 laptop:col-span-8 desktop:col-span-9 tablet:mt-0 mt-[30px]">
             <div className="grid grid-cols-12 gap-x-8 ">
               <div className="col-span-12">
                 {volumeId ? (
