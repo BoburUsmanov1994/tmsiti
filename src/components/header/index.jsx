@@ -13,7 +13,7 @@ import Search from "@/components/search";
 import { useRouter } from "next/router";
 import BurgerMenu from "@/components/burger-menu";
 const Lang = dynamic(() => import("@/components/lang"), { ssr: false });
-const Header = () => {
+const Header = (toggleMenu) => {
   const [openMenu, setOpenMenu] = useState(false);
   const { data: session } = useSession();
   const { t } = useTranslation();
@@ -25,9 +25,6 @@ const Header = () => {
     enabled: !!get(session, "user.token"),
   });
 
-  const toggleMenu = () => {
-    setOpenMenu(!openMenu);
-  };
   return (
     <header>
       <div className={" bg-[#182041]  py-2 relative"}>

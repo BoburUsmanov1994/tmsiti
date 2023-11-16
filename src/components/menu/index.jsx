@@ -53,7 +53,7 @@ const Menu = ({ active = 0 }) => {
       {/*  desktop version */}
       <ul
         className={
-          "container text-[#8D97AD] laptop:flex hidden justify-between"
+          "container text-[#8D97AD] laptop:flex laptop:text-sm desktop:text-base hidden justify-between"
         }
       >
         {menuData.map((item) => (
