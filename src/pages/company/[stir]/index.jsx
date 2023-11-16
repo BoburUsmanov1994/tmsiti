@@ -246,7 +246,7 @@ const ViewPage = () => {
       <Main>
         <Menu active={1} />
         <Section className={"!bg-white"}>
-          <div className="grid grid-cols-12 gap-x-[30px] place-items-center">
+          <div className="grid grid-cols-12 tablet:gap-x-[30px] gap-x-0 ">
             <div className="laptop:col-span-2 col-span-12  w-[220px] text-center relative ">
               {get(company, "data.company_logo") ? (
                 <Image
