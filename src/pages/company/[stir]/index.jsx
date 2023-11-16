@@ -246,8 +246,8 @@ const ViewPage = () => {
       <Main>
         <Menu active={1} />
         <Section className={"!bg-white"}>
-          <div className="grid grid-cols-12 tablet:gap-x-[30px] gap-x-0 ">
-            <div className="laptop:col-span-2 col-span-12  w-[220px] text-center relative ">
+          <div className="grid grid-cols-12 tablet:gap-x-[30px] gap-y-[30px] tablet:gap-y-0  ">
+            <div className="laptop:col-span-2 col-span-12 flex justify-center items-center tablet:justify-start tablet:items-start relative ">
               {get(company, "data.company_logo") ? (
                 <Image
                   className={"w-[220px] h-[160px]"}
@@ -269,7 +269,7 @@ const ViewPage = () => {
                 />
               )}
             </div>
-            <div className="laptop:col-span-7 col-span-12 !ml-0 laptop:my-[0px] my-[10px]">
+            <div className="laptop:col-span-7 col-span-12 !ml-0 flex flex-col  tablet:items-start tablet:justify-start items-center justify-center">
               <div className="flex mb-2.5">
                 <div className={"inline-flex mr-[10px] cursor-pointer"}>
                   <Image
@@ -363,6 +363,7 @@ const ViewPage = () => {
                         zoom: 9,
                       }}
                       height={160}
+                      className={"tablet:h-[160px] h-[100px]"}
                     >
                       <Placemark
                         defaultGeometry={[
