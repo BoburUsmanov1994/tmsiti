@@ -60,7 +60,7 @@ export default function SmallMechanos() {
     <Main>
       <Menu active={4} />
       <Section>
-        <div className="grid grid-cols-12 gap-x-8 ">
+        <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4">
           {!isEmpty(get(volumes, "results", [])) &&
             get(volumes, "results", []).map((volume) => (
               <div
@@ -78,7 +78,7 @@ export default function SmallMechanos() {
               </div>
             ))}
         </div>
-        <div className="grid grid-cols-12 gap-x-8 mt-[30px] min-h-fit">
+        <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
           <div className="col-span-12">
             <Title>Ko‘p ko‘rilganlar</Title>
           </div>

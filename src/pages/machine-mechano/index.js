@@ -60,7 +60,7 @@ export default function MachinesMechanos() {
     <Main>
       <Menu active={2} />
       <Section>
-        <div className="grid grid-cols-12 gap-x-8 ">
+        <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 ">
           {!isEmpty(get(volumes, "results", [])) &&
             get(volumes, "results", []).map((volume) => (
               <div
@@ -78,7 +78,7 @@ export default function MachinesMechanos() {
               </div>
             ))}
         </div>
-        <div className="grid grid-cols-12 gap-x-8 mt-[30px] min-h-fit">
+        <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
           <div className="col-span-12">
             <Title>Ko‘p ko‘rilganlar</Title>
           </div>
@@ -104,7 +104,9 @@ export default function MachinesMechanos() {
           ))}
           <div className="col-span-12 text-center">
             <span
-              className={"cursor-pointer underline"}
+              className={
+                "cursor-pointer underline laptop:text-base tablet:text-sm text-xs "
+              }
               onClick={() => setPageSize((prev) => prev + 24)}
             >
               {t("Barcha mahsulotlarni ko’rish")}
