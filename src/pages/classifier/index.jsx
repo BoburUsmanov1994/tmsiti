@@ -130,7 +130,7 @@ const Classifier = () => {
     <Main>
       <Menu active={6} />
       <Section>
-        <div className="grid grid-cols-12 gap-x-8 min-h-full">
+        <div className="grid grid-cols-12 tablet:gap-x-8 mobile:gap-x-4 gap-x-2 min-h-full">
           <div className="col-span-12 text-center mt-5">
             <Title center>Qurilish resurslari Klassifikatori</Title>
           </div>
@@ -367,7 +367,7 @@ const Classifier = () => {
             </ul>
           </div>
           <div className="col-span-12 tablet:col-span-7 laptop:col-span-8 desktop:col-span-9 tablet:mt-0 mt-[30px]">
-            <div className="grid grid-cols-12 gap-x-8 ">
+            <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 ">
               <div className="col-span-12">
                 {volumeId ? (
                   <GridView

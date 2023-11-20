@@ -3,7 +3,7 @@ import ReactPaginate from "react-paginate";
 
 const Pagination = ({ page = 1, pageCount = 10, setPage = () => {} }) => {
   return (
-    <div>
+    <div className={"laptop:text-base tablet:text-sm text-xs"}>
       <ReactPaginate
         forcePage={page - 1}
         onPageChange={({ selected }) => setPage(selected + 1)}
