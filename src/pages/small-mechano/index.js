@@ -60,11 +60,7 @@ export default function SmallMechanos() {
     <Main>
       <Menu active={4} />
       <Section>
-<<<<<<< HEAD
-        <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 ">
-=======
         <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4">
->>>>>>> 01588af75237080db992be58b05a1cfd2ec5082f
           {!isEmpty(get(volumes, "results", [])) &&
             get(volumes, "results", []).map((volume) => (
               <div
