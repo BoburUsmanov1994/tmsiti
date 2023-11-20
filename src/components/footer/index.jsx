@@ -101,12 +101,12 @@ const Footer = () => {
               <input
                 placeholder={t("enter_email")}
                 className={
-                  "w-[270px] rounded-[5px] p-2.5 text-center placeholder:text-[#28366D] text-[#28366D]"
+                  "laptop:w-[270px] w-auto rounded-[5px] laptop:text-base tablet:text-sm text-xs p-2.5 text-center placeholder:text-[#28366D] text-[#28366D]"
                 }
               />
               <Button
                 className={
-                  "bg-[#1890FF] !text-white !block mx-auto w-[270px] mt-2.5"
+                  "bg-[#1890FF] !text-white !block mx-auto laptop:w-[270px] laptop:text-base tablet:text-sm text-xs  mt-2.5"
                 }
               >
                 {t("subscribe")}

@@ -104,7 +104,9 @@ export default function MachinesMechanos() {
           ))}
           <div className="col-span-12 text-center laptop:text-base tablet:text-sm text-xs">
             <span
-              className={"cursor-pointer underline"}
+              className={
+                "cursor-pointer underline laptop:text-base tablet:text-sm text-xs "
+              }
               onClick={() => setPageSize((prev) => prev + 24)}
             >
               {t("Barcha mahsulotlarni ko’rish")}
