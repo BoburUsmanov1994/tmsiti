@@ -247,7 +247,7 @@ const ViewPage = () => {
         <Menu active={1} />
         <Section className={"!bg-white"}>
           <div className="grid grid-cols-12 tablet:gap-x-[30px] gap-y-[30px] tablet:gap-y-0  ">
-            <div className="laptop:col-span-2 col-span-12 flex justify-center items-center tablet:justify-start tablet:items-start relative ">
+            <div className="laptop:col-span-2 col-span-12 flex justify-center items-center laptop:justify-start laptop:items-start relative ">
               {get(company, "data.company_logo") ? (
                 <Image
                   className={"w-[220px] h-[160px]"}
@@ -269,9 +269,11 @@ const ViewPage = () => {
                 />
               )}
             </div>
-            <div className="laptop:col-span-7 col-span-12 !ml-0 flex flex-col  tablet:items-start tablet:justify-start items-center justify-center">
+            <div className="laptop:col-span-7 col-span-12 !ml-0 flex flex-col  laptop:items-start laptop:justify-start items-center justify-center">
               <div className="flex mb-2.5">
-                <div className={"inline-flex mr-[10px] cursor-pointer"}>
+                <div
+                  className={"inline-flex mr-[10px] cursor-pointer text-center"}
+                >
                   <Image
                     className={
                       "laptop:mr-1.5 tablet:mr-1 mr-0.5 tablet:w-[20px] tablet:h-[20px] laptop:w-[24px] laptop:h-[24px] w-[18px] h-[18px]"
@@ -284,7 +286,7 @@ const ViewPage = () => {
                 </div>
                 <h2
                   className={
-                    "text-[#212529] laptop:text-base text-sm font-medium"
+                    "text-[#212529] laptop:text-base tablet:text-sm text-xs font-medium "
                   }
                 >
                   {get(company, "data.company_name")}
@@ -294,7 +296,7 @@ const ViewPage = () => {
               <div className="flex flex-col laptop:items-start items-center mt-2.5">
                 <div
                   className={
-                    "mb-[10px] laptop:text-base text-sm  text-[#4B5055]"
+                    "mb-[10px] laptop:text-base tablet:text-sm text-xs  text-[#4B5055]"
                   }
                 >
                   <strong className={"text-[#000]"}>{t("Rahbar")}:</strong>{" "}
@@ -315,26 +317,76 @@ const ViewPage = () => {
                 ) : (
                   ""
                 )}
+                {get(company, "data.company_phone_main", "-") ? (
+                  <div
+                    className={
+                      "mb-[10px] text-[#4B5055] laptop:text-base tablet:text-sm text-xs"
+                    }
+                  >
+                    <strong className={"text-[#000]"}>{t("Telefon")}:</strong>{" "}
+                    {get(company, "company_phone_main", "-")}
+                  </div>
+                ) : (
+                  <div
+                    className={
+                      "mb-[10px] text-[#4B5055] laptop:text-base tablet:text-sm text-xs"
+                    }
+                  >
+                    <p>
+                      {" "}
+                      <strong className={"text-[#000]"}>
+                        {t("Telefon")}:{" "}
+                      </strong>{" "}
+                      -
+                    </p>
+                  </div>
+                )}
+                {get(company, "data.company_address", "-") ? (
+                  <div
+                    className={
+                      "mb-[10px] text-[#4B5055] laptop:text-base tablet:text-sm text-xs"
+                    }
+                  >
+                    <strong className={"text-[#000]"}>{t("Manzil")}:</strong>{" "}
+                    {get(company, "company_phone_main", "-")}
+                  </div>
+                ) : (
+                  <div
+                    className={
+                      "mb-[10px] text-[#4B5055] laptop:text-base tablet:text-sm text-xs"
+                    }
+                  >
+                    <p>
+                      {" "}
+                      <strong className={"text-[#000]"}>
+                        {t("Manzil")}:{" "}
+                      </strong>{" "}
+                      -
+                    </p>
+                  </div>
+                )}
 
-                <div
-                  className={
-                    "mb-[10px] text-[#4B5055] laptop:text-base text-sm"
-                  }
-                >
-                  <strong className={"text-[#000] "}>{t("Telefon")}:</strong>{" "}
-                  {get(company, "data.company_phone_main")}
-                </div>
-                <div className={"text-[#4B5055] laptop:text-base text-sm"}>
-                  <strong className={"text-[#000] "}>{t("Manzil")}:</strong>{" "}
-                  {get(company, "data.company_address")}
-                </div>
+                {/*<div*/}
+                {/*  className={*/}
+                {/*    "mb-[10px] text-[#4B5055] laptop:text-base text-sm"*/}
+                {/*  }*/}
+                {/*>*/}
+                {/*  <strong className={"text-[#000] "}>{t("Telefon")}:</strong>{" "}*/}
+                {/*  {get(company, "data.company_phone_main", "-")}*/}
+                {/*</div>*/}
+                {/*<div className={"text-[#4B5055] laptop:text-base text-sm"}>*/}
+                {/*  <strong className={"text-[#000] "}>{t("Manzil")}:</strong>{" "}*/}
+                {/*  {get(company, "data.company_address", "-")}*/}
+                {/*</div>*/}
               </div>
             </div>
 
             <div className={"laptop:col-span-3 col-span-12"}>
               {isNil(get(company, "data.company_latitude")) ? (
                 <div
-                  className={"flex items-start gap-x-[10px] shadow-md p-[10px]"}
+                  className={
+                    "flex laptop:items-start laptop:justify-start gap-x-[10px] items-center justify-center  shadow-md p-[10px]"
+                  }
                 >
                   <Image
                     src={"/icons/error.svg"}

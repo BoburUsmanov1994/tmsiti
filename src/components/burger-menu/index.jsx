@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
-const burgerMenu = ({ handleClick }) => {
+const burgerMenu = ({ open, setOpen }) => {
+  [open, setOpen] = useState(true);
   return (
     <div
-      onClick={handleClick}
+      onClick={() => setOpen(!open)}
       className={"tablet:hidden  w-[30px] h-[18px] flex flex-col gap-y-[4px] "}
     >
-      <div className={"w-[30px] h-[3px] rounded-[2px] bg-white"}></div>
-      <div className={"w-[30px] h-[3px] rounded-[2px] bg-white"}></div>
-      <div className={"w-[30px] h-[3px] rounded-[2px] bg-white"}></div>
+      <div className={"w-[30px] h-[3px]  bg-white"}></div>
+      <div className={"w-[30px] h-[3px]  bg-white"}></div>
+      <div className={"w-[30px] h-[3px]  bg-white"}></div>
     </div>
   );
 };

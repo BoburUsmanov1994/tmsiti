@@ -24,7 +24,7 @@ const Pagination = ({ page = 1, pageCount = 10, setPage = () => {} }) => {
           "inline-flex min-w-[32px] h-8 rounded-[5px] justify-center items-center bg-[#E0E0E0] text-black text-sm p-1"
         }
         nextClassName={"ml-2.5  text-sm text-[#313B3D]"}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={2}
         previousClassName={"text-sm text-[#313B3D]"}
         breakLinkClassName={"ml-4 mr-1.5"}
         activeLinkClassName={"!bg-[#1890FF] !text-white"}

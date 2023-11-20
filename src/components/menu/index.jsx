@@ -46,7 +46,7 @@ export const menuData = [
     url: "/volumes",
   },
 ];
-const Menu = ({ active = 0 }) => {
+const Menu = ({ active = 0, open }) => {
   const { t } = useTranslation();
   return (
     <div className={" bg-[#28366D]  py-5 "}>
@@ -60,7 +60,7 @@ const Menu = ({ active = 0 }) => {
           <li>
             <Link
               className={clsx(
-                "hover:text-white transition-all border-b border-b-transparent font-medium",
+                `hover:text-white transition-all border-b border-b-transparent font-medium`,
                 {
                   "!border-b-[#1890FF] text-white": isEqual(
                     get(item, "id"),
@@ -77,9 +77,9 @@ const Menu = ({ active = 0 }) => {
       </ul>
       {/*  mobile version*/}
       <ul
-        className={
-          " laptop:hidden container text-[#8D97AD] flex flex-col items-center gap-y-[10px] justify-between"
-        }
+        className={` laptop:hidden ${
+          open ? "hidden" : "flex"
+        } container text-[#8D97AD] flex-col items-center gap-y-[10px] justify-between`}
       >
         {menuData.map((item) => (
           <li>

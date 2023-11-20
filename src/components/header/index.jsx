@@ -77,7 +77,7 @@ const Header = (toggleMenu) => {
           </div>
           <div className="laptop:col-span-6 col-span-12 ">
             <div className="flex justify-end items-center">
-              <BurgerMenu handleClick={toggleMenu} />
+              <BurgerMenu open={openMenu} setOpen={setOpenMenu} />
               <Search />
               <Link
                 href={"/selected"}
