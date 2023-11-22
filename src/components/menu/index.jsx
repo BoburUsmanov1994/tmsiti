@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { get, isEqual } from "lodash";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
+import BurgerMenu from "@/components/burger-menu";
+import Search from "@/components/search";
 
 export const menuData = [
   {
@@ -46,15 +48,24 @@ export const menuData = [
     url: "/volumes",
   },
 ];
-const Menu = ({ active = 0, open }) => {
+const Menu = ({ active = 0 }) => {
   const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const toggleMenu = () => {
+    setOpen(!open);
+  };
   return (
     <div className={" bg-[#28366D]  py-5 "}>
       {/*  desktop version */}
+      <div
+        onClick={toggleMenu}
+        className={"tablet:hidden flex items-end justify-end container"}
+      >
+        <BurgerMenu />
+      </div>
+
       <ul
-        className={
-          "container text-[#8D97AD] laptop:flex laptop:text-sm desktop:text-base hidden justify-between"
-        }
+        className={`container text-[#8D97AD] laptop:flex laptop:text-sm desktop:text-base hidden  justify-between`}
       >
         {menuData.map((item) => (
           <li>
