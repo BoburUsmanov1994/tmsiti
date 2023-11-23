@@ -233,7 +233,7 @@ const ViewPage = () => {
         <Menu active={4} />
         <Section className={"!bg-white"}>
           <div className="grid grid-cols-12">
-            <div className="tablet:col-span-5 col-span-12  text-start relative h-64">
+            <div className="tablet:col-span-5 col-span-12  items-center flex justify-center tablet:items-start tablet:justify-start relative h-64">
               {get(material, "data.smallmechano_image") ? (
                 <Image
                   className={"mr-2"}
@@ -256,7 +256,7 @@ const ViewPage = () => {
               )}
             </div>
             <div className="tablet:col-span-7 col-span-12">
-              <div className="flex">
+              <div className="flex tablet:justify-start tablet:items-start justify-center items-center">
                 <div className={"inline-flex mr-8"}>
                   <Image
                     className={
@@ -314,7 +314,7 @@ const ViewPage = () => {
               </div>
               <h2
                 className={
-                  "my-3 laptop:text-xl tablet:tex-lg text-base text-start font-semibold"
+                  "my-3 laptop:text-xl tablet:tex-lg text-base tablet:text-start  text-center  font-semibold"
                 }
               >
                 {get(material, "data.smallmechano_name")}
