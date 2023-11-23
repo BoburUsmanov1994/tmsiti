@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 
 const burgerMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div
-      className={"tablet:hidden  w-[30px] h-[18px] flex flex-col gap-y-[4px] "}
+      className={`tablet:hidden  burger-menu gap-y-[4px] ${
+        isOpen ? "open" : ""
+      } `}
+      onClick={toggleMenu}
     >
-      <div className={"w-[30px] h-[3px]  bg-white"}></div>
-      <div className={"w-[30px] h-[3px]  bg-white"}></div>
-      <div className={"w-[30px] h-[3px]  bg-white"}></div>
+      <div className={"bar1"}></div>
+      <div className={"bar2"}></div>
+      <div className={"bar3"}></div>
     </div>
   );
 };

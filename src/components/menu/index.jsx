@@ -50,7 +50,7 @@ export const menuData = [
 ];
 const Menu = ({ active = 0 }) => {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const toggleMenu = () => {
     setOpen(!open);
   };
@@ -65,7 +65,7 @@ const Menu = ({ active = 0 }) => {
       </div>
 
       <ul
-        className={`container text-[#8D97AD] laptop:flex laptop:text-sm desktop:text-base hidden  justify-between`}
+        className={`container text-[#8D97AD] tablet:flex tablet:text-xs laptop:text-sm desktop:text-base hidden  justify-between`}
       >
         {menuData.map((item) => (
           <li>
