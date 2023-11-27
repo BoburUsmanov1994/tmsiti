@@ -1,8 +1,6 @@
 import React from "react";
 import Dashboard from "../../../layouts/dashboard";
 import Subheader from "../../../layouts/dashboard/components/subheader";
-import Image from "next/image";
-import Button from "@/components/button";
 
 const Index = () => {
   return (
