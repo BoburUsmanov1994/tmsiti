@@ -93,7 +93,7 @@ export default function SmallMechanos() {
               } col-span-3 mb-[30px] `}
             >
               <Product
-                template={isActive == 0 || isActive == 2 ? "list" : "card"}
+                template={isActive === 0 || isActive === 2 ? "list" : "card"}
                 viewUrl={"small-mechano"}
                 name={"smallmechano_name"}
                 code={"smallmechano_csr_code"}
@@ -104,7 +104,9 @@ export default function SmallMechanos() {
           ))}
           <div className="col-span-12 text-center">
             <span
-              className={"cursor-pointer underline"}
+              className={
+                "cursor-pointer underline laptop:text-base tablet:text-sm text-xs"
+              }
               onClick={() => setPageSize((prev) => prev + 24)}
             >
               {t("Barcha mahsulotlarni ko’rish")}

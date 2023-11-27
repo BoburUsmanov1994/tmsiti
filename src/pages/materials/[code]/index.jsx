@@ -315,7 +315,7 @@ const ViewPage = () => {
               </div>
               <h2
                 className={
-                  "my-3 laptop:text-xl tablet:tex-lg text-base laptop:text-start  text-center  font-semibold"
+                  "my-3 laptop:text-xl tablet:tex-lg text-base tablet:text-start  text-center  font-semibold"
                 }
               >
                 {get(material, "data.material_name")}

@@ -102,7 +102,7 @@ export default function MachinesMechanos() {
               />
             </div>
           ))}
-          <div className="col-span-12 text-center">
+          <div className="col-span-12 text-center laptop:text-base tablet:text-sm text-xs">
             <span
               className={
                 "cursor-pointer underline laptop:text-base tablet:text-sm text-xs "

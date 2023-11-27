@@ -59,7 +59,7 @@ export default function Technos() {
     <Main>
       <Menu active={5} />
       <Section>
-        <div className="grid grid-cols-12 gap-x-8 ">
+        <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 ">
           {!isEmpty(get(volumes, "results", [])) &&
             get(volumes, "results", []).map((volume) => (
               <div
@@ -72,7 +72,7 @@ export default function Technos() {
               </div>
             ))}
         </div>
-        <div className="grid grid-cols-12 gap-x-8 mt-[30px] min-h-fit">
+        <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
           <div className="col-span-12">
             <Title>Ko‘p ko‘rilganlar</Title>
           </div>
@@ -87,7 +87,7 @@ export default function Technos() {
               } col-span-3 mb-[30px] `}
             >
               <Product
-                template={isActive == 0 || isActive == 2 ? "list" : "card"}
+                template={isActive === 0 || isActive === 2 ? "list" : "card"}
                 viewUrl={"technos"}
                 name={"techno_name"}
                 code={"techno_csr_code"}
@@ -96,7 +96,7 @@ export default function Technos() {
               />
             </div>
           ))}
-          <div className="col-span-12 text-center">
+          <div className="col-span-12 text-center laptop:text-base tablet:text-sm text-xs">
             <span
               className={"cursor-pointer underline"}
               onClick={() => setPageSize((prev) => prev + 24)}

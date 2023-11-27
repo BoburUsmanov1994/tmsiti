@@ -12,7 +12,7 @@ const Search = () => {
     router.push(`/search?query=${query}&category=all`);
   };
   return (
-    <div className={"laptop:flex hidden items-center "}>
+    <div className={"flex  items-center "}>
       {!open && (
         <button onClick={() => setOpen(true)} type={"button"}>
           <Image width={26} height={26} alt={"map"} src={"/icons/search.svg"} />
@@ -21,7 +21,9 @@ const Search = () => {
       {open && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className={"h-10  bg-white w-[520px] rounded relative"}
+          className={
+            "h-10  bg-white laptop:w-[520px] tablet:w-[450px] mobile:w-[350px] w-[250px] rounded relative"
+          }
         >
           <input
             defaultValue={query}
