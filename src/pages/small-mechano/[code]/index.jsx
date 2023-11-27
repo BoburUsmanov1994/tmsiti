@@ -16,7 +16,7 @@ import { NumericFormat } from "react-number-format";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import { getOptionList } from "@/utils";
+7import { getOptionList } from "@/utils";
 import Link from "next/link";
 
 const ViewPage = () => {
