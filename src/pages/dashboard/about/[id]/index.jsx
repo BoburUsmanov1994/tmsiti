@@ -8,8 +8,12 @@ const Index = () => {
   const [phone, setPhone] = useState(false);
   const [address, setAddress] = useState(false);
   const [manager, setManager] = useState(false);
+  const [companyName, setCompanyName] = useState(false)
   const [isVisible, setIsVisible] = useState(true);
 
+  const transformCompanyName = () => {
+      setCompanyName(!companyName)
+  }
   const transformDescription = () => {
     setDescription(!description);
   };
@@ -29,7 +33,7 @@ const Index = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 15000);
+    }, 120000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -38,27 +42,6 @@ const Index = () => {
     <Dashboard>
       <Subheader title={"Kompaniya ma'lumotlarini tahrirlash"} />
       <div className="p-7">
-        {isVisible && (
-          <div
-            className={
-              "flex order-3 items-center text-sm w-[600px] border-[2px] border-red-600 p-5 rounded-[5px] gap-x-[20px]"
-            }
-          >
-            <Image
-              src={"/images/warning.png"}
-              alt={"warning"}
-              width={40}
-              height={40}
-            />
-            <p>
-              Quyidagi kompaniyaning qaysidir qismini o'zgartirmoqchi
-              bo'lsangiz, ikki marta o'zingizga kerakli bo'lgan joyini bosasiz
-              shunda sizga uni o'zgartirishga imkoniyat beriladi. Agarda uni
-              o'zgartirish fikridan qaytmoqchi bo'lsangiz, shunchaki yana 2
-              marta o'sha qismni bosasiz
-            </p>
-          </div>
-        )}
         <div className={" flex gap-x-[30px] mb-[50px]"}>
           <div className={" min-w-[250px]"}>
             <label
@@ -84,122 +67,82 @@ const Index = () => {
           </div>
 
           <div className={""}>
-            <form>
+            <form className={""}>
               {/*  Company name */}
-              <h1 className={"text-base font-normal text-black mb-[15px]"}>
-                <strong>“Qizilqumsement” aksiyadorlik jamiyati</strong>
-              </h1>
+                <input onDoubleClick={transformCompanyName} type={"text"} placeholder={"Kompaniya nomini kiriting"} className={"py-[16px] px-[8px] min-w-[300px] text-sm mb-[15px]"} defaultValue={"“Qizilqumsement” aksiyadorlik jamiyati"}/> <br/>
               {/*  Company description */}
-              {!description ? (
-                <p
-                  onDoubleClick={transformDescription}
-                  className={"text-xs text-black mb-[10px]"}
-                >
-                  Korxonaning tarmoqdagi va bozordagi holati tahlili bu o’z
-                  mohiyatiga ko’ra tashqi muhit diagnostikasidir. U
-                  biznes-rejani tayyorlashda rezyumedan keyingi ikkinchi
-                  qadamdir. Biznes-reja tuzish bo’yicha bugungi uslubiy
-                  tavsiyalar ushbu bo’limni mazkur korxona faoliyat ko’rsatuvchi
-                  muhitning investitsiyalarni jalb qilishdagi jozibadorligini
-                  tahlil qilishdan boshlashni taklif qiladi.
-                </p>
-              ) : (
                 <textarea
-                  name="description"
-                  id=""
-                  cols="100"
-                  rows="5"
-                  className={"p-[8px] text-xs text-black"}
+                    onDoubleClick={transformDescription}
+                    placeholder={"Kompaniya tasnifini kiriting"}
+                    name="description"
+                    id=""
+                    cols="100"
+                    rows="5"
+                    className={"p-[8px] text-xs text-black"}
+                    defaultValue={"Korxonaning tarmoqdagi va bozordagi holati tahlili bu o’z mohiyatiga ko’ra tashqi muhit diagnostikasidir. U biznes-rejani tayyorlashda rezyumedan keyingi ikkinchi qadamdir. Biznes-reja tuzish bo’yicha bugungi uslubiy tavsiyalar ushbu bo’limni mazkur korxona faoliyat ko’rsatuvchi muhitning investitsiyalarni jalb qilishdagi jozibadorligini tahlil qilishdan boshlashni taklif qiladi."}
                 ></textarea>
-              )}
               {/*  Company manager  */}
-              {!manager ? (
-                <p
-                  onDoubleClick={transformManager}
-                  className={"text-xs text-black cursor-pointer"}
-                >
-                  <strong>Rahbar: </strong>Melnikov Sergey Nikolayevich
-                </p>
-              ) : (
                 <div
-                  className={
-                    "text-xs text-black flex items-center gap-x-[5px] my-[6px]"
-                  }
+                    className={
+                        "text-xs text-black flex items-center gap-x-[5px] my-[6px]"
+                    }
                 >
-                  <p
-                    onDoubleClick={transformManager}
-                    className={"cursor-pointer"}
-                  >
-                    <strong>Rahbar: </strong>
-                  </p>
-                  <input
-                    type={"text"}
-                    placeholder={"Ism-familiyani kiriting"}
-                    className={"p-[8px] min-w-[300px]"}
-                  />
+                    <p
+                        onDoubleClick={transformManager}
+                        className={"cursor-pointer"}
+                    >
+                        <strong>Rahbar: </strong>
+                    </p>
+                    <input
+                        type={"text"}
+                        placeholder={"Ism-familiyani kiriting"}
+                        className={"p-[8px] min-w-[300px]"}
+                        defaultValue={" Melnikov Sergey Nikolayevich  "}
+                    />
                 </div>
-              )}
 
               {/*  Company phone  */}
-              {!phone ? (
-                <p
-                  onDoubleClick={transformPhone}
-                  className={`${
-                    phone ? "translate-y-1.5" : "translate-y-0"
-                  } transition-all duration-1000 text-xs text-black my-[6px] cursor-pointer`}
-                >
-                  <strong>Telefon: </strong>79-2236490
-                </p>
-              ) : (
                 <div
-                  className={
-                    "text-xs text-black flex items-center gap-x-[5px] my-[6px]"
-                  }
+                    className={
+                        "text-xs text-black flex items-center gap-x-[5px] my-[6px]"
+                    }
                 >
-                  <p
-                    onDoubleClick={transformPhone}
-                    className={"cursor-pointer"}
-                  >
-                    <strong>Telefon: </strong>
-                  </p>
-                  <input
-                    type={"tel"}
-                    placeholder={"Telefon raqamini kiriting"}
-                    className={"p-[8px] "}
-                  />
+                    <p
+                        onDoubleClick={transformPhone}
+                        className={"cursor-pointer"}
+                    >
+                        <strong>Telefon: </strong>
+                    </p>
+                    <input
+                        type={"tel"}
+                        placeholder={"Telefon raqamini kiriting"}
+                        defaultValue={"79-2236490"}
+                        className={"p-[8px] "}
+                        pattern="+[0-9]{3} ([0-9]{2}) [0-9]{3} [0-9]{2} [0-9]{2}"
+                    />
                 </div>
-              )}
 
               {/*  Company address  */}
-              {!address ? (
-                <p
-                  onDoubleClick={transformAddress}
-                  className={"text-xs text-black"}
-                >
-                  <strong>Manzil: </strong>Navoiy viloyati, Navoiy sh., Navoiy
-                  ko‘chasi, 3-uy
-                </p>
-              ) : (
                 <div
-                  className={
-                    "text-xs text-black flex items-center gap-x-[5px] my-[6px]"
-                  }
+                    className={
+                        "text-xs text-black flex items-center gap-x-[5px] my-[6px]"
+                    }
                 >
-                  <p onDoubleClick={transformAddress}>
-                    <strong>Manzil: </strong>
-                  </p>
-                  <input
-                    type={"text"}
-                    placeholder={"Manzilni kiriting"}
-                    className={"p-[8px] min-w-[500px]"}
-                  />
+                    <p onDoubleClick={transformAddress}>
+                        <strong>Manzil: </strong>
+                    </p>
+                    <input
+                        type={"text"}
+                        placeholder={"Manzilni kiriting"}
+                        defaultValue={"Navoiy viloyati, Navoiy sh., Navoiy ko‘chasi, 3-uy"}
+                        className={"p-[8px] min-w-[500px]"}
+                    />
                 </div>
-              )}
 
               <button
                 type={"submit"}
                 className={
-                  "flex items-center gap-x-[10px] bg-[#1890FF] py-[6px] px-[31px] rounded-[5px] float-right hover:bg-[#0084FF] transition-all duration-300"
+                  "flex items-center order-6 gap-x-[10px] max-w-[170px] bg-[#1890FF] py-[6px] px-[31px] rounded-[5px] mt-[15px]  hover:bg-[#0084FF] transition-all duration-300"
                 }
               >
                 <svg
@@ -239,7 +182,7 @@ const Index = () => {
                   </defs>
                 </svg>
 
-                <p className={"text-white"}>Tahrirlash</p>
+                <p className={"text-white"}>Tasdiqlash</p>
               </button>
             </form>
           </div>
