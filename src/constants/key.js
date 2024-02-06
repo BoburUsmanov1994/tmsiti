@@ -33,4 +33,5 @@ export const KEYS = {
   myTechnos: "myTechnos",
   materialDeactivate: "materialDeactivate",
   apiBirja: "apiBirja",
+  materialAvailableElon: "materialAvailableElon",
 };

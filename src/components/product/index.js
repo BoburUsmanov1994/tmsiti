@@ -11,7 +11,7 @@ const Product = ({
   template = "card",
   data,
   name = "material_name",
-  code = "material_csr_code",
+  code = "material_code",
   img = "material_image",
   viewUrl = "materials",
   classNames = "",

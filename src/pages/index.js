@@ -34,17 +34,30 @@ export default function Home() {
   } = useQuery([KEYS.volumes], () =>
     getVolumes({ url: URLS.volumes, params: { key: KEYS.materials } }),
   );
+  // REAL MATERIALS API
+  // const {
+  //   data: materials,
+  //   isLoading: materialLoading,
+  //   isError: materialError,
+  //   isFetching: isFetchingMaterials,
+  // } = useQuery([KEYS.materials, pageSize], () =>
+  //   getMostOrdered({
+  //     url: URLS.materials,
+  //     params: { key: KEYS.viewCounts, page_size: pageSize },
+  //   }),
+  // );
   const {
     data: materials,
     isLoading: materialLoading,
     isError: materialError,
     isFetching: isFetchingMaterials,
-  } = useQuery([KEYS.materials, pageSize], () =>
+  } = useQuery([KEYS.materialAvailableElon, pageSize], () =>
     getMostOrdered({
-      url: URLS.materials,
+      url: URLS.materialAvailableElon,
       params: { key: KEYS.viewCounts, page_size: pageSize },
     }),
   );
+
   if (isError || materialError) {
     return <ErrorPage />;
   }

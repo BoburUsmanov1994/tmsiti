@@ -35,4 +35,5 @@ export const URLS = {
   deactivateTechnos: "technos/ads/deactivate",
   updateMaterial: "materials/update/",
   apiBirja: "api_birja/",
+  materialAvailableElon: "materials/api/elon/",
 };
