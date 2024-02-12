@@ -62,3 +62,15 @@ body {
 .open .bar3 {
     transform: rotate(45deg) translate(-5px, -5px);
 }
+
+.dropdown-menu {
+    position: absolute;
+    transform: translateY(30px);
+    transition: 1s linear;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    top: 100%;
+    transform: translateY(0px);
+}

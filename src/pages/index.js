@@ -12,9 +12,11 @@ import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import { URLS } from "../constants/url";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import React, { useState } from "react";
 import { OverlayLoader } from "../components/loader";
 import Template from "@/components/template";
+import Pagination from "@/components/pagination";
+import ReactPaginate from "react-paginate";
 
 export default function Home() {
   const [pageSize, setPageSize] = useState(24);
@@ -35,25 +37,14 @@ export default function Home() {
     getVolumes({ url: URLS.volumes, params: { key: KEYS.materials } }),
   );
   // REAL MATERIALS API
-  // const {
-  //   data: materials,
-  //   isLoading: materialLoading,
-  //   isError: materialError,
-  //   isFetching: isFetchingMaterials,
-  // } = useQuery([KEYS.materials, pageSize], () =>
-  //   getMostOrdered({
-  //     url: URLS.materials,
-  //     params: { key: KEYS.viewCounts, page_size: pageSize },
-  //   }),
-  // );
   const {
     data: materials,
     isLoading: materialLoading,
     isError: materialError,
     isFetching: isFetchingMaterials,
-  } = useQuery([KEYS.materialAvailableElon, pageSize], () =>
+  } = useQuery([KEYS.materials, pageSize], () =>
     getMostOrdered({
-      url: URLS.materialAvailableElon,
+      url: URLS.materials,
       params: { key: KEYS.viewCounts, page_size: pageSize },
     }),
   );
