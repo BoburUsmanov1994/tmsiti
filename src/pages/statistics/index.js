@@ -18,6 +18,7 @@ import Template from "@/components/template";
 import Pagination from "@/components/pagination";
 import ReactPaginate from "react-paginate";
 import Image from "next/image";
+import useGetQuery from "@/hooks/api/useGetQuery";
 
 export default function Home() {
   const [pageSize, setPageSize] = useState(24);
@@ -37,6 +38,11 @@ export default function Home() {
   const handleClickFormat = (type) => {
     setIsActive(type);
   };
+  // birja
+  const { data: stock, isLoading: isLoadingStock } = useGetQuery({
+    key: KEYS.apiBirja,
+    url: URLS.apiBirja,
+  });
 
   // REAL MATERIALS API
   const {
@@ -358,7 +364,36 @@ export default function Home() {
             )}
           </div>
         </div>
-        <div className={"grid grid-cols-12 mt-[30px] min-h-fit"}></div>
+        <div className={"grid grid-cols-12 mt-[30px] min-h-fit gap-x-[30px]"}>
+          <div
+            className={
+              "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+            }
+          >
+            <Image
+              src={"/images/stock-market.png"}
+              alt={"stock-market"}
+              width={60}
+              height={60}
+            />
+            <h3>Tovar-xom ashyo birjasi</h3>
+          </div>
+          <div
+            className={
+              "col-span-3 border-[2px] min-h-[150px] rounded-[8px] cursor-pointer"
+            }
+          ></div>
+          <div
+            className={
+              "col-span-3 border-[2px] min-h-[150px] rounded-[8px] cursor-pointer"
+            }
+          ></div>
+          <div
+            className={
+              "col-span-3 border-[2px] min-h-[150px] rounded-[8px] cursor-pointer"
+            }
+          ></div>
+        </div>
 
         <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
           <div className="col-span-12">
