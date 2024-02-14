@@ -341,19 +341,25 @@ export default function Home() {
               </g>
             </svg>
           </div>
-          <div className={"col-span-4 text-center relative"}>
+          <div
+            className={
+              "col-span-4 text-center relative flex justify-center items-start"
+            }
+          >
             <h1 className={"text-xl font-bold"}>
               {t("O`zbekiston Respublikasining ma`muriy-hududiy bo`linishi")}
             </h1>
 
             {/* Modal */}
             {regionName && (
-              <div className="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-75 text-white p-4 rounded">
+              <div className="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-75 text-white p-4 w-[300px] min-h-[300px] rounded">
                 {regionName}
               </div>
             )}
           </div>
         </div>
+        <div className={"grid grid-cols-12 mt-[30px] min-h-fit"}></div>
+
         <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
           <div className="col-span-12">
             <Title>{t("E'loni mavjud materiallar")}</Title>

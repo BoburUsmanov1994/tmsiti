@@ -89,7 +89,7 @@ const Materials = () => {
     },
     {
       title: "Joylangan vaqti",
-      key: "material_created_date",
+      key: "material_updated_date",
       render: ({ value }) =>
         dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
       classnames: "text-center",
@@ -98,7 +98,6 @@ const Materials = () => {
       title: "Action",
       key: "action",
       render: ({ row }) => {
-
         return (
           <div className={"flex"}>
             <Link
