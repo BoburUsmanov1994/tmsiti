@@ -7,7 +7,7 @@ import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { ContentLoader } from "@/components/loader";
 import Category from "@/components/category";
 import Title from "@/components/title";
-import { get, isEmpty } from "lodash";
+import { get, head, isEmpty } from "lodash";
 import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import { URLS } from "@/constants/url";
@@ -15,15 +15,20 @@ import { useTranslation } from "react-i18next";
 import React, { useState } from "react";
 import { OverlayLoader } from "../../components/loader";
 import Template from "@/components/template";
-import Pagination from "@/components/pagination";
-import ReactPaginate from "react-paginate";
 import Image from "next/image";
 import useGetQuery from "@/hooks/api/useGetQuery";
+import dayjs from "dayjs";
+import TemporaryProduct from "@/components/temporary_product";
 
 export default function Home() {
   const [pageSize, setPageSize] = useState(24);
   const [isActive, setIsActive] = useState(0);
+  const [tabs, setTabs] = useState(1);
   const { t } = useTranslation();
+
+  const toggleTabs = (index) => {
+    setTabs(index);
+  };
 
   const [regionName, setRegionName] = useState("");
 
@@ -50,9 +55,9 @@ export default function Home() {
     isLoading: materialLoading,
     isError: materialError,
     isFetching: isFetchingMaterials,
-  } = useQuery([KEYS.materials, pageSize], () =>
+  } = useQuery([KEYS.materialAvailableElon, pageSize], () =>
     getMostOrdered({
-      url: URLS.materials,
+      url: URLS.materialAvailableElon,
       params: { key: KEYS.viewCounts, page_size: pageSize },
     }),
   );
@@ -366,6 +371,21 @@ export default function Home() {
         </div>
         <div className={"grid grid-cols-12 mt-[30px] min-h-fit gap-x-[30px]"}>
           <div
+            onClick={() => toggleTabs(1)}
+            className={
+              "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+            }
+          >
+            <Image
+              src={"/images/building-material.png"}
+              alt={"stock-market"}
+              width={60}
+              height={60}
+            />
+            <h3>E'loni mavjud materiallar</h3>
+          </div>
+          <div
+            onClick={() => toggleTabs(2)}
             className={
               "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
             }
@@ -373,8 +393,8 @@ export default function Home() {
             <Image
               src={"/images/stock-market.png"}
               alt={"stock-market"}
-              width={60}
-              height={60}
+              width={70}
+              height={70}
             />
             <h3>Tovar-xom ashyo birjasi</h3>
           </div>
@@ -388,43 +408,104 @@ export default function Home() {
               "col-span-3 border-[2px] min-h-[150px] rounded-[8px] cursor-pointer"
             }
           ></div>
-          <div
-            className={
-              "col-span-3 border-[2px] min-h-[150px] rounded-[8px] cursor-pointer"
-            }
-          ></div>
         </div>
 
-        <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
-          <div className="col-span-12">
-            <Title>{t("E'loni mavjud materiallar")}</Title>
-          </div>
-
-          <Template active={isActive} handleClickFormat={setIsActive} />
-
-          {isFetchingMaterials && <OverlayLoader />}
-          {get(materials, "results", []).map((material) => (
-            <div
-              key={get(material, "material_csr_code")}
-              className={` ${
-                isActive === 1 && isActive === 2 && "col-span-3"
-              } ${isActive === 0 && "col-span-6"} col-span-3 mb-[30px] `}
-            >
-              <Product
-                template={isActive === 0 || isActive === 2 ? "list" : "card"}
-                data={material}
-              />
+        {/*E'loni mavjud materiallar*/}
+        {tabs === 1 ? (
+          <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
+            <div className="col-span-12">
+              <Title>{t("E'loni mavjud materiallar")}</Title>
             </div>
-          ))}
-          <div className="col-span-12 text-center">
-            <span
-              className={"cursor-pointer underline laptop:text-base text-sm"}
-              onClick={() => setPageSize((prev) => prev + 24)}
-            >
-              {t("Barcha mahsulotlarni ko’rish")}
-            </span>
+
+            <Template active={isActive} handleClickFormat={setIsActive} />
+
+            {isFetchingMaterials && <OverlayLoader />}
+            {get(materials, "results", []).map((material) => (
+              <div
+                key={get(material, "material_code")}
+                className={` ${
+                  isActive === 1 && isActive === 2 && "col-span-3"
+                } ${isActive === 0 && "col-span-6"} col-span-3 mb-[30px] `}
+              >
+                <TemporaryProduct
+                  template={isActive === 0 || isActive === 2 ? "list" : "card"}
+                  data={material}
+                />
+              </div>
+            ))}
+            <div className="col-span-12 text-center">
+              <span
+                className={"cursor-pointer underline laptop:text-base text-sm"}
+                onClick={() => setPageSize((prev) => prev + 24)}
+              >
+                {t("Barcha mahsulotlarni ko’rish")}
+              </span>
+            </div>
           </div>
-        </div>
+        ) : (
+          ""
+        )}
+
+        {/*Tovar hom-ashyo birjasi*/}
+
+        {tabs === 2 ? (
+          <div className={"mt-[30px]"}>
+            {head(
+              get(stock, "data")?.map((item) => (
+                <p
+                  className={
+                    "text-[#fff] inline-block text-sm laptop:text-base my-[20px] px-[10px] py-[10px] bg-blue-500 rounded-[5px]"
+                  }
+                >
+                  {dayjs(get(item, "startdate")).format("DD.MM.YYYY")} -
+                  {dayjs(get(item, "enddate")).format("DD.MM.YYYY")}
+                </p>
+              )),
+            )}
+            <table className="table-auto w-full">
+              <thead>
+                <tr>
+                  <th
+                    className={
+                      "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
+                    }
+                  >
+                    №
+                  </th>
+                  <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    Mahsulot nomi
+                  </th>
+                  <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    Narxi
+                  </th>
+                  <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    Narxlar orasidagi o'zgarish
+                  </th>
+                </tr>
+              </thead>
+              {get(stock, "data", []).map((stockItem) => (
+                <tbody className={"even:bg-white odd:bg-[#E2E6ED]"}>
+                  <tr>
+                    <td className="border px-4 py-2">{get(stockItem, "rn")}</td>
+                    <td className="border px-4 py-2">
+                      {get(stockItem, "name")}
+                    </td>
+
+                    <td className="border px-4 py-2">
+                      {get(stockItem, "price")}
+                    </td>
+
+                    <td className="border px-4 py-2">
+                      {get(stockItem, "range")}
+                    </td>
+                  </tr>
+                </tbody>
+              ))}
+            </table>
+          </div>
+        ) : (
+          ""
+        )}
       </Section>
     </Main>
   );
