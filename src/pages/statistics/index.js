@@ -33,6 +33,10 @@ export default function Home() {
     setRegionName(event.target.getAttribute("data-name"));
   };
 
+  const closeRegion = () => {
+    setSelectedRegion(null);
+  };
+
   const toggleTabs = (index) => {
     setTabs(index);
   };
@@ -386,7 +390,41 @@ export default function Home() {
             {/* Modal */}
             {selectedRegion && (
               <div className="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-75 text-white p-4 w-[300px] min-h-[300px] rounded">
-                {regionName}
+                <div className={"flex justify-between items-center"}>
+                  <h1 className={"text-lg"}>{regionName}</h1>
+                  <button onClick={closeRegion}>
+                    {" "}
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g clip-path="url(#clip0_717_3428)">
+                        <path
+                          d="M18 6L6 18"
+                          stroke="#fff"
+                          strokeWidth="2.75"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M6 6L18 18"
+                          stroke="#fff"
+                          strokeWidth="2.75"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_717_3428">
+                          <rect width="24" height="24" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </button>
+                </div>
               </div>
             )}
           </div>
