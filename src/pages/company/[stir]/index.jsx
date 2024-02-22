@@ -201,7 +201,7 @@ const ViewPage = () => {
     },
     {
       title: t("Joylangan vaqt"),
-      key: "material_created_date",
+      key: "material_updated_date",
       render: ({ value }) => dayjs(value).format("DD.MM.YYYY HH:mm"),
       classnames: "text-center",
       sorter: true,
