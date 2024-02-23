@@ -20,12 +20,17 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import dayjs from "dayjs";
 import TemporaryProduct from "@/components/temporary_product";
 
+import { useRouter } from "next/router";
+
 export default function Home() {
+  const router = useRouter();
+  const { region_name } = router.query;
   const [pageSize, setPageSize] = useState(24);
   const [isActive, setIsActive] = useState(0);
   const [tabs, setTabs] = useState(1);
   const { t } = useTranslation();
   const [selectedRegion, setSelectedRegion] = useState(null);
+  const [regionName, setRegionName] = useState("");
 
   const handleRegionClick = (event) => {
     const regionId = event.target.id;
@@ -39,16 +44,6 @@ export default function Home() {
 
   const toggleTabs = (index) => {
     setTabs(index);
-  };
-
-  const [regionName, setRegionName] = useState("");
-
-  const handleMouseOver = (event) => {
-    setRegionName(event.target.getAttribute("data-name"));
-  };
-
-  const handleMouseOut = () => {
-    setRegionName("");
   };
 
   const handleClickFormat = (type) => {
@@ -72,6 +67,18 @@ export default function Home() {
       params: { key: KEYS.viewCounts, page_size: pageSize },
     }),
   );
+
+  const {
+    data: region,
+    isLoading: isLoadingRegion,
+    isFetching: isFetchingRegion,
+  } = useGetQuery({
+    key: [KEYS.regionFilter, regionName],
+    url: `${URLS.regionFilter}${regionName}/`,
+    enabled: !!regionName,
+  });
+
+  console.log(get(region, "data.results"));
 
   if (materialLoading) {
     return (
@@ -390,41 +397,43 @@ export default function Home() {
             {/* Modal */}
             {selectedRegion && (
               <div className="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-75 text-white p-4 w-[300px] min-h-[300px] rounded">
-                <div className={"flex justify-between items-center"}>
-                  <h1 className={"text-lg"}>{regionName}</h1>
-                  <button onClick={closeRegion}>
-                    {" "}
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g clip-path="url(#clip0_717_3428)">
-                        <path
-                          d="M18 6L6 18"
-                          stroke="#fff"
-                          strokeWidth="2.75"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M6 6L18 18"
-                          stroke="#fff"
-                          strokeWidth="2.75"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_717_3428">
-                          <rect width="24" height="24" fill="white" />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                  </button>
-                </div>
+                {get(region, "data.results", []).map((item) => (
+                  <div className={"flex justify-between items-center"}>
+                    <h1 className={"text-lg"}>{get(item, "company_name")}</h1>
+                    <button onClick={closeRegion}>
+                      {" "}
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clip-path="url(#clip0_717_3428)">
+                          <path
+                            d="M18 6L6 18"
+                            stroke="#fff"
+                            strokeWidth="2.75"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M6 6L18 18"
+                            stroke="#fff"
+                            strokeWidth="2.75"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_717_3428">
+                            <rect width="24" height="24" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </button>
+                  </div>
+                ))}
               </div>
             )}
           </div>

@@ -36,4 +36,5 @@ export const URLS = {
   updateMaterial: "materials/update/",
   apiBirja: "api_birja/",
   materialAvailableElon: "materials/api/elon/",
+  regionFilter: "companies/region_filter/",
 };

@@ -34,4 +34,5 @@ export const KEYS = {
   materialDeactivate: "materialDeactivate",
   apiBirja: "apiBirja",
   materialAvailableElon: "materialAvailableElon",
+  regionFilter: "regionFilter",
 };
