@@ -268,7 +268,7 @@ export default function Home() {
                 <path
                   className={`fill-current  ${
                     selectedRegion === "UZTK"
-                      ? "translate-y-3 text-green-700"
+                      ? "-translate-y-3 text-green-700"
                       : "text-green-600"
                   } transition-all duration-500`}
                   d="M747.6 346.4l-1.6-0.4-0.7-1.2 0.3-0.7 0-0.2-0.9 0.8-1.3-1.5-0.4-0.8-0.1-0.8-0.9 0.5-0.1-0.2 1.4-3.4 0.4-2.2 2.8-2.9 1.8 0 1.2 0.9 1.7 0.2 1.9 1.3 0.2 1.1-0.8 1.4 0.7 0.5 0.6 0.8-0.4 0.7 0.5 0.5-2 1-2.6 2.5-1.7 2.1z"
@@ -398,34 +398,13 @@ export default function Home() {
             {/* Modal */}
             {selectedRegion && (
               <div className="absolute top-[70px] right-0 transform  bg-[#F4F4F4] shadow-xl rounded-[8px] bg-opacity-75 text-black p-4 w-[500px] max-h-[500px] overflow-y-scroll">
-                <div className={"flex items-start"}>
-                  <div>
-                    {get(region, "data.results", []).map((item) => (
-                      <div className={"flex items-start"}>
-                        <Link href={`/company/${get(item, "company_stir")}`}>
-                          <abbr
-                            className={"no-underline"}
-                            title={`Manzili: ${get(
-                              item,
-                              "company_address",
-                            )} \n Telefon-raqami: ${get(
-                              item,
-                              "company_phone_main",
-                            )}`}
-                          >
-                            <h1
-                              className={
-                                "text-sm py-1 hover:bg-[#E6E6E6] px-2 rounded-[2px] transition-all duration-400"
-                              }
-                            >
-                              {get(item, "company_name")}
-                            </h1>{" "}
-                          </abbr>
-                        </Link>
-                      </div>
-                    ))}
-                  </div>
-                  <button onClick={closeRegion}>
+                <div className={"flex justify-between "}>
+                  <h1 className={"text-lg font-bold text-start p-2"}>
+                    {regionName === "Qoraqalpogistion"
+                      ? "Qoraqalpog'iston Respublikasi"
+                      : `${regionName} viloyati`}
+                  </h1>
+                  <button onClick={closeRegion} className={""}>
                     {" "}
                     <svg
                       width="20"
@@ -457,6 +436,34 @@ export default function Home() {
                       </defs>
                     </svg>
                   </button>
+                </div>
+                <div className={"flex items-start"}>
+                  <div>
+                    {get(region, "data.results", []).map((item) => (
+                      <div className={"flex items-start"}>
+                        <Link href={`/company/${get(item, "company_stir")}`}>
+                          <abbr
+                            className={"no-underline"}
+                            title={`Manzili: ${get(
+                              item,
+                              "company_address",
+                            )} \n Telefon-raqami: ${get(
+                              item,
+                              "company_phone_main",
+                            )}`}
+                          >
+                            <h1
+                              className={
+                                "text-sm py-1 hover:bg-[#E6E6E6] px-2 rounded-[2px] transition-all duration-400"
+                              }
+                            >
+                              {get(item, "company_name")}
+                            </h1>{" "}
+                          </abbr>
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
