@@ -400,9 +400,7 @@ export default function Home() {
               <div className="absolute top-[70px] right-0 transform  bg-[#F4F4F4] shadow-xl rounded-[8px] bg-opacity-75 text-black p-4 w-[500px] max-h-[500px] overflow-y-scroll">
                 <div className={"flex justify-between "}>
                   <h1 className={"text-lg font-bold text-start p-2"}>
-                    {regionName === "Qoraqalpogistion"
-                      ? "Qoraqalpog'iston Respublikasi"
-                      : `${regionName} viloyati`}
+                    {regionName}
                   </h1>
                   <button onClick={closeRegion} className={""}>
                     {" "}
@@ -439,7 +437,7 @@ export default function Home() {
                 </div>
                 <div className={"flex items-start"}>
                   <div>
-                    {get(region, "data.results", []).map((item) => (
+                    {get(region, "data", []).map((item) => (
                       <div className={"flex items-start"}>
                         <Link href={`/company/${get(item, "company_stir")}`}>
                           <abbr
