@@ -60,6 +60,11 @@ const ViewPage = () => {
     enable: !!regionId,
   });
 
+  // const { data: gost, isLoading: isLoadingGost } = useGetQuery({
+  //   key: KEYS.materialGost,
+  //   url: URLS.materialGost,
+  // });
+
   const columns = [
     {
       title: "№",
@@ -257,51 +262,79 @@ const ViewPage = () => {
               )}
             </div>
             <div className="tablet:col-span-7 col-span-12">
-              <div className="flex tablet:justify-start tablet:items-start justify-center items-center ">
-                <div className={"inline-flex mr-8"}>
-                  <Image
-                    className={
-                      "mr-2 tablet:w-[20px] tablet:h-[20px] laptop:w-[24px] laptop:h-[24px] w-[18px] h-[18px]"
-                    }
-                    width={24}
-                    height={24}
-                    src={"/icons/code.svg"}
-                    alt={"code"}
-                  />
-                  <span
-                    className={
-                      "font-medium tablet:text-sm laptop:text-base text-xs"
-                    }
-                  >
-                    #{get(material, "data.material_csr_code")}
-                  </span>
+              <div className={"flex justify-between"}>
+                <div className="flex tablet:justify-start tablet:items-center justify-center items-center ">
+                  {/*material kodi*/}
+                  <div className={"inline-flex mr-8"}>
+                    <Image
+                      className={
+                        "mr-2 tablet:w-[20px] tablet:h-[20px] laptop:w-[24px] laptop:h-[24px] w-[18px] h-[18px]"
+                      }
+                      width={24}
+                      height={24}
+                      src={"/icons/code.svg"}
+                      alt={"code"}
+                    />
+                    <span
+                      className={
+                        "font-medium tablet:text-sm laptop:text-base text-xs"
+                      }
+                    >
+                      #{get(material, "data.material_csr_code")}
+                    </span>
+                  </div>
+                  {/*ko'rilganlar soni*/}
+                  <div className={"inline-flex mr-8"}>
+                    <Image
+                      className={
+                        "mr-2 tablet:w-[20px] tablet:h-[20px] laptop:w-[24px] laptop:h-[24px] w-[18px] h-[18px]"
+                      }
+                      width={24}
+                      height={24}
+                      src={"/icons/eye.svg"}
+                      alt={"code"}
+                    />
+                    <span
+                      className={
+                        "font-medium tablet:text-sm laptop:text-base text-xs"
+                      }
+                    >
+                      {get(material, "data.material_views_count", 0)}
+                    </span>
+                  </div>
+                  {/*saqlash*/}
+                  <div className={"inline-flex mr-8 cursor-pointer"}>
+                    <Image
+                      className={
+                        "mr-1.5 tablet:w-[20px] tablet:h-[20px] laptop:w-[24px] laptop:h-[24px] w-[18px] h-[18px]"
+                      }
+                      width={20}
+                      height={20}
+                      src={"/icons/stick.svg"}
+                      alt={"code"}
+                    />
+                    <span
+                      className={
+                        "font-medium tablet:text-sm laptop:text-base text-xs"
+                      }
+                    >
+                      {t("save")}
+                    </span>
+                  </div>
                 </div>
-                <div className={"inline-flex mr-8"}>
-                  <Image
-                    className={
-                      "mr-2 tablet:w-[20px] tablet:h-[20px] laptop:w-[24px] laptop:h-[24px] w-[18px] h-[18px]"
-                    }
-                    width={24}
-                    height={24}
-                    src={"/icons/eye.svg"}
-                    alt={"code"}
-                  />
-                  <span
-                    className={
-                      "font-medium tablet:text-sm laptop:text-base text-xs"
-                    }
-                  >
-                    {get(material, "data.material_views_count", 0)}
-                  </span>
-                </div>
-                <div className={"inline-flex mr-8 cursor-pointer"}>
+                {/*gost nomeri*/}
+                <div
+                  className={
+                    "inline-flex  cursor-pointer border p-2 rounded-[8px]"
+                  }
+                >
                   <Image
                     className={
                       "mr-1.5 tablet:w-[20px] tablet:h-[20px] laptop:w-[24px] laptop:h-[24px] w-[18px] h-[18px]"
                     }
                     width={24}
                     height={24}
-                    src={"/icons/stick.svg"}
+                    src={"/icons/document_icon.svg"}
                     alt={"code"}
                   />
                   <span
@@ -309,7 +342,7 @@ const ViewPage = () => {
                       "font-medium tablet:text-sm laptop:text-base text-xs"
                     }
                   >
-                    {t("save")}
+                    {get(material, "data.materil_gost")}
                   </span>
                 </div>
               </div>
