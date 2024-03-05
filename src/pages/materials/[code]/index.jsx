@@ -262,7 +262,7 @@ const ViewPage = () => {
               )}
             </div>
             <div className="tablet:col-span-7 col-span-12">
-              <div className={"flex justify-between"}>
+              <div className={"flex justify-between flex-col tablet:flex-row"}>
                 <div className="flex tablet:justify-start tablet:items-center justify-center items-center ">
                   {/*material kodi*/}
                   <div className={"inline-flex mr-8"}>
