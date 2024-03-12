@@ -9,7 +9,7 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
 import Image from "next/image";
-import { get, isEqual } from "lodash";
+import { get, isEmpty, isEqual } from "lodash";
 import Select from "@/components/select";
 import GridView from "@/containers/grid-view";
 import { NumericFormat } from "react-number-format";
@@ -337,13 +337,17 @@ const ViewPage = () => {
                     src={"/icons/document_icon.svg"}
                     alt={"code"}
                   />
-                  <span
-                    className={
-                      "font-medium tablet:text-sm laptop:text-base text-xs"
-                    }
-                  >
-                    {get(material, "data.materil_gost")}
-                  </span>
+                  {isEmpty(get(material, "data.materil_gost")) ? (
+                    <span
+                      className={
+                        "font-medium tablet:text-sm laptop:text-base text-xs"
+                      }
+                    >
+                      {get(material, "data.materil_gost")}
+                    </span>
+                  ) : (
+                    <span>Ma'lumot mavjud emas</span>
+                  )}
                 </div>
               </div>
               <h2
