@@ -72,7 +72,7 @@ const ViewPage = () => {
   });
 
   const totalPrice = get(materialAds, "data.results", []).reduce((sumResult, price) => sumResult + price["material_price"], 0)
-
+  const averagePrice = (totalPrice / get(materialAds, "data.results", []).length).toFixed(2)
 
 
   // const { data: gost, isLoading: isLoadingGost } = useGetQuery({
@@ -380,8 +380,8 @@ const ViewPage = () => {
 
           </div>
 
-          <div className={"grid-cols-12 grid mt-[20px] gap-x-4 "}>
-            <div className={"col-span-4 p-[20px] shadow-2xl rounded-[4px]"}>
+          <div className={"grid-cols-12 grid mt-[20px] tablet:gap-x-4 gap-y-8 "}>
+            <div className={"tablet:col-span-4 col-span-12 p-[20px] shadow-2xl rounded-[4px]"}>
               <h4 className={"mb-[8px] text-[#22497C] font-bold"}>Davlat soliq qo'mitasi</h4>
               <div className={"flex justify-between"}>
                 <p className={"text-sm mb-[5px]"}>O'tgan oydagi savdolar soni:</p>
@@ -393,7 +393,7 @@ const ViewPage = () => {
                 <span className={"text-sm"}>20</span>
               </div>
             </div>
-            <div className={"col-span-4 p-[20px] shadow-2xl rounded-[4px]"}>
+            <div className={"tablet:col-span-4 col-span-12 p-[20px] shadow-2xl rounded-[4px]"}>
               <h4 className={"mb-[8px] text-[#22497C] font-bold"}>Tovar xom-ashyo birjasi</h4>
               <div className={"flex justify-between"}>
                 <p className={"text-sm mb-[5px]"}>O'tgan oydagi savdolar hajmi(4 hafta):</p>
@@ -405,9 +405,9 @@ const ViewPage = () => {
                 <span className={"text-sm"}>20</span>
               </div>
             </div>
-            <div className={"col-span-4 p-[20px] shadow-2xl rounded-[4px]"}>
+            <div className={"tablet:col-span-4 col-span-12 p-[20px] shadow-2xl rounded-[4px]"}>
               <h4 className={"mb-[8px] text-[#22497C] font-bold"}>O'rtacha narx:</h4>
-              {(totalPrice / get(materialAds, "data.results", []).length).toFixed(3)}
+              {averagePrice}
             </div>
           </div>
         </Section>
