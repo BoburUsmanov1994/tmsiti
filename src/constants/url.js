@@ -37,4 +37,5 @@ export const URLS = {
   apiBirja: "api_birja/",
   materialAvailableElon: "materials/api/elon/",
   regionFilter: "materials/region_filter/",
+  aboutCompany: "companies/company_info/"
 };

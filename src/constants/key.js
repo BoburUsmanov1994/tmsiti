@@ -35,4 +35,5 @@ export const KEYS = {
   apiBirja: "apiBirja",
   materialAvailableElon: "materialAvailableElon",
   regionFilter: "regionFilter",
+  aboutCompany: "aboutCompany"
 };

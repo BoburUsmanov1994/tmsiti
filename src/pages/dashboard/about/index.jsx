@@ -1,11 +1,23 @@
 import React from "react";
 import Dashboard from "../../../layouts/dashboard";
 import Subheader from "../../../layouts/dashboard/components/subheader";
+import useGetQuery from "@/hooks/api/useGetQuery";
+import {URLS} from "@/constants/url";
+import {KEYS} from "@/constants/key";
+import ContentLoader from "@/components/loader/content-loader";
+import {get} from "lodash";
 
 const Index = () => {
+
+  const { data, isLoading } = useGetQuery({
+    key: KEYS.aboutCompany,
+    url: URLS.aboutCompany
+  })
+
   return (
     <Dashboard>
       <Subheader title={"Kompaniya haqida"} />
+      {isLoading && <ContentLoader/>}
       <div className="p-7">
         <div className={" flex gap-x-[30px] mb-[50px]"}>
           <div className={" min-w-[250px]  "}>
@@ -18,7 +30,7 @@ const Index = () => {
           <div className={""}>
             {/*  Company name */}
             <h1 className={"text-base font-normal text-black mb-[15px]"}>
-              <strong>“Qizilqumsement” aksiyadorlik jamiyati</strong>
+              <strong>{get(data, "company_name")}</strong>
             </h1>
             {/*  Company description */}
             <p className={"text-xs text-black mb-[10px]"}>
@@ -32,18 +44,17 @@ const Index = () => {
             </p>
             {/*  Company manager  */}
             <p className={"text-xs text-black"}>
-              <strong>Rahbar: </strong>Melnikov Sergey Nikolayevich
+              <strong>Rahbar: </strong>{get(data, "company_ceo")}
             </p>
 
             {/*  Company phone  */}
             <p className={"text-xs text-black my-[6px]"}>
-              <strong>Telefon: </strong>79-2236490
+              <strong>Telefon: </strong>{get(data, "company_phone_main")}
             </p>
 
             {/*  Company address  */}
             <p className={"text-xs text-black"}>
-              <strong>Manzil: </strong>Navoiy viloyati, Navoiy sh., Navoiy
-              ko‘chasi, 3-uy
+              <strong>Manzil: </strong>{get(data, "company_address")}
             </p>
             <button
               className={
