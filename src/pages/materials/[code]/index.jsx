@@ -72,7 +72,7 @@ const ViewPage = () => {
   });
 
   const totalPrice = get(materialAds, "data.results", []).reduce((sumResult, price) => sumResult + price["material_price"], 0)
-  const averagePrice = (totalPrice / get(materialAds, "data.results", []).length).toFixed(2)
+  const averagePrice = +(totalPrice / get(materialAds, "data.results", []).length).toFixed(2)
 
 
   // const { data: gost, isLoading: isLoadingGost } = useGetQuery({
