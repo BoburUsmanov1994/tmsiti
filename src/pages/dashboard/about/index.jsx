@@ -14,6 +14,7 @@ const Index = () => {
     url: URLS.aboutCompany
   })
 
+  console.log(data);
   return (
     <Dashboard>
       <Subheader title={"Kompaniya haqida"} />
@@ -27,7 +28,7 @@ const Index = () => {
             />
           </div>
 
-          <div className={""}>
+          <div>
             {/*  Company name */}
             <h1 className={"text-base font-normal text-black mb-[15px]"}>
               <strong>{get(data, "company_name")}</strong>
