@@ -2,13 +2,15 @@ import React from 'react';
 import AuthLayout from "../../layouts/auth";
 import {useForm} from "react-hook-form";
 import usePostQuery from "../../hooks/api/usePostQuery";
-import {KEYS} from "../../constants/key";
-import {URLS} from "../../constants/url";
+import {KEYS} from "@/constants/key";
+import {URLS} from "@/constants/url";
 import {OverlayLoader} from "../../components/loader";
 import toast from "react-hot-toast";
 import {signIn} from "next-auth/react"
+import {useRouter} from "next/router";
 
 const Signup = () => {
+    const router = useRouter();
     const {register, handleSubmit, formState: {errors}} = useForm();
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.signup})
     const onSubmit = (data) => {
@@ -22,6 +24,7 @@ const Signup = () => {
                     signIn()
                 }
             })
+        router.push("/")
     };
     return (
         <AuthLayout>
