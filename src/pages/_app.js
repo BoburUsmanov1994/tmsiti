@@ -7,6 +7,7 @@ import '@/styles/globals.css'
 import reactQueryClient from "@/config/react-query";
 import {SessionProvider} from "next-auth/react"
 import '@/services/i18n'
+import {CounterProvider} from "@/context/counter";
 
 
 export default function App({Component, pageProps: {session, ...pageProps}}) {
@@ -16,7 +17,9 @@ export default function App({Component, pageProps: {session, ...pageProps}}) {
             <QueryClientProvider client={queryClient}>
                 <Hydrate state={pageProps?.dehydratedState}>
                     <NextNProgress height={5} color={'#1890FF'}/>
-                    <Component {...pageProps} />
+                    <CounterProvider>
+                        <Component {...pageProps} />
+                    </CounterProvider>
                     <ReactQueryDevtools initialIsOpen={false}/>
                     <Toaster/>
                 </Hydrate>
