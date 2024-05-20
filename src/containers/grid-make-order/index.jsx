@@ -68,7 +68,7 @@ const GridMakeOrder = () => {
                 href={`${get(card, "material_url", "#")}`}
                 className={"font-bold underline"}
               >
-                89.1.62.06-0028-000
+                {get(card, "material_name")}
               </Link>
             </div>
 
