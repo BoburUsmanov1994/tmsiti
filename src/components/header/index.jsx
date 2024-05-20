@@ -11,7 +11,6 @@ import dynamic from "next/dynamic";
 import { useTranslation } from "react-i18next";
 import Search from "@/components/search";
 import { useRouter } from "next/router";
-import BurgerMenu from "@/components/burger-menu";
 import { useCounter } from "@/context/counter";
 import { sum } from "lodash/math";
 const Lang = dynamic(() => import("@/components/lang"), { ssr: false });
@@ -130,22 +129,36 @@ const Header = (toggleMenu) => {
                 {/*<button className={"block text-base bg-transparent"}>*/}
                 {/*  <Link href={"/dashboard"}>sign in</Link>*/}
                 {/*</button>*/}
-                <button className={"text-lg"}>
-                  <Link href={"/select-position"}>Ro'yxatdan o'tish</Link>
-                </button>
+                {!get(session, "user.token") ? <button className={"text-lg"}>
+                      <Link href={"/select-position"}>Ro'yxatdan o'tish</Link>
+                    </button> :
+                    <div>
+                      <button
+                          onClick={() => router.push("/dashboard")}
+                          className={"block text-base bg-transparent"}
+                      >
+                        Kabinetga kirish
+                      </button>
+                      <button
+                          className={"block text-base"}
+                          onClick={() => signOut()}
+                      >
+                        {t("Logout")}
+                      </button>
+                    </div>}
                 {/*{!get(session, "user.token") ? (*/}
-                {/*  <div>*/}
-                {/*    <button*/}
-                {/*      className={*/}
-                {/*        "block laptop:text-base text-xs bg-transparent"*/}
-                {/*      }*/}
-                {/*      onClick={() => signIn()}*/}
-                {/*    >*/}
-                {/*      {t("signin")}*/}
-                {/*    </button>*/}
-                {/*    /!*<Link className={'block text-base'} href={'/auth/signup'}>*!/*/}
-                {/*    /!*    {t("signup")}*!/*/}
-                {/*    /!*</Link>*!/*/}
+                {/*    <div>*/}
+                {/*      <button*/}
+                {/*          className={*/}
+                {/*            "block laptop:text-base text-xs bg-transparent"*/}
+                {/*          }*/}
+                {/*          onClick={() => signIn()}*/}
+                {/*      >*/}
+                {/*        {t("signin")}*/}
+                {/*      </button>*/}
+                {/*      /!*<Link className={'block text-base'} href={'/auth/signup'}>*!/*/}
+                {/*      /!*    {t("signup")}*!/*/}
+                {/*      /!*</Link>*!/*/}
                 {/*  </div>*/}
                 {/*) : (*/}
                 {/*  <div>*/}

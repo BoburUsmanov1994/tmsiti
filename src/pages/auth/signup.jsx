@@ -35,17 +35,32 @@ const Signup = () => {
                     {errors.email && <span className={'text-xs text-red-500'}>This field is required</span>}
                 </div>
                 <div className={'mb-4'}>
-                    <label className={'block mb-1.5'} htmlFor="#">INN*</label>
-                    <input {...register("company", {required: true})}
+                    <label className={'block mb-1.5'} htmlFor="#">Ism*</label>
+                    <input {...register("first_name", {required: true})}
                            className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="text"/>
-                    {errors.company && <span className={'text-xs text-red-500'}>This field is required</span>}
+                    {errors.email && <span className={'text-xs text-red-500'}>This field is required</span>}
                 </div>
+
+                <div className={'mb-4'}>
+                    <label className={'block mb-1.5'} htmlFor="#">Familiya*</label>
+                    <input {...register("last_name", {required: true})}
+                           className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="text"/>
+                    {errors.email && <span className={'text-xs text-red-500'}>This field is required</span>}
+                </div>
+
 
                 <div className={'mb-4'}>
                     <label className={'block mb-1.5'} htmlFor="#">Parol*</label>
                     <input {...register("password", {required: true})}
                            className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="password"/>
                     {errors.password && <span className={'text-xs text-red-500'}>This field is required</span>}
+                </div>
+
+                <div className={'mb-4'}>
+                    <label className={'block mb-1.5'} htmlFor="#">INN*</label>
+                    <input {...register("company", {required: true})}
+                           className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="text"/>
+                    {errors.company && <span className={'text-xs text-red-500'}>This field is required</span>}
                 </div>
 
                 <div className="text-center">

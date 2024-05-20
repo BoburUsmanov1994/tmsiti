@@ -16,6 +16,7 @@ export const KEYS = {
   classifierResources: "classifierResources",
   classifier: "classifier",
   signup: "signup",
+  changePassword: "changepassword",
   getMe: "getMe",
   login: "login",
   prices: "prices",
