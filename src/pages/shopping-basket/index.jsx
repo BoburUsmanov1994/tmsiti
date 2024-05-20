@@ -10,7 +10,8 @@ import { useRouter } from "next/router";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
-import { get } from "lodash";
+import { get, head } from "lodash";
+import { last } from "lodash/array";
 
 const Index = () => {
   const { state, dispatch } = useCounter();
@@ -28,9 +29,7 @@ const Index = () => {
     },
   });
 
-  console.log(data);
-
-  console.log(Object.keys(state), "selected");
+  console.log("state", state);
 
   const handleIncrement = (product) => {
     dispatch({ type: "INCREMENT", payload: product.id });
@@ -42,6 +41,7 @@ const Index = () => {
       state.count = 0;
     }
   };
+  console.log("state", state);
   return (
     <Main>
       <Menu />
@@ -51,27 +51,15 @@ const Index = () => {
         <main
           className={"min-h-[100vh] bg-white mt-[100px] rounded-[6px] p-[20px]"}
         >
-
           <h1 className={"text-3xl font-bold"}>Savat</h1>
           <div>
-            {Object.keys(state).map((item, index) => (
-              <div key={index}>
+            {Object.entries(state).map((item, index) => (
+              <div key={index} className={"flex justify-between"}>
+                <p>{get(JSON.parse(head(item)), "material_description")}</p>
+                <p>x{last(item)}</p>
                 <p>
-                  {get(data, "data.results", []).map((product) => (
-                    <div
-                      key={
-                        get(product, "id") === parseInt(item)
-                          ? get(product, "id")
-                          : index
-                      }
-                    ></div>
-                  ))}
-                </p>
-                <p>x{state[item]}</p>
-                <p>
-                  {get(data, "data.results", []).find(
-                    (product) => product.id === parseInt(item),
-                  )?.price * state[item]}
+                  {get(JSON.parse(head(item)), "material_price", 0) *
+                    last(item)}
                   ₽
                 </p>
               </div>

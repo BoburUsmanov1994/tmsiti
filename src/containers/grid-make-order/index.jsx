@@ -30,17 +30,16 @@ const GridMakeOrder = () => {
   });
 
   const handleIncrement = (product) => {
-    dispatch({ type: "INCREMENT", payload: product.id });
+    console.log("product", product, JSON.stringify(product));
+    dispatch({ type: "INCREMENT", payload: JSON.stringify(product) });
   };
 
   const handleDecrement = (product) => {
-    dispatch({ type: "DECREMENT", payload: product.id });
+    dispatch({ type: "DECREMENT", payload: JSON.stringify(product) });
     if (state.count <= 0) {
       state.count = 0;
     }
   };
-
-  console.log(data);
 
   return (
     <div className={"col-span-12"}>
@@ -103,7 +102,7 @@ const GridMakeOrder = () => {
               </span>
             </p>
 
-            {Object.keys(state).includes(String(card.id)) ? (
+            {Object.keys(state).includes(JSON.stringify(card)) ? (
               <div className={"button-container "}>
                 <button
                   className={
@@ -115,7 +114,7 @@ const GridMakeOrder = () => {
                 </button>
 
                 <p className={"value"}>
-                  <span>{state[get(card, "id")] ?? 0}</span>
+                  <span>{state[JSON.stringify(card)] ?? 0}</span>
                 </p>
 
                 <button
