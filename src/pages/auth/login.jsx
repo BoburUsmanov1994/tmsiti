@@ -11,7 +11,7 @@ const Login = () => {
             email,
             password,
             redirect: true,
-            callbackUrl: "/dashboard"
+            callbackUrl: "/"
         })
     };
     return (
