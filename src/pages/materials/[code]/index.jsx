@@ -17,6 +17,7 @@ import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { getOptionList } from "@/utils";
 import Link from "next/link";
+import {useCounter} from "../../../context/counter";
 
 const ViewPage = () => {
   const router = useRouter();
@@ -25,7 +26,12 @@ const ViewPage = () => {
   const [regionId, setRegionId] = useState(null);
   const [districtId, setDistrictId] = useState(null);
 
+  const { state, dispatch } = useCounter();
 
+  const handleIncrement = (product) => {
+    console.log("product", product, JSON.stringify(product));
+    dispatch({ type: "INCREMENT", payload: JSON.stringify(product) });
+  };
 
 
   const { data: currency } = useGetQuery({
@@ -171,7 +177,7 @@ const ViewPage = () => {
     {
       title: t("Narxi(so`m)"),
       key: "material_price",
-      render: ({ value, row }) =>
+      render: ({ value, row,index }) =>
         value *
           get(currency, `data[${get(row, "material_price_currency")}]`, 1) >
         0 ? (
@@ -212,9 +218,10 @@ const ViewPage = () => {
     {
       title: t("Action"),
       key: "action",
-      render: () => (
+      render: ({value,row}) => (
         <div className={"flex items-center"}>
           <Image
+              onClick={()=>handleIncrement(row)}
             className={
               "mx-auto cursor-pointer laptop:w-[24px] laptop:h-[24px] tablet:w-[21px] tablet:h-[21px] w-[18px] h-[18px] "
             }

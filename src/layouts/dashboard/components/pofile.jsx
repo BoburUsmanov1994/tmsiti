@@ -24,6 +24,9 @@ const Pofile = () => {
             setToken(get(session, 'user.token'));
         }
     }, [session])
+    // user = {companyName,Inn,Ceo}  delivery
+    // user = {email,firstName,lastName,Inn,token}  customer
+    //user?.token ? 'customer' : 'delivery'
     return (
         <div className={'inline-flex items-center gap-x-[5px]'}>
 

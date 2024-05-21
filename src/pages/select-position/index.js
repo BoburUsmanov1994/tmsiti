@@ -76,7 +76,7 @@ const Index = () => {
               "absolute bottom-[50px] text-lg text-[#202B57] bg-white hover:bg-[#E7E7E7] transition-all duration-500  p-4 rounded-[6px]"
             }
           >
-            <Link href={"/auth/signup"}>
+            <Link href={"/auth/login"}>
               Buyurtmachi sifatida ro'yxatdan o'tish
             </Link>
           </motion.button>
