@@ -20,12 +20,19 @@ const Header = (toggleMenu) => {
   const { t } = useTranslation();
   const router = useRouter();
   const { state } = useCounter();
-  const { data: user } = useGetQuery({
-    key: KEYS.getMe,
-    url: URLS.getMe,
-    headers: { token: `${get(session, "user.token")}` },
+  // const { data: user } = useGetQuery({
+  //   key: KEYS.getMe,
+  //   url: URLS.getMe,
+  //   headers: { token: `${get(session, "user.token")}` },
+  //   enabled: !!get(session, "user.token"),
+  // });
+
+  const { data: customer } = useGetQuery({
+    key: KEYS.getCustomer,
+    url: URLS.getCustomer,
+    headers: { token: `${get(session, "user.token")}`},
     enabled: !!get(session, "user.token"),
-  });
+  })
 
   return (
     <header>
@@ -134,10 +141,10 @@ const Header = (toggleMenu) => {
                     </button> :
                     <div>
                       <button
-                          onClick={() => router.push("/dashboard")}
+                          onClick={() => router.push("/customer")}
                           className={"block text-base bg-transparent"}
                       >
-                        Kabinetga kirish
+                        Kabinetga kirish / {get(customer, "data.email")}
                       </button>
                       <button
                           className={"block text-base"}

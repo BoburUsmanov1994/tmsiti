@@ -18,6 +18,7 @@ export const URLS = {
   signup: "api/cutomer/register/",
   changePassword: "api/passowrd/change/",
   getMe: "api/user",
+  getCustomer: "api/customer",
   login: "api/login",
   prices: "prices/",
   logout: "api/logout",

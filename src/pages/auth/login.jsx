@@ -6,6 +6,9 @@ import {signIn} from "next-auth/react";
 
 const Login = () => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
+
+
+
     const onSubmit = async ({email, password}) => {
         const result = await signIn("credentials", {
             email,
