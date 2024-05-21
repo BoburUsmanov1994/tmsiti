@@ -3,19 +3,27 @@ import AuthLayout from "../../layouts/auth";
 import {useForm} from "react-hook-form";
 import Link from "next/link";
 import {signIn} from "next-auth/react";
+import usePostQuery from "@/hooks/api/usePostQuery";
+import {KEYS} from "@/constants/key";
+import {URLS} from "@/constants/url";
+import toast from "react-hot-toast";
 
 const Login = () => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
 
-
-
-    const onSubmit = async ({email, password}) => {
-        const result = await signIn("credentials", {
-            email,
-            password,
-            redirect: true,
-            callbackUrl: "/"
-        })
+    const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.login})
+    const onSubmit = (data) => {
+        signupRequest({
+                url: URLS.login,
+                attributes: {...data}
+            },
+            {
+                onSuccess: () => {
+                    toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
+                    signIn()
+                }
+            })
+        router.push("/customer")
     };
     return (
         <AuthLayout>
