@@ -7,10 +7,11 @@ import usePostQuery from "@/hooks/api/usePostQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 import toast from "react-hot-toast";
+import {useRouter} from "next/router";
 
 const Login = () => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
-
+    const router = useRouter();
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.login})
     const onSubmit = (data) => {
         signupRequest({

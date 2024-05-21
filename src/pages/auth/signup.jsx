@@ -24,7 +24,7 @@ const Signup = () => {
                     signIn()
                 }
             })
-        router.push("/customer")
+        router.push("/auth/login")
     };
     return (
         <AuthLayout>

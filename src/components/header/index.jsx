@@ -141,10 +141,10 @@ const Header = (toggleMenu) => {
                     </button> :
                     <div>
                       <button
-                          onClick={() => router.push("/customer")}
+                          onClick={() => router.push("/dashboard")}
                           className={"block text-base bg-transparent"}
                       >
-                        Kabinetga kirish / {get(customer, "data.email")}
+                        Kabinetga kirish
                       </button>
                       <button
                           className={"block text-base"}
