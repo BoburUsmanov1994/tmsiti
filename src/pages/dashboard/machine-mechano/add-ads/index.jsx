@@ -74,7 +74,7 @@ const Ads = () => {
         formData.append('material_name', mmechano_csr_code)
         formData.append('mmechano_description', mmechano_description)
         formData.append('mmechano_rent_price', mmechano_rent_price)
-        formData.append('mmechano_rent_price', mmechano_rent_price_currency)
+        formData.append('mmechano_rent_price_currency', mmechano_rent_price_currency)
         formData.append('mmechano_image', mmechano_image[0])
         formData.append('mmechano_amount', mmechano_amount)
         formData.append('sertificate_blank_num', sertificate_blank_num)
@@ -205,7 +205,7 @@ const Ads = () => {
                         <input
                             placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
                             className={'hidden'} value={1}
-                            {...register('material_owner', {required: true})}
+                            {...register('mmachine_owner', {required: true})}
 
                         />
 
@@ -213,7 +213,7 @@ const Ads = () => {
 
                     {/* Material tavsifi */}
                     <div className={'col-span-12 gap-x-[30px]'}>
-                        <h4 className={'text-[#28366D] text-base my-[10px]'}>Material tavsifi</h4>
+                        <h4 className={'text-[#28366D] text-base my-[10px]'}>Mashina va mexanizmlar tavsifi</h4>
                         <textarea {...register('mmechano_description')} rows={5}
                                   className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
                     </div>
@@ -221,15 +221,15 @@ const Ads = () => {
 
                     {/* Material narxi */}
                     <div className={'col-span-6 '}>
-                        <h4 className={'text-[#28366D] text-base '}>Material narxi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Mashina va mexanizmlar narxi</h4>
                         <div className={'flex items-center rounded-[5px]'}>
                             <input placeholder={''} type={'number'}
-                                   {...register('mmechano_price', {required: true})}
+                                   {...register('mmechano_rent_price', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl  my-[10px]'}
                                    required={true}
                             />
 
-                            <select className={'p-[16px]'} {...register('mmechano_price_currency')}>
+                            <select className={'p-[16px]'} {...register('mmechano_rent_price_currency')}>
                                 <option>UZS</option>
                                 <option>USD</option>
                                 <option>RUB</option>
@@ -240,10 +240,10 @@ const Ads = () => {
 
                     {/* Material o'lchov birligi */}
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Material o’lchov birligi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Mashina va mexanizmlar o’lchov birligi</h4>
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                               {...register('material_measure')}
+                               {...register('mmechano_measure')}
                                defaultValue={get(machineMechano, 'mmechano_measure')}
                                disabled={true}
                         />
@@ -252,7 +252,7 @@ const Ads = () => {
 
                     {/*Material miqdori*/}
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Material miqdori</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Mashina va mexanizmlar miqdori</h4>
                         <input placeholder={'Material miqdori'} type={'number'}
                                {...register('mmechano_amount', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
@@ -263,10 +263,10 @@ const Ads = () => {
 
                     {/*Material miqdor o’lchov birligi*/}
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Material miqdor o’lchov birligi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Mashina va mexanizmlar miqdor o’lchov birligi</h4>
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                               defaultValue={get(machineMechano, 'mmechano_measure')}
+                               defaultValue={get(machineMechano, 'mmechano_amount_measure')}
                                {...register('mmechano_amount_measure')}
                                disabled={true}
                         />
@@ -275,7 +275,7 @@ const Ads = () => {
 
                     {/*Material rasmi*/}
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Material rasmi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Mashina va mexanizmlar rasmi</h4>
                         <label for="dropzone-file"
                                className={'shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white'}>
                             <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>
