@@ -4,7 +4,7 @@ export const KEYS = {
   categories: "categories",
   groups: "groups",
   materialAds: "materialAds",
-  machinesMechanos: "machine-mechano",
+  machinesMechanos: "machineMechano",
   viewCounts: "views_count",
   works: "works",
   machinesMechanosAds: "machinesMechanosAds",

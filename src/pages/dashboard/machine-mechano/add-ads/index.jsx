@@ -37,7 +37,7 @@ const Ads = () => {
 
 
 
-    const {data: machineMechanos, isLoadingMaterial} = useGetQuery({
+    const {data: machineMechanos, isLoadingMachineMechano} = useGetQuery({
         key: KEYS.machinesMechanos,
         url: URLS.machinesMechanos,
         params: {
@@ -49,7 +49,7 @@ const Ads = () => {
     })
 
 
-    const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.myMaterials})
+    const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.myMachineMechano})
 
 
     useEffect(() => {
@@ -106,7 +106,7 @@ const Ads = () => {
         <Dashboard>
             <Subheader title={'Qurilish materiallari va buyumlari e’lonini qo’shish'}/>
             <div className="p-7">
-                {(isLoadingMaterial || isLoading) && <OverlayLoader/>}
+                {(isLoadingMachineMechano || isLoading) && <OverlayLoader/>}
                 <form className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>
                     <div className={'col-span-12 mb-[10px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Qidiruv</h4>
