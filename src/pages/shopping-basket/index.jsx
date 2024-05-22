@@ -22,7 +22,7 @@ const Index = () => {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(48);
-  const [template, setTemplate] = useState('table');
+  const [template, setTemplate] = useState('standard');
   const [isOpen, setIsOpen] = useState(false);
   const { stir } = router.query;
 
@@ -44,6 +44,18 @@ const Index = () => {
       page_size: pageSize,
     },
   });
+
+  const handleIncrement = (product) => {
+    console.log("product", product, JSON.stringify(product));
+    dispatch({ type: "INCREMENT", payload: JSON.stringify(product) });
+  };
+
+  const handleDecrement = (product) => {
+    dispatch({ type: "DECREMENT", payload: JSON.stringify(product) });
+    if (state.count <= 0) {
+      state.count = 0;
+    }
+  };
 
 
 
@@ -134,7 +146,9 @@ const Index = () => {
 
                         <div className={"col-span-4 text-center"}>
                           <h1 className={"text-base font-bold mb-[20px]"}>Tanlangan mahsulot miqdori</h1>
-                          <p className={"p-3 border inline-flex rounded-[6px] bg-[#28366D] text-white"}>{last(item)}</p>
+                          <button className={"p-3 border inline-flex rounded-[6px] bg-[#28366D] text-white"} onClick={() => handleDecrement(JSON.parse(head(item)))}>-</button>
+                          <p className={"p-3  inline-flex  text-[#28366D]"}>{last(item)}</p>
+                          <button className={"p-3 border inline-flex rounded-[6px] bg-[#28366D] text-white"} onClick={() => handleIncrement(JSON.parse(head(item)))}>+</button>
                         </div>
                         {/*<p>*/}
                         {/*{get(JSON.parse(head(item)), "material_price", 0) **/}
