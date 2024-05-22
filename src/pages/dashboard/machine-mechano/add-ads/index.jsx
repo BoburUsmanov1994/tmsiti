@@ -68,7 +68,8 @@ const Ads = () => {
                           sertificate_blank_num,
                           sertificate_reestr_num,
                           mmechano_owner,
-                          mmechano_measure
+                          mmechano_measure,
+                          mmechano_amount_measure
                       }) => {
         let formData = new FormData();
         formData.append('mmechano_name', mmechano_csr_code)
@@ -266,7 +267,7 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base '}>Mashina va mexanizmlar miqdor o’lchov birligi</h4>
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                               defaultValue={get(machineMechano, 'mmechano_amount_measure')}
+                               defaultValue={get(machineMechano, 'mmechano_measure')}
                                {...register('mmechano_amount_measure')}
                                disabled={true}
                         />
