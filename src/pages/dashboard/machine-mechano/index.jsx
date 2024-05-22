@@ -32,34 +32,34 @@ const MachineMechano = () => {
         },
         {
             title: 'Kodi',
-            key: 'material_csr_code',
+            key: 'mmechano_csr_code',
             render: ({value}) => <span className={'text-[#28366D]'}>{value}</span>
         },
         {
             title: 'Nomi',
-            key: 'material_name',
+            key: 'mmechano_name',
         },
         {
             title: 'Narxi',
-            key: 'material_price',
+            key: 'mmechano_price',
             render: ({
                          value,
                          row
-                     }) => (value * get(data, `data[${get(row, 'material_price_currency')}]`, 1) > 0 ?
+                     }) => (value * get(data, `data[${get(row, 'mmechano_rent_price_currency')}]`, 1) > 0 ?
                 <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
                                thousandSeparator={' '}
-                               value={(value * get(data, `data[${(get(row, 'material_price_currency'))}]`, 1)).toFixed(2)}/> : t("by_order")),
+                               value={(value * get(data, `data[${(get(row, 'mmechano_rent_price_currency'))}]`, 1)).toFixed(2)}/> : t("by_order")),
             classnames: 'text-center'
         },
         {
             title: 'Miqdori',
-            key: 'material_measure',
+            key: 'mmechano_measure',
             classnames: 'text-center'
         },
         {
             title: 'Joylangan vaqti',
-            key: 'material_date',
-            render: ({date}) => <span>{dayjs(get(data, `data[${get(date, 'material_created_date')}]`)).format("DD.MM.YYYY, HH:mm")}</span>,
+            key: 'mmechano_date',
+            render: ({date}) => <span>{dayjs(get(data, `data[${get(date, 'mmechano_created_date')}]`)).format("DD.MM.YYYY, HH:mm")}</span>,
             classnames: 'text-center'
         },
         // {
@@ -99,8 +99,8 @@ const MachineMechano = () => {
                     <div className="col-span-12 ">
                         <GridView
                             hasActionColumn
-                            url={URLS.machinesMechanos}
-                            key={[KEYS.machinesMechanos,pageSize]}
+                            url={URLS.myMachineMechano}
+                            key={[KEYS.myMachineMechano,pageSize]}
                             columns={columns}
                             defaultPageSize={pageSize}
                         />
