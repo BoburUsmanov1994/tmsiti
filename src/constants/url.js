@@ -24,7 +24,7 @@ export const URLS = {
   logout: "api/logout",
   search: "search",
   myMaterials: "materials/ads/my/",
-  myMachineMechano: "machine-mechanos/ads/my",
+  myMachineMechano: "machines-mechanos/ads/my",
   currency: "currency/",
   companies: "companies/",
   companyAds: "companies/ads/",
@@ -41,5 +41,6 @@ export const URLS = {
   materialAvailableElon: "materials/api/elon/",
   regionFilter: "materials/region_filter/",
   aboutCompany: "companies/company_info/",
-  machineMechanoAddAds: "machines-mechanos/ads/add/new"
+  machineMechanoAddAds: "machines-mechanos/ads/add/new",
+  workAddAds: "works/ads/add/new/"
 };

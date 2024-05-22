@@ -69,7 +69,7 @@ const Ads = () => {
                           sertificate_reestr_num,
                           mmechano_owner,
                           mmechano_measure,
-                          mmechano_amount_measure
+
                       }) => {
         let formData = new FormData();
         formData.append('mmechano_name', mmechano_csr_code)
@@ -81,7 +81,7 @@ const Ads = () => {
         formData.append('sertificate_blank_num', sertificate_blank_num)
         formData.append('sertificate_reestr_num', sertificate_reestr_num)
         formData.append('mmechano_owner', mmechano_owner)
-        formData.append('mmechano_amount_measure', mmechano_amount_measure)
+
         formData.append('mmechano_measure', mmechano_measure)
         addAds({
                 url: URLS.machineMechanoAddAds,
@@ -206,7 +206,7 @@ const Ads = () => {
                         <input
                             placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
                             className={'hidden'} value={1}
-                            {...register('mmachine_owner', {required: true})}
+                            {...register('mmechano_owner', {required: true})}
 
                         />
 
@@ -277,7 +277,7 @@ const Ads = () => {
                     {/*Material rasmi*/}
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Mashina va mexanizmlar rasmi</h4>
-                        <label for="dropzone-file"
+                        <label htmlFor="dropzone-file"
                                className={'shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white'}>
                             <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>
                             <p>yuklash</p>

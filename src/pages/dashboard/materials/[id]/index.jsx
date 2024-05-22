@@ -273,7 +273,7 @@ const Index = () => {
           <div className={"col-span-6"}>
             <h4 className={"text-[#28366D] text-base "}>Material rasmi</h4>
             <label
-              for="dropzone-file"
+              htmlFor="dropzone-file"
               className={
                 "shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white"
               }

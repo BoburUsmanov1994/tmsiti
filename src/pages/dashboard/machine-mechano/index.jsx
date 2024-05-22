@@ -18,8 +18,8 @@ const MachineMechano = () => {
 
 
     const {data, isLoading} =useGetQuery({
-        key: KEYS.myMaterials,
-        url: URLS.myMaterials
+        key: KEYS.myMachineMechano,
+        url: URLS.myMachineMechano
     })
 
     const {t} = useTranslation();
