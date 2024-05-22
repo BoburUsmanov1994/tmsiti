@@ -21,10 +21,10 @@ const Ads = () => {
     const {t} = useTranslation();
     const [search, setSearch] = useState('')
     const [pageSize, setPageSize] = useState(10);
-    const [material, setMaterial] = useState({})
-    const [materialValue, setMaterialValue] = useState(null)
+    const [machineMechano, setMachineMechano] = useState({})
+    const [machineMechanoValue, setMachineMechanoValue] = useState(null)
     const [warning, setWarning] = useState(false)
-    const {register, handleSubmit, formState: {errors}} = useForm({values: material})
+    const {register, handleSubmit, formState: {errors}} = useForm({values: machineMechano})
     const router = useRouter();
 
 
@@ -37,9 +37,9 @@ const Ads = () => {
 
 
 
-    const {data: materials, isLoadingMaterial} = useGetQuery({
-        key: KEYS.materials,
-        url: URLS.materials,
+    const {data: machineMechanos, isLoadingMaterial} = useGetQuery({
+        key: KEYS.machinesMechanos,
+        url: URLS.machinesMechanos,
         params: {
             key: 'name',
             value: search,
@@ -53,37 +53,37 @@ const Ads = () => {
 
 
     useEffect(() => {
-        if (!isEmpty(head(get(materials, 'data.results', [])))) {
-            setMaterial(find(get(materials, 'data.results', []), ({material_csr_code}) => material_csr_code === materialValue))
+        if (!isEmpty(head(get(machineMechanos, 'data.results', [])))) {
+            setMachineMechano(find(get(machineMechanos, 'data.results', []), ({mmechano_csr_code}) => mmechano_csr_code === machineMechanoValue))
         }
-    }, [materials,materialValue])
+    }, [machineMechanos, machineMechanoValue])
 
     const onSubmit = ({
-                          material_csr_code,
-                          material_description,
-                          material_price,
-                          material_price_currency,
-                          material_image,
-                          material_amount,
+                          mmechano_csr_code,
+                          mmechano_description,
+                          mmechano_rent_price,
+                          mmechano_rent_price_currency,
+                          mmechano_image,
+                          mmechano_amount,
                           sertificate_blank_num,
                           sertificate_reestr_num,
-                          material_owner,
-                          material_measure
+                          mmechano_owner,
+                          mmechano_measure
                       }) => {
         let formData = new FormData();
-        formData.append('material_name', material_csr_code)
-        formData.append('material_description', material_description)
-        formData.append('material_price', material_price)
-        formData.append('material_price_currency', material_price_currency)
-        formData.append('material_image', material_image[0])
-        formData.append('material_amount', material_amount)
+        formData.append('material_name', mmechano_csr_code)
+        formData.append('mmechano_description', mmechano_description)
+        formData.append('mmechano_rent_price', mmechano_rent_price)
+        formData.append('mmechano_rent_price', mmechano_rent_price_currency)
+        formData.append('mmechano_image', mmechano_image[0])
+        formData.append('mmechano_amount', mmechano_amount)
         formData.append('sertificate_blank_num', sertificate_blank_num)
         formData.append('sertificate_reestr_num', sertificate_reestr_num)
-        formData.append('material_owner', material_owner)
-        formData.append('material_amount_measure', material_measure)
-        formData.append('material_measure', material_measure)
+        formData.append('mmechano_owner', mmechano_owner)
+        formData.append('mmechano_amount_measure', mmechano_amount_measure)
+        formData.append('mmechano_measure', mmechano_measure)
         addAds({
-                url: URLS.addAds,
+                url: URLS.machineMechanoAddAds,
                 attributes: formData
             },
             {
@@ -100,8 +100,7 @@ const Ads = () => {
 
     }
 
-    console.log('material', material)
-    console.log('errors', errors)
+
 
     return (
         <Dashboard>
@@ -143,12 +142,12 @@ const Ads = () => {
                         <Select
                             isClearable
                             placeholder={'nomni rus tilida kiriting'}
-                            options={get(materials, 'data.results', []).map(material => ({
-                                value: get(material, 'material_csr_code'),
-                                label: get(material, 'material_name')
+                            options={get(machineMechanos, 'data.results', []).map(machine => ({
+                                value: get(machine, 'mmechano_csr_code'),
+                                label: get(machine, 'mmechano_name')
                             }))}
                             defaultValue={search}
-                            onChange={(val)=>setMaterialValue(get(val,'value'))}
+                            onChange={(val)=>setMachineMechanoValue(get(val,'value'))}
                             onKeyDown={debounce(function (e) {
                                 if(e.target.value.length > 3) {
                                     setSearch(e.target.value)
@@ -163,24 +162,13 @@ const Ads = () => {
 
                     </div>
 
-                    {/*  material bo'limi  */}
-                    <div className={'col-span-12  gap-x-[30px] mt-[30px]'}>
-                        <h4 className={'text-[#28366D] text-base'}>Material bo’limi</h4>
-                        <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
-
-                        <input defaultValue={get(material, 'material_volume_name')}
-                               placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
-                               className={'placeholder py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                               disabled={true}
-                        />
-                    </div>
 
                     {/*  material kategoriyasi  */}
-                    <div className={'col-span-12  gap-x-[30px]'}>
-                        <h4 className={'text-[#28366D] text-base'}>Material kategoriyasi</h4>
+                    <div className={'col-span-12  gap-x-[30px] mt-[30px]'}>
+                        <h4 className={'text-[#28366D] text-base'}>Mashina va mexanizmlar kategoriyasi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
-                            defaultValue={get(material, 'material_category_name')}
+                            defaultValue={get(machineMechano, 'mmechano_category_name')}
                             placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             className={' py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                             disabled={true}
@@ -191,11 +179,11 @@ const Ads = () => {
 
                     <div className={'col-span-12   gap-x-[30px]'}>
 
-                        <h4 className={'text-[#28366D] text-base '}>Material guruhi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Mashina va mexanizmlar guruhi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
-                               defaultValue={get(material, 'material_group_name')}
+                               defaultValue={get(machineMechano, 'mmechano_group_name')}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                disabled={true}
                         />
@@ -204,11 +192,11 @@ const Ads = () => {
                     {/*  material nomi  */}
 
                     <div className={'col-span-12  gap-x-[30px]'}>
-                        <h4 className={'text-[#28366D] text-base'}>Material nomi</h4>
+                        <h4 className={'text-[#28366D] text-base'}>Mashina va mexanizmlar nomi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
 
-                            defaultValue={get(material, 'material_name')}
+                            defaultValue={get(machineMechano, 'mmechano_name')}
                             placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                             {...register('material_name', {required: true})}
@@ -226,7 +214,7 @@ const Ads = () => {
                     {/* Material tavsifi */}
                     <div className={'col-span-12 gap-x-[30px]'}>
                         <h4 className={'text-[#28366D] text-base my-[10px]'}>Material tavsifi</h4>
-                        <textarea {...register('material_description')} rows={5}
+                        <textarea {...register('mmechano_description')} rows={5}
                                   className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
                     </div>
 
@@ -236,12 +224,12 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base '}>Material narxi</h4>
                         <div className={'flex items-center rounded-[5px]'}>
                             <input placeholder={''} type={'number'}
-                                   {...register('material_price', {required: true})}
+                                   {...register('mmechano_price', {required: true})}
                                    className={'py-[15px] px-[20px] w-full shadow-xl  my-[10px]'}
                                    required={true}
                             />
 
-                            <select className={'p-[16px]'} {...register('material_price_currency')}>
+                            <select className={'p-[16px]'} {...register('mmechano_price_currency')}>
                                 <option>UZS</option>
                                 <option>USD</option>
                                 <option>RUB</option>
@@ -256,7 +244,7 @@ const Ads = () => {
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                {...register('material_measure')}
-                               defaultValue={get(material, 'material_measure')}
+                               defaultValue={get(machineMechano, 'mmechano_measure')}
                                disabled={true}
                         />
                     </div>
@@ -266,7 +254,7 @@ const Ads = () => {
                     <div className={'col-span-6'}>
                         <h4 className={'text-[#28366D] text-base '}>Material miqdori</h4>
                         <input placeholder={'Material miqdori'} type={'number'}
-                               {...register('material_amount', {required: true})}
+                               {...register('mmechano_amount', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                         />
 
@@ -278,8 +266,8 @@ const Ads = () => {
                         <h4 className={'text-[#28366D] text-base '}>Material miqdor o’lchov birligi</h4>
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                               defaultValue={get(material, 'material_measure')}
-                               {...register('material_amount_measure')}
+                               defaultValue={get(machineMechano, 'mmechano_measure')}
+                               {...register('mmechano_amount_measure')}
                                disabled={true}
                         />
                     </div>
@@ -295,7 +283,7 @@ const Ads = () => {
                         </label>
                         <input id={"dropzone-file"} type={"file"} accept={"image/png, image/jpeg, image/jpg"}
                                onChange={handleChange}
-                               {...register('material_image')}
+                               {...register('mmechano_image')}
                         />
 
                     </div>

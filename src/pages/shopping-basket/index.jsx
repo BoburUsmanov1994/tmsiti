@@ -16,6 +16,7 @@ import {NumericFormat} from "react-number-format";
 import Image from "next/image";
 import Button from "@/components/button";
 import {sum} from "lodash/math";
+import Title from "@/components/title";
 
 const Index = () => {
   const { state, dispatch } = useCounter();
@@ -63,7 +64,7 @@ const Index = () => {
       <Main>
         <Menu/>
         <Section>
-          <Link href={"#"}>Mahsulotga qaytish</Link>
+
 
           <main
               className={" bg-white mt-[100px] rounded-[6px] p-[20px]"}
@@ -86,6 +87,12 @@ const Index = () => {
             {template === "table" && <div>
               {Object.entries(state).map((item, index) => (
                   <div key={index} className={"grid grid-cols-12 gap-x-2"}>
+                    <div className={"col-span-12"}>
+                      <Title>
+                        {get(JSON.parse(head(item)), "company_name")}
+
+                      </Title>
+                    </div>
                     <div className={'col-span-3'}>
 
                       {get(JSON.parse(head(item)), "material_image") ? <Image
@@ -105,6 +112,7 @@ const Index = () => {
 
                     </div>
                     <div className={"col-span-3"}>
+                      {/*<p>{get(JSON.parse(head(item)), "company_stir")}</p>*/}
                       <p className={"bg-[#D1E9FF] text-sm text-[#28366D] inline-flex p-2 my-[10px]"}>#{get(JSON.parse(head(item)), "material_name")}</p>
                       <p className={"text-base font-bold"}>{get(JSON.parse(head(item)), "material_description")}</p>
                     </div>
@@ -138,6 +146,12 @@ const Index = () => {
                 template === "standard" && <div>
                   {Object.entries(state).map((item, index) => (
                       <div key={index} className={"grid grid-cols-12 gap-x-2"}>
+                        <div className={"col-span-12"}>
+                          <Title>
+                            {get(JSON.parse(head(item)), "company_name")}
+                          </Title>
+                        </div>
+
 
                         <div className={"col-span-4"}>
                           <p className={"bg-[#D1E9FF] text-sm text-[#28366D] inline-flex p-2 my-[10px]"}>#{get(JSON.parse(head(item)), "material_name")}</p>
