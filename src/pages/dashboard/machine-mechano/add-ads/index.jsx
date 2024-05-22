@@ -71,7 +71,7 @@ const Ads = () => {
                           mmechano_measure
                       }) => {
         let formData = new FormData();
-        formData.append('material_name', mmechano_csr_code)
+        formData.append('mmechano_name', mmechano_csr_code)
         formData.append('mmechano_description', mmechano_description)
         formData.append('mmechano_rent_price', mmechano_rent_price)
         formData.append('mmechano_rent_price_currency', mmechano_rent_price_currency)
@@ -89,7 +89,7 @@ const Ads = () => {
             {
                 onSuccess: () => {
                     toast.success("E'lon muvaffaqiyatli joylandi", {position: 'top-center'});
-                    router.push('/dashboard/materials');
+                    router.push('/dashboard/machine-mechano');
                 },
                 onError: (error) => {
                     toast.error(`Error is ${error}`, {position: 'top-right'})
@@ -199,7 +199,7 @@ const Ads = () => {
                             defaultValue={get(machineMechano, 'mmechano_name')}
                             placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                             className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
-                            {...register('material_name', {required: true})}
+                            {...register('mmechano_name', {required: true})}
                             disabled={true}
                         />
                         <input

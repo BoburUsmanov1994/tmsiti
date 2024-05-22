@@ -12,8 +12,10 @@ import {get} from "lodash";
 import {NumericFormat} from "react-number-format";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import dayjs from "dayjs";
+import Link from "next/link";
 
 const MachineMechano = () => {
+
 
     const {data, isLoading} =useGetQuery({
         key: KEYS.myMaterials,
@@ -31,9 +33,16 @@ const MachineMechano = () => {
             render: ({index}) => <span>{index}</span>
         },
         {
-            title: 'Kodi',
-            key: 'mmechano_csr_code',
-            render: ({value}) => <span className={'text-[#28366D]'}>{value}</span>
+            title: "Kodi",
+            key: "mmechano_csr_code",
+            render: ({ value, row }) => (
+                <Link
+                    className={"underline"}
+                    href={`/materials/${get(row, "mmechano_csr_code")}`}
+                >
+                    <span className={"text-[#28366D]"}>{value}</span>
+                </Link>
+            ),
         },
         {
             title: 'Nomi',
@@ -41,7 +50,7 @@ const MachineMechano = () => {
         },
         {
             title: 'Narxi',
-            key: 'mmechano_price',
+            key: 'mmechano_rent_price',
             render: ({
                          value,
                          row
