@@ -83,7 +83,7 @@ const Ads = () => {
         formData.append('smallmechano_amount_measure', smallmechano_measure)
         formData.append('smallmechano_measure', smallmechano_measure)
         addAds({
-                url: URLS.addAds,
+                url: URLS.smallMechanoAddAds,
                 attributes: formData
             },
             {
