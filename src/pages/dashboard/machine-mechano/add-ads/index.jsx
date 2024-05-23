@@ -11,7 +11,7 @@ import {useForm} from "react-hook-form";
 import {toast} from "react-hot-toast";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {OverlayLoader} from "@/components/loader";
-import {useRouter} from 'next/navigation';
+import {useRouter} from 'next/router';
 import {motion} from "framer-motion";
 import {warn} from "next/dist/build/output/log";
 import {getDefaultValue, getOptionList} from "@/utils";
