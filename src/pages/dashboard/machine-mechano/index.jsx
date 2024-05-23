@@ -45,7 +45,7 @@ const MachineMechano = () => {
             render: ({ value, row }) => (
                 <Link
                     className={"underline"}
-                    href={`machine-mechano/${get(row, "mmechano_csr_code")}`}
+                    href={`/machine-mechano/${get(row, "mmechano_csr_code")}`}
                 >
                     <span className={"text-[#28366D]"}>{value}</span>
                 </Link>
@@ -78,7 +78,7 @@ const MachineMechano = () => {
         },
         {
             title: 'Miqdori',
-            key: 'mmechano_measure',
+            key: 'mmechano_amount',
             classnames: 'text-center'
         },
         {
@@ -166,7 +166,8 @@ const MachineMechano = () => {
                         <GridView
                             hasActionColumn
                             url={URLS.myMachineMechano}
-                            key={[KEYS.myMachineMechano,pageSize]}
+                            key={[KEYS.myMachineMechano]}
+                            params={{ value: search, key: "all" }}
                             columns={columns}
                             defaultPageSize={pageSize}
                         />

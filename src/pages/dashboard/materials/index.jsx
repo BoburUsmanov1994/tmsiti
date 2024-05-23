@@ -51,7 +51,7 @@ const Materials = () => {
       render: ({ value, row }) => (
         <Link
           className={"underline"}
-          href={`materials/${get(row, "material_code")}`}
+          href={`/materials/${get(row, "material_code")}`}
         >
           <span className={"text-[#28366D]"}>{value}</span>
         </Link>
