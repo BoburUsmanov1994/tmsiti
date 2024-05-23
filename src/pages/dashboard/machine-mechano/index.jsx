@@ -223,7 +223,7 @@ const MachineMechano = () => {
                             getCount={setCount}
                             hasActionColumn
                             url={URLS.myMachineMechano}
-                            key={[KEYS.myMachineMechano]}
+                            key={KEYS.myMachineMechano}
                             params={{value: search, key: "all"}}
                             columns={columns}
                             defaultPageSize={pageSize}
