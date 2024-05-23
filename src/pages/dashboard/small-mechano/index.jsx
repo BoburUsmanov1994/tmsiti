@@ -41,7 +41,7 @@ const Index = () => {
             render: ({ value, row }) => (
                 <Link
                     className={"underline"}
-                    href={`/materials/${get(row, "smallmechano_csr_code")}`}
+                    href={`/small-mechano/${get(row, "smallmechano_csr_code")}`}
                 >
                     <span className={"text-[#28366D]"}>{value}</span>
                 </Link>

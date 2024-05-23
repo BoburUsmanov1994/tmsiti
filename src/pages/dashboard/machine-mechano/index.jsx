@@ -106,15 +106,7 @@ const MachineMechano = () => {
                                 alt={"eye"}
                             />
                         </Link>
-                        <Link href={`${URLS.machinesMechanos}${row.id}`}>
-                            <Image
-                                src={"/icons/edit-icon.svg"}
-                                className={"mr-1.5 inline"}
-                                width={20}
-                                height={20}
-                                alt={"edit"}
-                            />
-                        </Link>
+
                         <div className={"cursor-pointer"}>
                             <Image
                                 className={"inline"}
