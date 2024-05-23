@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import Dashboard from "../../../layouts/dashboard";
 import Subheader from "../../../layouts/dashboard/components/subheader";
 import {useTranslation} from "react-i18next";
-import Search from "@/layouts/dashboard/components/search";
 import Button from "@/components/button";
 import Image from "next/image";
 import GridView from "@/containers/grid-view";
@@ -40,7 +39,7 @@ const MachineMechano = () => {
         },
         {
             title: "Kodi",
-            key: "mmechano_csr_code",
+            key: "mmechano_name",
             render: ({ value, row }) => (
                 <Link
                     className={"underline"}
@@ -77,14 +76,13 @@ const MachineMechano = () => {
         },
         {
             title: 'Miqdori',
-            key: 'mmechano_measure',
+            key: 'mmechano_amount',
             classnames: 'text-center'
         },
         {
             title: 'Joylangan vaqti',
-            key: 'mmechano_updated_date',
-            render: ({ value }) =>
-                dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
+            key: 'mmechano_created_date',
+            render: ({date}) => <span>{dayjs(get(data, `data[${get(date, 'mmechano_created_date')}]`)).format("DD.MM.YYYY, HH:mm")}</span>,
             classnames: 'text-center'
         },
 
