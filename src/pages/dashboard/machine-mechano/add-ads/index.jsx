@@ -73,7 +73,6 @@ const Ads = () => {
                           sertificate_reestr_num,
                           mmechano_owner,
                           mmechano_measure,
-
                       }) => {
         let formData = new FormData();
         formData.append('mmechano_name', mmechano_csr_code)

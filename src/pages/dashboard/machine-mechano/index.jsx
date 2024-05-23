@@ -39,11 +39,11 @@ const MachineMechano = () => {
         },
         {
             title: "Kodi",
-            key: "mmechano_name",
+            key: "mmechano_code",
             render: ({ value, row }) => (
                 <Link
                     className={"underline"}
-                    href={"/"}
+                    href={`/materials/${get(row, "mmechano_code")}`}
                 >
                     <span className={"text-[#28366D]"}>{value}</span>
                 </Link>
