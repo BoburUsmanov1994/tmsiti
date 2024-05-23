@@ -19,6 +19,7 @@ const MachineMechano = () => {
     const {t} = useTranslation();
     const [search, setSearch] = useState("");
     const [pageSize, setPageSize] = useState(20);
+    const [count, setCount] = useState(0);
     const router = useRouter();
     const { id } = router.query;
 
@@ -144,7 +145,8 @@ const MachineMechano = () => {
                     <div className={'col-span-12 flex items-center justify-between mb-[30px]'}>
                         <div className={'flex  items-center'}>
 
-                            <select className={'p-[10px] cursor-pointer'} onChange={(e)=>setPageSize(e?.target?.value)} value={pageSize}>
+                            <select className={'p-[10px] cursor-pointer'}
+                                    onChange={(e) => setPageSize(e?.target?.value)} value={pageSize}>
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="30">30</option>
@@ -205,8 +207,20 @@ const MachineMechano = () => {
                             />{t("E’lon qo’shish")}
                         </Button>
                     </div>
+                    <div className={"col-span-12 mb-[10px]"}>
+                        <p className={"text-sm text-[#516164]"}>
+                            *
+                            <NumericFormat
+                                value={count}
+                                displayType={"text"}
+                                thousandSeparator={" "}
+                            />{" "}
+                            ta natija mavjud
+                        </p>
+                    </div>
                     <div className="col-span-12 ">
                         <GridView
+                            getCount={setCount}
                             hasActionColumn
                             url={URLS.myMachineMechano}
                             key={[KEYS.myMachineMechano]}
