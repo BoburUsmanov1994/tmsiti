@@ -13,17 +13,24 @@ import {NumericFormat} from "react-number-format";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import dayjs from "dayjs";
 import Link from "next/link";
+import {useRouter} from "next/router";
 
 const MachineMechano = () => {
+    const {t} = useTranslation();
+    const [pageSize, setPageSize] = useState(20);
+    const router = useRouter();
+    const { id } = router.query;
 
-
+    const { data: currency } = useGetQuery({
+        key: KEYS.currency,
+        url: URLS.currency,
+    });
     const {data, isLoading} =useGetQuery({
         key: KEYS.myMachineMechano,
         url: URLS.myMachineMechano
     })
 
-    const {t} = useTranslation();
-    const [pageSize, setPageSize] = useState(20);
+
 
 
     const columns = [
@@ -49,16 +56,25 @@ const MachineMechano = () => {
             key: 'mmechano_name',
         },
         {
-            title: 'Narxi',
-            key: 'mmechano_rent_price',
-            render: ({
-                         value,
-                         row
-                     }) => (value * get(data, `data[${get(row, 'mmechano_rent_price_currency')}]`, 1) > 0 ?
-                <NumericFormat displayType={'text'} className={'text-center bg-transparent'}
-                               thousandSeparator={' '}
-                               value={(value * get(data, `data[${(get(row, 'mmechano_rent_price_currency'))}]`, 1)).toFixed(2)}/> : t("by_order")),
-            classnames: 'text-center'
+            title: "Narxi",
+            key: "mmechano_rent_price",
+            render: ({ value, row }) =>
+                value *
+                get(currency, `data[${get(row, "mmechano_rent_price_currency")}]`, 1) >
+                0 ? (
+                    <NumericFormat
+                        displayType={"text"}
+                        className={"text-center bg-transparent"}
+                        thousandSeparator={" "}
+                        value={(
+                            value *
+                            get(currency, `data[${get(row, "mmechano_rent_price_currency")}]`, 1)
+                        ).toFixed(2)}
+                    />
+                ) : (
+                    t("by_order")
+                ),
+            classnames: "text-center",
         },
         {
             title: 'Miqdori',
@@ -67,7 +83,7 @@ const MachineMechano = () => {
         },
         {
             title: 'Joylangan vaqti',
-            key: 'mmechano_date',
+            key: 'mmechano_updated_date',
             render: ({date}) => <span>{dayjs(get(data, `data[${get(date, 'mmechano_created_date')}]`)).format("DD.MM.YYYY, HH:mm")}</span>,
             classnames: 'text-center'
         },
@@ -79,7 +95,7 @@ const MachineMechano = () => {
                 return (
                     <div className={"flex"}>
                         <Link
-                            href={`/machine-mechano/${get(row, "material_code")}`}
+                            href={`/machine-mechano/${get(row, "mmechano_csr_code")}`}
                             className={"mr-1.5 inline"}
                         >
                             <Image
