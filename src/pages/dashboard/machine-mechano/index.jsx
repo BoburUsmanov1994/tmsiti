@@ -38,7 +38,7 @@ const MachineMechano = () => {
             render: ({ value, row }) => (
                 <Link
                     className={"underline"}
-                    href={`/materials/${get(row, "mmechano_csr_code")}`}
+                    href={`/machine-mechano/${get(row, "mmechano_csr_code")}`}
                 >
                     <span className={"text-[#28366D]"}>{value}</span>
                 </Link>
