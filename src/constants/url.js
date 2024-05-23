@@ -24,7 +24,7 @@ export const URLS = {
   logout: "api/logout",
   search: "search",
   myMaterials: "materials/ads/my/",
-  myMachineMechano: "machines-mechanos/ads/my",
+  myMachineMechano: "machines-mechanos/ads/my/",
   currency: "currency/",
   companies: "companies/",
   companyAds: "companies/ads/",
