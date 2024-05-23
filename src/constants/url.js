@@ -43,5 +43,6 @@ export const URLS = {
   aboutCompany: "companies/company_info/",
   machineMechanoAddAds: "machines-mechanos/ads/add/new",
   workAddAds: "works/ads/add/new/",
-  mySmallMechano: "small-mechanos/ads/my"
+  mySmallMechano: "small-mechanos/ads/my",
+  smallMechanoAddAds: "small-mechanos/ads/add/new"
 };
