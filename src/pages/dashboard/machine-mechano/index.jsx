@@ -38,7 +38,7 @@ const MachineMechano = () => {
             render: ({ value, row }) => (
                 <Link
                     className={"underline"}
-                    href={`#`}
+                    href={`machine-mechano/${get(row, "mmechano_csr_code")}`}
                 >
                     <span className={"text-[#28366D]"}>{value}</span>
                 </Link>
@@ -70,6 +70,47 @@ const MachineMechano = () => {
             key: 'mmechano_date',
             render: ({date}) => <span>{dayjs(get(data, `data[${get(date, 'mmechano_created_date')}]`)).format("DD.MM.YYYY, HH:mm")}</span>,
             classnames: 'text-center'
+        },
+
+        {
+            title: "Action",
+            key: "action",
+            render: ({ row }) => {
+                return (
+                    <div className={"flex"}>
+                        <Link
+                            href={`/machine-mechano/${get(row, "material_code")}`}
+                            className={"mr-1.5 inline"}
+                        >
+                            <Image
+                                className={"inline"}
+                                width={20}
+                                height={20}
+                                src={"/icons/eye-icon.svg"}
+                                alt={"eye"}
+                            />
+                        </Link>
+                        <Link href={`${URLS.machinesMechanos}${row.id}`}>
+                            <Image
+                                src={"/icons/edit-icon.svg"}
+                                className={"mr-1.5 inline"}
+                                width={20}
+                                height={20}
+                                alt={"edit"}
+                            />
+                        </Link>
+                        <div className={"cursor-pointer"}>
+                            <Image
+                                className={"inline"}
+                                width={20}
+                                height={20}
+                                src={"/icons/trash-icon.svg"}
+                                alt={"trash"}
+                            />
+                        </div>
+                    </div>
+                );
+            },
         },
         // {
         //     title: 'Ko’rildi',

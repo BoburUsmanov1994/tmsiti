@@ -51,7 +51,7 @@ const Materials = () => {
       render: ({ value, row }) => (
         <Link
           className={"underline"}
-          href={`/materials/${get(row, "material_code")}`}
+          href={`materials/${get(row, "material_code")}`}
         >
           <span className={"text-[#28366D]"}>{value}</span>
         </Link>
@@ -112,7 +112,7 @@ const Materials = () => {
                 alt={"eye"}
               />
             </Link>
-            <Link href={`${URLS.materials}/${row.id}`}>
+            <Link href={`${URLS.materials}${row.id}`}>
               <Image
                 src={"/icons/edit-icon.svg"}
                 className={"mr-1.5 inline"}
