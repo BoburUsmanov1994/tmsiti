@@ -130,7 +130,7 @@ const Index = () => {
         <Dashboard>
             <Subheader title={'Kichik mexanizatsiya'}/>
             <div className="p-7">
-                {isLoadingDeActivate && <OverlayLoader/>}
+
                 <div className="grid grid-cols-12">
                     <div
                         className={
