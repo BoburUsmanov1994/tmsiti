@@ -37,11 +37,11 @@ const Index = () => {
         },
         {
             title: "Kodi",
-            key: "smallmechano_csr_code",
+            key: "smallmechano_code",
             render: ({ value, row }) => (
                 <Link
                     className={"underline"}
-                    href={`/small-mechano/${get(row, "smallmechano_csr_code")}`}
+                    href={`/small-mechano/${get(row, "smallmechano_code")}`}
                 >
                     <span className={"text-[#28366D]"}>{value}</span>
                 </Link>

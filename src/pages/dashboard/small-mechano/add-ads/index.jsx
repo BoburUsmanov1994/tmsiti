@@ -142,9 +142,9 @@ const Ads = () => {
                         <Select
                             isClearable
                             placeholder={'nomni rus tilida kiriting'}
-                            options={get(smallMechanos, 'data.results', []).map(smallMechano => ({
-                                value: get(smallMechano, 'mmechano_csr_code'),
-                                label: get(smallMechano, 'mmechano_name')
+                            options={get(smallMechanos, 'data.results', []).map(item => ({
+                                value: get(item, 'smallmechano_csr_code'),
+                                label: get(item, 'smallmechano_name')
                             }))}
                             defaultValue={search}
                             onChange={(val)=>setSmallMechanoValue(get(val,'value'))}
