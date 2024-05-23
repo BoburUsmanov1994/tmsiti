@@ -27,10 +27,7 @@ const MachineMechano = () => {
         key: KEYS.currency,
         url: URLS.currency,
     });
-    const {data, isLoading} =useGetQuery({
-        key: KEYS.myMachineMechano,
-        url: URLS.myMachineMechano
-    })
+
 
 
 
@@ -47,7 +44,7 @@ const MachineMechano = () => {
             render: ({ value, row }) => (
                 <Link
                     className={"underline"}
-                    href={`/machine-mechano/${get(row, "mmechano_csr_code")}`}
+                    href={"/"}
                 >
                     <span className={"text-[#28366D]"}>{value}</span>
                 </Link>
@@ -98,7 +95,7 @@ const MachineMechano = () => {
                 return (
                     <div className={"flex"}>
                         <Link
-                            href={`/machine-mechano/${get(row, "mmechano_csr_code")}`}
+                            href={`/`}
                             className={"mr-1.5 inline"}
                         >
                             <Image

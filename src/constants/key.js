@@ -39,5 +39,6 @@ export const KEYS = {
   regionFilter: "regionFilter",
   aboutCompany: "aboutCompany",
   machineMechanoAddAds: "machineMechanoAddAds",
-  myMachineMechano: "myMachineMechano"
+  myMachineMechano: "myMachineMechano",
+  mySmallMechano: "mySmallMechano"
 };
