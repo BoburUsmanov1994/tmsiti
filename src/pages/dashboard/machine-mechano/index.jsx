@@ -2,23 +2,24 @@ import React, {useState} from 'react';
 import Dashboard from "../../../layouts/dashboard";
 import Subheader from "../../../layouts/dashboard/components/subheader";
 import {useTranslation} from "react-i18next";
-import Button from "@/components/button";
-import Image from "next/image";
-import GridView from "@/containers/grid-view";
-import {URLS} from "@/constants/url";
+import {useRouter} from "next/router";
+import useGetQuery from "@/hooks/api/useGetQuery";
 import {KEYS} from "@/constants/key";
+import {URLS} from "@/constants/url";
+import Link from "next/link";
 import {get} from "lodash";
 import {NumericFormat} from "react-number-format";
-import useGetQuery from "@/hooks/api/useGetQuery";
 import dayjs from "dayjs";
-import Link from "next/link";
-import {useRouter} from "next/router";
+import Image from "next/image";
+import {OverlayLoader} from "@/components/loader";
+import Button from "@/components/button";
+import GridView from "@/containers/grid-view";
 
-const MachineMechano = () => {
-    const {t} = useTranslation();
-    const [search, setSearch] = useState("");
+const Index = () => {
+    const { t } = useTranslation();
     const [pageSize, setPageSize] = useState(20);
     const [count, setCount] = useState(0);
+    const [search, setSearch] = useState("");
     const router = useRouter();
     const { id } = router.query;
 
@@ -28,14 +29,11 @@ const MachineMechano = () => {
     });
 
 
-
-
-
     const columns = [
         {
-            title: '№',
-            key: 'id',
-            render: ({index}) => <span>{index}</span>
+            title: "№",
+            key: "id",
+            render: ({ index }) => <span>{index}</span>,
         },
         {
             title: "Kodi",
@@ -43,15 +41,15 @@ const MachineMechano = () => {
             render: ({ value, row }) => (
                 <Link
                     className={"underline"}
-                    href={`/materials/${get(row, "mmechano_code")}`}
+                    href={`/machine-mechano/${get(row, "mmechano_code")}`}
                 >
                     <span className={"text-[#28366D]"}>{value}</span>
                 </Link>
             ),
         },
         {
-            title: 'Nomi',
-            key: 'mmechano_name',
+            title: "Nomi",
+            key: "mmechano_name",
         },
         {
             title: "Narxi",
@@ -75,18 +73,17 @@ const MachineMechano = () => {
             classnames: "text-center",
         },
         {
-            title: 'Miqdori',
-            key: 'mmechano_amount',
-            classnames: 'text-center'
+            title: "Miqdori",
+            key: "mmechano_measure",
+            classnames: "text-center",
         },
         {
-            title: 'Joylangan vaqti',
-            key: 'mmechano_created_date',
+            title: "Joylangan vaqti",
+            key: "mmechano_updated_date",
             render: ({ value }) =>
                 dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
-            classnames: 'text-center'
+            classnames: "text-center",
         },
-
         {
             title: "Action",
             key: "action",
@@ -94,7 +91,7 @@ const MachineMechano = () => {
                 return (
                     <div className={"flex"}>
                         <Link
-                            href={`/`}
+                            href={`/machine-mechano/${get(row, "mmechano_code")}`}
                             className={"mr-1.5 inline"}
                         >
                             <Image
@@ -105,7 +102,15 @@ const MachineMechano = () => {
                                 alt={"eye"}
                             />
                         </Link>
-
+                        <Link href={`${URLS.smallMechanos}${row.id}`}>
+                            <Image
+                                src={"/icons/edit-icon.svg"}
+                                className={"mr-1.5 inline"}
+                                width={20}
+                                height={20}
+                                alt={"edit"}
+                            />
+                        </Link>
                         <div className={"cursor-pointer"}>
                             <Image
                                 className={"inline"}
@@ -119,28 +124,31 @@ const MachineMechano = () => {
                 );
             },
         },
-        // {
-        //     title: 'Ko’rildi',
-        //     key: 'material_views_count',
-        //     classnames: 'text-center'
-        // },
-    ]
+    ];
+
     return (
         <Dashboard>
-            <Subheader title={'Mashina va mexanizmlar'}/>
+            <Subheader title={'Mashina va Mexanizatsiya'}/>
             <div className="p-7">
-                <div className="grid grid-cols-12">
-                    <div className={'col-span-12 flex items-center justify-between mb-[30px]'}>
-                        <div className={'flex  items-center'}>
 
-                            <select className={'p-[10px] cursor-pointer'}
-                                    onChange={(e) => setPageSize(e?.target?.value)} value={pageSize}>
+                <div className="grid grid-cols-12">
+                    <div
+                        className={
+                            "col-span-12 flex items-center justify-between mb-[30px]"
+                        }
+                    >
+                        <div className={"flex  items-center gap-x-[30px]"}>
+                            <select
+                                className={"p-[10px] cursor-pointer"}
+                                onChange={(e) => setPageSize(e?.target?.value)}
+                                value={pageSize}
+                            >
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="30">30</option>
                             </select>
 
-                            <span className={'ml-[10px]'}> {t("tadan ko'rish")} </span>
+                            <span className={"ml-[10px]"}> {t("tadan ko'rish")} </span>
 
                             <div className={"w-[370px] h-[40px] flex relative "}>
                                 <input
@@ -186,13 +194,20 @@ const MachineMechano = () => {
                             </div>
                         </div>
 
-                        <Button url={'/dashboard/machine-mechano/add-ads'}
-                                className={'bg-[#1890FF] text-white !border-[#1890FF]  inline-flex items-center'}>
-
+                        <Button
+                            url={"/dashboard/machine-mechano/add-ads"}
+                            className={
+                                "bg-[#1890FF] text-white !border-[#1890FF]  inline-flex items-center"
+                            }
+                        >
                             <Image
-                                className={'mr-1.5'} width={20} height={40} src={'/icons/plus.svg'}
-                                alt={'plus'}
-                            />{t("E’lon qo’shish")}
+                                className={"mr-1.5"}
+                                width={20}
+                                height={40}
+                                src={"/icons/plus.svg"}
+                                alt={"plus"}
+                            />
+                            {t("E’lon qo’shish")}
                         </Button>
                     </div>
                     <div className={"col-span-12 mb-[10px]"}>
@@ -209,12 +224,11 @@ const MachineMechano = () => {
                     <div className="col-span-12 ">
                         <GridView
                             getCount={setCount}
-                            hasActionColumn
                             url={URLS.myMachineMechano}
                             key={KEYS.myMachineMechano}
-                            params={{value: search, key: "all"}}
                             columns={columns}
                             defaultPageSize={pageSize}
+                            params={{value: search, key: "all"}}
                         />
                     </div>
                 </div>
@@ -223,4 +237,4 @@ const MachineMechano = () => {
     );
 };
 
-export default MachineMechano;
+export default Index;
