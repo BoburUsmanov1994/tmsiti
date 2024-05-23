@@ -89,8 +89,9 @@ const Materials = () => {
     },
     {
       title: "Joylangan vaqti",
-      key: "material_created_date",
-      render: ({date}) => <span>{dayjs(get(data, `data[${get(date, 'material_created_date')}]`)).format("DD.MM.YYYY, HH:mm")}</span>,
+      key: "material_updated_date",
+      render: ({ value }) =>
+        dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
       classnames: "text-center",
     },
     {

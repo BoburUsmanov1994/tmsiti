@@ -82,7 +82,8 @@ const MachineMechano = () => {
         {
             title: 'Joylangan vaqti',
             key: 'mmechano_created_date',
-            render: ({date}) => <span>{dayjs(get(data, `data[${get(date, 'mmechano_created_date')}]`)).format("DD.MM.YYYY, HH:mm")}</span>,
+            render: ({ value }) =>
+                dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
             classnames: 'text-center'
         },
 
