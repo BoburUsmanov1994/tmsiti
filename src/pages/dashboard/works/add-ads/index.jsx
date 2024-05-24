@@ -101,7 +101,7 @@ const Ads = () => {
 
     return (
         <Dashboard>
-            <Subheader title={'Kichik mexanizatsiya e’lonini qo’shish'}/>
+            <Subheader title={'Qurilish ishlari e\'lonini qo\'yishQurilish ishlari e\'lonini qo\'yish '}/>
             <div className="p-7">
 
                 <form className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>

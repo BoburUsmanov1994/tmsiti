@@ -42,8 +42,8 @@ export const URLS = {
   regionFilter: "materials/region_filter/",
   aboutCompany: "companies/company_info/",
   machineMechanoAddAds: "machines-mechanos/ads/add/new",
-  workAddAds: "works/ads/add/new/",
-  myWork: "works/ads/my",
-  mySmallMechano: "small-mechanos/ads/my",
+  workAddAds: "works/ads/add/new",
+  myWork: "works/ads/my/",
+  mySmallMechano: "small-mechanos/ads/my/",
   smallMechanoAddAds: "small-mechanos/ads/add/new"
 };

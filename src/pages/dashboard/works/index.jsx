@@ -41,7 +41,7 @@ const Index = () => {
             render: ({ value, row }) => (
                 <Link
                     className={"underline"}
-                    href={`/work/${get(row, "work_code")}`}
+                    href={`/works/${get(row, "work_code")}`}
                 >
                     <span className={"text-[#28366D]"}>{value}</span>
                 </Link>
@@ -91,7 +91,7 @@ const Index = () => {
                 return (
                     <div className={"flex"}>
                         <Link
-                            href={`/materials/${get(row, "work_code")}`}
+                            href={`/works/${get(row, "work_code")}`}
                             className={"mr-1.5 inline"}
                         >
                             <Image
