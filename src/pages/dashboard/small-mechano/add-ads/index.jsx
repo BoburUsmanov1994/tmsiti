@@ -165,7 +165,7 @@ const Ads = () => {
 
 
                     {/*  material kategoriyasi  */}
-                    <div className={'col-span-12  gap-x-[30px]'}>
+                    <div className={'col-span-12  gap-x-[30px] mt-[30px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Kichik mexanizatsiyalar kategoriyasi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
@@ -178,7 +178,7 @@ const Ads = () => {
 
                     {/*  material guruhi  */}
 
-                    <div className={'col-span-12   gap-x-[30px]'}>
+                    <div className={'col-span-12   gap-x-[30px] mt-[20px]'}>
 
                         <h4 className={'text-[#28366D] text-base '}>Kichik mexanizatsiyalar guruhi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
@@ -192,7 +192,7 @@ const Ads = () => {
 
                     {/*  material nomi  */}
 
-                    <div className={'col-span-12  gap-x-[30px]'}>
+                    <div className={'col-span-12  gap-x-[30px] mt-[20px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Kichik mexanizatsiyalar nomi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
