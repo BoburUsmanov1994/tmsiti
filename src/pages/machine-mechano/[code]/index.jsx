@@ -9,7 +9,7 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
 import Image from "next/image";
-import { get } from "lodash";
+import {get, head, values} from "lodash";
 import Select from "@/components/select";
 import GridView from "@/containers/grid-view";
 import { NumericFormat } from "react-number-format";
@@ -18,6 +18,9 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { getOptionList } from "@/utils";
 import Link from "next/link";
+import {useCounter} from "@/context/counter";
+import {sum} from "lodash/math";
+import {last} from "lodash/array";
 
 const ViewPage = () => {
   const router = useRouter();
@@ -29,6 +32,15 @@ const ViewPage = () => {
     key: KEYS.currency,
     url: URLS.currency,
   });
+
+  const { state, dispatch } = useCounter();
+
+  const handleIncrement = (product) => {
+    console.log("product", product, JSON.stringify(product));
+    dispatch({ type: "INCREMENT", payload: JSON.stringify(product) });
+  };
+
+
   const {
     data: material,
     isLoading,
@@ -191,44 +203,52 @@ const ViewPage = () => {
     {
       title: t("Action"),
       key: "action",
-      render: () => (
-        <div className={"flex items-center"}>
-          <Image
-            className={"mx-auto cursor-pointer"}
-            width={24}
-            height={24}
-            src={"/images/shopping.png"}
-            alt={"certificate"}
-          />
-          <Image
-            className={"mx-auto cursor-pointer"}
-            width={24}
-            height={24}
-            src={"/icons/stick.svg"}
-            alt={"certificate"}
-          />
-        </div>
+      render: ({value, row}) => (
+          <div className={"flex items-center justify-between gap-x-4 relative"}>
+            <Image
+                onClick={() => handleIncrement(row)}
+                className={"mx-auto cursor-pointer"}
+                width={24}
+                height={24}
+                src={"/images/shopping.png"}
+                alt={"certificate"}
+            />
+            <span
+                className={
+                  "absolute p-1 bg-[#1890FF] text-sm rounded-full text-white w-5 h-5 inline-flex justify-center items-center -top-[8px] right-[22px]"
+                }
+            >
+                  {sum(values(state))}
+                </span>
+            <Image
+                className={"mx-auto cursor-pointer"}
+                width={24}
+                height={24}
+                src={"/icons/stick.svg"}
+                alt={"certificate"}
+            />
+          </div>
       ),
       classnames: "text-center",
     },
   ];
   if (isError) {
-    return <ErrorPage />;
+    return <ErrorPage/>;
   }
 
   if (isLoading) {
     return (
-      <Main>
-        <ContentLoader />
-      </Main>
+        <Main>
+          <ContentLoader/>
+        </Main>
     );
   }
 
   return (
-    <>
-      <Main>
-        <Menu active={2} />
-        <Section className={"!bg-white"}>
+      <>
+        <Main>
+          <Menu active={2}/>
+          <Section className={"!bg-white"}>
           <div className="grid grid-cols-12">
             <div className="tablet:col-span-5 col-span-12  items-center flex justify-center tablet:items-start tablet:justify-start relative h-64">
               {get(material, "data.mmechano_image") ? (

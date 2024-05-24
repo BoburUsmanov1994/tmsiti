@@ -9,7 +9,7 @@ const ContentLoader = ({classNames=''}) => {
             <motion.div  transition={{ repeat: Infinity, repeatDelay: 0.25 }}  animate={{
                 scale: [1, 1, 1, 1, 1],
                 rotate: [0, 0, 270, 270, 0],
-            }}><Image width={125} height={125} src={'/images/loader.png'} alt={'loader'}/></motion.div>
+            }}><Image width={125} height={125} src={'/images/loader.png'} priority={true} alt={'loader'}/></motion.div>
         </div>
     );
 };

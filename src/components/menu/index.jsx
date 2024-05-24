@@ -75,7 +75,7 @@ const Menu = ({ active = 0 }) => {
         className={`container text-[#8D97AD] tablet:flex tablet:text-xs laptop:text-sm desktop:text-base hidden  justify-between`}
       >
         {menuData.map((item) => (
-          <li className={"dropdown relative "}>
+          <li key={get(item, "id")} className={"dropdown relative "}>
             <Link
               className={clsx(
                 `hover:text-white transition-all border-b border-b-transparent font-medium`,
@@ -133,7 +133,7 @@ const Menu = ({ active = 0 }) => {
         } container text-[#8D97AD] flex-col items-center gap-y-[10px] justify-between`}
       >
         {menuData.map((item) => (
-          <li className={"dropdown relative"}>
+          <li key={get(item, "id")} className={"dropdown relative"}>
             <Link
               className={clsx(
                 "hover:text-white transition-all border-b border-b-transparent font-medium",

@@ -1,6 +1,6 @@
 import create from 'zustand'
 import {devtools, persist} from "zustand/middleware";
-import {config} from "../config";
+import {config} from "@/config";
 
 
 let store = (set) => ({

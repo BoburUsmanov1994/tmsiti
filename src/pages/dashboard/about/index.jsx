@@ -5,7 +5,8 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import {URLS} from "@/constants/url";
 import {KEYS} from "@/constants/key";
 import ContentLoader from "@/components/loader/content-loader";
-import {get} from "lodash";
+import {get, isNull} from "lodash";
+import Image from "next/image";
 
 const Index = () => {
 
@@ -23,13 +24,21 @@ const Index = () => {
       {isLoading && <ContentLoader/>}
       <div className="p-7">
         {
-          get(data, 'data.results', []).map(item =>
+          get(data, 'data', []).map(item =>
               <div className={" flex gap-x-[30px] mb-[50px]"}>
                 <div className={" min-w-[250px]  "}>
-                  <img
-                      className={"w-[240px] h-[170px] object-cover"}
-                      src={"/images/company.png"}
-                  />
+                  {isNull(get(item, "company_logo")) ?
+                      <img
+                          className={"w-[240px] h-[170px] object-cover"}
+                          src={"/images/company.png"}
+                      />
+                      : <Image
+                          className={"w-[240px] h-[170px] object-cover"}
+                          loader={() => get(company, "data.company_logo")}
+                          src={get(company, "data.company_logo")}
+                          unoptimized={true}
+                      />
+                  }
                 </div>
 
                 <div>

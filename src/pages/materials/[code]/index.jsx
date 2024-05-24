@@ -9,7 +9,7 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
 import Image from "next/image";
-import { get, isEmpty, isEqual } from "lodash";
+import {get, isEmpty, isEqual, values} from "lodash";
 import Select from "@/components/select";
 import GridView from "@/containers/grid-view";
 import { NumericFormat } from "react-number-format";
@@ -17,7 +17,8 @@ import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { getOptionList } from "@/utils";
 import Link from "next/link";
-import {useCounter} from "../../../context/counter";
+import {useCounter} from "@/context/counter";
+import {sum} from "lodash/math";
 
 const ViewPage = () => {
   const router = useRouter();
@@ -219,47 +220,54 @@ const ViewPage = () => {
       title: t("Action"),
       key: "action",
       render: ({value,row}) => (
-        <div className={"flex items-center"}>
-          <Image
-              onClick={()=>handleIncrement(row)}
-            className={
-              "mx-auto cursor-pointer laptop:w-[24px] laptop:h-[24px] tablet:w-[21px] tablet:h-[21px] w-[18px] h-[18px] "
-            }
-            width={24}
-            height={24}
-            src={"/images/shopping.png"}
-            alt={"certificate"}
-          />
-          <Image
-            className={
-              "mx-auto cursor-pointer laptop:w-[24px] laptop:h-[24px] tablet:w-[21px] tablet:h-[21px] w-[18px] h-[18px]"
-            }
-            width={24}
-            height={24}
-            src={"/icons/stick.svg"}
-            alt={"certificate"}
-          />
-        </div>
+          <div className={"flex items-center relative gap-x-4"}>
+            <Image
+                onClick={() => handleIncrement(row)}
+                className={
+                  "mx-auto cursor-pointer laptop:w-[24px] laptop:h-[24px] tablet:w-[21px] tablet:h-[21px] w-[18px] h-[18px] "
+                }
+                width={24}
+                height={24}
+                src={"/images/shopping.png"}
+                alt={"certificate"}
+            />
+            <span
+                className={
+                  "absolute p-1 bg-[#1890FF] text-sm rounded-full text-white w-5 h-5 inline-flex justify-center items-center -top-[5px] right-[32px]"
+                }
+            >
+                  {sum(values(state))}
+                </span>
+            <Image
+                className={
+                  "mx-auto cursor-pointer laptop:w-[24px] laptop:h-[24px] tablet:w-[21px] tablet:h-[21px] w-[18px] h-[18px]"
+                }
+                width={24}
+                height={24}
+                src={"/icons/stick.svg"}
+                alt={"certificate"}
+            />
+          </div>
       ),
       classnames: "text-center",
     },
   ];
   if (isError) {
-    return <ErrorPage />;
+    return <ErrorPage/>;
   }
 
   if (isLoading || isLoadingRegion || isLoadingDistrict) {
     return (
-      <Main>
-        <ContentLoader />
-      </Main>
+        <Main>
+          <ContentLoader/>
+        </Main>
     );
   }
   return (
-    <>
-      <Main>
-        <Menu active={1} />
-        <Section className={"!bg-white"}>
+      <>
+        <Main>
+          <Menu active={1}/>
+          <Section className={"!bg-white"}>
           <div className="grid grid-cols-12 tablet:gap-x-10 gap-x-4">
             <div
                 className="tablet:col-span-5 col-span-12  items-center flex justify-center tablet:items-start tablet:justify-start relative h-64">

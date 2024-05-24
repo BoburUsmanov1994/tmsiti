@@ -23,7 +23,6 @@ const GridMakeOrder = () => {
     url: `${URLS.companyAds}${stir}/`,
     params: {
       page,
-
       sort_by: sort,
       page_size: pageSize,
     },

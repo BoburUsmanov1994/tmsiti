@@ -25,6 +25,7 @@ const Category = ({
         className={
           "laptop:w-[38px] laptop:h-[38px] tablet:w-[34px] tablet:h-[34px] w-[30px] h-[30px]"
         }
+
       />
       <h4 className={"ml-3 laptop:text-sm tablet:text-xs text-[10px]"}>
         {get(data, name)}

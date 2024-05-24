@@ -22,7 +22,7 @@ const Template = ({ handleClickFormat = () => {}, active = 0 }) => {
               d="M7.3335 11H17.4168"
               stroke="currentColor"
               strokeWidth="2.75"
-              stroke-linecap="round"
+              strokeLinecap="round"
               strokeLinejoin="round"
             />
             <path
