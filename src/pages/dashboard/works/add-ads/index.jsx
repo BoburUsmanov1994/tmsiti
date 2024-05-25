@@ -51,7 +51,7 @@ const Ads = () => {
 
     useEffect(() => {
         if (!isEmpty(head(get(works, 'data.results', [])))) {
-            setWork(find(get(works, 'data.results', []), ({work_csr_code}) => work_csr_code === work))
+            setWork(find(get(works, 'data.results', []), ({work_csr_code}) => work_csr_code === workValue))
         }
     }, [works, workValue])
 
@@ -101,7 +101,7 @@ const Ads = () => {
 
     return (
         <Dashboard>
-            <Subheader title={'Qurilish ishlari e\'lonini qo\'yishQurilish ishlari e\'lonini qo\'yish '}/>
+            <Subheader title={'Qurilish ishlari e\'lonini qo\'yish '}/>
             <div className="p-7">
 
                 <form className={'grid grid-cols-12 gap-x-[30px]'} onSubmit={handleSubmit(onSubmit)}>
@@ -159,9 +159,6 @@ const Ads = () => {
 
                     </div>
 
-
-
-                    {/*  material kategoriyasi  */}
                     <div className={'col-span-12  gap-x-[30px] mt-[30px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Qurilish ishlari kategoriyasi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
@@ -172,8 +169,6 @@ const Ads = () => {
                             disabled={true}
                         />
                     </div>
-
-                    {/*  material guruhi  */}
 
                     <div className={'col-span-12   gap-x-[30px]'}>
 
@@ -187,7 +182,7 @@ const Ads = () => {
                         />
                     </div>
 
-                    {/*  material nomi  */}
+
 
                     <div className={'col-span-12  gap-x-[30px]'}>
                         <h4 className={'text-[#28366D] text-base'}>Qurilish ishlari nomi</h4>
@@ -209,7 +204,7 @@ const Ads = () => {
 
                     </div>
 
-                    {/* Material tavsifi */}
+
                     <div className={'col-span-12 gap-x-[30px]'}>
                         <h4 className={'text-[#28366D] text-base my-[10px]'}>Qurilish ishlari tavsifi</h4>
                         <textarea {...register('work_description')} rows={5}
@@ -217,7 +212,7 @@ const Ads = () => {
                     </div>
 
 
-                    {/* Material narxi */}
+
                     <div className={'col-span-6 '}>
                         <h4 className={'text-[#28366D] text-base '}>Qurilish ishlari narxi</h4>
                         <div className={'flex items-center rounded-[5px]'}>
