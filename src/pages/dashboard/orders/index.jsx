@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useTransition} from 'react';
 import Dashboard from "@/layouts/dashboard";
 import Subheader from "@/layouts/dashboard/components/subheader";
 import Link from "next/link";
 import {get} from "lodash";
+import {useTranslation} from "react-i18next";
 
 const Index = () => {
-
+    const { t } = useTranslation();
 
     const columns =[
         {
