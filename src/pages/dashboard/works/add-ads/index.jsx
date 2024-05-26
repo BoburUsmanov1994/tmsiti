@@ -23,7 +23,7 @@ const Ads = () => {
     const [warning, setWarning] = useState(false)
     const {register, handleSubmit, formState: {errors}} = useForm({values: work})
     const router = useRouter();
-    const { id } = router.query;
+
 
 
     const [file, setFile] = useState();

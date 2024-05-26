@@ -133,26 +133,26 @@ const Header = (toggleMenu) => {
                   alt={"map"}
                   src={"/icons/user.svg"}
                 />
-                {/*<button className={"block text-base bg-transparent"}>*/}
-                {/*  <Link href={"/dashboard"}>sign in</Link>*/}
-                {/*</button>*/}
-                {!get(session, "user.token") ? <button className={"text-lg"}>
-                      <Link href={"/select-position"}>Ro'yxatdan o'tish</Link>
-                    </button> :
-                    <div>
-                      <button
-                          onClick={() => router.push("/dashboard")}
-                          className={"block text-base bg-transparent"}
-                      >
-                        Kabinetga kirish
-                      </button>
-                      <button
-                          className={"block text-base"}
-                          onClick={() => signOut()}
-                      >
-                        {t("Logout")}
-                      </button>
-                    </div>}
+                <button className={"block text-base bg-transparent"}>
+                  <Link href={"/dashboard"}>sign in</Link>
+                </button>
+                {/*{!get(session, "user.token") ? <button className={"text-lg"}>*/}
+                {/*      <Link href={"/select-position"}>Ro'yxatdan o'tish</Link>*/}
+                {/*    </button> :*/}
+                {/*    <div>*/}
+                {/*      <button*/}
+                {/*          onClick={() => router.push("/dashboard")}*/}
+                {/*          className={"block text-base bg-transparent"}*/}
+                {/*      >*/}
+                {/*        Kabinetga kirish*/}
+                {/*      </button>*/}
+                {/*      <button*/}
+                {/*          className={"block text-base"}*/}
+                {/*          onClick={() => signOut()}*/}
+                {/*      >*/}
+                {/*        {t("Logout")}*/}
+                {/*      </button>*/}
+                {/*    </div>}*/}
                 {/*{!get(session, "user.token") ? (*/}
                 {/*    <div>*/}
                 {/*      <button*/}
