@@ -70,18 +70,20 @@ const Index = () => {
     const onSubmit = ({
 
                           mmechano_description,
-                          mmechano_price,
-                          mmechano_price_currency,
+                          mmechano_rent_price,
+                          mmechano_rent_price_currency,
                           mmechano_amount,
                           sertificate_blank_num,
                           sertificate_reestr_num,
                           mmechano_measure,
+                          mmechano_owner
+
                       }) => {
         let formData = new FormData();
 
         formData.append("mmechano_description", mmechano_description);
-        formData.append("mmechano_price", mmechano_price);
-        formData.append("mmechano_price_currency", mmechano_price_currency);
+        formData.append("mmechano_rent_price", mmechano_rent_price);
+        formData.append("mmechano_rent_price_currency", mmechano_rent_price_currency);
 
         formData.append("mmechano_amount", mmechano_amount);
         formData.append("sertificate_blank_num", sertificate_blank_num);
@@ -89,6 +91,7 @@ const Index = () => {
 
         formData.append("mmechano_amount", mmechano_amount);
         formData.append("mmechano_measure", mmechano_measure);
+        formData.append("mmechano_owner", mmechano_owner)
         editAdds(
             {
                 url: `${URLS.updateMachineMechano}${id}/`,
@@ -193,6 +196,13 @@ const Index = () => {
                                 "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
                             }
                         ></textarea>
+
+                        <input
+                            placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
+                            className={'hidden'} value={1}
+                            {...register('mmechano_owner', {required: true})}
+
+                        />
                     </div>
 
                     {/* Material narxi */}
@@ -264,6 +274,7 @@ const Index = () => {
                             {...register("mmechano_amount_measure")}
                             disabled={true}
                         />
+
                     </div>
 
                     {/*Material rasmi*/}
