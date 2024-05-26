@@ -26,12 +26,6 @@ const Index = () => {
     const { id } = router.query;
 
 
-    const [file, setFile] = useState();
-
-    function handleChange(e) {
-        console.log(e.target.files);
-        setFile(URL.createObjectURL(e.target.files[0]));
-    }
 
     const { data: oldData } = useGetOneQuery({
         key: "work-one",
@@ -92,7 +86,7 @@ const Index = () => {
         formData.append('sertificate_reestr_num', sertificate_reestr_num)
         formData.append('work_owner', work_owner)
         formData.append('work_measure', work_measure)
-        addAds({
+        editAdds({
                 url: `${URLS.updateWork}${id}/`,
                 attributes: formData
             },
