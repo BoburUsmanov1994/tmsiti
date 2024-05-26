@@ -49,5 +49,7 @@ export const URLS = {
   deactivateMachineMechano: "machines-mechanos/ads/deactivate",
   updateMachineMechano: "machines-mechanos/update/",
   updateSmallMechano: "small-mechanos/update/",
-  deactivateSmallMechano: "small-mechanos/ads/deactivate",
+  deactivateSmallMechano: "small-mechanos/ads/delete",
+  deactivateWork: "works/ads/delete",
+  updateWork: "works/update/"
 };
