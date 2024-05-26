@@ -95,7 +95,7 @@ const Ads = () => {
         formData.append('work_owner', work_owner)
         formData.append('work_measure', work_measure)
         addAds({
-                url: URLS.workAddAds,
+                url: `${URLS.updateWork}${id}/`,
                 attributes: formData
             },
             {
@@ -187,7 +187,7 @@ const Ads = () => {
                     {/* Material tavsifi */}
                     <div className={"col-span-12 gap-x-[30px]"}>
                         <h4 className={"text-[#28366D] text-base my-[10px]"}>
-                            Kichik mexanizmlar tavsifi
+                            Qurilish ishlari tavsifi
                         </h4>
                         <textarea
                             {...register("work_description")}
