@@ -47,5 +47,7 @@ export const URLS = {
   mySmallMechano: "small-mechanos/ads/my/",
   smallMechanoAddAds: "small-mechanos/ads/add/new",
   deactivateMachineMechano: "machines-mechanos/ads/deactivate",
-  updateMachineMechano: "machines-mechanos/update/"
+  updateMachineMechano: "machines-mechanos/update/",
+  updateSmallMechano: "small-mechanos/update/",
+  deactivateSmallMechano: "small-mechanos/ads/deactivate",
 };

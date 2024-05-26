@@ -7,19 +7,22 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 import Link from "next/link";
-import {get} from "lodash";
+import {get, isNil} from "lodash";
 import {NumericFormat} from "react-number-format";
 import dayjs from "dayjs";
 import Image from "next/image";
 import {OverlayLoader} from "@/components/loader";
 import Button from "@/components/button";
 import GridView from "@/containers/grid-view";
+import {toast} from "react-hot-toast";
+import usePutQuery from "@/hooks/api/usePutQuery";
 
 const Index = () => {
     const { t } = useTranslation();
     const [pageSize, setPageSize] = useState(20);
     const [count, setCount] = useState(0);
     const [search, setSearch] = useState("");
+    const [itemId, setItemId] = useState(null);
     const router = useRouter();
     const { id } = router.query;
 
@@ -27,6 +30,33 @@ const Index = () => {
         key: KEYS.currency,
         url: URLS.currency,
     });
+
+    const { mutate: deactivateRequest, isLoading: isLoadingDeActivate } =
+        usePutQuery({
+            listKeyId: KEYS.mySmallMechano,
+        });
+
+
+    const deActivate = (_id) => {
+        if (_id) {
+            deactivateRequest(
+                {
+                    url: URLS.deactivateSmallMechano,
+                    attributes: {
+                        id: _id,
+                    },
+                },
+                {
+                    onSuccess: () => {
+                        toast.success("E‘lon muvaffaqiyatli o‘chirildi!", {
+                            position: "top-center",
+                        });
+                        setItemId(null);
+                    },
+                },
+            );
+        }
+    };
 
 
     const columns = [
@@ -102,7 +132,7 @@ const Index = () => {
                                 alt={"eye"}
                             />
                         </Link>
-                        <Link href={`${URLS.smallMechanos}${row.id}`}>
+                        <Link href={`small-mechano/${row.id}`}>
                             <Image
                                 src={"/icons/edit-icon.svg"}
                                 className={"mr-1.5 inline"}
@@ -117,6 +147,7 @@ const Index = () => {
                                 width={20}
                                 height={20}
                                 src={"/icons/trash-icon.svg"}
+                                onClick={() => setItemId(get(row, "id"))}
                                 alt={"trash"}
                             />
                         </div>
@@ -230,6 +261,66 @@ const Index = () => {
                             defaultPageSize={pageSize}
                             params={{value: search, key: "all"}}
                         />
+                    </div>
+                </div>
+            </div>
+
+            <div
+                className={`fixed inset-0 bg-black bg-opacity-75  z-50  flex justify-center items-center ${
+                    isNil(itemId) ? "hidden" : "visible"
+                }`}
+            >
+                <div className={"w-[550px] p-[30px] rounded-[5px] bg-white"}>
+                    <div>
+                        <Image
+                            onClick={() => setItemId(null)}
+                            src={"/icons/closeModal.svg"}
+                            alt={"modalcloser"}
+                            width={24}
+                            height={24}
+                            className={"float-right block cursor-pointer"}
+                        />
+                    </div>
+                    <br/>
+
+                    <div className={"flex items-center gap-x-[15px]"}>
+                        <div
+                            className="rounded-full border border-gray-300 flex items-center justify-center w-16 h-16 flex-shrink-0 mx-auto">
+                            <Image
+                                src={"/images/warning.png"}
+                                alt={"warning"}
+                                width={30}
+                                height={30}
+                            />
+                        </div>
+                        <div className="mt-4 md:mt-0 md:ml-6  md:text-left">
+                            <p className="font-bold">E'lonni o‘chirmoqchimisiz?</p>
+                            <p className="text-sm text-gray-700 mt-1">
+                                O'chirish tugmasi bosilganidan so‘ng siz tanlagan e'lon
+                                o‘chiriladi.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div
+                        className={"text-center flex items-center gap-x-[20px] mt-[20px]"}
+                    >
+                        <button
+                            onClick={() => deActivate(itemId)}
+                            className={
+                                "block w-full px-4 py-3 md:py-2 bg-red-200 hover:bg-red-400 duration-300 transition-all text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2"
+                            }
+                        >
+                            O'chirish
+                        </button>
+                        <button
+                            onClick={() => setItemId(null)}
+                            className={
+                                "block w-full  md:w-auto px-4 py-3 md:py-2 bg-gray-200 hover:bg-gray-400 transition-all duration-300 rounded-lg font-semibold text-sm  md:mt-0 md:order-1"
+                            }
+                        >
+                            Bekor qilish
+                        </button>
                     </div>
                 </div>
             </div>

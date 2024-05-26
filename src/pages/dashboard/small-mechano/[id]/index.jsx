@@ -18,26 +18,26 @@ import useGetOneQuery from "@/hooks/api/useGetOneQuery";
 const Index = () => {
     const { t } = useTranslation();
     const [search, setSearch] = useState();
-    const [machineMechano, setMachineMechano] = useState({});
-    const [machineMechanoValue, setMachineMechanoValue] = useState(false);
+    const [smallMechano, setSmallMechano] = useState({});
+    const [smallMechanoValue, setSmallMechanoValue] = useState(false);
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm({ values: machineMechano });
+    } = useForm({ values: smallMechano });
     const router = useRouter();
     const { id } = router.query;
 
     const { data: oldData } = useGetOneQuery({
-        key: "mmechano-one",
-        url: URLS.updateMachineMechano,
+        key: "small-mechano-one",
+        url: URLS.updateSmallMechano,
         id: `${id}/`,
         enabled: !!id,
     });
 
-    const { data: machineMechanos, isLoadingMachineMechano } = useGetQuery({
-        key: KEYS.machinesMechanos,
-        url: URLS.machinesMechanos,
+    const { data: smallMechanos, isLoadingSmallMechano } = useGetQuery({
+        key: KEYS.smallMechanos,
+        url: URLS.smallMechanos,
         params: {
             key: "name",
             value: search,
@@ -47,54 +47,50 @@ const Index = () => {
     });
 
     const { mutate: editAdds, isLoading } = usePutQuery({
-        listKeyId: "mmechano-one",
+        listKeyId: "small-mechano-one",
     });
 
     useEffect(() => {
-        if (!isEmpty(head(get(machineMechanos, "data.results", [])))) {
-            setMachineMechano(
-                find(
-                    get(machineMechanos, "data.results", []),
-                    ({mmechano_csr_code}) => mmechano_csr_code === machineMechanoValue),
-            );
+        if (!isEmpty(head(get(smallMechanos, 'data.results', [])))) {
+            setSmallMechano(find(get(smallMechanos, 'data.results', []), ({smallmechano_csr_code}) => smallmechano_csr_code === smallMechanoValue))
         }
-    }, [machineMechanos, machineMechanoValue]);
+    }, [smallMechanos, smallMechanoValue])
 
     useEffect(() => {
         if (get(oldData, "data") && !isEmpty(get(oldData, "data"))) {
-            setMachineMechano(get(oldData, "data"));
-            setSearch(get(oldData, "data.mmechano_name"));
+            setSmallMechano(get(oldData, "data"));
+            setSearch(get(oldData, "data.smallmechano_name"));
         }
     }, [oldData]);
 
     const onSubmit = ({
 
-                          mmechano_description,
-                          mmechano_rent_price,
-                          mmechano_rent_price_currency,
-                          mmechano_amount,
+                          smallmechano_description,
+                          smallmechano_rent_price,
+                          smallmechano_rent_price_currency,
+                          smallmechano_amount,
                           sertificate_blank_num,
                           sertificate_reestr_num,
-                          mmechano_measure,
-                          mmechano_owner
+                          smallmechano_measure,
+                          smallmechano_owner
 
                       }) => {
         let formData = new FormData();
 
-        formData.append("mmechano_description", mmechano_description);
-        formData.append("mmechano_rent_price", mmechano_rent_price);
-        formData.append("mmechano_rent_price_currency", mmechano_rent_price_currency);
+        formData.append("smallmechano_description", smallmechano_description);
+        formData.append("smallmechano_rent_price", smallmechano_rent_price);
+        formData.append("smallmechano_rent_price_currency", smallmechano_rent_price_currency);
 
-        formData.append("mmechano_amount", mmechano_amount);
+        formData.append("smallmechano_amount", smallmechano_amount);
         formData.append("sertificate_blank_num", sertificate_blank_num);
         formData.append("sertificate_reestr_num", sertificate_reestr_num);
 
-        formData.append("mmechano_amount", mmechano_amount);
-        formData.append("mmechano_measure", mmechano_measure);
-        formData.append("mmechano_owner", mmechano_owner)
+        formData.append("smallmechano_amount", smallmechano_amount);
+        formData.append("smallmechano_measure", smallmechano_measure);
+        formData.append("smallmechano_owner", smallmechano_owner)
         editAdds(
             {
-                url: `${URLS.updateMachineMechano}${id}/`,
+                url: `${URLS.updateSmallMechano}${id}/`,
                 attributes: formData,
             },
             {
@@ -102,7 +98,7 @@ const Index = () => {
                     toast.success("E'lon muvaffaqiyatli tahrirlandi", {
                         position: "top-center",
                     });
-                    router.push("/dashboard/machine-mechano");
+                    router.push("/dashboard/small-mechano");
                 },
                 onError: (error) => {
                     toast.error(`Error is ${error}`, { position: "top-right" });
@@ -114,7 +110,7 @@ const Index = () => {
     const updateData = (_id) => {
         if (_id) {
             updateData({
-                url: URLS.updateMachineMechano,
+                url: URLS.updateSmallMechano,
                 attributes: {
                     id: _id,
                 },
@@ -128,7 +124,7 @@ const Index = () => {
         <Dashboard>
             <Subheader title={"Mashina va Mexanizmlarda qo'shilgan e'lonni tahrirlash"} />
             <div className={"p-7"}>
-                {(isLoadingMachineMechano || isLoading) && <OverlayLoader />}
+                {(isLoadingSmallMechano || isLoading) && <OverlayLoader />}
                 <form
                     className={"grid grid-cols-12 gap-x-[30px]"}
                     onSubmit={handleSubmit(onSubmit)}
@@ -186,11 +182,11 @@ const Index = () => {
                     {/* Material tavsifi */}
                     <div className={"col-span-12 gap-x-[30px]"}>
                         <h4 className={"text-[#28366D] text-base my-[10px]"}>
-                            Material tavsifi
+                            Kichik mexanizmlar tavsifi
                         </h4>
                         <textarea
-                            {...register("mmechano_description")}
-                            defaultValue={get(oldData, "data.mmechano_description")}
+                            {...register("smallmechano_description")}
+                            defaultValue={get(oldData, "data.smallmechano_description")}
                             rows={5}
                             className={
                                 "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
@@ -200,28 +196,28 @@ const Index = () => {
                         <input
                             placeholder={'Грунтовка полимерная для повышения адгезия битумно-полимерных мастик и герметиков при герметизации деформационных швов асфальта'}
                             className={'hidden'} value={1}
-                            {...register('mmechano_owner', {required: true})}
+                            {...register('smallmechano_owner', {required: true})}
 
                         />
                     </div>
 
                     {/* Material narxi */}
                     <div className={"col-span-6 "}>
-                        <h4 className={"text-[#28366D] text-base "}>Mashina va mexanizmlar narxi</h4>
+                        <h4 className={"text-[#28366D] text-base "}>Mahsulot narxi</h4>
                         <div className={"flex items-center rounded-[5px]"}>
                             <input
                                 placeholder={""}
                                 type={"number"}
-                                defaultValue={get(oldData, "data.mmechano_rent_price")}
-                                {...register("mmechano_rent_price", { required: true })}
+                                defaultValue={get(oldData, "data.smallmechano_rent_price")}
+                                {...register("smallmechano_rent_price", { required: true })}
                                 className={"py-[15px] px-[20px] w-full shadow-xl  my-[10px]"}
                                 required={true}
                             />
 
                             <select
                                 className={"p-[16px]"}
-                                defaultValue={get(oldData, "data.mmechano_rent_price_currency")}
-                                {...register("mmechano_rent_price_currency")}
+                                defaultValue={get(oldData, "data.smallmechano_rent_price_currency")}
+                                {...register("smallmechano_rent_price_currency")}
                             >
                                 <option>UZS</option>
                                 <option>USD</option>
@@ -240,8 +236,8 @@ const Index = () => {
                             className={
                                 "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
                             }
-                            {...register("mmechano_measure")}
-                            defaultValue={get(oldData, "data.mmechano_measure")}
+                            {...register("smallmechano_measure")}
+                            defaultValue={get(oldData, "data.smallmechano_measure")}
                             disabled={true}
                         />
                     </div>
@@ -252,8 +248,8 @@ const Index = () => {
                         <input
                             placeholder={"Material miqdori"}
                             type={"number"}
-                            defaultValue={get(oldData, "data.mmechano_amount")}
-                            {...register("mmechano_amount", { required: true })}
+                            defaultValue={get(oldData, "data.smallmechano_amount")}
+                            {...register("smallmechano_amount", { required: true })}
                             className={
                                 "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
                             }
@@ -270,8 +266,8 @@ const Index = () => {
                             className={
                                 "py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]"
                             }
-                            defaultValue={get(oldData, "data.mmechano_measure")}
-                            {...register("mmechano_measure")}
+                            defaultValue={get(oldData, "data.smallmechano_measure")}
+                            {...register("smallmechano_measure")}
                             disabled={true}
                         />
 
