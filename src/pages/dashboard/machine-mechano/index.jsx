@@ -130,7 +130,7 @@ const Index = () => {
                                 alt={"eye"}
                             />
                         </Link>
-                        <Link href={`${URLS.machinesMechanos}${row.id}`}>
+                        <Link href={`machine-mechano/${row.id}`}>
                             <Image
                                 src={"/icons/edit-icon.svg"}
                                 className={"mr-1.5 inline"}
