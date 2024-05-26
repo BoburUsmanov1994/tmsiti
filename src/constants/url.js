@@ -45,5 +45,6 @@ export const URLS = {
   workAddAds: "works/ads/add/new",
   myWork: "works/ads/my/",
   mySmallMechano: "small-mechanos/ads/my/",
-  smallMechanoAddAds: "small-mechanos/ads/add/new"
+  smallMechanoAddAds: "small-mechanos/ads/add/new",
+  deactivateMachineMechano: "machines-mechanos/ads/deactivate"
 };
