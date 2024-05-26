@@ -270,30 +270,30 @@ const Index = () => {
           </div>
 
           {/*Material rasmi*/}
-          <div className={"col-span-6"}>
-            <h4 className={"text-[#28366D] text-base "}>Material rasmi</h4>
-            <label
-              htmlFor="dropzone-file"
-              className={
-                "shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white"
-              }
-            >
-              <Image
-                src={"/icons/upload.svg"}
-                alt={"upload"}
-                width={48}
-                height={48}
-              />
-              <p>yuklash</p>
-            </label>
-            <input
-              id={"dropzone-file"}
-              type={"file"}
-              defaultValue={get(oldData, "data.material_image")}
-              accept={"image/png, image/jpeg, image/jpg"}
-              {...register("material_image")}
-            />
-          </div>
+          {/*<div className={"col-span-6"}>*/}
+          {/*  <h4 className={"text-[#28366D] text-base "}>Material rasmi</h4>*/}
+          {/*  <label*/}
+          {/*    htmlFor="dropzone-file"*/}
+          {/*    className={*/}
+          {/*      "shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white"*/}
+          {/*    }*/}
+          {/*  >*/}
+          {/*    <Image*/}
+          {/*      src={"/icons/upload.svg"}*/}
+          {/*      alt={"upload"}*/}
+          {/*      width={48}*/}
+          {/*      height={48}*/}
+          {/*    />*/}
+          {/*    <p>yuklash</p>*/}
+          {/*  </label>*/}
+          {/*  <input*/}
+          {/*    id={"dropzone-file"}*/}
+          {/*    type={"file"}*/}
+          {/*    defaultValue={get(oldData, "data.material_image")}*/}
+          {/*    accept={"image/png, image/jpeg, image/jpg"}*/}
+          {/*    {...register("material_image")}*/}
+          {/*  />*/}
+          {/*</div>*/}
 
           <div className={"col-span-6"}>
             {/*Mahsulot sertifikati reestr raqami*/}

@@ -264,7 +264,7 @@ const Index = () => {
             </div>
 
             <div
-                className={`fixed inset-0  z-50 bg-opacity-30 flex justify-center items-center ${
+                className={`fixed inset-0 bg-black bg-opacity-75  z-50  flex justify-center items-center ${
                     isNil(itemId) ? "hidden" : "visible"
                 }`}
             >
