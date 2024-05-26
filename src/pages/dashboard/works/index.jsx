@@ -146,6 +146,7 @@ const Index = () => {
                                 width={20}
                                 height={20}
                                 src={"/icons/trash-icon.svg"}
+                                onClick={() => setItemId(get(row, "id"))}
                                 alt={"trash"}
                             />
                         </div>

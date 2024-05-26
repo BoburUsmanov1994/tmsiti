@@ -16,13 +16,14 @@ import Select from "react-select";
 import useGetOneQuery from "@/hooks/api/useGetOneQuery";
 import usePutQuery from "@/hooks/api/usePutQuery";
 
-const Ads = () => {
-    const {t} = useTranslation();
+const Index = () => {
+    const { t } = useTranslation();
     const [search, setSearch] = useState('')
     const [pageSize, setPageSize] = useState(10);
     const [work, setWork] = useState({})
     const [workValue, setWorkValue] = useState(null)
-    const [warning, setWarning] = useState(false)
+
+
     const {register, handleSubmit, formState: {errors}} = useForm({values: work})
     const router = useRouter();
     const { id } = router.query;
@@ -59,7 +60,7 @@ const Ads = () => {
     });
 
 
-    const {mutate: addAds, isLoading} = usePostQuery({listKeyId: KEYS.myWork})
+
 
 
     useEffect(() => {
@@ -351,4 +352,4 @@ const Ads = () => {
     );
 };
 
-export default Ads;
+export default Index;
