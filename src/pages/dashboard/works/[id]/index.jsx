@@ -11,7 +11,7 @@ import {useForm} from "react-hook-form";
 import {toast} from "react-hot-toast";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import {OverlayLoader} from "@/components/loader";
-import {useRouter} from 'next/navigation';
+import {useRouter} from 'next/router';
 import Select from "react-select";
 import useGetOneQuery from "@/hooks/api/useGetOneQuery";
 import usePutQuery from "@/hooks/api/usePutQuery";
@@ -19,11 +19,8 @@ import usePutQuery from "@/hooks/api/usePutQuery";
 const Index = () => {
     const { t } = useTranslation();
     const [search, setSearch] = useState('')
-    const [pageSize, setPageSize] = useState(10);
     const [work, setWork] = useState({})
     const [workValue, setWorkValue] = useState(null)
-
-
     const {register, handleSubmit, formState: {errors}} = useForm({values: work})
     const router = useRouter();
     const { id } = router.query;
