@@ -6,18 +6,31 @@ export const authOptions = {
         CredentialsProvider({
             credentials: {},
             async authorize(credentials, req) {
-                const {company_name, company_stir, company_ceo} = credentials;
-                const res = await fetch("https://backend-market.tmsiti.uz/api/imzo", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        company_name,
-                        company_stir,
-                        company_ceo
-                    }),
-                });
+                const {company_name, company_stir, company_ceo, email, password} = credentials;
+                if (email && password) {
+                    const res = await fetch("https://backend-market.tmsiti.uz/api/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            email,
+                            password,
+                        }),
+                    });
+                } else {
+                    const res = await fetch("https://backend-market.tmsiti.uz/api/imzo", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            company_name,
+                            company_stir,
+                            company_ceo
+                        }),
+                    });
+                }
 
                 const user = await res.json();
 

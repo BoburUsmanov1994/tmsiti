@@ -8,22 +8,31 @@ import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 import toast from "react-hot-toast";
 import {useRouter} from "next/router";
+import {useSettingsStore} from "../../store";
+import {get} from "lodash";
 
 const Login = () => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const router = useRouter();
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.login})
-    const onSubmit = (data) => {
-        signupRequest({
-                url: URLS.login,
-                attributes: {...data}
-            },
-            {
-                onSuccess: () => {
-                    toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
-                    signIn()
-                }
-            })
+    const setToken = useSettingsStore(state => get(state, 'setToken', () => {
+    }))
+    const onSubmit = async (data) => {
+        const result = await signIn("credentials", {
+            email: get(data, 'email'),
+            password: get(data, 'password'),
+        })
+        // signupRequest({
+        //         url: URLS.login,
+        //         attributes: {...data}
+        //     },
+        //     {
+        //         onSuccess: ({data}) => {
+        //             setToken(get(data, 'token'))
+        //             toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
+        //
+        //         }
+        //     })
         router.push("/customer")
     };
     return (
