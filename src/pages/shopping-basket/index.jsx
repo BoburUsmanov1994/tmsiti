@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
-import {get, head, values} from "lodash";
+import {get, head, isEmpty, values} from "lodash";
 import { last } from "lodash/array";
 import {NumericFormat} from "react-number-format";
 import Image from "next/image";
@@ -154,12 +154,23 @@ const Index = () => {
 
 
                         <div className={"col-span-4"}>
-                          <p className={"bg-[#D1E9FF] text-sm text-[#28366D] inline-flex p-2 my-[10px]"}>#{get(JSON.parse(head(item)), "material_name")}</p>
-                          <p className={"text-base font-bold"}>{get(JSON.parse(head(item)), "material_description")}</p>
+                          {/* Product description*/}
+                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "material_description")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "material_description")}</p>
+                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "smallmechano_description")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "smallmechano_description")}</p>
+                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "mmechano_description")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "mmechano_description")}</p>
+                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "techno_description")) ? "hidden" : "visible"} text-sm text-[#28366D]  inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "techno_description")}</p>
+                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "work_description")) ? "hidden" : "visible"} text-sm text-[#28366D]  inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "work_description")}</p>
+
+                          {/* Product Name */}
+                          <p className={`text-base font-bold ${isEmpty(get(JSON.parse(head(item)), "material_name")) ? "hidden" : "visible"}`}>{get(JSON.parse(head(item)), "material_name")}</p>
+                          <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "smallmechano_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "smallmechano_name")}</p>
+                          <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "techno_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "techno_name")}</p>
+                          <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "work_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "work_name")}</p>
+                          <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "mmechano_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "mmechano_name")}</p>
                         </div>
 
                         <div className={"col-span-4 text-center"}>
-                          <h1 className={"text-base font-bold mb-[20px]"}>Tanlangan mahsulot miqdori</h1>
+                        <h1 className={"text-base font-bold mb-[20px]"}>Tanlangan mahsulot miqdori</h1>
                           <button className={"p-3 border inline-flex rounded-[6px] bg-[#28366D] text-white"} onClick={() => handleDecrement(JSON.parse(head(item)))}>-</button>
                           <p className={"p-3  inline-flex  text-[#28366D]"}>{last(item)}</p>
                           <button className={"p-3 border inline-flex rounded-[6px] bg-[#28366D] text-white"} onClick={() => handleIncrement(JSON.parse(head(item)))}>+</button>
