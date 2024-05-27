@@ -30,10 +30,11 @@ const Login = () => {
                 onSuccess: ({data}) => {
                     setToken(get(data, 'token'))
                     toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
+                    router.push("/dashboard")
 
                 }
             })
-        // router.push("/customer")
+
     };
     return (
         <AuthLayout>
