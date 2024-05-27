@@ -8,6 +8,7 @@ export const authOptions = {
             async authorize(credentials, req) {
                 const {company_name, company_stir, company_ceo, email, password} = credentials;
                 if (email && password) {
+                    debugger
                     const res = await fetch("https://backend-market.tmsiti.uz/api/login", {
                         method: "POST",
                         headers: {
@@ -19,6 +20,7 @@ export const authOptions = {
                         }),
                     });
                 } else {
+                    debugger
                     const res = await fetch("https://backend-market.tmsiti.uz/api/imzo", {
                         method: "POST",
                         headers: {
@@ -54,6 +56,7 @@ export const authOptions = {
     // },
     pages: {
         signIn: "/auth/e-imzo",
+        login: "/auth/login",
     },
     secret: process.env.NEXTAUTH_SECRET || 'Ey7nTKnggBc0bRN8WUjyShw2qzOZ6KW4fUyqcKBePxY='
 }

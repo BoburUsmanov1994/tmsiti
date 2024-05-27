@@ -12,12 +12,13 @@ const Pofile = () => {
     const {data: session} = useSession()
     const setToken = useSettingsStore(state => get(state, 'setToken', () => {
     }))
+    const token = useSettingsStore(state => get(state,'token',null))
     const {t} = useTranslation()
     const {data: user} = useGetQuery({
         key: KEYS.getMe,
         url: URLS.getMe,
-        headers: {token: `${get(session, 'user.token')}`},
-        enabled: !!(get(session, 'user.token'))
+        headers: {token: token ??`${get(session, 'user.token')}`},
+        enabled: !!(get(session, 'user.token') || token)
     })
     useEffect(() => {
         if (get(session, 'user.token')) {
@@ -28,6 +29,7 @@ const Pofile = () => {
     // user = {email,firstName,lastName,Inn,token}  customer
     //user?.token ? 'customer' : 'delivery'
     console.log('session',session)
+    console.log('user',user)
     return (
         <div className={'inline-flex items-center gap-x-[5px]'}>
 

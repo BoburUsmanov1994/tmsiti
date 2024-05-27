@@ -17,23 +17,23 @@ const Login = () => {
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.login})
     const setToken = useSettingsStore(state => get(state, 'setToken', () => {
     }))
-    const onSubmit = async (data) => {
-        const result = await signIn("credentials", {
-            email: get(data, 'email'),
-            password: get(data, 'password'),
-        })
-        // signupRequest({
-        //         url: URLS.login,
-        //         attributes: {...data}
-        //     },
-        //     {
-        //         onSuccess: ({data}) => {
-        //             setToken(get(data, 'token'))
-        //             toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
-        //
-        //         }
-        //     })
-        router.push("/customer")
+    const onSubmit = (data) => {
+        // signIn("credentials", {
+        //     email: get(data, 'email'),
+        //     password: get(data, 'password'),
+        // })
+        signupRequest({
+                url: URLS.login,
+                attributes: {...data}
+            },
+            {
+                onSuccess: ({data}) => {
+                    setToken(get(data, 'token'))
+                    toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
+
+                }
+            })
+        // router.push("/customer")
     };
     return (
         <AuthLayout>
