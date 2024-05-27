@@ -56,7 +56,7 @@ export const authOptions = {
     // },
     pages: {
         signIn: "/auth/e-imzo",
-        login: "/auth/login",
+        // login: "/auth/login",
     },
     secret: process.env.NEXTAUTH_SECRET || 'Ey7nTKnggBc0bRN8WUjyShw2qzOZ6KW4fUyqcKBePxY='
 }
