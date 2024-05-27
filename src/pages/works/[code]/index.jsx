@@ -234,7 +234,7 @@ const ViewPage = () => {
                 />
               )}
             </div>
-            <div className="ablet:col-span-7 col-span-12">
+            <div className="tablet:col-span-7 col-span-12">
               <div className="flex tablet:justify-start tablet:items-start justify-center items-center">
                 <div className={"inline-flex mr-8"}>
                   <Image

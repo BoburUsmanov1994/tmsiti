@@ -19,6 +19,7 @@ import { getOptionList } from "@/utils";
 import Link from "next/link";
 import {useCounter} from "@/context/counter";
 import {sum} from "lodash/math";
+import {toast} from "react-hot-toast";
 
 const ViewPage = () => {
   const router = useRouter();
@@ -32,6 +33,10 @@ const ViewPage = () => {
   const handleIncrement = (product) => {
     console.log("product", product, JSON.stringify(product));
     dispatch({ type: "INCREMENT", payload: JSON.stringify(product) });
+    toast.success('Tanlagan mahsulotingiz savatchaga qo\'shildi!', {
+      duration: 3000,
+      position: "top-left"
+    });
   };
 
 
@@ -80,6 +85,15 @@ const ViewPage = () => {
 
   const totalPrice = get(materialAds, "data.results", []).reduce((sumResult, price) => sumResult + price["material_price"], 0)
   const averagePrice = +(totalPrice / get(materialAds, "data.results", []).length).toFixed(2)
+
+  const maxPrice = get(materialAds, "data.results", []).reduce((max, obj) => {
+    return obj["material_price"] > max ? obj["material_price"] : max
+  }, 0)
+
+  const minPrice = get(materialAds, "data.results", []).reduce((min, obj) => {
+    return obj["material_price"] < min ? obj["material_price"] : min
+  }, Infinity)
+
 
 
   // const { data: gost, isLoading: isLoadingGost } = useGetQuery({
@@ -220,7 +234,7 @@ const ViewPage = () => {
       title: t("Action"),
       key: "action",
       render: ({value,row}) => (
-          <div className={"flex items-center relative gap-x-4"}>
+          <div className={"flex items-center"}>
             <Image
                 onClick={() => handleIncrement(row)}
                 className={
@@ -231,13 +245,7 @@ const ViewPage = () => {
                 src={"/images/shopping.png"}
                 alt={"certificate"}
             />
-            <span
-                className={
-                  "absolute p-1 bg-[#1890FF] text-sm rounded-full text-white w-5 h-5 inline-flex justify-center items-center -top-[5px] right-[32px]"
-                }
-            >
-                  {sum(values(state))}
-                </span>
+
             <Image
                 className={
                   "mx-auto cursor-pointer laptop:w-[24px] laptop:h-[24px] tablet:w-[21px] tablet:h-[21px] w-[18px] h-[18px]"
@@ -421,16 +429,26 @@ const ViewPage = () => {
               </div>
             </div>
             <div className={"tablet:col-span-4 col-span-12 p-[20px] shadow-2xl rounded-[4px]"}>
-              <h4 className={"mb-[8px] text-[#22497C] font-bold"}>O'rtacha narx:</h4>
-              {averagePrice}
+              <div className={"flex gap-x-2"}>
+                <h4 className={"mb-[8px] text-[#22497C] font-bold"}>Maksimal narx:</h4>
+                <NumericFormat thousandSeparator={" "} value={maxPrice} suffix={" so`m"} className={"mb-[10px]"}/>
+              </div>
+              <div className={"flex gap-x-2"}>
+                <h4 className={"mb-[8px] text-[#22497C] font-bold"}>O'rtacha narx:</h4>
+                <NumericFormat thousandSeparator={" "} value={averagePrice} suffix={" so`m"} className={"mb-[10px]"}/>
+              </div>
+              <div className={"flex gap-x-2"}>
+                <h4 className={"mb-[8px] text-[#22497C] font-bold"}>Minimum narx:</h4>
+                <NumericFormat thousandSeparator={" "} value={minPrice} suffix={" so`m"} className={"mb-[10px]"}/>
+              </div>
             </div>
           </div>
-        </Section>
-        <Section>
-          <div className="grid grid-cols-12">
-            <div className="col-span-12">
-              <GridView
-                  HeaderBody={
+          </Section>
+          <Section>
+            <div className="grid grid-cols-12">
+              <div className="col-span-12">
+                <GridView
+                    HeaderBody={
                     <div className="flex tablet:flex-row  flex-col mb-5">
                       <Select
                           getValue={(val) => setRegionId(get(val, "value"))}

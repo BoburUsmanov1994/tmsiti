@@ -27,6 +27,8 @@ const Header = (toggleMenu) => {
     enabled: !!get(session, "user.token"),
   });
 
+  console.log(get(session, "user.role"))
+
   // const { data: customer } = useGetQuery({
   //   key: KEYS.getCustomer,
   //   url: URLS.getCustomer,
@@ -125,13 +127,13 @@ const Header = (toggleMenu) => {
               </Link>
               <div className={"ml-6 flex items-center"}>
                 <Image
-                  className={
-                    "mr-1 w-[20px] h-[20px] laptop:w-[36px] laptop:h-[36px]"
-                  }
-                  width={36}
-                  height={36}
-                  alt={"map"}
-                  src={"/icons/user.svg"}
+                    className={
+                      "mr-1 w-[20px] h-[20px] laptop:w-[36px] laptop:h-[36px]"
+                    }
+                    width={36}
+                    height={36}
+                    alt={"map"}
+                    src={"/icons/user.svg"}
                 />
                 {/*<button className={"block text-base bg-transparent"}>*/}
                 {/*  <Link href={"/dashboard"}>sign in</Link>*/}
