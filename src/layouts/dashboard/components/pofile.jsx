@@ -27,6 +27,7 @@ const Pofile = () => {
     // user = {companyName,Inn,Ceo}  delivery
     // user = {email,firstName,lastName,Inn,token}  customer
     //user?.token ? 'customer' : 'delivery'
+    console.log('session',session)
     return (
         <div className={'inline-flex items-center gap-x-[5px]'}>
 
