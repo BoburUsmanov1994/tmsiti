@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import Image from "next/image";
 import {signOut, useSession} from "next-auth/react";
-import {useSettingsStore} from "../../../store";
+import {useSettingsStore} from "@/store";
 import {get} from "lodash"
 import {useTranslation} from "react-i18next";
 import useGetQuery from "../../../hooks/api/useGetQuery";
-import {KEYS} from "../../../constants/key";
-import {URLS} from "../../../constants/url";
+import {KEYS} from "@/constants/key";
+import {URLS} from "@/constants/url";
 
 const Pofile = () => {
     const {data: session} = useSession()

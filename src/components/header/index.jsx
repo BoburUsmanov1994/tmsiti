@@ -159,7 +159,7 @@ const Header = (toggleMenu) => {
                                             className={"block text-base bg-transparent"}
                                         >
 
-                                            {get(user, "data.company_name")}
+                                            {get(user, "data.company_ceo")}
                                         </button>
                                         <button
                                             className={"block text-base"}
