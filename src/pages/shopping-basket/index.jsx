@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Main from "@/layouts/main";
 import Menu from "@/components/menu";
 import Section from "@/components/section";
@@ -17,6 +17,8 @@ import Image from "next/image";
 import Button from "@/components/button";
 import {sum} from "lodash/math";
 import Title from "@/components/title";
+import usePostQuery from "@/hooks/api/usePostQuery";
+import toast from "react-hot-toast";
 
 const Index = () => {
   const { state, dispatch } = useCounter();
@@ -25,6 +27,11 @@ const Index = () => {
   const [pageSize, setPageSize] = useState(48);
   const [template, setTemplate] = useState('standard');
   const [isOpen, setIsOpen] = useState(false);
+  const materialNameRef = useRef(null);
+  const materialDescriptionRef = useRef(null);
+  const quantityRef = useRef(null);
+  const priceRef = useRef(null);
+  const companyRef = useRef(null);
   const { stir } = router.query;
 
   const openModal = () => setIsOpen(true);
@@ -36,6 +43,17 @@ const Index = () => {
   useEffect(() => {
 
   }, []);
+
+  const {mutate: sendOrders, isLoading: isLoadingOrders} = usePostQuery({listKeyId: "order-one"})
+
+  const materialData = {
+    materialName: materialNameRef.current?.textContent,
+    materialDescription: materialDescriptionRef.current?.textContent,
+    quantity: quantityRef.current?.textContent,
+    totalPrice: priceRef.current?.textContent,
+    company: companyRef.current?.textContent,
+  };
+
 
   const { data, isLoading, isFetching } = useGetQuery({
     key: KEYS.companyAds,
@@ -58,14 +76,24 @@ const Index = () => {
     }
   };
 
+  const onSubmit = (data) => {
+    sendOrders({
+      url: URLS.sendOrders,
+      attributes: materialData,
+    },
+        {
+          onSuccess: () => {
+            toast.success('Buyurtma yetkazib beruvchi kompaniyaga yuborildi', {position: 'top-right'})
+          }
+        })
+  }
+
 
 
   return (
       <Main>
         <Menu/>
         <Section>
-
-
           <main
               className={" bg-white mt-[100px] rounded-[6px] p-[20px]"}
           >
@@ -147,23 +175,23 @@ const Index = () => {
                   {Object.entries(state).map((item, index) => (
                       <div key={index} className={"grid grid-cols-12 gap-x-2"}>
                         <div className={"col-span-12"}>
-                          <Title>
+                          <h1 ref={companyRef} className={"mb-[30px] text-[#202B57] uppercase font-medium mobile:text-base tablet:text-lg laptop:text-xl desktop:text-2xl text-base "}>
                             {get(JSON.parse(head(item)), "company_name")}
-                          </Title>
+                          </h1>
                         </div>
 
 
                         <div className={"col-span-4"}>
                           {/* Product description*/}
-                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "material_description")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "material_description")}</p>
+                          <p ref={materialDescriptionRef} className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "material_description")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "material_description")}</p>
                           <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "smallmechano_description")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "smallmechano_description")}</p>
                           <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "mmechano_description")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "mmechano_description")}</p>
                           <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "techno_description")) ? "hidden" : "visible"} text-sm text-[#28366D]  inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "techno_description")}</p>
                           <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "work_description")) ? "hidden" : "visible"} text-sm text-[#28366D]  inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "work_description")}</p>
 
                           {/* Product Name */}
-                          <p className={`text-base font-bold ${isEmpty(get(JSON.parse(head(item)), "material_name")) ? "hidden" : "visible"}`}>{get(JSON.parse(head(item)), "material_name")}</p>
-                          <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "smallmechano_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "smallmechano_name")}</p>
+                          <p ref={materialNameRef} className={`text-base font-bold ${isEmpty(get(JSON.parse(head(item)), "material_name")) ? "hidden" : "visible"}`}>{get(JSON.parse(head(item)), "material_name")}</p>
+                          <p ref={materialNameRef} className={`text-base ${isEmpty(get(JSON.parse(head(item)), "smallmechano_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "smallmechano_name")}</p>
                           <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "techno_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "techno_name")}</p>
                           <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "work_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "work_name")}</p>
                           <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "mmechano_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "mmechano_name")}</p>
@@ -172,7 +200,7 @@ const Index = () => {
                         <div className={"col-span-4 text-center"}>
                         <h1 className={"text-base font-bold mb-[20px]"}>Tanlangan mahsulot miqdori</h1>
                           <button className={"p-3 border inline-flex rounded-[6px] bg-[#28366D] text-white"} onClick={() => handleDecrement(JSON.parse(head(item)))}>-</button>
-                          <p className={"p-3  inline-flex  text-[#28366D]"}>{last(item)}</p>
+                          <p ref={quantityRef} className={"p-3  inline-flex  text-[#28366D]"}>{last(item)}</p>
                           <button className={"p-3 border inline-flex rounded-[6px] bg-[#28366D] text-white"} onClick={() => handleIncrement(JSON.parse(head(item)))}>+</button>
                         </div>
                         {/*<p>*/}
@@ -183,12 +211,14 @@ const Index = () => {
 
                         <div className={"col-span-4 text-center"}>
                           <h1 className={"text-lg font-bold mb-[20px]"}>Tanlangan mahsulotning umumiy narxi</h1>
-                          <NumericFormat
-                              displayType={"text"}
-                              thousandSeparator={" "}
-                              value={get(JSON.parse(head(item)), "material_price", 0) * last(item)}
-                              suffix={` / ${get(JSON.parse(head(item)), "material_measure")}`}
-                          />
+                          <p ref={priceRef}>
+                            <NumericFormat
+                                displayType={"text"}
+                                thousandSeparator={" "}
+                                value={get(JSON.parse(head(item)), "material_price", 0) * last(item)}
+                                suffix={` / ${get(JSON.parse(head(item)), "material_measure")}`}
+                            />
+                          </p>
                         </div>
 
                         <div className={'col-span-12 w-full h-[1px] bg-[#c5c5c5] my-[20px]'}></div>
@@ -201,7 +231,7 @@ const Index = () => {
         </Section>
         <Section className="">
           <Button
-              handleClick={openModal}
+              handleClick={onSubmit}
               className="px-4 py-2 bg-blue-500 text-white rounded"
           >
             Shartnoma tuzish

@@ -51,5 +51,6 @@ export const URLS = {
   updateSmallMechano: "small-mechanos/update/",
   deactivateSmallMechano: "small-mechanos/ads/delete",
   deactivateWork: "works/ads/delete",
-  updateWork: "works/update/"
+  updateWork: "works/update/",
+  sendOrders: "order/new/add"
 };

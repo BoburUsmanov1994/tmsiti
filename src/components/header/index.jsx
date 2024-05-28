@@ -13,7 +13,7 @@ import Search from "@/components/search";
 import {useRouter} from "next/router";
 import {useCounter} from "@/context/counter";
 import {sum} from "lodash/math";
-import {useSettingsStore} from "../../store";
+import {useSettingsStore} from "@/store";
 
 const Lang = dynamic(() => import("@/components/lang"), {ssr: false});
 const Header = (toggleMenu) => {
@@ -31,11 +31,11 @@ const Header = (toggleMenu) => {
     });
 
 
-    useEffect(() => {
-        if (get(session, 'user.token')) {
-            setToken(get(session, 'user.token'));
-        }
-    }, [session])
+    // useEffect(() => {
+    //     if (get(session, 'user.token')) {
+    //         setToken(get(session, 'user.token'));
+    //     }
+    // }, [session])
 
     // const { data: customer } = useGetQuery({
     //   key: KEYS.getCustomer,
