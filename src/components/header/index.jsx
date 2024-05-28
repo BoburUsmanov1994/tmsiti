@@ -153,24 +153,24 @@ const Header = (toggleMenu) => {
                                 {/*<button className={"block text-base bg-transparent"}>*/}
                                 {/*  <Link href={"/dashboard"}>sign in</Link>*/}
                                 {/*</button>*/}
-                                {!get(session, "user.role") === "company" ? <button className={"text-lg"}>
-                                        <Link href={"/select-position"}>Ro'yxatdan o'tish</Link>
-                                    </button> :
-                                    <div>
-                                        <button
-                                            onClick={() => router.push("/dashboard")}
-                                            className={"block text-base bg-transparent"}
-                                        >
+                                {/*{!get(session, "user.role") === "company" ? <button className={"text-lg"}>*/}
+                                {/*        <Link href={"/select-position"}>Ro'yxatdan o'tish</Link>*/}
+                                {/*    </button> :*/}
+                                {/*    <div>*/}
+                                {/*        <button*/}
+                                {/*            onClick={() => router.push("/dashboard")}*/}
+                                {/*            className={"block text-base bg-transparent"}*/}
+                                {/*        >*/}
 
-                                            {get(user, "data.company_name")}
-                                        </button>
-                                        <button
-                                            className={"block text-base"}
-                                            onClick={() => signOut()}
-                                        >
-                                            {t("Logout")}
-                                        </button>
-                                    </div>}
+                                {/*            {get(user, "data.company_name")}*/}
+                                {/*        </button>*/}
+                                {/*        <button*/}
+                                {/*            className={"block text-base"}*/}
+                                {/*            onClick={() => signOut()}*/}
+                                {/*        >*/}
+                                {/*            {t("Logout")}*/}
+                                {/*        </button>*/}
+                                {/*    </div>}*/}
 
                                 {
                                     !get(session, "user.role") === "company" ? <div>
