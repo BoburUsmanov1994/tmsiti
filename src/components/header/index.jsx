@@ -39,8 +39,8 @@ const Header = (toggleMenu) => {
     });
 
 
-    console.log(get(sessionCustomer, "user.token"), "customer")
-    console.log(get(session, "user.token"), "company")
+    console.log(sessionCustomer, "customer")
+    console.log(session, "company")
     console.log(get(userLogin, "data.email"))
 
 
