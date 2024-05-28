@@ -127,7 +127,7 @@ const Index = () => {
           </div>
         </button>
 
-        {selectPosition === "delivery" && !get(session, "user.token") && (
+        {selectPosition === "delivery"  && (
           <motion.button
             initial={{ opacity: 0, translateY: "40px" }}
             animate={{ opacity: 100, translateY: "0px" }}
