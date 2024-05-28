@@ -19,6 +19,7 @@ const Lang = dynamic(() => import("@/components/lang"), {ssr: false});
 const Header = (toggleMenu) => {
     const [openMenu, setOpenMenu] = useState(false);
     const {data: session} = useSession();
+    const {data: sessionCustomer} = useSession();
     const {t} = useTranslation();
     const router = useRouter();
     const {state} = useCounter();
@@ -33,8 +34,8 @@ const Header = (toggleMenu) => {
     const {data: userLogin} = useGetQuery({
         key: KEYS.getCustomer,
         url: URLS.getCustomer,
-        headers: {token: token ?? `${get(session, "user.token")}`},
-        enabled: !!(get(session, "user.token") || token),
+        headers: {token: token ?? `${get(sessionCustomer, "user.token")}`},
+        enabled: !!(get(sessionCustomer, "user.token") || token),
     });
 
     console.log(get(userLogin, "data.email"))
@@ -189,7 +190,7 @@ const Header = (toggleMenu) => {
                                         >
                                             {t("Logout")}
                                         </button>
-                                    </div> : get(session, "user.role") === "customer" ? <div>
+                                    </div> : get(sessionCustomer, "user.role") === "customer" ? <div>
                                         <button
                                             onClick={() => router.push("/dashboard/customer/my-orders")}
                                             className={"block text-base bg-transparent"}
