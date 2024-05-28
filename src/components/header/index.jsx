@@ -38,6 +38,9 @@ const Header = (toggleMenu) => {
         enabled: !!(get(sessionCustomer, "user.token") || token),
     });
 
+
+    console.log(get(sessionCustomer, "user.token"), "customer")
+    console.log(get(session, "user.token"), "company")
     console.log(get(userLogin, "data.email"))
 
 
@@ -190,7 +193,7 @@ const Header = (toggleMenu) => {
                                         >
                                             {t("Logout")}
                                         </button>
-                                    </div> : get(sessionCustomer, "user.role") === "customer" ? <div>
+                                    </div> : get(sessionCustomer, "role") === "customer" ? <div>
                                         <button
                                             onClick={() => router.push("/dashboard/customer/my-orders")}
                                             className={"block text-base bg-transparent"}
