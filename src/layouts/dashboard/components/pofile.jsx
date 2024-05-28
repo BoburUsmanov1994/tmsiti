@@ -15,8 +15,8 @@ const Pofile = () => {
     const token = useSettingsStore(state => get(state,'token',null))
     const {t} = useTranslation()
     const {data: user} = useGetQuery({
-        key: KEYS.getMe,
-        url: URLS.getMe,
+        key: KEYS.getCustomer,
+        url: URLS.getCustomer,
         headers: {token: token ??`${get(session, 'user.token')}`},
         enabled: !!(get(session, 'user.token') || token)
     })

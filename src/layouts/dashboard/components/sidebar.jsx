@@ -9,6 +9,7 @@ const Sidebar = ({ openSidebar }) => {
   const { t } = useTranslation();
     const [position, setPosition] = useState("supplier")
   const router = useRouter();
+
   return (
     <div
       className={clsx(

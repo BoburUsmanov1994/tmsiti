@@ -30,6 +30,13 @@ const Header = (toggleMenu) => {
         enabled: !!(get(session, "user.token") || token),
     });
 
+    const {data: userLogin} = useGetQuery({
+        key: KEYS.login,
+        url: URLS.login,
+        headers: {token: token ?? `${get(session, "user.token")}`},
+        enabled: !!(get(session, "user.token") || token),
+    });
+
 
     // useEffect(() => {
     //     if (get(session, 'user.token')) {
@@ -146,7 +153,7 @@ const Header = (toggleMenu) => {
                                 {/*<button className={"block text-base bg-transparent"}>*/}
                                 {/*  <Link href={"/dashboard"}>sign in</Link>*/}
                                 {/*</button>*/}
-                                {!get(session, "user.token") ? <button className={"text-lg"}>
+                                {!get(session, "user.role") === "company" ? <button className={"text-lg"}>
                                         <Link href={"/select-position"}>Ro'yxatdan o'tish</Link>
                                     </button> :
                                     <div>
@@ -154,7 +161,8 @@ const Header = (toggleMenu) => {
                                             onClick={() => router.push("/dashboard")}
                                             className={"block text-base bg-transparent"}
                                         >
-                                            Kabinetga kirish
+
+                                            {get(user, "data.company_name")}
                                         </button>
                                         <button
                                             className={"block text-base"}
@@ -163,6 +171,26 @@ const Header = (toggleMenu) => {
                                             {t("Logout")}
                                         </button>
                                     </div>}
+
+                                {
+                                    !get(session, "user.role") === "company" ? <div>
+                                        <button
+                                            onClick={() => router.push("/dashboard")}
+                                            className={"block text-base bg-transparent"}
+                                        >
+
+                                            {get(user, "data.company_name")}
+                                        </button>
+                                        <button
+                                            className={"block text-base"}
+                                            onClick={() => signOut()}
+                                        >
+                                            {t("Logout")}
+                                        </button>
+                                    </div> : <button className={"text-lg"}>
+                                        <Link href={"/select-position"}>Ro'yxatdan o'tish</Link>
+                                    </button>
+                                }
                                 {/*{!get(session, "user.token") ? (*/}
                                 {/*    <div>*/}
                                 {/*      <button*/}
