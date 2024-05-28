@@ -173,7 +173,7 @@ const Header = (toggleMenu) => {
                                 {/*    </div>}*/}
 
                                 {
-                                    !get(session, "user.role") === "company" ? <div>
+                                    get(session, "user.role") === "company" ? <div>
                                         <button
                                             onClick={() => router.push("/dashboard")}
                                             className={"block text-base bg-transparent"}
