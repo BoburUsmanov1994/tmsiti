@@ -37,6 +37,8 @@ const Header = (toggleMenu) => {
         enabled: !!(get(session, "user.token") || token),
     });
 
+    console.log(get(userLogin, "data.email"))
+
 
     // useEffect(() => {
     //     if (get(session, 'user.token')) {
@@ -153,7 +155,7 @@ const Header = (toggleMenu) => {
                                 {/*<button className={"block text-base bg-transparent"}>*/}
                                 {/*  <Link href={"/dashboard"}>sign in</Link>*/}
                                 {/*</button>*/}
-                                {/*{!get(session, "user.role") === "company" ? <button className={"text-lg"}>*/}
+                                {/*{!get(session, "user.token") ? <button className={"text-lg"}>*/}
                                 {/*        <Link href={"/select-position"}>Ro'yxatdan o'tish</Link>*/}
                                 {/*    </button> :*/}
                                 {/*    <div>*/}
