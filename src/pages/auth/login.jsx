@@ -2,13 +2,13 @@ import React from 'react';
 import AuthLayout from "../../layouts/auth";
 import {useForm} from "react-hook-form";
 import Link from "next/link";
-import {signIn} from "next-auth/react";
+import {signIn, signOut} from "next-auth/react";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 import toast from "react-hot-toast";
 import {useRouter} from "next/router";
-import {useSettingsStore} from "../../store";
+import {useSettingsStore} from "@/store";
 import {get} from "lodash";
 
 const Login = () => {
@@ -31,6 +31,7 @@ const Login = () => {
                     setToken(get(data, 'token'))
                     toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
                     router.push("/dashboard/customer/my-orders")
+                    signOut()
 
                 }
             })

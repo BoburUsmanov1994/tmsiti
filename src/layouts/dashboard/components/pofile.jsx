@@ -35,7 +35,7 @@ const Pofile = () => {
 
             <div>
                 <span className={'mr-3'}>{get(user,'data.email')}</span>
-                <button className={'block text-base'} onClick={() => signOut()}>
+                <button className={'block text-base'} onClick={() => signOut({callbackUrl: "/"})}>
                     {t('Logout')}
                 </button>
             </div>

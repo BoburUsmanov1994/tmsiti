@@ -47,10 +47,10 @@ const Index = () => {
   const {mutate: sendOrders, isLoading: isLoadingOrders} = usePostQuery({listKeyId: "order-one"})
 
   const materialData = {
-    materialName: materialNameRef.current?.textContent,
-    materialDescription: materialDescriptionRef.current?.textContent,
+    product_name: materialNameRef.current?.textContent,
+    product_code: materialDescriptionRef.current?.textContent,
     quantity: quantityRef.current?.textContent,
-    totalPrice: priceRef.current?.textContent,
+    price: priceRef.current?.textContent,
     company: companyRef.current?.textContent,
   };
 

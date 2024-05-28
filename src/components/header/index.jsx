@@ -163,7 +163,7 @@ const Header = (toggleMenu) => {
                                         </button>
                                         <button
                                             className={"block text-base"}
-                                            onClick={() => signOut()}
+                                            onClick={() => signOut({callbackUrl: "/"})}
                                         >
                                             {t("Logout")}
                                         </button>
