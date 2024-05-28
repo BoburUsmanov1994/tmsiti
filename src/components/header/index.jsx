@@ -31,8 +31,8 @@ const Header = (toggleMenu) => {
     });
 
     const {data: userLogin} = useGetQuery({
-        key: KEYS.login,
-        url: URLS.login,
+        key: KEYS.getCustomer,
+        url: URLS.getCustomer,
         headers: {token: token ?? `${get(session, "user.token")}`},
         enabled: !!(get(session, "user.token") || token),
     });
@@ -180,6 +180,20 @@ const Header = (toggleMenu) => {
                                         >
 
                                             {get(user, "data.company_name")}
+                                        </button>
+                                        <button
+                                            className={"block text-base"}
+                                            onClick={() => signOut()}
+                                        >
+                                            {t("Logout")}
+                                        </button>
+                                    </div> : get(session, "user.role") === "customer" ? <div>
+                                        <button
+                                            onClick={() => router.push("/dashboard/customer/my-orders")}
+                                            className={"block text-base bg-transparent"}
+                                        >
+
+                                            {get(userLogin, "data.email")}
                                         </button>
                                         <button
                                             className={"block text-base"}
