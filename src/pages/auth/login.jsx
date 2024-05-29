@@ -17,16 +17,9 @@ const Login = () => {
     const router = useRouter();
     const {data: session} = useSession();
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.login})
-    const token = useSettingsStore(state => get(state, 'token', null))
-    const setToken = useSettingsStore(state => get(state, 'setToken', () => {
-    }))
 
-    const {data: user} = useGetQuery({
-        key: KEYS.getMe,
-        url: URLS.getMe,
-        headers: {token: token ?? `${get(session, "user.token")}`},
-        enabled: !!(get(session, "user.token") || token),
-    });
+
+
 
     const onSubmit = (data) => {
         // signIn("credentials", {
@@ -39,10 +32,13 @@ const Login = () => {
             },
             {
                 onSuccess: ({data}) => {
-                    setToken(get(data, 'token'))
-                    toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
-                    router.push("/dashboard/customer/my-orders")
-                    signOut()
+                    toast.success('', {position: 'top-right'})
+
+                    if(get(data, "role") === "customer") {
+                        router.push("/")
+                    } else {
+                        router.push("/select-position")
+                    }
                 }
             })
 

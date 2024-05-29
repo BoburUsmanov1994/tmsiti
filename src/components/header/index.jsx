@@ -19,7 +19,6 @@ const Lang = dynamic(() => import("@/components/lang"), {ssr: false});
 const Header = (toggleMenu) => {
     const [openMenu, setOpenMenu] = useState(false);
     const {data: session} = useSession();
-
     const {t} = useTranslation();
     const router = useRouter();
     const {state} = useCounter();
@@ -30,6 +29,8 @@ const Header = (toggleMenu) => {
         headers: {token: token ?? `${get(session, "user.token")}`},
         enabled: !!(get(session, "user.token") || token),
     });
+
+    console.log(get(user, "data.email"))
 
     // useEffect(() => {
     //     if (get(session, 'user.token')) {
