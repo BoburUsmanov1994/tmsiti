@@ -41,5 +41,6 @@ export const KEYS = {
   machineMechanoAddAds: "machineMechanoAddAds",
   myMachineMechano: "myMachineMechano",
   mySmallMechano: "mySmallMechano",
-  myWork: "myWork"
+  myWork: "myWork",
+  orderList: "orderList",
 };

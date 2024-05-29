@@ -31,12 +31,6 @@ const Header = (toggleMenu) => {
         enabled: !!(get(session, "user.token") || token),
     });
 
-
-
-    console.log(session, "company")
-
-
-
     // useEffect(() => {
     //     if (get(session, 'user.token')) {
     //         setToken(get(session, 'user.token'));

@@ -4,6 +4,9 @@ import Subheader from "@/layouts/dashboard/components/subheader";
 import Link from "next/link";
 import {get} from "lodash";
 import {useTranslation} from "react-i18next";
+import GridView from "@/containers/grid-view";
+import {KEYS} from "@/constants/key";
+import {URLS} from "@/constants/url";
 
 const Index = () => {
     const { t } = useTranslation();
@@ -12,46 +15,47 @@ const Index = () => {
         {
             title: "№",
             key: "id",
-            render: ({ index }) => <span className={"font-semibold"}>{index}</span>,
+            render: ({ index }) => <span>{index}</span>,
         },
         {
-            title: t("Buyurtmachi ismi-sharifi"),
-            key: "customer_name",
+            title: "Buyurtmachi",
+            key: "customer",
         },
         {
-            title: t("Buyurtirilgan tovar nomi"),
-            key: "customer_ordered_product",
+            title: "Kodi",
+            key: "product_code",
         },
         {
-            title: t("Buyurtirilgan tovar kodi"),
-            key: "product_csr_code",
-            render: ({ value, row }) => (
-                <Link
-                    href={`/company/${get(row, "company_stir")}`}
-                    className={"underline text-[#146BBC]"}
-                >
-                    {value}
-                </Link>
-            ),
+            title: "Nomi",
+            key: "product_name",
         },
         {
-            title: t("Narxi"),
-            key: "product_price"
+            title: "Telefon raqami",
+            key: "phone",
         },
         {
-            title: t("Miqdori"),
-            key: "product_quantity"
+            title: "Narxi",
+            key: "price",
+            classnames: "text-center",
         },
         {
-            title: t("Umumiy narxi"),
-            key: "product_summary_price"
-        }
+            title: "Miqdori",
+            key: "quantity",
+            classnames: "text-center",
+        },
+        {
+            title: "Buyurtmaning holati",
+            key: "order_status",
+            classnames: "text-center",
+        },
     ]
 
     return (
         <Dashboard>
             <Subheader title={"Buyurtmalar"}/>
-
+            <div className="p-7">
+                <GridView columns={columns} key={KEYS.orderList} url={URLS.orderList}/>
+            </div>
         </Dashboard>
     );
 };

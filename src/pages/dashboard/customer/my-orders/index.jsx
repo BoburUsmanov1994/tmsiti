@@ -7,6 +7,12 @@ import {NumericFormat} from "react-number-format";
 import dayjs from "dayjs";
 import Image from "next/image";
 import {URLS} from "@/constants/url";
+import GridView from "@/containers/grid-view";
+import useGetQuery from "@/hooks/api/useGetQuery";
+import {KEYS} from "@/constants/key";
+
+
+
 
 const columns = [
     {
@@ -15,47 +21,37 @@ const columns = [
         render: ({ index }) => <span>{index}</span>,
     },
     {
+        title: "Yetkazib beruvchi",
+        key: "company",
+    },
+    {
         title: "Kodi",
-        key: "material_code",
-        render: ({ value, row }) => (
-            <Link
-                className={"underline"}
-                href={`/materials/${get(row, "material_code")}`}
-            >
-                <span className={"text-[#28366D]"}>{value}</span>
-            </Link>
-        ),
+        key: "product_code",
     },
     {
         title: "Nomi",
-        key: "material_name",
+        key: "product_name",
+    },
+    {
+        title: "Telefon raqami",
+        key: "phone",
     },
     {
         title: "Narxi",
-        key: "material_price",
-        render: ({ value, row }) =>
-            value *
-            get(currency, `data[${get(row, "material_price_currency")}]`, 1) >
-            0 ? (
-                <NumericFormat
-                    displayType={"text"}
-                    className={"text-center bg-transparent"}
-                    thousandSeparator={" "}
-                    value={(
-                        value *
-                        get(currency, `data[${get(row, "material_price_currency")}]`, 1)
-                    ).toFixed(2)}
-                />
-            ) : (
-                t("by_order")
-            ),
+        key: "price",
         classnames: "text-center",
     },
     {
         title: "Miqdori",
-        key: "material_measure",
+        key: "quantity",
         classnames: "text-center",
     },
+    {
+        title: "Buyurtmaning holati",
+        key: "order_status",
+        classnames: "text-center",
+    },
+
     {
         title: "Joylangan vaqti",
         key: "material_updated_date",
@@ -111,7 +107,7 @@ const Index = () => {
         <Dashboard>
             <Subheader title={'Mening buyurtmalarim'} />
             <div className="p-7">
-
+                <GridView columns={columns} hasActionColumn={true} key={KEYS.orderList} url={URLS.orderList}/>
             </div>
         </Dashboard>
     );
