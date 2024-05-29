@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import {useRouter} from "next/router";
 import {useSettingsStore} from "@/store";
 import {get} from "lodash";
+import useGetQuery from "@/hooks/api/useGetQuery";
 
 const Login = () => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
@@ -17,6 +18,14 @@ const Login = () => {
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.login})
     const setToken = useSettingsStore(state => get(state, 'setToken', () => {
     }))
+
+    const {data: user} = useGetQuery({
+        key: KEYS.getMe,
+        url: URLS.getMe,
+        headers: {token: token ?? `${get(session, "user.token")}`},
+        enabled: !!(get(session, "user.token") || token),
+    });
+
     const onSubmit = (data) => {
         // signIn("credentials", {
         //     email: get(data, 'email'),
@@ -32,7 +41,6 @@ const Login = () => {
                     toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
                     router.push("/dashboard/customer/my-orders")
                     signOut()
-
                 }
             })
 

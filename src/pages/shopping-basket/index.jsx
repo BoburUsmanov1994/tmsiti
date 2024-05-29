@@ -183,11 +183,11 @@ const Index = () => {
 
                         <div className={"col-span-4"}>
                           {/* Product description*/}
-                          <p ref={materialDescriptionRef} className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "material_description")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "material_description")}</p>
-                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "smallmechano_description")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "smallmechano_description")}</p>
-                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "mmechano_description")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "mmechano_description")}</p>
-                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "techno_description")) ? "hidden" : "visible"} text-sm text-[#28366D]  inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "techno_description")}</p>
-                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "work_description")) ? "hidden" : "visible"} text-sm text-[#28366D]  inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "work_description")}</p>
+                          <p ref={materialDescriptionRef} className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "material_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "material_code")}</p>
+                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "smallmechano_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "smallmechano_code")}</p>
+                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "mmechano_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "mmechano_code")}</p>
+                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "techno_code")) ? "hidden" : "visible"} text-sm text-[#28366D]  inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "techno_code")}</p>
+                          <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "work_code")) ? "hidden" : "visible"} text-sm text-[#28366D]  inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "work_code")}</p>
 
                           {/* Product Name */}
                           <p ref={materialNameRef} className={`text-base font-bold ${isEmpty(get(JSON.parse(head(item)), "material_name")) ? "hidden" : "visible"}`}>{get(JSON.parse(head(item)), "material_name")}</p>
