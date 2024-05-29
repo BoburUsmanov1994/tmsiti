@@ -29,8 +29,8 @@ const Header = (toggleMenu) => {
         headers: {token: token ?? `${get(session, "user.token")}`},
         enabled: !!(get(session, "user.token") || token),
     });
+    console.log(get(user, "data.company_name"), "company")
 
-    console.log(get(user, "data.email"))
 
     // useEffect(() => {
     //     if (get(session, 'user.token')) {
@@ -38,12 +38,14 @@ const Header = (toggleMenu) => {
     //     }
     // }, [session])
 
-    // const { data: customer } = useGetQuery({
-    //   key: KEYS.getCustomer,
-    //   url: URLS.getCustomer,
-    //   headers: { token: `${get(session, "user.token")}`},
-    //   enabled: !!get(session, "user.token"),
-    // })
+    const { data: customer } = useGetQuery({
+      key: KEYS.getCustomer,
+      url: URLS.getCustomer,
+      headers: { token: `${get(session, "user.token")}`},
+      enabled: !!get(session, "user.token"),
+    })
+
+    console.log(get(customer, "data.role"), "customer")
 
     return (
         <header>
@@ -156,7 +158,7 @@ const Header = (toggleMenu) => {
                                             className={"block text-base bg-transparent"}
                                         >
 
-                                            {get(user, "data.company_ceo")}
+                                            {get(customer, "role")}
                                         </button>
                                         <button
                                             className={"block text-base"}

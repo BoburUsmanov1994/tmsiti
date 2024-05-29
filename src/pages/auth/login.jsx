@@ -17,7 +17,9 @@ const Login = () => {
     const router = useRouter();
     const {data: session} = useSession();
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.login})
-
+    const token = useSettingsStore(state => get(state, 'token', null))
+    const setToken = useSettingsStore(state => get(state, 'setToken', () => {
+    }))
 
 
 
@@ -32,13 +34,10 @@ const Login = () => {
             },
             {
                 onSuccess: ({data}) => {
-                    toast.success('', {position: 'top-right'})
+                    setToken(get(data, 'token'))
+                    toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
+                    router.push("/")
 
-                    if(get(data, "role") === "customer") {
-                        router.push("/")
-                    } else {
-                        router.push("/select-position")
-                    }
                 }
             })
 
