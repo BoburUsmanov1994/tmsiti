@@ -24,16 +24,27 @@ const Index = () => {
       {isLoading && <ContentLoader/>}
       <div className="p-7">
         {
-
+          get(data, 'data', []).map(item =>
               <div className={" flex gap-x-[30px] mb-[50px]"}>
                 <div className={" min-w-[250px]  "}>
-
+                  {isNull(get(item, "company_logo")) ?
+                      <img
+                          className={"w-[240px] h-[170px] object-cover"}
+                          src={"/images/company.png"}
+                      />
+                      : <Image
+                          className={"w-[240px] h-[170px] object-cover"}
+                          loader={() => get(company, "data.company_logo")}
+                          src={get(company, "data.company_logo")}
+                          unoptimized={true}
+                      />
+                  }
                 </div>
 
                 <div>
                   {/*  Company name */}
                   <h1 className={"text-base font-normal text-black mb-[15px]"}>
-                    <strong>{data["company_name"]}</strong>
+                    <strong>{get(item, "company_name")}</strong>
                   </h1>
                   {/*  Company description */}
                   <p className={"text-xs text-black mb-[10px]"}>
@@ -47,17 +58,17 @@ const Index = () => {
                   </p>
                   {/*  Company manager  */}
                   <p className={"text-xs text-black"}>
-                    <strong>Rahbar: </strong>{data["company_ceo"]}
+                    <strong>Rahbar: </strong>{get(item, "company_ceo")}
                   </p>
 
                   {/*  Company phone  */}
                   <p className={"text-xs text-black my-[6px]"}>
-                    <strong>Telefon: </strong>{data["company_phone_main"]}
+                    <strong>Telefon: </strong>{get(item, "company_phone_main")}
                   </p>
 
                   {/*  Company address  */}
                   <p className={"text-xs text-black"}>
-                    <strong>Manzil: </strong>{data["company_address"]}
+                    <strong>Manzil: </strong>{get(item, "company_address")}
                   </p>
                   <button
                       className={
@@ -105,8 +116,8 @@ const Index = () => {
                   </button>
                 </div>
               </div>
-
-
+          )
+        }
         <p className={"text-sm text-[#c5c5c5]"}>*Quyidagi ma'lumotlar korxonaning STIR orqali yuklab olingan</p>
         <section
             className={
