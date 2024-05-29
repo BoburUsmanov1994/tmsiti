@@ -2,7 +2,7 @@ import React from 'react';
 import AuthLayout from "../../layouts/auth";
 import {useForm} from "react-hook-form";
 import Link from "next/link";
-import {signIn, signOut} from "next-auth/react";
+import {signIn, signOut, useSession} from "next-auth/react";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
@@ -15,7 +15,9 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 const Login = () => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const router = useRouter();
+    const {data: session} = useSession();
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.login})
+    const token = useSettingsStore(state => get(state, 'token', null))
     const setToken = useSettingsStore(state => get(state, 'setToken', () => {
     }))
 
