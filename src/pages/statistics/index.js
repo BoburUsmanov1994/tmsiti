@@ -51,6 +51,13 @@ export default function Home() {
     setIsActive(type);
   };
 
+  const { data: ministry, isLoading: isLoadingMinistry } = useGetQuery({
+    key: "ministry-key",
+    url: "https://cs.egov.uz/apiPartner/Table/Get?accessToken=65f171e8d204616a6824dc91&name=077-3-001&limit=50&offset=50&lang=1"
+  })
+
+  console.log(get(ministry, "data.result.data"))
+
   const { data: stock, isLoading: isLoadingStock } = useGetQuery({
     key: KEYS.apiBirja,
     url: URLS.apiBirja,
@@ -475,12 +482,12 @@ export default function Home() {
             }
           >
             <Image
-              src={"/images/building-material.png"}
-              alt={"stock-market"}
-              width={80}
-              height={80}
+                src={"/images/stock-market.png"}
+                alt={"stock-market"}
+                width={70}
+                height={70}
             />
-            <h3>E'loni mavjud materiallar</h3>
+            <h3>Tovar-xom ashyo birjasi</h3>
           </div>
           <div
             onClick={() => toggleTabs(2)}
@@ -488,66 +495,33 @@ export default function Home() {
               "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
             }
           >
-            <Image
-              src={"/images/stock-market.png"}
-              alt={"stock-market"}
-              width={70}
-              height={70}
-            />
-            <h3>Tovar-xom ashyo birjasi</h3>
+
+            <h3 className={"text-lg"}>Iqtisod va moliya vazirligi</h3>
+
           </div>
           <div
-            className={
-              "col-span-3 border-[2px] min-h-[150px] rounded-[8px] cursor-pointer"
-            }
-          ></div>
+              onClick={() => toggleTabs(3)}
+              className={
+                "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+              }
+          >
+            <h3 className={"text-lg"}>Statistika agentligi</h3>
+          </div>
           <div
-            className={
-              "col-span-3 border-[2px] min-h-[150px] rounded-[8px] cursor-pointer"
+              className={
+                "col-span-3 border-[2px] min-h-[150px] rounded-[8px] cursor-pointer"
             }
           ></div>
         </div>
 
-        {/*E'loni mavjud materiallar*/}
-        {tabs === 1 ? (
-          <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
-            <div className="col-span-12">
-              <Title>{t("E'loni mavjud materiallar")}</Title>
-            </div>
-
-            <Template active={isActive} handleClickFormat={setIsActive} />
-
-            {isFetchingMaterials && <OverlayLoader />}
-            {get(materials, "results", []).map((material) => (
-              <div
-                key={get(material, "material_code")}
-                className={` ${
-                  isActive === 1 && isActive === 2 && "col-span-3"
-                } ${isActive === 0 && "col-span-6"} col-span-3 mb-[30px] `}
-              >
-                <TemporaryProduct
-                  template={isActive === 0 || isActive === 2 ? "list" : "card"}
-                  data={material}
-                />
-              </div>
-            ))}
-            <div className="col-span-12 text-center">
-              <span
-                className={"cursor-pointer underline laptop:text-base text-sm"}
-                onClick={() => setPageSize((prev) => prev + 24)}
-              >
-                {t("Barcha mahsulotlarni ko’rish")}
-              </span>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
-
         {/*Tovar hom-ashyo birjasi*/}
 
-        {tabs === 2 ? (
+        {tabs === 1 ? (
           <div className={"mt-[30px]"}>
+            <Title>
+              Tovar hom-ashyo birjasi
+            </Title>
+            <br/>
             {head(
               get(stock, "data")?.map((item) => (
                 <p
@@ -604,6 +578,90 @@ export default function Home() {
         ) : (
           ""
         )}
+
+        {/*E'loni mavjud materiallar*/}
+        {tabs === 2 ? (
+            <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
+              <div className="col-span-12">
+                <Image src={"/images/ministry.png"} alt={"ministry"} width={300} height={100}/>
+              </div>
+
+              <div className={"col-span-12"}>
+                <table className="table-auto w-full mt-[20px]">
+                  <thead>
+                  <tr>
+                    <th
+                        className={
+                          "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
+                        }
+                    >
+                      Mahsulot kodi
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      Mahsulot nomi
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      Bo'lim
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      Guruh
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      Resurs
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      O'lchov birligi
+                    </th>
+                  </tr>
+                  </thead>
+                  {get(ministry, "data.result.data").map((stockItem) => (
+                      <tbody className={"even:bg-white odd:bg-[#E2E6ED]"}>
+                      <tr>
+                        <td className="border px-4 py-2">{get(stockItem, "CLASSIFIER CODE")}</td>
+                        <td className="border px-4 py-2">
+                          {get(stockItem, "KINGA")}
+                        </td>
+
+                        <td className="border px-4 py-2">
+                          {get(stockItem, "RAZDEL")}
+                        </td>
+
+                        <td className="border px-4 py-2">
+                          {get(stockItem, "GROUP")}
+                        </td>
+
+                        <td className="border px-4 py-2">
+                          {get(stockItem, "RESURS")}
+                        </td>
+
+                        <td className="border px-4 py-2 text-center">
+                          {get(stockItem, "UNIT MEASUREMENT")}
+                        </td>
+                      </tr>
+                      </tbody>
+                  ))}
+                </table>
+              </div>
+
+            </div>
+        ) : (
+            ""
+        )}
+
+
+        {tabs === 3 ? (
+            <div className={"grid grid-cols-12"}>
+              <div className={"col-span-12 my-[30px]"}>
+                <Title>
+                  Statistika agentligi
+                </Title>
+              </div>
+
+              <div className={"col-span-12 "}>
+                <h1>Tez orada bu yerga ma'lumotlar joylanadi</h1>
+              </div>
+            </div>
+        ) : ""}
       </Section>
     </Main>
   );
@@ -613,10 +671,10 @@ export const getStaticProps = async (context) => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery([KEYS.volumes], () =>
-    getVolumes({ url: URLS.volumes, params: { key: KEYS.materials } }),
+      getVolumes({url: URLS.volumes, params: {key: KEYS.materials}}),
   );
   await queryClient.prefetchQuery([KEYS.materials], () =>
-    getMostOrdered({ url: URLS.materials, params: { key: KEYS.viewCounts } }),
+      getMostOrdered({url: URLS.materials, params: {key: KEYS.viewCounts}}),
   );
 
   return {

@@ -21,6 +21,14 @@ const Login = () => {
     const setToken = useSettingsStore(state => get(state, 'setToken', () => {
     }))
 
+    const { data: customer } = useGetQuery({
+        key: KEYS.getCustomer,
+        url: URLS.getCustomer,
+        headers: { token: `${get(session, "user.token")}`},
+        enabled: !!get(session, "user.token"),
+    })
+
+    console.log(get(customer, "data.role"), "customer")
 
 
     const onSubmit = (data) => {
