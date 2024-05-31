@@ -12,7 +12,7 @@ import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import { URLS } from "@/constants/url";
 import { useTranslation } from "react-i18next";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { OverlayLoader } from "../../components/loader";
 import Template from "@/components/template";
 import Image from "next/image";
@@ -56,25 +56,15 @@ export default function Home() {
     url: "https://cs.egov.uz/apiPartner/Table/Get?accessToken=65f171e8d204616a6824dc91&name=077-3-001&limit=50&offset=50&lang=1"
   })
 
-  console.log(get(ministry, "data.result.data"))
+
+
+
 
   const { data: stock, isLoading: isLoadingStock } = useGetQuery({
     key: KEYS.apiBirja,
     url: URLS.apiBirja,
   });
 
-  // REAL MATERIALS API
-  const {
-    data: materials,
-    isLoading: materialLoading,
-    isError: materialError,
-    isFetching: isFetchingMaterials,
-  } = useQuery([KEYS.materialAvailableElon, pageSize], () =>
-    getMostOrdered({
-      url: URLS.materialAvailableElon,
-      params: { key: KEYS.viewCounts, page_size: pageSize },
-    }),
-  );
 
   const {
     data: region,
@@ -88,13 +78,7 @@ export default function Home() {
 
   console.log(get(region, "data.results"));
 
-  if (materialLoading) {
-    return (
-      <Main>
-        <ContentLoader />
-      </Main>
-    );
-  }
+
   return (
     <Main>
       <Menu active={7} />
@@ -418,7 +402,7 @@ export default function Home() {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <g clip-path="url(#clip0_717_3428)">
+                      <g clipPath="url(#clip0_717_3428)">
                         <path
                           d="M18 6L6 18"
                           stroke="#000"
@@ -495,8 +479,13 @@ export default function Home() {
               "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
             }
           >
-
-            <h3 className={"text-lg"}>Iqtisod va moliya vazirligi</h3>
+            <Image
+                src={"/images/building-material.png"}
+                alt={"stock-market"}
+                width={80}
+                height={80}
+            />
+            <h3>Iqtisod va moliya vazirligi</h3>
 
           </div>
           <div
@@ -505,9 +494,16 @@ export default function Home() {
                 "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
               }
           >
-            <h3 className={"text-lg"}>Statistika agentligi</h3>
+            <Image
+                src={"/images/statistics.png"}
+                alt={"stock-market"}
+                width={70}
+                height={70}
+            />
+            <h3>Statistika agentligi</h3>
           </div>
           <div
+              onClick={() => toggleTabs(4)}
               className={
                 "col-span-3 border-[2px] min-h-[150px] rounded-[8px] cursor-pointer"
             }
@@ -523,8 +519,8 @@ export default function Home() {
             </Title>
             <br/>
             {head(
-              get(stock, "data")?.map((item) => (
-                <p
+              get(stock, "data")?.map((item, index) => (
+                <p key={index}
                   className={
                     "text-[#fff] inline-block text-sm laptop:text-base my-[20px] px-[10px] py-[10px] bg-blue-500 rounded-[5px]"
                   }
@@ -555,8 +551,8 @@ export default function Home() {
                   </th>
                 </tr>
               </thead>
-              {get(stock, "data", []).map((stockItem) => (
-                <tbody className={"even:bg-white odd:bg-[#E2E6ED]"}>
+              {get(stock, "data", []).map((stockItem, index) => (
+                <tbody key={index} className={"even:bg-white odd:bg-[#E2E6ED]"}>
                   <tr>
                     <td className="border px-4 py-2">{get(stockItem, "rn")}</td>
                     <td className="border px-4 py-2">
@@ -579,7 +575,7 @@ export default function Home() {
           ""
         )}
 
-        {/*E'loni mavjud materiallar*/}
+        {/*Iqtisodiyot va moliya vazirligi*/}
         {tabs === 2 ? (
             <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
               <div className="col-span-12">
@@ -614,8 +610,8 @@ export default function Home() {
                     </th>
                   </tr>
                   </thead>
-                  {get(ministry, "data.result.data").map((stockItem) => (
-                      <tbody className={"even:bg-white odd:bg-[#E2E6ED]"}>
+                  {get(ministry, "data.result.data").map((stockItem, index) => (
+                      <tbody key={index} className={"even:bg-white odd:bg-[#E2E6ED]"}>
                       <tr>
                         <td className="border px-4 py-2">{get(stockItem, "CLASSIFIER CODE")}</td>
                         <td className="border px-4 py-2">
@@ -657,8 +653,50 @@ export default function Home() {
                 </Title>
               </div>
 
-              <div className={"col-span-12 "}>
-                <h1>Tez orada bu yerga ma'lumotlar joylanadi</h1>
+              <div className={"col-span-12"}>
+                <table className="table-auto w-full mt-[20px]">
+                  <thead>
+                  <tr>
+                    <th
+                        className={
+                          "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
+                        }
+                    >
+                      Nomi
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      Qiymati
+                    </th>
+
+                  </tr>
+                  </thead>
+                  {get(ministry, "data.result.data").map((stockItem, index) => (
+                      <tbody key={index} className={"even:bg-white odd:bg-[#E2E6ED]"}>
+                      <tr>
+                        <td className="border px-4 py-2">{get(stockItem, "CLASSIFIER CODE")}</td>
+                        <td className="border px-4 py-2">
+                          {get(stockItem, "KINGA")}
+                        </td>
+
+                        <td className="border px-4 py-2">
+                          {get(stockItem, "RAZDEL")}
+                        </td>
+
+                        <td className="border px-4 py-2">
+                          {get(stockItem, "GROUP")}
+                        </td>
+
+                        <td className="border px-4 py-2">
+                          {get(stockItem, "RESURS")}
+                        </td>
+
+                        <td className="border px-4 py-2 text-center">
+                          {get(stockItem, "UNIT MEASUREMENT")}
+                        </td>
+                      </tr>
+                      </tbody>
+                  ))}
+                </table>
               </div>
             </div>
         ) : ""}
