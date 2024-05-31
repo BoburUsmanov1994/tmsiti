@@ -62,7 +62,7 @@ const ViewPage = () => {
     enabled: !!(get(session, 'user.token') || token)
   })
 
-  console.log(get(customer, "data.role"), "customer")
+  
 
 
   const submitComment = (e) => {

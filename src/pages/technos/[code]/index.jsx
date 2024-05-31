@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import Main from "@/layouts/main";
 import Menu from "@/components/menu";
 import Section from "@/components/section";
@@ -21,12 +21,19 @@ import Link from "next/link";
 import {useCounter} from "@/context/counter";
 import {sum} from "lodash/math";
 import {toast, Toaster} from "react-hot-toast";
+import {useSession} from "next-auth/react";
+import {useSettingsStore} from "@/store";
+import Title from "@/components/title";
 
 
 const ViewPage = () => {
   const router = useRouter();
   const { code } = router.query;
   const { t } = useTranslation();
+  const {data: session} = useSession()
+  const inputRef = useRef(null);
+  const [comments, setComments] = useState([])
+  const token = useSettingsStore(state => get(state, 'token', null))
   const [regionId, setRegionId] = useState(null);
   const [districtId, setDistrictId] = useState(null);
 
@@ -40,6 +47,44 @@ const ViewPage = () => {
       position: "top-left"
     });
   };
+
+  const { data: customer } = useGetQuery({
+    key: KEYS.getCustomer,
+    url: URLS.getCustomer,
+    headers: {token: token ??`${get(session, 'user.token')}`},
+    enabled: !!(get(session, 'user.token') || token)
+  })
+
+  console.log(get(customer, "data.role"), "customer")
+
+
+  const submitComment = (e) => {
+    e.preventDefault();
+    const inputValue = inputRef.current?.value;
+
+
+    const firstName = get(customer, "data.first_name")
+    const lastName = get(customer, "data.last_name")
+
+    const info = {
+      inputValue,
+      firstName,
+      lastName
+    }
+    if (inputValue.trim()) {
+      const newComments = [...comments, info];
+      setComments(newComments);
+      localStorage.setItem('comments', JSON.stringify(newComments));
+      inputRef.current.value = ''; // Clear the input field after submission
+    }
+  }
+
+  const deleteComment = (index) => {
+    const newComments = comments.filter((_, i) => i !== index);
+    setComments(newComments);
+    localStorage.setItem('comments', JSON.stringify(newComments));
+  };
+
 
   const {data: technosAds, isLoading: isLoadingMaterialAds} = useGetQuery({
     key: KEYS.technosAds,
@@ -450,6 +495,31 @@ const ViewPage = () => {
                     columns={columns}
                 />
               </div>
+            </div>
+          </Section>
+          <Section>
+            <div className={"bg-white p-4"}>
+              <Title>Sharh</Title>
+              <p className={"mb-[15px]"}>Mahsulot bo'yicha o'z fikringiz, taklifingiz yoki e'tirozlaringizni
+                qoldirishingiz mumkin</p>
+              {comments.map((comment, index) =>
+                  <div key={index} className={" w-full border mb-[30px] rounded-[6px] shadow-xl p-2"}>
+                    <p className={"text-sm text-gray-400"}>{get(comment, "firstName")} {get(comment, "lastName")}</p>
+                    <h1 className={"text-lg"}>{get(comment, "inputValue")}</h1>
+                    <button className={"bg-red-500 px-[30px] text-white text-sm mt-[50px] active:bg-red-400 hover:bg-red-600 rounded-[6px] py-[5px]"} onClick={() => deleteComment(index)}>O'chirish</button>
+                  </div>
+              )}
+
+
+
+              <form className={"flex gap-x-8"} onClick={submitComment}>
+
+                <input ref={inputRef} type={"text"} className={'w-2/3 border rounded-[6px] h-[50px] text-base px-2'}
+                       placeholder={"Izoh yozishingiz uchun joy"}/>
+                <button
+                    className={"w-1/3 border h-[50px] bg-[#62B3FF] text-white active:bg-blue-500 rounded-[6px]"}>Yuborish
+                </button>
+              </form>
             </div>
           </Section>
         </Main>
