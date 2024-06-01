@@ -28,7 +28,7 @@ const Index = () => {
   const router = useRouter();
   const token = useSettingsStore(state => get(state, 'token', null))
   const [page, setPage] = useState(1);
-  const [basket, setBasket] = useState([])
+  const [basket, setBasket] = useState({})
   const [pageSize, setPageSize] = useState(48);
   const [template, setTemplate] = useState('standard');
 
@@ -37,7 +37,6 @@ const Index = () => {
   const materialCodeRef = useRef(null);
   const quantityRef = useRef(null);
   const priceRef = useRef(null);
-  const companyRef = useRef(null);
   const { stir } = router.query;
 
   const openModal = () => setIsOpen(true);
@@ -100,16 +99,16 @@ const Index = () => {
 
 
 
-  const onSubmit = (data) => {
-
+  const onSubmit = (e) => {
+    e.preventDefault()
 
     const enteredMaterialName = materialNameRef.current?.textContent;
     const enteredMaterialCode =  materialCodeRef.current?.textContent;
-    const enteredQuantity =  quantityRef.current?.textContent;
+    const enteredQuantity =  +quantityRef.current?.textContent;
     const enteredPrice =  priceRef.current?.textContent;
-    const enteredCompany =  companyRef.current?.textContent;
-    const customer =  [get(user, "data.first_name"), get(user, "data.last_name")];
-    const phone = get(user, "data.phone_number");
+    const enteredCompany =  get(user, "data.company");
+    const customer =  get(user, "data.id");
+    const phone = "+998933151043";
 
     const ProductInfo = {
       product_name: enteredMaterialName,
@@ -119,10 +118,11 @@ const Index = () => {
       company: enteredCompany,
       customer: customer,
       phone: phone
+
     };
 
     if(enteredPrice !== 0) {
-      const newBasket = [...basket, ProductInfo];
+      const newBasket = ProductInfo;
       setBasket(newBasket)
       localStorage.setItem('basket', JSON.stringify(newBasket))
       sendOrders({
@@ -134,6 +134,7 @@ const Index = () => {
               toast.success('Buyurtma yetkazib beruvchi kompaniyaga yuborildi', {position: 'top-right'})
             }
           })
+
     }
 
 
@@ -230,7 +231,7 @@ const Index = () => {
                         <div key={index}
                              className={`grid grid-cols-12 gap-x-2 ${last(item) === 0 ? "hidden" : "visible"}`}>
                           <div className={"col-span-12"}>
-                            <h1 ref={companyRef}
+                            <h1
                                 className={"mb-[30px] text-[#202B57] uppercase font-medium mobile:text-base tablet:text-lg laptop:text-xl desktop:text-2xl text-base "}>
                               {get(JSON.parse(head(item)), "company_name")}
                             </h1>

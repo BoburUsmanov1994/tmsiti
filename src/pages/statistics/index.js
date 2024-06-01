@@ -579,7 +579,9 @@ export default function Home() {
         {tabs === 2 ? (
             <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
               <div className="col-span-12">
-                <Image src={"/images/ministry.png"} alt={"ministry"} width={300} height={100}/>
+                <Title>
+                  Iqtisod va moliya vazirligi
+                </Title>
               </div>
 
               <div className={"col-span-12"}>
