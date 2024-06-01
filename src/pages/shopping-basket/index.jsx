@@ -108,7 +108,7 @@ const Index = () => {
     const enteredQuantity =  +quantityRef.current?.textContent;
     const enteredPrice =  priceRef.current?.textContent;
     const enteredCompany =  companyRef;
-    const customer =  get(user, "data.id");
+    const customer =  +get(user, "data.id");
     const phone = "+998933151043";
 
     const ProductInfo = {
