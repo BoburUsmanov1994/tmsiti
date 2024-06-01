@@ -37,6 +37,7 @@ const Index = () => {
   const materialCodeRef = useRef(null);
   const quantityRef = useRef(null);
   const priceRef = useRef(null);
+  const companyRef = useRef(null);
   const { stir } = router.query;
 
   const openModal = () => setIsOpen(true);
@@ -106,7 +107,7 @@ const Index = () => {
     const enteredMaterialCode =  materialCodeRef.current?.textContent;
     const enteredQuantity =  +quantityRef.current?.textContent;
     const enteredPrice =  priceRef.current?.textContent;
-    const enteredCompany =  get(user, "data.company");
+    const enteredCompany =  companyRef;
     const customer =  get(user, "data.id");
     const phone = "+998933151043";
 
@@ -235,6 +236,7 @@ const Index = () => {
                                 className={"mb-[30px] text-[#202B57] uppercase font-medium mobile:text-base tablet:text-lg laptop:text-xl desktop:text-2xl text-base "}>
                               {get(JSON.parse(head(item)), "company_name")}
                             </h1>
+                            <p ref={companyRef} className={'hidden'}>{get(JSON.parse(head(item)), "company_stir")}</p>
                           </div>
 
 
