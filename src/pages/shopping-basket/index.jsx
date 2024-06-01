@@ -34,7 +34,7 @@ const Index = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const materialNameRef = useRef(null);
-  const materialDescriptionRef = useRef(null);
+  const materialCodeRef = useRef(null);
   const quantityRef = useRef(null);
   const priceRef = useRef(null);
   const companyRef = useRef(null);
@@ -53,21 +53,19 @@ const Index = () => {
     enabled: !!(get(session, 'user.token') || token)
   })
 
-  const removeItem = (id) => {
-    setBasket((prevBasket) => prevBasket.filter(item => item.id !== id));
-  };
+  useEffect(() => {
+    
+    const storedBasket = localStorage.getItem('basket');
+    if (storedBasket) {
+      setBasket(JSON.parse(storedBasket));
+    }
+  }, []);
+
+
 
   const {mutate: sendOrders, isLoading: isLoadingOrders} = usePostQuery({listKeyId: "order-one"})
 
-  const materialData = {
-    product_name: materialNameRef.current?.textContent,
-    product_code: materialDescriptionRef.current?.textContent,
-    quantity: quantityRef.current?.textContent,
-    price: priceRef.current?.textContent,
-    company: companyRef.current?.textContent,
-    customer: [get(user, "data.first_name"), get(user, "data.last_name")],
-    phone: get(user, "data.phone_number")
-  };
+
 
   
 
@@ -103,15 +101,43 @@ const Index = () => {
 
 
   const onSubmit = (data) => {
-    sendOrders({
-      url: URLS.sendOrders,
-      attributes: materialData,
-    },
-        {
-          onSuccess: () => {
-            toast.success('Buyurtma yetkazib beruvchi kompaniyaga yuborildi', {position: 'top-right'})
-          }
-        })
+
+
+    const enteredMaterialName = materialNameRef.current?.textContent;
+    const enteredMaterialCode =  materialCodeRef.current?.textContent;
+    const enteredQuantity =  quantityRef.current?.textContent;
+    const enteredPrice =  priceRef.current?.textContent;
+    const enteredCompany =  companyRef.current?.textContent;
+    const customer =  [get(user, "data.first_name"), get(user, "data.last_name")];
+    const phone = get(user, "data.phone_number");
+
+    const ProductInfo = {
+      product_name: enteredMaterialName,
+      product_code: enteredMaterialCode,
+      quantity: enteredQuantity,
+      price: enteredPrice,
+      company: enteredCompany,
+      customer: customer,
+      phone: phone
+    };
+
+    if(enteredPrice !== 0) {
+      const newBasket = [...basket, ProductInfo];
+      setBasket(newBasket)
+      localStorage.setItem('basket', JSON.stringify(newBasket))
+      sendOrders({
+            url: URLS.sendOrders,
+            attributes: newBasket,
+          },
+          {
+            onSuccess: () => {
+              toast.success('Buyurtma yetkazib beruvchi kompaniyaga yuborildi', {position: 'top-right'})
+            }
+          })
+    }
+
+
+
   }
 
 
@@ -213,7 +239,7 @@ const Index = () => {
 
                           <div className={`col-span-4 `}>
                             {/* Product description*/}
-                            <p ref={materialDescriptionRef}
+                            <p ref={materialCodeRef}
                                className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "material_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "material_code")}</p>
                             <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "smallmechano_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "smallmechano_code")}</p>
                             <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "mmechano_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "mmechano_code")}</p>

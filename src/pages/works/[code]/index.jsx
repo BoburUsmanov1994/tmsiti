@@ -393,7 +393,8 @@ const ViewPage = () => {
 
         <Section>
           <div className={"bg-white p-4"}>
-            <Title>Sharh</Title>
+            <
+              Title>Sharh</Title>
             <p className={"mb-[15px]"}>Mahsulot bo'yicha o'z fikringiz, taklifingiz yoki e'tirozlaringizni
               qoldirishingiz mumkin</p>
             {comments.map((comment, index) =>
