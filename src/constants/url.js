@@ -53,5 +53,5 @@ export const URLS = {
   deactivateWork: "works/ads/delete",
   updateWork: "works/update/",
   sendOrders: "order/new/add/",
-  orderList: "order/list/"
+  orderListCompany: "order/list/company/"
 };

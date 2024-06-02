@@ -20,6 +20,7 @@ const Index = () => {
         {
             title: "Buyurtmachi",
             key: "customer",
+            render: ({ row }) => <p>{get(row, "first_name")} {get(row, "last_name")}</p>
         },
         {
             title: "Kodi",
@@ -54,7 +55,7 @@ const Index = () => {
         <Dashboard>
             <Subheader title={"Buyurtmalar"}/>
             <div className="p-7">
-                <GridView columns={columns} key={KEYS.orderList} url={URLS.orderList}/>
+                <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany}/>
             </div>
         </Dashboard>
     );
