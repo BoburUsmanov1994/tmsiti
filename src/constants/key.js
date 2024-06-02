@@ -43,4 +43,5 @@ export const KEYS = {
   mySmallMechano: "mySmallMechano",
   myWork: "myWork",
   orderListCompany: "orderListCompany",
+  orderListCustomer: "orderListCustomer"
 };
