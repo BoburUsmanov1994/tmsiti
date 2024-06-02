@@ -10,6 +10,7 @@ import usePutQuery from "@/hooks/api/usePutQuery";
 import {toast} from "react-hot-toast";
 import {get} from "lodash";
 import useGetQuery from "@/hooks/api/useGetQuery";
+import usePostQuery from "@/hooks/api/usePostQuery";
 import {KEYS} from "@/constants/key";
 
 const Index = () => {
@@ -34,7 +35,7 @@ const Index = () => {
     console.log(data, "company")
 
 
-    const { mutate: editCompanyInfo, isLoading } = usePutQuery({
+    const { mutate: editCompanyInfo, isLoading } = usePostQuery({
         listKeyId: "company-info-one",
     });
 
@@ -106,7 +107,7 @@ const Index = () => {
                             {/*  Company name */}
                             <input type={"text"} placeholder={"Kompaniya nomini kiriting"}
                                    className={"py-[16px] px-[8px] min-w-[300px] text-sm mb-[15px]"}
-                                   defaultValue={get(data, "company_name")}/> <br/>
+                                   defaultValue={get(item, "company_name")}/> <br/>
                             {/*  Company description */}
                             <p className={"text-xs text-black mb-[10px]"}>
                                 Korxonaning tarmoqdagi va bozordagi holati tahlili bu o’z
