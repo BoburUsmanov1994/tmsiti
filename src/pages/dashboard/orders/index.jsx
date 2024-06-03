@@ -17,14 +17,14 @@ const Index = () => {
     const { t } = useTranslation();
     const [pageSize, setPageSize] = useState(20);
 
-    const { mutate: sendOrderStatus, isLoading } = usePostQuery({
+    const { mutate: orderStatus, isLoading } = usePostQuery({
         listKeyId: "company-info-one",
     });
 
 
     const handleSendOrderStatus = ({id}) => {
-        sendOrderStatus({
-            url: `${URLS.orderListCustomer}${id}/`
+        orderStatus({
+            url: `${URLS.sendOrderStatus}${id}/`
         })
     }
 
