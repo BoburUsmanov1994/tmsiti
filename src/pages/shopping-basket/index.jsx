@@ -38,6 +38,8 @@ const Index = () => {
   const quantityRef = useRef(null);
   const priceRef = useRef(null);
   const companyRef = useRef(null);
+  const productIdRef = useRef(null);
+  const productCategoryRef = useRef(null);
   const { stir } = router.query;
 
   const openModal = () => setIsOpen(true);
@@ -53,13 +55,7 @@ const Index = () => {
     enabled: !!(get(session, 'user.token') || token)
   })
 
-  useEffect(() => {
-    
-    const storedBasket = localStorage.getItem('basket');
-    if (storedBasket) {
-      setBasket(JSON.parse(storedBasket));
-    }
-  }, []);
+
 
 
 
@@ -102,12 +98,13 @@ const Index = () => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-
     const enteredMaterialName = materialNameRef.current?.textContent;
     const enteredMaterialCode =  materialCodeRef.current?.textContent;
     const enteredQuantity =  +quantityRef.current?.textContent;
     const enteredPrice =  priceRef.current?.textContent;
     const enteredCompany =  companyRef.current?.textContent;
+    const productId = productIdRef.current?.textContent;
+    const productCategory = productCategoryRef.current?.textContent;
     const customer =  +get(user, "data.id");
     const phone = "+998933151043";
 
@@ -118,14 +115,15 @@ const Index = () => {
       price: enteredPrice,
       company: enteredCompany,
       customer: customer,
-      phone: phone
-
+      phone: phone,
+      ad_id: productId,
+      product_category: productCategory,
     };
 
     if(enteredPrice !== 0) {
       const newBasket = ProductInfo;
       setBasket(newBasket)
-      localStorage.setItem('basket', JSON.stringify(newBasket))
+
       sendOrders({
             url: URLS.sendOrders,
             attributes: newBasket,
@@ -237,11 +235,13 @@ const Index = () => {
                               {get(JSON.parse(head(item)), "company_name")}
                             </h1>
                             <p ref={companyRef} className={'hidden'}>{get(JSON.parse(head(item)), "company_stir")}</p>
+                            <p ref={productIdRef} className={'hidden'}>{get(JSON.parse(head(item)), "id")}</p>
+                            <p ref={productCategoryRef} className={'hidden'}>{get(JSON.parse(head(item)), "material_code") ? "material" : get(JSON.parse(head(item)), "mmechano_code") ? "mmechano" : get(JSON.parse(head(item)), "techno_code") ? "techno" : get(JSON.parse(head(item)), "smallmechano_code") ? "smallmechano" : get(JSON.parse(head(item)), "work_code") ? "work" : ""}</p>
                           </div>
 
 
                           <div className={`col-span-4 `}>
-                            {/* Product description*/}
+                          {/* Product description*/}
                             <p ref={materialCodeRef}
                                className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "material_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "material_code")}</p>
                             <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "smallmechano_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "smallmechano_code")}</p>
