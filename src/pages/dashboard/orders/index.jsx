@@ -55,17 +55,17 @@ const Index = () => {
             key: "order_status",
             render: ({ row }) =>
                 get(row, "order_status") === "new_order" ?
-                    <div className={"flex"}>
-                            <button>
+                    <div className={"flex flex-col gap-y-2"}>
+                            <button className={"bg-green-600 hover:bg-green-700 active:bg-red-500 text-white py-2 px-8 rounded-[6px]"}>
                                 Qabul qilish
                             </button>
-                            <button>
+                            <button className={"bg-red-600 hover:bg-red-700 active:bg-red-500 text-white py-2 px-8 rounded-[6px]"}>
                                 Bekor qilish
                             </button>
                         </div>
                         : get(row, "order_status") === "accepted" ?
                         <div>
-                            <button>
+                            <button className={"bg-blue-600  hover:bg-blue-700 active:bg-red-500 text-white py-2 px-8 rounded-[6px]"}>
                                 Yuborish
                             </button>
                         </div> : "new_order"
