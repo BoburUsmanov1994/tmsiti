@@ -57,18 +57,18 @@ const Index = () => {
                 {
                     get(row, "order_status") === "new_order" ?
                         <div className={"flex"}>
-                            <Button>
+                            <button>
                                 Qabul qilish
-                            </Button>
-                            <Button>
+                            </button>
+                            <button>
                                 Bekor qilish
-                            </Button>
+                            </button>
                         </div>
                         : get(row, "order_status") === "accepted" ?
                         <div>
-                            <Button>
+                            <button>
                                 Yuborish
-                            </Button>
+                            </button>
                         </div> : "new_order"
                 }
             },
