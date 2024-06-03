@@ -64,7 +64,7 @@ const Index = () => {
         <Dashboard>
             <Subheader title={"Buyurtmalar"}/>
             <div className="p-7">
-                <GridView columns={columns} hasActionColumn={true} key={KEYS.orderListCompany} url={URLS.orderListCompany} defaultPageSize={pageSize}/>
+                <GridView columns={columns}  key={KEYS.orderListCompany} url={URLS.orderListCompany} defaultPageSize={pageSize}/>
             </div>
         </Dashboard>
     );

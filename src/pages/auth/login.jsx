@@ -11,8 +11,10 @@ import {useRouter} from "next/router";
 import {useSettingsStore} from "@/store";
 import {get} from "lodash";
 import useGetQuery from "@/hooks/api/useGetQuery";
+import {useTranslation} from "react-i18next";
 
 const Login = () => {
+    const { t } = useTranslation();
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const router = useRouter();
     const {data: session} = useSession();
@@ -43,7 +45,7 @@ const Login = () => {
             {
                 onSuccess: ({data}) => {
                     setToken(get(data, 'token'))
-                    toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
+                    toast.success("Siz ro'yxatdan o'tdingiz", {position: 'top-right'})
                     router.push("/")
 
                 }
@@ -58,27 +60,26 @@ const Login = () => {
                     <label className={'block mb-1.5'} htmlFor="#">Login</label>
                     <input {...register("email", {required: true})}
                            className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="text"/>
-                    {errors.email && <span className={'text-xs text-red-500'}>This field is required</span>}
+                    {errors.email && <span className={'text-xs text-red-500'}>{t("Ushbu qator to'ldirilishi shart")}</span>}
                 </div>
 
                 <div className={'mb-4'}>
                     <label className={'block mb-1.5'} htmlFor="#">Parol</label>
                     <input {...register("password", {required: true})}
                            className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="password"/>
-                    {errors.password && <span className={'text-xs text-red-500'}>This field is required</span>}
+                    {errors.password && <span className={'text-xs text-red-500'}>{t("Ushbu qator to'ldirilishi shart")}</span>}
                 </div>
                 <div className="mb-8">
-                    <Link className={'text-[#525D89] text-sm'} href={'/auth/reset-password'}>Parolni unitdingizmi</Link>
+                    <Link className={'text-[#525D89] text-sm'} href={'/auth/reset-password'}>{t("Parolni unitdingizmi")}</Link>
                 </div>
 
                 <div className="text-center">
                     <button
-                        className={'bg-[#017EFA] rounded-[5px] text-white text-xl font-medium py-2.5 px-7'}>Kirish
+                        className={'bg-[#017EFA] rounded-[5px] text-white text-xl font-medium py-2.5 px-7'}>{t("Kirish")}
                     </button>
                 </div>
                 <div className="mt-5 text-center">
-                    <Link className={'text-[#525D89] text-sm underline'} href={'/auth/signup'}>Ro’yhatdan
-                        o’tmaganmisiz?</Link>
+                    <Link className={'text-[#525D89] text-sm underline'} href={'/auth/signup'}>{t("Ro’yhatdan o’tmaganmisiz?")}</Link>
                 </div>
             </form>
         </AuthLayout>
