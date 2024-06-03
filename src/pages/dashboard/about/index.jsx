@@ -201,7 +201,7 @@ const Index = () => {
                       "col-span-5 text-xs text-black flex flex-col gap-y-[20px]"
                     }
                 >
-                  <p>{get(item, "company_reg_year")}</p>
+                  <p>{isNull(get(item, "company_reg_year")) ? "Ma'lumot kiritilmagan" : get(item, "company_reg_year")}</p>
                   <p>Viloyat adliya boshqarmasi</p>
                   <p>153 - Aksiyadorlik jamiyati</p>
                   <p>07154 - “O‘zqurilishmateriallari” aksiyadorlik kompaniyasi</p>
