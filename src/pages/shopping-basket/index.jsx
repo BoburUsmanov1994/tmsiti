@@ -48,6 +48,14 @@ const Index = () => {
     setTemplate(temp);
   }
 
+  useEffect(() => {
+
+    const storedBasket = localStorage.getItem('basket');
+    if (storedBasket) {
+      setBasket(JSON.parse(storedBasket));
+    }
+  }, []);
+
   const {data: user} = useGetQuery({
     key: KEYS.getCustomer,
     url: URLS.getCustomer,
@@ -119,7 +127,7 @@ const Index = () => {
     if(enteredPrice !== 0) {
       const newBasket = {...basket, ProductInfo};
       setBasket(newBasket)
-
+      localStorage.setItem('basket', JSON.stringify(newBasket))
       sendOrders({
             url: URLS.sendOrders,
             attributes: newBasket,
