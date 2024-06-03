@@ -55,6 +55,6 @@ export const URLS = {
   sendOrders: "order/new/add/",
   orderListCompany: "order/list/company/",
   orderListCustomer: "order/list/customer/",
-  updateCompanyInfo: "companies/company_info_update/"
-
+  updateCompanyInfo: "companies/company_info_update/",
+  sendOrderStatus: "order/order_status/"
 };

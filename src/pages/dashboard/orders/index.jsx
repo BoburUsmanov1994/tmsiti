@@ -8,6 +8,7 @@ import GridView from "@/containers/grid-view";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 import Button from "@/components/button";
+import usePostQuery from "@/hooks/api/usePostQuery";
 
 
 
@@ -15,6 +16,17 @@ import Button from "@/components/button";
 const Index = () => {
     const { t } = useTranslation();
     const [pageSize, setPageSize] = useState(20);
+
+    const { mutate: sendOrderStatus, isLoading } = usePostQuery({
+        listKeyId: "company-info-one",
+    });
+
+
+    const handleSendOrderStatus = ({id}) => {
+        sendOrderStatus({
+            url: `${URLS.orderListCustomer}${id}/`
+        })
+    }
 
 
     const columns =[
@@ -56,7 +68,7 @@ const Index = () => {
             render: ({ row }) =>
                 get(row, "order_status") === "new_order" ?
                     <div className={"flex flex-col gap-y-2"}>
-                            <button className={"bg-green-600 hover:bg-green-700 active:bg-red-500 text-white py-2 px-8 rounded-[6px]"}>
+                            <button onClick={() => handleSendOrderStatus(get(row, "id"))} className={"bg-green-600 hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>
                                 Qabul qilish
                             </button>
                             <button className={"bg-red-600 hover:bg-red-700 active:bg-red-500 text-white py-2 px-8 rounded-[6px]"}>
@@ -65,7 +77,7 @@ const Index = () => {
                         </div>
                         : get(row, "order_status") === "accepted" ?
                         <div>
-                            <button className={"bg-blue-600  hover:bg-blue-700 active:bg-red-500 text-white py-2 px-8 rounded-[6px]"}>
+                            <button className={"bg-blue-600  hover:bg-blue-700 active:bg-blue-500 text-white py-2 px-8 rounded-[6px]"}>
                                 Yuborish
                             </button>
                         </div> : "new_order"
