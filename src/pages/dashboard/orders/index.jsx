@@ -23,8 +23,9 @@ const Index = () => {
 
 
     const handleSendOrderStatus = ({id}) => {
+        const selectedId = +id
         sendOrderStatus({
-            url: `${URLS.sendOrderStatus}${id}/`
+            url: `${URLS.sendOrderStatus}${selectedId}/`
         })
     }
 
@@ -68,7 +69,7 @@ const Index = () => {
             render: ({ row }) =>
                 get(row, "order_status") === "new_order" ?
                     <div className={"flex flex-col gap-y-2"}>
-                            <button onClick={() => handleSendOrderStatus(get(row, "id"))} className={"bg-green-600 hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>
+                            <button onClick={() => handleSendOrderStatus(String(get(row, "id")))} className={"bg-green-600 hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>
                                 Qabul qilish
                                 {get(row, "id")}
                             </button>
