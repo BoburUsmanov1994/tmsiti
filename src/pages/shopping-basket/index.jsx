@@ -98,7 +98,7 @@ const Index = () => {
     };
 
     if(price !== 0) {
-      const newBasket = {...basket, ProductInfo};
+      const newBasket = [...basket, ProductInfo];
       setBasket(newBasket)
 
       sendOrders({
@@ -112,6 +112,8 @@ const Index = () => {
           })
 
     }
+
+
 
 
 
