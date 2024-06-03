@@ -28,16 +28,6 @@ const Index = () => {
             key: "product_code",
         },
         {
-            title: "Mahsulot id",
-            key: "ad_id",
-            classnames: "hidden"
-        },
-        {
-            title: "Mahsulot kategoriyasi",
-            key: "product_category",
-            classnames: "hidden"
-        },
-        {
             title: "Nomi",
             key: "product_name",
         },
