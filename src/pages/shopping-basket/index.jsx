@@ -56,8 +56,23 @@ const Index = () => {
   })
 
 
+
+
+
   const {mutate: sendOrders, isLoading: isLoadingOrders} = usePostQuery({listKeyId: "order-one"})
 
+
+
+
+
+  const { data, isLoading, isFetching } = useGetQuery({
+    key: KEYS.companyAds,
+    url: `${URLS.companyAds}${stir}/`,
+    params: {
+      page,
+      page_size: pageSize,
+    },
+  });
 
   const handleIncrement = (product) => {
     console.log("product", product, JSON.stringify(product));
@@ -73,6 +88,10 @@ const Index = () => {
   };
 
 
+
+
+
+
   const onSubmit = (e) => {
     e.preventDefault()
     const enteredMaterialName = materialNameRef.current?.textContent;
@@ -80,10 +99,10 @@ const Index = () => {
     const enteredQuantity =  +quantityRef.current?.textContent;
     const enteredPrice =  priceRef.current?.textContent;
     const enteredCompany =  companyRef.current?.textContent;
-    const productId = +productIdRef.current?.textContent;
+    const productId = productIdRef.current?.textContent;
     const productCategory = productCategoryRef.current?.textContent;
     const customer =  +get(user, "data.id");
-    const phone = isNull(get(user, "data.phone")) ? "+998933151043" : get(user, "data.phone");
+    const phone = isNull(get(user, "data.phone")) ? "" : get(user, "data.phone");
 
     const ProductInfo = {
       product_name: enteredMaterialName,
@@ -97,13 +116,15 @@ const Index = () => {
       product_category: productCategory,
     };
 
-    if(price !== 0) {
-      const newBasket = [...basket, ProductInfo];
-      setBasket(newBasket)
+    if(enteredPrice !== 0) {
+
+      setBasket(prevBasket => ({
+        ...prevBasket, ProductInfo
+      }))
 
       sendOrders({
             url: URLS.sendOrders,
-            attributes: newBasket,
+            attributes: basket,
           },
           {
             onSuccess: () => {
@@ -112,8 +133,6 @@ const Index = () => {
           })
 
     }
-
-
 
 
 
