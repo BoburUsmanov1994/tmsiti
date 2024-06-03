@@ -48,14 +48,6 @@ const Index = () => {
     setTemplate(temp);
   }
 
-  useEffect(() => {
-
-    const storedBasket = localStorage.getItem('basket');
-    if (storedBasket) {
-      setBasket(JSON.parse(storedBasket));
-    }
-  }, []);
-
   const {data: user} = useGetQuery({
     key: KEYS.getCustomer,
     url: URLS.getCustomer,
@@ -110,7 +102,7 @@ const Index = () => {
     const productId = productIdRef.current?.textContent;
     const productCategory = productCategoryRef.current?.textContent;
     const customer =  +get(user, "data.id");
-    const phone = get(user, "data.phone", "+9983333333");
+    const phone = get(user, "data.phone", "+998933151043");
 
     const ProductInfo = {
       product_name: enteredMaterialName,
@@ -125,9 +117,9 @@ const Index = () => {
     };
 
     if(enteredPrice !== 0) {
-      const newBasket = {...basket, ProductInfo};
+      const newBasket = {ProductInfo};
       setBasket(newBasket)
-      localStorage.setItem('basket', JSON.stringify(newBasket))
+
       sendOrders({
             url: URLS.sendOrders,
             attributes: newBasket,
@@ -139,6 +131,9 @@ const Index = () => {
           })
 
     }
+
+
+
   }
 
 
