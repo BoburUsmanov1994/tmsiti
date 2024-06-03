@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
-import {get, head, isEmpty, values} from "lodash";
+import {get, head, isEmpty, isNull, values} from "lodash";
 import { last } from "lodash/array";
 import {NumericFormat} from "react-number-format";
 import Image from "next/image";
@@ -102,7 +102,7 @@ const Index = () => {
     const productId = productIdRef.current?.textContent;
     const productCategory = productCategoryRef.current?.textContent;
     const customer =  +get(user, "data.id");
-    const phone = get(user, "data.phone", "+998933151043");
+    const phone = isNull(get(user, "data.phone")) ? "+998933151043" : get(user, "data.phone");
 
     const ProductInfo = {
       product_name: enteredMaterialName,
