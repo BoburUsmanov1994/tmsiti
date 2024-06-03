@@ -1,4 +1,4 @@
-import React, {useTransition} from 'react';
+import React, {useState, useTransition} from 'react';
 import Dashboard from "@/layouts/dashboard";
 import Subheader from "@/layouts/dashboard/components/subheader";
 import Link from "next/link";
@@ -10,6 +10,7 @@ import {URLS} from "@/constants/url";
 
 const Index = () => {
     const { t } = useTranslation();
+    const [pageSize, setPageSize] = useState(20);
 
     const columns =[
         {
@@ -63,7 +64,7 @@ const Index = () => {
         <Dashboard>
             <Subheader title={"Buyurtmalar"}/>
             <div className="p-7">
-                <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany}/>
+                <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany} defaultPageSize={pageSize}/>
             </div>
         </Dashboard>
     );
