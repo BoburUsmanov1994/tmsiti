@@ -285,9 +285,15 @@ const Index = () => {
                             />
                             <p>702 601 533 000,00 UZS</p>
                             <p>Hozirda mavjud</p>
-                            <p>Melnikov Sergey Nikolayevich</p>
+                            <input
+                                type={"text"}
+                                {...register("company_ceo")}
+                                placeholder={"Ism-familiyani kiriting"}
+                                className={" min-w-[300px]"}
+                                defaultValue={get(item, "company_ceo")}
+                            />
                             <p>0</p>
-                            <p>10</p>
+
                         </div>
                     </section>
 
@@ -297,7 +303,7 @@ const Index = () => {
                                 "flex items-center gap-x-[10px] bg-[#1890FF] py-[6px] px-[31px] rounded-[5px] float-left mt-[30px] hover:bg-[#0084FF] transition-all duration-300 "
                             }
                         >
-                            <svg
+                        <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="20"
                                 height="20"

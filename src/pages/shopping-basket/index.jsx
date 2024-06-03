@@ -84,11 +84,7 @@ const Index = () => {
     if (state.count <= 0) {
       state.count = 0;
     }
-    if(state.count === 0) {
-      setTimeout(() => {
 
-      })
-    }
   };
 
 
@@ -106,7 +102,7 @@ const Index = () => {
     const productId = productIdRef.current?.textContent;
     const productCategory = productCategoryRef.current?.textContent;
     const customer =  +get(user, "data.id");
-    const phone = "+998933151043";
+    const phone = get(user, "data.phone", "+9983333333");
 
     const ProductInfo = {
       product_name: enteredMaterialName,
@@ -121,7 +117,7 @@ const Index = () => {
     };
 
     if(enteredPrice !== 0) {
-      const newBasket = ProductInfo;
+      const newBasket = {...basket, ProductInfo};
       setBasket(newBasket)
 
       sendOrders({
@@ -135,9 +131,6 @@ const Index = () => {
           })
 
     }
-
-
-
   }
 
 
