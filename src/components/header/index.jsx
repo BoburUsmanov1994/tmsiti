@@ -158,7 +158,7 @@ const Header = (toggleMenu) => {
                                             className={"block text-base bg-transparent"}
                                         >
 
-                                            Ro'yxatdan o'tish
+                                            Kabinetga kirish
                                         </button>
                                         <button
                                             className={"block text-base"}

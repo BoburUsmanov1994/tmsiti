@@ -53,10 +53,9 @@ const Index = () => {
         {
             title: "Buyurtmaning holati",
             key: "order_status",
-            render: ({row}) => {
-                {
-                    get(row, "order_status") === "new_order" ?
-                        <div className={"flex"}>
+            render: ({ row }) => {
+                {get(row, "order_status") === "new_order" ?
+                    <div className={"flex"}>
                             <button>
                                 Qabul qilish
                             </button>
