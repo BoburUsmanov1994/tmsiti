@@ -102,7 +102,7 @@ const Index = () => {
     const productId = productIdRef.current?.textContent;
     const productCategory = productCategoryRef.current?.textContent;
     const customer =  +get(user, "data.id");
-    const phone = isNull(get(user, "data.phone")) ? "" : get(user, "data.phone");
+    const phone = isNull(get(user, "data.phone")) ? "+998933151043" : get(user, "data.phone");
 
     const ProductInfo = {
       product_name: enteredMaterialName,
@@ -117,14 +117,12 @@ const Index = () => {
     };
 
     if(enteredPrice !== 0) {
-
-      setBasket(prevBasket => ({
-        ...prevBasket, ProductInfo
-      }))
+      const newBasket = ProductInfo;
+      setBasket(newBasket)
 
       sendOrders({
             url: URLS.sendOrders,
-            attributes: basket,
+            attributes: newBasket,
           },
           {
             onSuccess: () => {
