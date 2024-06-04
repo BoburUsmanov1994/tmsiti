@@ -91,7 +91,7 @@ const Index = () => {
                         </div> : get(row, "order_status") === "sent" ?
                             <div className={"flex border-green-400 rounded-[6px]"}>
                                 <p>Mahsulot yuborildi</p>
-                                <Image src={"/images/success.png"} alt={"success"} width={50} height={50}/>
+                                <Image src={"/images/success.png"} alt={"success"} width={30} height={30}/>
                             </div> : ""
             ,
 
