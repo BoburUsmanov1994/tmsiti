@@ -84,7 +84,6 @@ const Ads = () => {
         formData.append('sertificate_blank_num', sertificate_blank_num)
         formData.append('sertificate_reestr_num', sertificate_reestr_num)
         formData.append('mmechano_owner', mmechano_owner)
-
         formData.append('mmechano_measure', mmechano_measure)
         addAds({
                 url: URLS.machineMechanoAddAds,

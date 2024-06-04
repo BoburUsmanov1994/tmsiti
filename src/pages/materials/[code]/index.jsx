@@ -23,6 +23,9 @@ import {toast} from "react-hot-toast";
 import {useSettingsStore} from "@/store";
 import {useSession} from "next-auth/react";
 import Title from "@/components/title";
+import usePostQuery from "@/hooks/api/usePostQuery";
+import {useForm} from "react-hook-form";
+import Button from "@/components/button";
 
 const ViewPage = () => {
   const router = useRouter();
@@ -32,9 +35,15 @@ const ViewPage = () => {
   const inputRef = useRef(null);
   const [regionId, setRegionId] = useState(null);
   const [districtId, setDistrictId] = useState(null);
+  const [isOpen, setIsOpen] = useState()
+  // const [certificates, setCertificates] = useState({})
   const [comments, setComments] = useState([])
   const token = useSettingsStore(state => get(state, 'token', null))
+  const {register, handleSubmit, formState: {errors}} = useForm({values: certificates})
   const { state, dispatch } = useCounter();
+
+  // const openModal = () => setIsOpen(true);
+  // const closeModal = () => setIsOpen(false);
 
 
   useEffect(() => {
@@ -45,6 +54,25 @@ const ViewPage = () => {
     }
   }, []);
 
+  // const { mutate: certificate, isLoadingCertificate } = usePostQuery({
+  //   listKeyId: "certificate-one",
+  // });
+  //
+  //
+  // const handleSendCertificate = ({inn, certificate_number}) => {
+  //
+  //
+  //   const formData = new FormData();
+  //   formData.append("certificate_number", certificate_number);
+  //   formData.append("inn", inn)
+  //
+  //
+  //   certificate({
+  //     url: URLS.certificate,
+  //     attributes: formData
+  //   })
+  //
+  // }
 
   const handleIncrement = (product) => {
     console.log("product", product, JSON.stringify(product));
@@ -204,6 +232,7 @@ const ViewPage = () => {
             className={
               "mx-auto laptop:w-[24px] laptop:h-[24px] tablet:w-[21px] tablet:h-[21px] w-[18px] h-[18px] "
             }
+
             width={24}
             height={24}
             src={"/images/certificate.png"}
@@ -565,6 +594,26 @@ const ViewPage = () => {
               </form>
             </div>
           </Section>
+
+          {/*{isOpen &&*/}
+          {/*    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">*/}
+          {/*      <form onSubmit={handleSubmit(handleSendCertificate)}*/}
+          {/*            className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">*/}
+          {/*        <label className={"mb-1.5"}>*/}
+          {/*          Sertifikat raqami*/}
+          {/*        </label>*/}
+          {/*        <input type={"number"}*/}
+          {/*               placeholder={"Sertifikat raqamini kiritinh"} {...register('certificate_number', {required: true})} className={"py-3 pl-3 border rounded-[10px] mb-[30px]"} />*/}
+
+          {/*        <label className={"mb-1.5"}>*/}
+          {/*          Inn*/}
+          {/*        </label>*/}
+          {/*        <input type={"number"} placeholder={"Inn raqamini kiriting"} className={"py-3 pl-3 border rounded-[10px] mb-[30px]"} {...register('inn', {required: true})}/>*/}
+
+          {/*        <Button>yuborish</Button>*/}
+          {/*      </form>*/}
+          {/*    </div>*/}
+          {/*}*/}
         </Main>
       </>
   );
