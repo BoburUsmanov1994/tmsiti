@@ -9,6 +9,7 @@ import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import Image from "next/image";
+import useGetQuery from "@/hooks/api/useGetQuery";
 
 
 
@@ -16,6 +17,11 @@ import Image from "next/image";
 const Index = () => {
     const { t } = useTranslation();
     const [pageSize, setPageSize] = useState(20);
+
+    const { data: comment, isLoadingComment } = useGetQuery({
+        key: KEYS.customerComment,
+        url: URLS.customerComment
+    })
 
     const { mutate: sendOrderStatus, isLoading } = usePostQuery({
         listKeyId: "company-info-one",
