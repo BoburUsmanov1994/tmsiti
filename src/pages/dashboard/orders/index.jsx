@@ -89,7 +89,7 @@ const Index = () => {
                                 Yuborish
                             </button>
                         </div> : get(row, "order_status") === "sent" ?
-                            <div className={"flex border-green-400 rounded-[6px]"}>
+                            <div className={"flex items-center gap-x-2 border-green-400 border-[1px] rounded-[6px]"}>
                                 <p>Mahsulot yuborildi</p>
                                 <Image src={"/images/success.png"} alt={"success"} width={30} height={30}/>
                             </div> : ""
