@@ -36,10 +36,9 @@ const ViewPage = () => {
   const [regionId, setRegionId] = useState(null);
   const [districtId, setDistrictId] = useState(null);
   const [isOpen, setIsOpen] = useState()
-  // const [certificates, setCertificates] = useState({})
   const [comments, setComments] = useState([])
   const token = useSettingsStore(state => get(state, 'token', null))
-  const {register, handleSubmit, formState: {errors}} = useForm({values: certificates})
+
   const { state, dispatch } = useCounter();
 
   // const openModal = () => setIsOpen(true);
@@ -54,25 +53,22 @@ const ViewPage = () => {
     }
   }, []);
 
-  // const { mutate: certificate, isLoadingCertificate } = usePostQuery({
-  //   listKeyId: "certificate-one",
-  // });
-  //
-  //
-  // const handleSendCertificate = ({inn, certificate_number}) => {
-  //
-  //
-  //   const formData = new FormData();
-  //   formData.append("certificate_number", certificate_number);
-  //   formData.append("inn", inn)
-  //
-  //
-  //   certificate({
-  //     url: URLS.certificate,
-  //     attributes: formData
-  //   })
-  //
-  // }
+  const { mutate: certificate, isLoadingCertificate } = usePostQuery({
+    listKeyId: "certificate-one",
+  });
+
+
+  const handleSendCertificate = (inn, certificate_number) => {
+
+    certificate({
+      url: URLS.certificate,
+      attributes: {
+        "inn": inn,
+        "certificate_number": certificate_number
+      }
+    })
+
+  }
 
   const handleIncrement = (product) => {
     console.log("product", product, JSON.stringify(product));
@@ -237,6 +233,7 @@ const ViewPage = () => {
             height={24}
             src={"/images/certificate.png"}
             alt={"certificate"}
+            onClick={() => handleSendCertificate(+get(row, "company_stir"), +get(row, "sertificate_blank_num"))}
           />
           <ul className="text-left text-white hidden group-hover:block absolute left-full bottom-full p-2.5 bg-[#3D7AB6] w-[200px] rounded shadow-[5px_5px_15px_rgba(0, 0, 0, 0.1)]">
             {get(row, "sertificate_blank_num") &&
