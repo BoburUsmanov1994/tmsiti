@@ -7,8 +7,8 @@ import {useTranslation} from "react-i18next";
 import GridView from "@/containers/grid-view";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
-import Button from "@/components/button";
 import usePostQuery from "@/hooks/api/usePostQuery";
+import Image from "next/image";
 
 
 
@@ -89,8 +89,9 @@ const Index = () => {
                                 Yuborish
                             </button>
                         </div> : get(row, "order_status") === "sent" ?
-                            <div>
+                            <div className={"flex border-green-400 rounded-[6px]"}>
                                 <p>Mahsulot yuborildi</p>
+                                <Image src={"/images/success.png"} alt={"success"} width={50} height={50}/>
                             </div> : ""
             ,
 
