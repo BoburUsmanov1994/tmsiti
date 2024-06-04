@@ -23,6 +23,8 @@ const Index = () => {
         url: URLS.customerComment
     })
 
+    console.log(comment)
+
     const { mutate: sendOrderStatus, isLoading } = usePostQuery({
         listKeyId: "company-info-one",
     });
