@@ -31,6 +31,8 @@ const Header = (toggleMenu) => {
         enabled: !!(get(session, "user.token") || token),
     });
 
+    console.log(get(session, "user.role"), "company's role")
+
     const { data: customer } = useGetQuery({
       key: KEYS.getCustomer,
       url: URLS.getCustomer,
