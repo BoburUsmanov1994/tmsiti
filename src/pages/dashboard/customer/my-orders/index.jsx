@@ -122,10 +122,7 @@ const Index = () => {
                 title: "Nomi",
                 key: "product_name",
             },
-            {
-                title: "Telefon raqami",
-                key: "phone",
-            },
+
             {
                 title: "Narxi",
                 key: "price",
@@ -165,6 +162,14 @@ const Index = () => {
                                         <Image src={"/images/error.png"} alt={"error"} width={22} height={22}/>
                                     </div> : ""
             ,
+            classnames: "text-center",
+        },
+        {
+            title: "Sharh qoldirish",
+            key: "",
+            render: () => <button onClick={handleSendComment}>
+                Sharh qoldirish
+            </button>,
             classnames: "text-center",
         },
 
