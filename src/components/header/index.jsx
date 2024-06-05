@@ -144,9 +144,11 @@ const Header = (toggleMenu) => {
                                 {/*<button className={"block text-base bg-transparent"}>*/}
                                 {/*  <Link href={"/dashboard"}>sign in</Link>*/}
                                 {/*</button>*/}
+
+
                                 {!get(session, "user.token") ? <button className={"text-lg"}>
-                                        <Link href={"/select-position"}>Ro'yxatdan o'tish</Link>
-                                    </button> :
+                                    <Link href={"/select-position"}>Ro'yxatdan o'tish</Link>
+                                </button> : get(session, "user.role") === "company" ?
                                     <div>
                                         <button
                                             onClick={() => router.push("/dashboard")}
@@ -161,8 +163,21 @@ const Header = (toggleMenu) => {
                                         >
                                             {t("Logout")}
                                         </button>
-                                    </div>}
+                                    </div> : <div>
+                                        <button
+                                            onClick={() => router.push("/dashboard/customer/my-orders")}
+                                            className={"block text-base bg-transparent"}
+                                        >
 
+                                            Kabinetga kirish
+                                        </button>
+                                        <button
+                                            className={"block text-base"}
+                                            onClick={() => signOut({callbackUrl: "/"})}
+                                        >
+                                            {t("Logout")}
+                                        </button>
+                                    </div>}
 
 
                                 {/*{*/}
