@@ -167,7 +167,7 @@ const Index = () => {
         {
             title: "Sharh qoldirish",
             key: "",
-            render: () => <button onClick={handleSendComment}>
+            render: () => <button onClick={() => handleSendComment()}>
                 Sharh qoldirish
             </button>,
             classnames: "text-center",
