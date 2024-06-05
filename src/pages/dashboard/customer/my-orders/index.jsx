@@ -44,7 +44,7 @@ const Index = () => {
 
 
     const { mutate: sendOrderStatus, isLoading } = usePostQuery({
-        listKeyId: "company-info-one",
+        listKeyId: "customer-info-one",
     });
 
 
