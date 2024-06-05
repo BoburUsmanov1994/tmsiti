@@ -87,6 +87,11 @@ const Index = () => {
 
             },
             {
+                title: "Mahsulot turi",
+                key: "ad_id",
+            },
+
+            {
                 title: "Yetkazib beruvchi",
                 key: "company",
             },
