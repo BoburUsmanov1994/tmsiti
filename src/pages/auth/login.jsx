@@ -45,9 +45,7 @@ const Login = () => {
       email: get(data, "email"),
       password: get(data, "password"),
       redirect: true,
-      callbackUrl: "/dashboard",
-    }).then((res) => {
-      debugger;
+      callbackUrl: "/dashboard/customer/my-orders",
     });
   };
   return (
