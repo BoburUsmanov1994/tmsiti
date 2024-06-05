@@ -194,7 +194,7 @@ const Index = () => {
             {isOpen &&
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
                   <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
-                      <Image onClick={closeModal} src={"/images/closeModal.svg"} alt={"close"} width={30} height={30}/>
+                      <Image onClick={closeModal} src={"/icons/closeModal.svg"} alt={"close"} width={30} height={30}/>
                       <h1 ref={ratingRef}>5</h1>
                       <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"}>
 
