@@ -7,7 +7,7 @@ import clsx from "clsx";
 
 const Sidebar = ({ openSidebar }) => {
   const { t } = useTranslation();
-    const [position, setPosition] = useState("customer")
+    const [position, setPosition] = useState("supplier")
   const router = useRouter();
 
   return (
