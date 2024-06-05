@@ -89,9 +89,6 @@ const Index = () => {
 
 
 
-
-
-
   const onSubmit = (e) => {
     e.preventDefault()
     const enteredMaterialName = materialNameRef.current?.textContent;

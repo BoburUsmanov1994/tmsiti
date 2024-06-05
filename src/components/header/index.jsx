@@ -19,6 +19,7 @@ const Lang = dynamic(() => import("@/components/lang"), {ssr: false});
 const Header = (toggleMenu) => {
     const [openMenu, setOpenMenu] = useState(false);
     const {data: session} = useSession();
+    const {data: sessionCustomer } = useSession();
     const {t} = useTranslation();
     const router = useRouter();
     const {state} = useCounter();
@@ -29,23 +30,15 @@ const Header = (toggleMenu) => {
         headers: {token: token ?? `${get(session, "user.token")}`},
         enabled: !!(get(session, "user.token") || token),
     });
-    console.log(get(user, "data.company_name"), "company")
-
-
-    // useEffect(() => {
-    //     if (get(session, 'user.token')) {
-    //         setToken(get(session, 'user.token'));
-    //     }
-    // }, [session])
 
     const { data: customer } = useGetQuery({
       key: KEYS.getCustomer,
       url: URLS.getCustomer,
-      headers: { token: `${get(session, "user.token")}`},
-      enabled: !!get(session, "user.token"),
+      headers: {token: token ?? `${get(sessionCustomer, "user.token")}`},
+      enabled: !!(get(sessionCustomer, "user.token") || token),
     })
 
-    console.log(get(customer, "data.role"), "customer")
+
 
     return (
         <header>
@@ -167,6 +160,8 @@ const Header = (toggleMenu) => {
                                             {t("Logout")}
                                         </button>
                                     </div>}
+
+
 
                                 {/*{*/}
                                 {/*    get(session, "user.role") === "company" ? <div>*/}

@@ -58,5 +58,6 @@ export const URLS = {
   updateCompanyInfo: "companies/company_info_update/",
   sendOrderStatus: "order/order_status/",
   certificate: "certificate/",
-  customerComment: "order/rating_comment/create/customer/"
+  customerComment: "order/rating_comment/list/customer/",
+  sendComment: "order/rating_comment/create/customer/"
 };

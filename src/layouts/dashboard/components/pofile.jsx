@@ -9,7 +9,7 @@ import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 
 const Pofile = () => {
-    const {data: session} = useSession()
+    const {data: session} = useSession();
     const setToken = useSettingsStore(state => get(state, 'setToken', () => {
     }))
     const token = useSettingsStore(state => get(state,'token',null))
@@ -20,16 +20,21 @@ const Pofile = () => {
         headers: {token: token ??`${get(session, 'user.token')}`},
         enabled: !!(get(session, 'user.token') || token)
     })
+
+    const {data: customer} = useGetQuery({
+        key: KEYS.getCustomer,
+        url: URLS.getCustomer,
+        headers: {token: token ??`${get(session, 'user.token')}`},
+        enabled: !!(get(session, 'user.token') || token)
+    })
+
+
     useEffect(() => {
         if (get(session, 'user.token')) {
             setToken(get(session, 'user.token'));
         }
     }, [session])
-    // user = {companyName,Inn,Ceo}  delivery
-    // user = {email,firstName,lastName,Inn,token}  customer
-    //user?.token ? 'customer' : 'delivery'
-    console.log('session',session)
-    console.log('user',user)
+
     return (
         <div className={'inline-flex items-center gap-x-[5px]'}>
 
