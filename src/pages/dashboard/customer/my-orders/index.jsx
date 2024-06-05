@@ -93,7 +93,7 @@ const Index = () => {
     }
 
 
-        const columns = [
+    const columns = [
             {
                 title: "№",
                 key: "id",
@@ -136,35 +136,39 @@ const Index = () => {
                 key: "quantity",
                 classnames: "text-center",
             },
-            {
-                title: "Buyurtmaning holati",
-                key: "order_status",
-                render: ({row}) =>
-                    get(row, "order_status") === "new_order" ?
-                        <div className={"flex flex-col gap-y-2"}>
-                            <button onClick={() => handleSendOrderStatus(get(row, "id"), "customer_canceled")}
-                                    className={"bg-red-600 hover:bg-red-700 active:bg-red-500 text-white py-2 px-8 rounded-[6px]"}>
-                                Bekor qilish
-                            </button>
-                        </div>
-                        : get(row, "order_status") === "accepted" ?
-                            <div>
-                                <p className={"bg-green-600 hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>Buyurtma
-                                    qabul qilindi</p>
-                            </div> : get(row, "order_status") === "sent" ?
+        {
+            title: "Buyurtmaning holati",
+            key: "order_status",
+            render: ({row}) =>
+                get(row, "order_status") === "new_order" ?
+                    <div className={"flex flex-col gap-y-2"}>
+                        <button onClick={() => handleSendOrderStatus(get(row, "id"), "customer_canceled")}
+                                className={"bg-red-600 hover:bg-red-700 active:bg-red-500 text-white py-2 px-8 rounded-[6px]"}>
+                            Bekor qilish
+                        </button>
+                    </div>
+                    : get(row, "order_status") === "accepted" ?
+                        <div>
+                            <p className={"bg-green-600 hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>Buyurtma
+                                qabul qilindi</p>
+                        </div> : get(row, "order_status") === "sent" ?
+                            <div className={"flex items-center gap-x-2  rounded-[6px]"}>
+                                <p>Buyurtma yetkazildi</p>
+                                <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
+                            </div> : get(row, "order_status") === "customer_canceled" ?
                                 <div className={"flex items-center gap-x-2  rounded-[6px]"}>
-                                    <p>Buyurtma yetkazildi</p>
-                                    <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
-                                </div> : get(row, "order_status") === "customer_canceled" ?
+                                    <p>Buyurtmani bekor qildingiz</p>
+                                    <Image src={"/images/error.png"} alt={"success"} width={22} height={22}/>
+                                </div> : get(row, "order_status") === "canceled" ?
                                     <div className={"flex items-center gap-x-2  rounded-[6px]"}>
-                                        <p>Buyurtmani bekor qildingiz</p>
-                                        <Image src={"/images/error.png"} alt={"success"} width={22} height={22}/>
+                                        <p>Yetkazib beruvchi mahsulotni bekor qildi</p>
+                                        <Image src={"/images/error.png"} alt={"error"} width={22} height={22}/>
                                     </div> : ""
-                ,
-                classnames: "text-center",
-            },
+            ,
+            classnames: "text-center",
+        },
 
-        ];
+    ];
 
 
     return (
