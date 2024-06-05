@@ -201,7 +201,7 @@ const Index = () => {
                       </textarea>
 
 
-                    <button onClick={() => handleSendComment()}>yuborish</button>
+                    <button onClick={handleSendComment}>yuborish</button>
                   </div>
                 </div>
             }
