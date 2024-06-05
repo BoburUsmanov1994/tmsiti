@@ -84,16 +84,17 @@ const Index = () => {
             {
                 title: "Mahsulot turi",
                 key: "product_category",
-
+                classnames: "hidden"
             },
             {
                 title: "Mahsulot turi",
                 key: "ad_id",
+                classnames: "hidden"
             },
 
             {
                 title: "Yetkazib beruvchi",
-                key: "company",
+                key: "company_name",
             },
             {
                 title: "Kodi",

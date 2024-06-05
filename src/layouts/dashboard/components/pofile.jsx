@@ -10,6 +10,7 @@ import {URLS} from "@/constants/url";
 
 const Pofile = () => {
     const {data: session} = useSession();
+
     const setToken = useSettingsStore(state => get(state, 'setToken', () => {
     }))
     const token = useSettingsStore(state => get(state,'token',null))

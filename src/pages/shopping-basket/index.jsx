@@ -38,6 +38,7 @@ const Index = () => {
   const quantityRef = useRef(null);
   const priceRef = useRef(null);
   const companyRef = useRef(null);
+  const companyNameRef = useRef(null);
   const productIdRef = useRef(null);
   const productCategoryRef = useRef(null);
   const { stir } = router.query;
@@ -96,6 +97,7 @@ const Index = () => {
     const enteredQuantity =  +quantityRef.current?.textContent;
     const enteredPrice =  priceRef.current?.textContent;
     const enteredCompany =  companyRef.current?.textContent;
+    const enteredCompanyName = companyNameRef.current?.textContent;
     const productId = productIdRef.current?.textContent;
     const productCategory = productCategoryRef.current?.textContent;
     const customer =  +get(user, "data.id");
@@ -108,6 +110,7 @@ const Index = () => {
       price: enteredPrice,
       company: enteredCompany,
       customer: customer,
+      company_name: enteredCompanyName,
       phone: phone,
       ad_id: productId,
       product_category: productCategory,
@@ -224,6 +227,7 @@ const Index = () => {
                              className={`grid grid-cols-12 gap-x-2 ${last(item) === 0 ? "hidden" : "visible"}`}>
                           <div className={"col-span-12"}>
                             <h1
+                                ref={companyNameRef}
                                 className={"mb-[30px] text-[#202B57] uppercase font-medium mobile:text-base tablet:text-lg laptop:text-xl desktop:text-2xl text-base "}>
                               {get(JSON.parse(head(item)), "company_name")}
                             </h1>
