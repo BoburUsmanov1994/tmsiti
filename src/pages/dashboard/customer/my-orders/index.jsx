@@ -84,7 +84,7 @@ const Index = () => {
             customer: customer,
         }
 
-        if (enteredComment) {
+        if (!enteredComment) {
             setComments(commentInfo)
 
             sendComment({
