@@ -38,7 +38,7 @@ const Index = () => {
         enabled: !!(get(session, 'user.token') || token)
     })
 
-    const {mutate: sendComment, isLoading} = usePostQuery({
+    const {mutate: sendComment, isLoadingComment} = usePostQuery({
         listKeyId: "comment-one",
     });
 
