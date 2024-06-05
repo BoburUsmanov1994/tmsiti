@@ -40,7 +40,9 @@ const Pofile = () => {
         <div className={'inline-flex items-center gap-x-[5px]'}>
 
             <div>
-                <span className={'mr-3'}>{get(user,'data.email')}</span>
+                {get(session, "user.role") === "company" ?
+                    <span className={'mr-3'}>{get(user, 'data.company_ceo')}</span> :
+                    <span className={'mr-3'}>{get(customer, 'data.first_name')} {get(customer, 'data.last_name')}</span>}
                 <button className={'block text-base'} onClick={() => signOut({callbackUrl: "/"})}>
                     {t('Logout')}
                 </button>
