@@ -121,6 +121,23 @@ const Index = () => {
             {
                 title: "Buyurtmaning holati",
                 key: "order_status",
+                render: ({row}) =>
+                    get(row, "order_status") === "new_order" ?
+                        <div className={"flex flex-col gap-y-2"}>
+                            <button
+                                    className={"bg-red-600 hover:bg-red-700 active:bg-red-500 text-white py-2 px-8 rounded-[6px]"}>
+                                Bekor qilish
+                            </button>
+                        </div>
+                        : get(row, "order_status") === "accepted" ?
+                            <div>
+                                <p  className={"bg-green-600 hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>Buyurtma qabul qilindi</p>
+                            </div> : get(row, "order_status") === "sent" ?
+                                <div className={"flex items-center gap-x-2  rounded-[6px]"}>
+                                    <p>Buyurtma yetkazildi</p>
+                                    <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
+                                </div> : ""
+                ,
                 classnames: "text-center",
             },
 
