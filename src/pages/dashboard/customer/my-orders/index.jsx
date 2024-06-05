@@ -14,6 +14,7 @@ import usePostQuery from "@/hooks/api/usePostQuery";
 import {useSettingsStore} from "@/store";
 import {useSession} from "next-auth/react";
 import toast from "react-hot-toast";
+import {Button} from "@mui/material";
 
 
 
@@ -23,11 +24,16 @@ import toast from "react-hot-toast";
 const Index = () => {
     const [pageSize, setPageSize] = useState(48);
     const [comments, setComments] = useState({});
+    const [isOpen, setIsOpen] = useState(false)
     const {data: session} = useSession();
     const productCategoryRef = useRef(null);
     const ratingRef = useRef(null);
     const commentRef = useRef(null);
     const productIdRef = useRef(null);
+
+    const openModal = () => setIsOpen(true);
+    const closeModal = () => setIsOpen(false);
+
 
     const token = useSettingsStore(state => get(state, 'token', null))
 
@@ -41,6 +47,8 @@ const Index = () => {
     const {mutate: sendComment, isLoadingComment} = usePostQuery({
         listKeyId: "comment-one",
     });
+
+
 
 
     const { mutate: sendOrderStatus, isLoading } = usePostQuery({
@@ -167,7 +175,7 @@ const Index = () => {
         {
             title: "Sharh qoldirish",
             key: "",
-            render: () => <button onClick={() => handleSendComment()}>
+            render: () => <button onClick={openModal}>
                 Sharh qoldirish
             </button>,
             classnames: "text-center",
@@ -183,6 +191,20 @@ const Index = () => {
                 <GridView columns={columns} key={KEYS.orderListCustomer} url={URLS.orderListCustomer}
                           defaultPageSize={pageSize}/>
             </div>
+            {isOpen &&
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                  <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
+                      <Image onClick={closeModal} src={"/images/closeModal.svg"} alt={"close"} width={30} height={30}/>
+                      <h1 ref={ratingRef}>5</h1>
+                      <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"}>
+
+                      </textarea>
+
+
+                    <button onClick={() => handleSendComment()}></button>
+                  </div>
+                </div>
+            }
             </Dashboard>
         )
 
