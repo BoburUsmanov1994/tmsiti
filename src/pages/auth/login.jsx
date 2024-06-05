@@ -44,8 +44,8 @@ const Login = () => {
     signIn("credentials", {
       email: get(data, "email"),
       password: get(data, "password"),
-      redirect: false,
-      // callbackUrl: "/dashboard",
+      redirect: true,
+      callbackUrl: "/dashboard",
     }).then((res) => {
       debugger;
     });
