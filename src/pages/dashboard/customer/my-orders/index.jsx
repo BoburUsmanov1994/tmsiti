@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import Dashboard from "@/layouts/dashboard";
 import Subheader from "@/layouts/dashboard/components/subheader";
 import Link from "next/link";
-import {get} from "lodash";
+import {get, head} from "lodash";
 import {NumericFormat} from "react-number-format";
 import dayjs from "dayjs";
 import Image from "next/image";
@@ -15,6 +15,7 @@ import {useSettingsStore} from "@/store";
 import {useSession} from "next-auth/react";
 import toast from "react-hot-toast";
 import StarRating from "@/components/stars/star-rating";
+import starRating from "@/components/stars/star-rating";
 
 
 
@@ -39,7 +40,10 @@ const Index = () => {
 
 
 
-
+    const {data: orderListCustomer} = useGetQuery({
+        key: KEYS.orderListCustomer,
+        url: URLS.orderListCustomer
+    })
 
 
 
@@ -75,10 +79,10 @@ const Index = () => {
 
     }
 
-
+    const selectedStar = starRatingRef.current
     const handleSendComment = () => {
         const enteredProductCategory = productCategoryRef.current?.textContent;
-        const selectedStars = selectedStars.current.map(star => star.value);
+        const selectedStars = selectedStar.current.map(star => star.value);
         const enteredComment = commentRef.current?.textContent;
         const customer = +get(user, "data.id");
         const productId = productIdRef.current?.textContent;
@@ -200,18 +204,28 @@ const Index = () => {
             </div>
             {isOpen &&
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-                  <div className="bg-white p-8 rounded shadow-md w-[1000px] h-auto flex flex-col">
-                      <Image onClick={closeModal} src={"/icons/closeModal.svg"} alt={"close"} width={30} height={30}/>
-                      <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"} className={"border p-3 shadow-lg rounded-[6px]"}>
+                    <div className="bg-white p-8 rounded shadow-md w-[1000px] h-auto flex flex-col">
+                        <Image onClick={closeModal} src={"/icons/closeModal.svg"} alt={"close"} width={30} height={30}/>
+                        <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"}
+                                  className={"border p-3 shadow-lg rounded-[6px]"}>
 
                       </textarea>
 
-                      <StarRating ref={starRatingRef} />
-                      <button onClick={handleSendComment}>yuborish</button>
-                  </div>
+                        <StarRating ref={starRatingRef}/>
+
+
+                        {get(orderListCustomer, "data.results", []).map((item, index) =>
+                            <div key={index} className={"hidden"}>
+                                <p>{head(get(item, "product_category"))}</p>
+                                p>{head(get(item, "ad_id"))}</p>
+                            </div>
+                            )}
+
+                        <button onClick={handleSendComment}>yuborish</button>
+                    </div>
                 </div>
             }
-            </Dashboard>
+</Dashboard>
         )
 
 }
