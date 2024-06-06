@@ -38,6 +38,7 @@ const ViewPage = () => {
   const productCategoryRef = useRef(null);
   const productIdRef = useRef(null);
   const [isOpen, setIsOpen] = useState()
+  const [comments, setComments] = useState([])
   const [postComments, setPostComments] = useState([])
   const token = useSettingsStore(state => get(state, 'token', null))
 
