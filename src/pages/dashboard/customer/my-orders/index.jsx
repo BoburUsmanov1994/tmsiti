@@ -15,6 +15,7 @@ import {useSettingsStore} from "@/store";
 import {useSession} from "next-auth/react";
 import toast from "react-hot-toast";
 import {Rating} from "react-simple-star-rating";
+import StarRating from "@/components/stars/star-rating";
 
 
 
@@ -24,7 +25,7 @@ import {Rating} from "react-simple-star-rating";
 
 const Index = () => {
     const [pageSize, setPageSize] = useState(48);
-    const [rating, setRating] = useState(0);
+    const starRatingRef = useRef();
     const [comments, setComments] = useState({});
     const [isOpen, setIsOpen] = useState(false)
     const {data: session} = useSession();
@@ -40,13 +41,9 @@ const Index = () => {
 
 
 
-
-    const handleRating = (rate) => {
-        setRating(rate);
-    };
-
     const handleSubmit = () => {
-        onSubmit(rating);
+        const selectedStars = starRatingRef.current;
+        console.log("Selected stars:", selectedStars.current.map(star => star.value));
     };
 
     
@@ -211,7 +208,7 @@ const Index = () => {
                   <div className="bg-white p-8 rounded shadow-md w-[1000px] h-auto flex flex-col">
                       <Image onClick={closeModal} src={"/icons/closeModal.svg"} alt={"close"} width={30} height={30}/>
                       <h1 ref={ratingRef}>5</h1>
-                      <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"}>
+                      <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"} className={"border p-3 shadow-lg rounded-[6px]"}>
 
                       </textarea>
                       <div className={"flex justify-center items-center"}>
@@ -227,6 +224,7 @@ const Index = () => {
                           />
                       </div>
 
+                      <StarRating ref={starRatingRef} />
                       <button onClick={handleSubmit}>Submit Rating</button>
 
 
