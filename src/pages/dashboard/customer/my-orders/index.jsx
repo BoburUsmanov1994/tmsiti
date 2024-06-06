@@ -14,7 +14,6 @@ import usePostQuery from "@/hooks/api/usePostQuery";
 import {useSettingsStore} from "@/store";
 import {useSession} from "next-auth/react";
 import toast from "react-hot-toast";
-import {Rating} from "react-simple-star-rating";
 import StarRating from "@/components/stars/star-rating";
 
 
