@@ -201,8 +201,8 @@ const Index = () => {
         {
             title: "Sharh qoldirish",
             key: "",
-            render: ({ row }) => <div>
-                <button onClick={openModal}>
+            render: ({ row }) => <div className={""}>
+                <button onClick={openModal} className={"text-center"}>
                     Sharh qoldirish
                 </button>
 
@@ -221,7 +221,7 @@ const Index = () => {
 
                       </textarea>
                             <p className={"text-lg mb-[15px]"}>Mahsulotni baholang</p>
-                            <div>
+                            <div className={"flex items-center justify-center"}>
                                 {[...Array(totalStars)].map((_, index) => (
                                     <Star
                                         key={index}
@@ -241,12 +241,12 @@ const Index = () => {
                                 </div>
                             )}
 
-                            <button className={""} onClick={handleSendComment}>Yuborish</button>
+                            <button className={"bg-blue-500 hover:bg-blue-600 active:bg-blue-400 mt-[30px] text-white w-full text-lg py-2"} onClick={handleSendComment}>Yuborish</button>
                         </div>
                     </div>
                 }
             </div>,
-            classnames: "text-center",
+
         },
 
     ];
