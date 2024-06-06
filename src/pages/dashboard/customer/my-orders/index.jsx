@@ -24,7 +24,7 @@ import {Rating} from "react-simple-star-rating";
 
 const Index = () => {
     const [pageSize, setPageSize] = useState(48);
-    const [ratingValue, setRatingValue] = useState(0)
+    const [rating, setRating] = useState(0);
     const [comments, setComments] = useState({});
     const [isOpen, setIsOpen] = useState(false)
     const {data: session} = useSession();
@@ -39,12 +39,15 @@ const Index = () => {
 
 
 
+
+
     const handleRating = (rate) => {
-        setRatingValue(rate)
-    }
-    const handleReset = () => {
-        setRating(0)
-    }
+        setRating(rate);
+    };
+
+    const handleSubmit = () => {
+        onSubmit(rating);
+    };
 
     
 
@@ -211,7 +214,16 @@ const Index = () => {
                       <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"}>
 
                       </textarea>
-                      <Rating className={"flex"} onClick={handleRating} initialValue={ratingValue} />
+                      <Rating
+                          onClick={handleRating}
+                          ratingValue={rating} // props
+                          size={40}
+                          label
+                          transition
+                          fillColor='orange'
+                          emptyColor='gray'
+                          className='foo' // Will remove the inline style if applied
+                      />
 
                       <button onClick={handleReset}>reset</button>
 
