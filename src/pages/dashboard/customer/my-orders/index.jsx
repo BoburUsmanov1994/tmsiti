@@ -211,18 +211,6 @@ const Index = () => {
                       <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"} className={"border p-3 shadow-lg rounded-[6px]"}>
 
                       </textarea>
-                      <div className={"flex justify-center items-center"}>
-                          <Rating
-                              onClick={handleRating}
-                              ratingValue={rating}
-                              size={40}
-                              label
-                              transition
-                              fillColor='orange'
-                              emptyColor='gray'
-                              className='foo' // Will remove the inline style if applied
-                          />
-                      </div>
 
                       <StarRating ref={starRatingRef} />
                       <button onClick={handleSubmit}>Submit Rating</button>
