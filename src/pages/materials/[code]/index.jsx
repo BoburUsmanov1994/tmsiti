@@ -63,16 +63,12 @@ const ViewPage = () => {
     const enteredProductCategory = productCategoryRef.current?.textContent;
     const productId = productIdRef.current?.textContent;
 
-    const commentInfo = {
-      product_category: enteredProductCategory,
-      ad_id: Number(productId),
-    }
-
-    setPostComments(commentInfo)
-
     listComment({
           url: URLS.customerComment,
-          attributes: commentInfo
+          attributes: {
+            "product_category": enteredProductCategory,
+            "ad_id": Number(productId),
+          }
         },
         {
             onSuccess: () => {
