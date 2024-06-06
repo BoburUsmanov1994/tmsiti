@@ -211,7 +211,7 @@ const Index = () => {
                       <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"}>
 
                       </textarea>
-                      <Rating onClick={handleRating} initialValue={ratingValue} />
+                      <Rating className={"flex"} onClick={handleRating} initialValue={ratingValue} />
 
                       <button onClick={handleReset}>reset</button>
 
