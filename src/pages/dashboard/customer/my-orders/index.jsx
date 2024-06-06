@@ -201,9 +201,51 @@ const Index = () => {
         {
             title: "Sharh qoldirish",
             key: "",
-            render: () => <button onClick={openModal}>
-                Sharh qoldirish
-            </button>,
+            render: ({ row }) => <div>
+                <button onClick={openModal}>
+                    Sharh qoldirish
+                </button>
+
+                {isOpen &&
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                        <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
+                            <div className={"flex justify-between items-center "}>
+                                <Title>Mahsulotni baholash</Title>
+
+                                <Image onClick={closeModal} src={"/icons/closeModal.svg"} alt={"close"} width={30} height={30}/>
+
+                            </div>
+                            <p className={"text-lg mb-[15px]"}>Mahsulot borasida o'z izohingizni qoldiring</p>
+                            <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"}
+                                      className={"border p-3 shadow-lg rounded-[6px] mb-[20px] "}>
+
+                      </textarea>
+                            <p className={"text-lg mb-[15px]"}>Mahsulotni baholang</p>
+                            <div>
+                                {[...Array(totalStars)].map((_, index) => (
+                                    <Star
+                                        key={index}
+                                        selected={index < selectedStars}
+                                        onClick={() => handleStarClick(index)}
+                                        ref={(el) => (starRefs.current[index] = el)}
+                                    />
+                                ))}
+                            </div>
+
+
+                            {get(orderListCustomer, "data.results", []).map((item, index) =>
+                                <div key={index} className={"hidden"}>
+                                    <p ref={productCategoryRef}>{get(row, "product_category")}</p>
+                                    <p ref={productIdRef}>{get(row, "ad_id")}</p>
+                                    <p ref={companyStirRef}>{get(row, "company")}</p>
+                                </div>
+                            )}
+
+                            <button className={""} onClick={handleSendComment}>Yuborish</button>
+                        </div>
+                    </div>
+                }
+            </div>,
             classnames: "text-center",
         },
 
@@ -217,45 +259,7 @@ const Index = () => {
                 <GridView columns={columns} key={KEYS.orderListCustomer} url={URLS.orderListCustomer}
                           defaultPageSize={pageSize}/>
             </div>
-            {isOpen &&
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-                    <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
-                        <div className={"flex justify-between items-center "}>
-                            <Title>Mahsulotni baholash</Title>
 
-                            <Image onClick={closeModal} src={"/icons/closeModal.svg"} alt={"close"} width={30} height={30}/>
-
-                        </div>
-                        <p className={"text-lg mb-[15px]"}>Mahsulot borasida o'z izohingizni qoldiring</p>
-                        <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"}
-                                  className={"border p-3 shadow-lg rounded-[6px]"}>
-
-                      </textarea>
-                        <p className={"text-lg mb-[15px]"}>Mahsulotni baholang</p>
-                        <div>
-                            {[...Array(totalStars)].map((_, index) => (
-                                <Star
-                                    key={index}
-                                    selected={index < selectedStars}
-                                    onClick={() => handleStarClick(index)}
-                                    ref={(el) => (starRefs.current[index] = el)}
-                                />
-                            ))}
-                        </div>
-
-
-                        {get(orderListCustomer, "data.results", []).map((item, index) =>
-                                <div key={index} className={"hidden"}>
-                                    <p ref={productCategoryRef}>{get(item, "product_category")}</p>
-                                    <p ref={productIdRef}>{get(item, "ad_id")}</p>
-                                    <p ref={companyStirRef}>{get(item, "company")}</p>
-                                </div>
-                            )}
-
-                        <button className={""} onClick={handleSendComment}>Yuborish</button>
-                    </div>
-                </div>
-            }
 </Dashboard>
         )
 
