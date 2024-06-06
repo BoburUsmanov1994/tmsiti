@@ -589,6 +589,7 @@ const ViewPage = () => {
                         <p ref={productIdRef}>{get(item, "id")}</p>
                         <p ref={productCategoryRef}
                            >{get(item, "material_code") ? "material" : get(item, "mmechano_code") ? "mmechano" : get(item, "techno_code") ? "techno" : get(item, "smallmechano_code") ? "smallmechano" : get(item, "work_code") ? "work" : ""}</p>
+                        <p ref={companyStirRef}>{get(item, "company_stir")}</p>
                       </div>
                   )}
 
