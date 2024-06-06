@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import StarRating from "@/components/stars/star-rating";
 import starRating from "@/components/stars/star-rating";
 import Title from "@/components/title";
+import Star from "@/components/stars/star";
 
 
 
@@ -26,7 +27,10 @@ import Title from "@/components/title";
 
 const Index = () => {
     const [pageSize, setPageSize] = useState(48);
+    const [selectedStars, setSelectedStars] = useState(0);
     const starRatingRef = useRef(null);
+    const starRefs = useRef([]);
+    const totalStars = 5;
     const [comments, setComments] = useState({});
     const [isOpen, setIsOpen] = useState(false)
     const {data: session} = useSession();
@@ -35,6 +39,13 @@ const Index = () => {
     const commentRef = useRef(null);
     const productIdRef = useRef(null);
     const token = useSettingsStore(state => get(state, 'token', null))
+
+
+    const handleStarClick = (index) => {
+        setSelectedStars(index + 1);
+        starRefs.current[index].value = index + 1;
+    };
+
 
     const openModal = () => setIsOpen(true);
     const closeModal = () => setIsOpen(false);
@@ -218,17 +229,26 @@ const Index = () => {
 
                       </textarea>
                         <p className={"text-lg mb-[15px]"}>Mahsulotni baholang</p>
-                        <StarRating ref={starRatingRef}/>
+                        <div>
+                            {[...Array(totalStars)].map((_, index) => (
+                                <Star
+                                    key={index}
+                                    selected={index < selectedStars}
+                                    onClick={() => handleStarClick(index)}
+                                    ref={(el) => (starRefs.current[index] = el)}
+                                />
+                            ))}
+                        </div>
 
 
                         {get(orderListCustomer, "data.results", []).map((item, index) =>
-                            <div key={index} className={"hidden"}>
-                                <p ref={productCategoryRef}>{head(get(item, "product_category"))}</p>
-                                <p ref={productIdRef}>{head(get(item, "ad_id"))}</p>
-                            </div>
+                                <div key={index} className={"hidden"}>
+                                    <p ref={productCategoryRef}>{head(get(item, "product_category"))}</p>
+                                    <p ref={productIdRef}>{head(get(item, "ad_id"))}</p>
+                                </div>
                             )}
 
-                        <button onClick={handleSendComment}>yuborish</button>
+                        <button className={""} onClick={handleSendComment}>Yuborish</button>
                     </div>
                 </div>
             }
