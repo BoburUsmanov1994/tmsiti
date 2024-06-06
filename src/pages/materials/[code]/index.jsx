@@ -606,7 +606,7 @@ const ViewPage = () => {
                     onClick={toggleAccordion}
                     className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"
                 >
-                  <button onClick={handleListComment}>Buyurtmachilar fikri</button>
+                  <button onClick={() => handleListComment()}>Buyurtmachilar fikri</button>
                   <span>{isOpen ? '-' : '+'}</span>
                 </div>
                 {isOpen && <div className="p-3">
