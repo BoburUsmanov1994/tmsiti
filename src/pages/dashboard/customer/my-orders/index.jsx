@@ -97,7 +97,7 @@ const Index = () => {
         const selectedStars = starRatingRef.current?.textContent;
         const enteredComment = commentRef.current?.value;
         const customer = +get(user, "data.id");
-        const productId = productIdRef.current?.textContent;
+        const productId = +productIdRef.current?.textContent;
 
         const commentInfo = {
             product_category: enteredProductCategory,
