@@ -34,7 +34,7 @@ const Index = () => {
     const {data: session} = useSession();
     const productCategoryRef = useRef(null);
     const companyStirRef = useRef(null);
-
+    const ratingValueRef = useRef(null);
     const commentRef = useRef(null);
     const productIdRef = useRef(null);
     const token = useSettingsStore(state => get(state, 'token', null))
@@ -99,7 +99,7 @@ const Index = () => {
 
     const handleSendComment = () => {
         const enteredProductCategory = productCategoryRef.current?.textContent;
-        const selectedStars = starRatingRef.current?.textContent;
+        const selectedStars = ratingValueRef.current?.value;
         const enteredComment = commentRef.current?.value;
         const customer = +get(user, "data.id");
         const productId = +productIdRef.current?.textContent;
@@ -109,7 +109,7 @@ const Index = () => {
             product_category: enteredProductCategory,
             ad_id: productId,
             comment: enteredComment,
-            rating: 5,
+            rating: selectedStars,
             customer: customer,
             company_stir: enteredCompanyStir
         }
@@ -234,6 +234,7 @@ const Index = () => {
                                             <input
                                                 type="radio"
                                                 name="rating"
+                                                ref={ratingValueRef}
                                                 value={ratingValue}
                                                 onClick={() => handleClick(ratingValue)}
                                                 style={{display: 'none'}}
