@@ -16,6 +16,7 @@ import {useSession} from "next-auth/react";
 import toast from "react-hot-toast";
 import StarRating from "@/components/stars/star-rating";
 import starRating from "@/components/stars/star-rating";
+import Title from "@/components/title";
 
 
 
@@ -205,12 +206,18 @@ const Index = () => {
             {isOpen &&
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
                     <div className="bg-white p-8 rounded shadow-md w-[1000px] h-auto flex flex-col">
-                        <Image onClick={closeModal} src={"/icons/closeModal.svg"} alt={"close"} width={30} height={30}/>
+                        <div className={"flex justify-between items-center "}>
+                            <Title>Mahsulotni baholash</Title>
+
+                            <Image onClick={closeModal} src={"/icons/closeModal.svg"} alt={"close"} width={30} height={30}/>
+
+                        </div>
+                        <p className={"text-lg mb-[15px]"}>Mahsulot borasida o'z izohingizni qoldiring</p>
                         <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"}
                                   className={"border p-3 shadow-lg rounded-[6px]"}>
 
                       </textarea>
-
+                        <p className={"text-lg mb-[15px]"}>Mahsulotni baholang</p>
                         <StarRating ref={starRatingRef}/>
 
 
