@@ -67,9 +67,7 @@ const Index = () => {
         enabled: !!(get(session, 'user.token') || token)
     })
 
-    const {mutate: sendComment, isLoadingComment} = usePostQuery({
-        listKeyId: "comment-one",
-    });
+
 
 
 
@@ -91,6 +89,9 @@ const Index = () => {
 
     }
 
+    const {mutate: sendComment, isLoadingComment} = usePostQuery({
+        listKeyId: "comment-one",
+    });
 
     const handleSendComment = () => {
         const enteredProductCategory = productCategoryRef.current?.textContent;

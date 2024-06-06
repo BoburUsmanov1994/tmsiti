@@ -18,12 +18,6 @@ const Index = () => {
     const { t } = useTranslation();
     const [pageSize, setPageSize] = useState(48);
 
-    const { data: comment, isLoadingComment } = useGetQuery({
-        key: KEYS.customerComment,
-        url: URLS.customerComment
-    })
-
-
 
     const { mutate: sendOrderStatus, isLoading } = usePostQuery({
         listKeyId: "company-info-one",
