@@ -212,16 +212,17 @@ const Index = () => {
                             <div className={"flex justify-between items-center "}>
                                 <Title>Mahsulotni baholash</Title>
 
-                                <Image onClick={closeModal} src={"/icons/closeModal.svg"} alt={"close"} width={30} height={30}/>
+                                <Image onClick={closeModal} className={"cursor-pointer"} src={"/icons/closeModal.svg"} alt={"close"} width={30} height={30}/>
 
                             </div>
-                            <p className={"text-lg mb-[15px]"}>Mahsulot borasida o'z izohingizni qoldiring</p>
+                            <p className={"text-lg mb-[15px]"}>Mahsulot borasida o'z izohingizni qoldiring.</p>
                             <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"}
                                       className={"border p-3 shadow-lg rounded-[6px] mb-[20px] "}>
 
                       </textarea>
-                            <p className={"text-lg mb-[15px]"}>Mahsulotni baholang</p>
+
                             <div className={"flex items-center justify-center"}>
+                                <p className={"text-lg mb-[20px]"}>Mahsulotni baholang</p>
                                 {[...Array(totalStars)].map((_, index) => (
                                     <Star
                                         key={index}
@@ -241,7 +242,7 @@ const Index = () => {
                                 </div>
                             )}
 
-                            <button className={"bg-blue-500 hover:bg-blue-600 active:bg-blue-400 mt-[30px] text-white w-full text-lg py-2"} onClick={handleSendComment}>Yuborish</button>
+                            <button className={"bg-blue-500 hover:bg-blue-600 active:bg-blue-400 mt-[30px] text-white w-full text-lg py-2 rounded-[6px]"} onClick={handleSendComment}>Yuborish</button>
                         </div>
                     </div>
                 }

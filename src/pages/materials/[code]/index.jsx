@@ -47,17 +47,14 @@ const ViewPage = () => {
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
-  // const openModal = () => setIsOpen(true);
-  // const closeModal = () => setIsOpen(false);
 
 
-  useEffect(() => {
-    // Load the stored comments from localStorage when the component mounts
-    const storedComments = localStorage.getItem('comments');
-    if (storedComments) {
-      setComments(JSON.parse(storedComments));
-    }
-  }, []);
+  const { data: customer } = useGetQuery({
+    key: KEYS.getCustomer,
+    url: URLS.getCustomer,
+    headers: {token: token ??`${get(session, 'user.token')}`},
+    enabled: !!(get(session, 'user.token') || token)
+  })
 
   const {mutate: listComment, isLoadingComment} = usePostQuery({
     listKeyId: "list-comment-one",
@@ -70,6 +67,7 @@ const ViewPage = () => {
     const commentInfo = {
       product_category: enteredProductCategory,
       ad_id: productId,
+      company_stir:
     }
 
     setPostComments(commentInfo)
@@ -88,6 +86,11 @@ const ViewPage = () => {
   }
 
 
+  const handleBoth = () => {
+    toggleAccordion();
+    handleListComment();
+  };
+
 
   const { mutate: certificate, isLoadingCertificate } = usePostQuery({
     listKeyId: "certificate-one",
@@ -102,6 +105,7 @@ const ViewPage = () => {
         "inn": inn,
         "certificate_number": certificate_number
       }
+
     })
 
   }
@@ -115,42 +119,11 @@ const ViewPage = () => {
     });
   };
 
-  const { data: customer } = useGetQuery({
-    key: KEYS.getCustomer,
-    url: URLS.getCustomer,
-    headers: {token: token ??`${get(session, 'user.token')}`},
-    enabled: !!(get(session, 'user.token') || token)
-  })
 
   
 
 
-  const submitComment = (e) => {
-    e.preventDefault();
-    const inputValue = inputRef.current?.value;
 
-
-    const firstName = get(customer, "data.first_name")
-    const lastName = get(customer, "data.last_name")
-
-    const info = {
-      inputValue,
-      firstName,
-      lastName
-    }
-    if (inputValue.trim()) {
-      const newComments = [...comments, info];
-      setComments(newComments);
-      localStorage.setItem('comments', JSON.stringify(newComments));
-      inputRef.current.value = ''; // Clear the input field after submission
-    }
-  }
-
-  const deleteComment = (index) => {
-    const newComments = comments.filter((_, i) => i !== index);
-    setComments(newComments);
-    localStorage.setItem('comments', JSON.stringify(newComments));
-  };
 
 
 
@@ -603,10 +576,10 @@ const ViewPage = () => {
 
               <div className="border col-span-12 border-gray-300 rounded mb-2">
                 <div
-                    onClick={toggleAccordion}
+                    onClick={handleBoth}
                     className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"
                 >
-                  <button onClick={() => handleListComment()}>Buyurtmachilar fikri</button>
+                  <button>Buyurtmachilar fikri</button>
                   <span>{isOpen ? '-' : '+'}</span>
                 </div>
                 {isOpen && <div className="p-3">
@@ -622,33 +595,7 @@ const ViewPage = () => {
               </div>
             </div>
           </Section>
-          <Section>
-            <div className={"bg-white p-4"}>
-              <Title>Sharh</Title>
-              <p className={"mb-[15px]"}>Mahsulot bo'yicha o'z fikringiz, taklifingiz yoki e'tirozlaringizni
-                qoldirishingiz mumkin</p>
-              {comments.map((comment, index) =>
-                  <div key={index} className={" w-full border mb-[30px] rounded-[6px] shadow-xl p-2"}>
-                    <p className={"text-sm text-gray-400"}>{get(comment, "firstName")} {get(comment, "lastName")}</p>
-                    <h1 className={"text-lg"}>{get(comment, "inputValue")}</h1>
-                    <button
-                        className={"bg-red-500 px-[30px] text-white text-sm mt-[50px] active:bg-red-400 hover:bg-red-600 rounded-[6px] py-[5px]"}
-                        onClick={() => deleteComment(index)}>O'chirish
-                    </button>
-                  </div>
-              )}
 
-
-              <form className={"flex gap-x-8"} onClick={submitComment}>
-
-                <input ref={inputRef} type={"text"} className={'w-2/3 border rounded-[6px] h-[50px] text-base px-2'}
-                       placeholder={"Izoh yozishingiz uchun joy"}/>
-                <button
-                    className={"w-1/3 border h-[50px] bg-[#62B3FF] text-white active:bg-blue-500 rounded-[6px]"}>Yuborish
-                </button>
-              </form>
-            </div>
-          </Section>
 
 
         </Main>
