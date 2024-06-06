@@ -24,6 +24,7 @@ import {
   FullscreenControl,
 } from "@pbe/react-yandex-maps";
 import GridMakeOrder from "@/containers/grid-make-order";
+import Star from "@/components/stars/star";
 
 const ViewPage = () => {
   const router = useRouter();
@@ -42,7 +43,7 @@ const ViewPage = () => {
       url: `${URLS.orderRatingCompany}/${stir}/`
   })
 
-    console.log(ratingCompany)
+    console.log()
 
   const {
     data: company,
@@ -304,10 +305,21 @@ const ViewPage = () => {
                       }
                   >
                     {get(company, "data.company_name")}
+
                   </h2>
+
+                </div>
+                <div className={"flex"}>
+                    {[...Array(5)].map((_, index) => (
+                        <Star
+                            key={index}
+                            selected={index < get(ratingCompany, "data.average_rating")}
+                        />
+                    ))}
                 </div>
 
                 <div className="flex flex-col laptop:items-start items-center mt-2.5">
+
                   <div
                       className={
                         "mb-[10px] laptop:text-base tablet:text-sm text-xs  text-[#4B5055]"

@@ -18,6 +18,7 @@ import StarRating from "@/components/stars/star-rating";
 import starRating from "@/components/stars/star-rating";
 import Title from "@/components/title";
 import Star from "@/components/stars/star";
+import {last} from "lodash/array";
 
 
 
@@ -236,8 +237,8 @@ const Index = () => {
 
                             {get(orderListCustomer, "data.results", []).map((item, index) =>
                                 <div key={index} className={"hidden"}>
-                                    <p ref={productCategoryRef}>{get(row, "product_category")}</p>
-                                    <p ref={productIdRef}>{get(row, "ad_id")}</p>
+                                    <p ref={productCategoryRef}>{last(get(row, "product_category"))}</p>
+                                    <p ref={productIdRef}>{last(get(row, "ad_id"))}</p>
                                     <p ref={companyStirRef}>{get(row, "company")}</p>
                                 </div>
                             )}
