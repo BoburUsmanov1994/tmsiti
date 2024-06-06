@@ -35,6 +35,7 @@ const Index = () => {
     const [isOpen, setIsOpen] = useState(false)
     const {data: session} = useSession();
     const productCategoryRef = useRef(null);
+    const companyStirRef = useRef(null);
     const ratingRef = useRef(null);
     const commentRef = useRef(null);
     const productIdRef = useRef(null);
@@ -99,6 +100,7 @@ const Index = () => {
         const enteredComment = commentRef.current?.value;
         const customer = +get(user, "data.id");
         const productId = +productIdRef.current?.textContent;
+        const enteredCompanyStir = companyStirRef.current?.textContent
 
         const commentInfo = {
             product_category: enteredProductCategory,
@@ -106,6 +108,7 @@ const Index = () => {
             comment: enteredComment,
             rating: 5,
             customer: customer,
+            company_stir: enteredCompanyStir
         }
 
 
@@ -245,6 +248,7 @@ const Index = () => {
                                 <div key={index} className={"hidden"}>
                                     <p ref={productCategoryRef}>{get(item, "product_category")}</p>
                                     <p ref={productIdRef}>{get(item, "ad_id")}</p>
+                                    <p ref={companyStirRef}>{get(item, "company_stir")}</p>
                                 </div>
                             )}
 
