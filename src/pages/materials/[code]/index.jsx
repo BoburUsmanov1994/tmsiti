@@ -38,7 +38,7 @@ const ViewPage = () => {
   const productCategoryRef = useRef(null);
   const productIdRef = useRef(null);
   const [isOpen, setIsOpen] = useState()
-  const [comments, setComments] = useState([])
+  const [postComments, setPostComments] = useState([])
   const token = useSettingsStore(state => get(state, 'token', null))
 
   const { state, dispatch } = useCounter();
@@ -72,7 +72,7 @@ const ViewPage = () => {
     }
 
     if (enteredProductCategory) {
-      setComments(commentInfo)
+      setPostComments(commentInfo)
 
       listComment({
             url: URLS.customerComment,
@@ -611,7 +611,7 @@ const ViewPage = () => {
                 </div>
                 {isOpen && <div className="p-3">
                   {get(materialAds, "data.results", []).map((item, index) =>
-                      <div  key={index}>
+                      <div key={index}>
                         <p ref={productIdRef}>{get(item, "id")}</p>
                         <p ref={productCategoryRef}
                            >{get(item, "material_code") ? "material" : get(item, "mmechano_code") ? "mmechano" : get(item, "techno_code") ? "techno" : get(item, "smallmechano_code") ? "smallmechano" : get(item, "work_code") ? "work" : ""}</p>
