@@ -14,6 +14,7 @@ import usePostQuery from "@/hooks/api/usePostQuery";
 import {useSettingsStore} from "@/store";
 import {useSession} from "next-auth/react";
 import toast from "react-hot-toast";
+import {Rating} from "react-simple-star-rating";
 
 
 
@@ -23,6 +24,7 @@ import toast from "react-hot-toast";
 
 const Index = () => {
     const [pageSize, setPageSize] = useState(48);
+    const [ratingValue, setRatingValue] = useState(0)
     const [comments, setComments] = useState({});
     const [isOpen, setIsOpen] = useState(false)
     const {data: session} = useSession();
@@ -30,12 +32,22 @@ const Index = () => {
     const ratingRef = useRef(null);
     const commentRef = useRef(null);
     const productIdRef = useRef(null);
+    const token = useSettingsStore(state => get(state, 'token', null))
 
     const openModal = () => setIsOpen(true);
     const closeModal = () => setIsOpen(false);
 
 
-    const token = useSettingsStore(state => get(state, 'token', null))
+
+    const handleRating = (rate) => {
+        setRatingValue(rate)
+    }
+    const handleReset = () => {
+        setRating(0)
+    }
+
+    
+
 
     const {data: user} = useGetQuery({
         key: KEYS.getCustomer,
@@ -199,6 +211,9 @@ const Index = () => {
                       <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"}>
 
                       </textarea>
+                      <Rating onClick={handleRating} initialValue={ratingValue} />
+
+                      <button onClick={handleReset}>reset</button>
 
 
                     <button onClick={handleSendComment}>yuborish</button>
