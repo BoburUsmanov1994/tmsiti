@@ -243,7 +243,7 @@ const Index = () => {
 
                         {get(orderListCustomer, "data.results", []).map((item, index) =>
                                 <div key={index} className={"hidden"}>
-                                    <p ref={productCategoryRef}>{head(get(item, "product_category"))}</p>
+                                    <p ref={productCategoryRef}>{get(item, "product_category")}</p>
                                     <p ref={productIdRef}>{head(get(item, "ad_id"))}</p>
                                 </div>
                             )}
