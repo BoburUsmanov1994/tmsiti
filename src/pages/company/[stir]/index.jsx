@@ -39,7 +39,7 @@ const ViewPage = () => {
 
   const {data: ratingCompany, isLoading: isLoadingRatingCompany} = useGetQuery({
       key: KEYS.orderRatingCompany,
-      url: URLS.orderRatingCompany
+      url: `${URLS.orderRatingCompany}${stir}/`
   })
 
     console.log(ratingCompany)
