@@ -25,6 +25,7 @@ import {
 } from "@pbe/react-yandex-maps";
 import GridMakeOrder from "@/containers/grid-make-order";
 import Star from "@/components/stars/star";
+import StarRating from "@/components/stars/star-rating";
 
 const ViewPage = () => {
   const router = useRouter();
@@ -310,12 +311,7 @@ const ViewPage = () => {
 
                 </div>
                 <div className={"flex"}>
-                    {[...Array(5)].map((_, index) => (
-                        <Star
-                            key={index}
-                            selected={index < get(ratingCompany, "data.average_rating")}
-                        />
-                    ))}
+                    <StarRating/>
                 </div>
 
                 <div className="flex flex-col laptop:items-start items-center mt-2.5">

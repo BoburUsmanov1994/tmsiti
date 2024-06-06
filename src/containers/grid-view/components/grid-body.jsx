@@ -27,63 +27,63 @@ const GridBody = ({
                   className={clsx("py-2.5 px-5", get(th, "classnames", ""))}
                   key={get(th, "id")}
                 >
-                  {Object.keys(state).includes(JSON.stringify(th)) ? <div className="inline-flex items-center">
+                  <div className="inline-flex items-center">
                     <span className={"laptop:text-base tablet:text-sm text-xs"}>
                       {get(th, "title")}
                     </span>
                     {get(th, "sorter") && (
-                        <div className="inline-flex flex-col ml-1">
-                          <Image
-                              onClick={() => handleSort(get(th, "key"))}
-                              className={"cursor-pointer mb-[3px] max-w-none"}
-                              width={10}
-                              height={6}
-                              src={"/icons/sort-up.svg"}
-                              alt={"up"}
-                          />
-                          <Image
-                              onClick={() => handleSort(`-${get(th, "key")}`)}
-                              className={"cursor-pointer max-w-none"}
-                              width={10}
-                              height={6}
-                              src={"/icons/sort-down.svg"}
-                              alt={"up"}
-                          />
-                        </div>
+                      <div className="inline-flex flex-col ml-1">
+                        <Image
+                          onClick={() => handleSort(get(th, "key"))}
+                          className={"cursor-pointer mb-[3px] max-w-none"}
+                          width={10}
+                          height={6}
+                          src={"/icons/sort-up.svg"}
+                          alt={"up"}
+                        />
+                        <Image
+                          onClick={() => handleSort(`-${get(th, "key")}`)}
+                          className={"cursor-pointer max-w-none"}
+                          width={10}
+                          height={6}
+                          src={"/icons/sort-down.svg"}
+                          alt={"up"}
+                        />
+                      </div>
                     )}
-                  </div> : ""}
+                  </div>
                 </th>
               ))}
             {hasActionColumn && <th className={"py-2.5 px-5"}>Action</th>}
           </tr>
         </thead>
         <tbody
-            className={
-              "text-[#212529] overflow-x-scroll laptop:text-sm tablet:text-xs text-[10px] align-middle"
-            }
+          className={
+            "text-[#212529] overflow-x-scroll laptop:text-sm tablet:text-xs text-[10px] align-middle"
+          }
         >
-        {rows &&
+          {rows &&
             rows.map((tr, index) => {
               return (
-                  <>
-                    <tr
-                        className={"even:bg-white odd:bg-[#FBFBFC] align-middle"}
-                        key={get(tr, get(columns, "[0].key"))}
-                    >
-                      {columns.map((th) => (
-                          <td
-                              className={clsx(
-                                  "py-2.5 px-5 align-middle",
-                                  get(th, "classnames", ""),
-                              )}
-                          >
-                            {get(th, "render")
-                                ? get(
-                                    th,
-                                    "render",
-                                )({
-                                  value: get(tr, get(th, "key")),
-                                  row: tr,
+                <>
+                  <tr
+                    className={"even:bg-white odd:bg-[#FBFBFC] align-middle"}
+                    key={get(tr, get(columns, "[0].key"))}
+                  >
+                    {columns.map((th) => (
+                      <td
+                        className={clsx(
+                          "py-2.5 px-5 align-middle",
+                          get(th, "classnames", ""),
+                        )}
+                      >
+                        {get(th, "render")
+                          ? get(
+                              th,
+                              "render",
+                            )({
+                              value: get(tr, get(th, "key")),
+                              row: tr,
                               index: index + (page - 1) * pageSize + 1,
                             })
                           : get(tr, get(th, "key"))}

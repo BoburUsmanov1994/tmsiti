@@ -29,24 +29,26 @@ import {last} from "lodash/array";
 const Index = () => {
     const [pageSize, setPageSize] = useState(48);
     const [selectedStars, setSelectedStars] = useState(0);
-    const starRatingRef = useRef(null);
-    const starRefs = useRef([]);
-    const totalStars = 5;
     const [comments, setComments] = useState({});
     const [isOpen, setIsOpen] = useState(false)
     const {data: session} = useSession();
     const productCategoryRef = useRef(null);
     const companyStirRef = useRef(null);
-    const ratingRef = useRef(null);
+
     const commentRef = useRef(null);
     const productIdRef = useRef(null);
     const token = useSettingsStore(state => get(state, 'token', null))
+    const [rating, setRating] = useState(0);
+    const [hover, setHover] = useState(0);
 
 
-    const handleStarClick = (index) => {
-        setSelectedStars(index + 1);
-        starRefs.current[index].value = index + 1;
+
+    const handleClick = (ratingValue) => {
+        setRating(ratingValue);
+
     };
+
+
 
 
     const openModal = () => setIsOpen(true);
@@ -213,7 +215,8 @@ const Index = () => {
                             <div className={"flex justify-between items-center "}>
                                 <Title>Mahsulotni baholash</Title>
 
-                                <Image onClick={closeModal} className={"cursor-pointer"} src={"/icons/closeModal.svg"} alt={"close"} width={30} height={30}/>
+                                <Image onClick={closeModal} className={"cursor-pointer"} src={"/icons/closeModal.svg"}
+                                       alt={"close"} width={30} height={30}/>
 
                             </div>
                             <p className={"text-lg mb-[15px]"}>Mahsulot borasida o'z izohingizni qoldiring.</p>
@@ -223,15 +226,33 @@ const Index = () => {
                       </textarea>
 
                             <div>
-                                <p className={"text-lg mb-[20px]"}>Mahsulotni baholang</p>
-                                {[...Array(totalStars)].map((_, index) => (
-                                    <Star
-                                        key={index}
-                                        selected={index < selectedStars}
-                                        onClick={() => handleStarClick(index)}
-                                        ref={(el) => (starRefs.current[index] = el)}
-                                    />
-                                ))}
+                                {[...Array(5)].map((star, index) => {
+                                    const ratingValue = index + 1;
+
+                                    return (
+                                        <label key={index}>
+                                            <input
+                                                type="radio"
+                                                name="rating"
+                                                value={ratingValue}
+                                                onClick={() => handleClick(ratingValue)}
+                                                style={{display: 'none'}}
+                                            />
+                                            <svg
+                                                className="star"
+                                                width="25"
+                                                height="25"
+                                                viewBox="0 0 24 24"
+                                                fill={ratingValue <= (hover || rating) ? "#ffd700" : "#ccc"}
+                                                fill={ratingValue <= (hover || rating) ? "#ffd700" : "#ccc"}
+                                                onMouseEnter={() => setHover(ratingValue)}
+                                                onMouseLeave={() => setHover(0)}
+                                            >
+                                                <polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8"/>
+                                            </svg>
+                                        </label>
+                                    );
+                                })}
                             </div>
 
 
@@ -243,7 +264,10 @@ const Index = () => {
                                 </div>
                             )}
 
-                            <button className={"bg-blue-500 hover:bg-blue-600 active:bg-blue-400 mt-[30px] text-white w-full text-lg py-2 rounded-[6px]"} onClick={handleSendComment}>Yuborish</button>
+                            <button
+                                className={"bg-blue-500 hover:bg-blue-600 active:bg-blue-400 mt-[30px] text-white w-full text-lg py-2 rounded-[6px]"}
+                                onClick={handleSendComment}>Yuborish
+                            </button>
                         </div>
                     </div>
                 }
@@ -262,8 +286,8 @@ const Index = () => {
                           defaultPageSize={pageSize}/>
             </div>
 
-</Dashboard>
-        )
+        </Dashboard>
+    )
 
 }
 

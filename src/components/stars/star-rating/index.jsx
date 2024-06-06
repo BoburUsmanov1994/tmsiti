@@ -1,27 +1,47 @@
-import React, { useState, useRef } from 'react';
-import Star from "../star/index"
+import React, { useState } from 'react';
 
-const StarRating = ({ totalStars = 5 }) => {
-    const [selectedStars, setSelectedStars] = useState(0);
-    const starRefs = useRef([]);
+const RatingStar = () => {
+    const [rating, setRating] = useState(0);
+    const [hover, setHover] = useState(0);
 
-    const handleStarClick = (index) => {
-        setSelectedStars(index + 1);
-        starRefs.current[index].value = index + 1;
+
+
+    const handleClick = (ratingValue) => {
+        setRating(ratingValue);
+
     };
 
     return (
         <div>
-            {[...Array(totalStars)].map((_, index) => (
-                <Star
-                    key={index}
-                    selected={index < selectedStars}
-                    onClick={() => handleStarClick(index)}
-                    ref={(el) => (starRefs.current[index] = el)}
-                />
-            ))}
+            {[...Array(5)].map((star, index) => {
+                const ratingValue = index + 1;
+
+                return (
+                    <label key={index} >
+                        <input
+                            type="radio"
+                            name="rating"
+                            value={ratingValue}
+                            onClick={() => handleClick(ratingValue)}
+                            style={{ display: 'none' }}
+                        />
+                        <svg
+                            className="star"
+                            width="25"
+                            height="25"
+                            viewBox="0 0 24 24"
+                            fill={ratingValue <= (hover || rating) ? "#ffd700" : "#ccc"}
+                            fill={ratingValue <= (hover || rating) ? "#ffd700" : "#ccc"}
+                            onMouseEnter={() => setHover(ratingValue)}
+                            onMouseLeave={() => setHover(0)}
+                        >
+                            <polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8" />
+                        </svg>
+                    </label>
+                );
+            })}
         </div>
     );
 };
 
-export default StarRating;
+export default RatingStar;
