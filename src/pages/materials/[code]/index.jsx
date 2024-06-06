@@ -32,7 +32,6 @@ const ViewPage = () => {
   const { code } = router.query;
   const {data: session} = useSession()
   const { t } = useTranslation();
-  const inputRef = useRef(null);
   const [regionId, setRegionId] = useState(null);
   const [districtId, setDistrictId] = useState(null);
   const productCategoryRef = useRef(null);
@@ -66,7 +65,7 @@ const ViewPage = () => {
 
     const commentInfo = {
       product_category: enteredProductCategory,
-      ad_id: productId,
+      ad_id: Number(productId),
     }
 
     setPostComments(commentInfo)
