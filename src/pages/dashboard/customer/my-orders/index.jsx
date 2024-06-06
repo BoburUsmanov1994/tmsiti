@@ -25,7 +25,7 @@ import starRating from "@/components/stars/star-rating";
 
 const Index = () => {
     const [pageSize, setPageSize] = useState(48);
-    const starRatingRef = useRef();
+    const starRatingRef = useRef(null);
     const [comments, setComments] = useState({});
     const [isOpen, setIsOpen] = useState(false)
     const {data: session} = useSession();
@@ -82,7 +82,7 @@ const Index = () => {
 
     const handleSendComment = () => {
         const enteredProductCategory = productCategoryRef.current?.textContent;
-        const selectedStars = starRatingRef.current.map(star => star.value);
+        const selectedStars = starRatingRef.current?.textContent;
         const enteredComment = commentRef.current?.value;
         const customer = +get(user, "data.id");
         const productId = productIdRef.current?.textContent;
