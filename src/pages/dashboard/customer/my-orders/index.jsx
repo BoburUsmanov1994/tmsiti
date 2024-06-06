@@ -103,7 +103,7 @@ const Index = () => {
             product_category: enteredProductCategory,
             ad_id: productId,
             comment: enteredComment,
-            rating: selectedStars,
+            rating: 5,
             customer: customer,
         }
 
@@ -216,7 +216,7 @@ const Index = () => {
             </div>
             {isOpen &&
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-                    <div className="bg-white p-8 rounded shadow-md w-[1000px] h-auto flex flex-col">
+                    <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
                         <div className={"flex justify-between items-center "}>
                             <Title>Mahsulotni baholash</Title>
 
@@ -244,7 +244,7 @@ const Index = () => {
                         {get(orderListCustomer, "data.results", []).map((item, index) =>
                                 <div key={index} className={"hidden"}>
                                     <p ref={productCategoryRef}>{get(item, "product_category")}</p>
-                                    <p ref={productIdRef}>{head(get(item, "ad_id"))}</p>
+                                    <p ref={productIdRef}>{get(item, "ad_id"))}</p>
                                 </div>
                             )}
 
