@@ -62,7 +62,7 @@ const ViewPage = () => {
 
   const handleListComment = () => {
     const enteredProductCategory = productCategoryRef.current?.textContent;
-    const productId = +productIdRef.current?.textContent;
+    const productId = productIdRef.current?.textContent;
 
     const commentInfo = {
       product_category: enteredProductCategory,
