@@ -71,7 +71,7 @@ const ViewPage = () => {
       ad_id: productId,
     }
 
-    if (!enteredComment) {
+    if (enteredProductCategory) {
       setComments(commentInfo)
 
       listComment({
@@ -606,7 +606,7 @@ const ViewPage = () => {
                     onClick={toggleAccordion}
                     className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"
                 >
-                  <span>Buyurtmachilar fikri</span>
+                  <span onClick={handleListComment}>Buyurtmachilar fikri</span>
                   <span>{isOpen ? '-' : '+'}</span>
                 </div>
                 {isOpen && <div className="p-3">
