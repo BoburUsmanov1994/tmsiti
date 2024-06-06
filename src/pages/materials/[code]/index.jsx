@@ -72,20 +72,19 @@ const ViewPage = () => {
       ad_id: productId,
     }
 
-    if (enteredProductCategory) {
-      setPostComments(commentInfo)
+    setPostComments(commentInfo)
 
-      listComment({
-            url: URLS.customerComment,
-            attributes: commentInfo
-          },
-          {
+    listComment({
+          url: URLS.customerComment,
+          attributes: commentInfo
+        },
+        {
             onSuccess: () => {
               toast.success('Siz bergan izoh va baho yetkazib beruvchiga yuborildi', {position: 'top-right'})
             }
-          }
+        }
       )
-    }
+
   }
 
 
