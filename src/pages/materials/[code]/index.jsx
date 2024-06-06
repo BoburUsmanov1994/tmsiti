@@ -611,7 +611,7 @@ const ViewPage = () => {
                 </div>
                 {isOpen && <div className="p-3">
                   {get(materialAds, "data.results", []).map((item, index) =>
-                      <div className={'hidden'} key={index}>
+                      <div  key={index}>
                         <p ref={productIdRef}>{get(item, "id")}</p>
                         <p ref={productCategoryRef}
                            >{get(item, "material_code") ? "material" : get(item, "mmechano_code") ? "mmechano" : get(item, "techno_code") ? "techno" : get(item, "smallmechano_code") ? "smallmechano" : get(item, "work_code") ? "work" : ""}</p>
