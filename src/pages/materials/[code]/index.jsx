@@ -566,16 +566,16 @@ const ViewPage = () => {
               </div>
 
               <div className="border col-span-12 border-gray-300 rounded mb-2">
-                <div
-                    onClick={toggleAccordion}
-                    className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"
-                >
-                  <button>Buyurtmachilar fikri</button>
-                  <span>{isOpen ? '-' : '+'}</span>
-                </div>
-                {isOpen && <div className="p-3">
+                {/*<div*/}
+                {/*    onClick={toggleAccordion}*/}
+                {/*    className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"*/}
+                {/*>*/}
+                {/*  <button>Buyurtmachilar fikri</button>*/}
+                {/*  <span>{isOpen ? '-' : '+'}</span>*/}
+                {/*</div>*/}
+                <div className="p-3">
                   {get(materialAds, "data.results", []).map((item, index) =>
-                      <div  key={get(item, "id")}>
+                      <div  key={index}>
                         <button onClick={() => handleListComment()}>Olish</button>
                         <p ref={productIdRef}>{get(item, "id")}</p>
                         <p ref={productCategoryRef}>{get(item, "material_code") ? "material" : get(item, "mmechano_code") ? "mmechano" : get(item, "techno_code") ? "techno" : get(item, "smallmechano_code") ? "smallmechano" : get(item, "work_code") ? "work" : ""}</p>
@@ -583,7 +583,7 @@ const ViewPage = () => {
                       </div>
                   )}
 
-                </div>}
+                </div>
               </div>
             </div>
           </Section>
