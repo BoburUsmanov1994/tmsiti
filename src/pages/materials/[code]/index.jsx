@@ -80,10 +80,7 @@ const ViewPage = () => {
   }
 
 
-  const handleBoth = () => {
-    toggleAccordion();
-    handleListComment();
-  };
+
 
 
   const { mutate: certificate, isLoadingCertificate } = usePostQuery({
@@ -570,7 +567,7 @@ const ViewPage = () => {
 
               <div className="border col-span-12 border-gray-300 rounded mb-2">
                 <div
-                    onClick={handleBoth}
+                    onClick={toggleAccordion}
                     className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"
                 >
                   <button>Buyurtmachilar fikri</button>
@@ -578,7 +575,8 @@ const ViewPage = () => {
                 </div>
                 {isOpen && <div className="p-3">
                   {get(materialAds, "data.results", []).map((item, index) =>
-                      <div key={get(item, "id")}>
+                      <div  key={get(item, "id")}>
+                        <button onClick={() => handleListComment()}>Olish</button>
                         <p ref={productIdRef}>{get(item, "id")}</p>
                         <p ref={productCategoryRef}>{get(item, "material_code") ? "material" : get(item, "mmechano_code") ? "mmechano" : get(item, "techno_code") ? "techno" : get(item, "smallmechano_code") ? "smallmechano" : get(item, "work_code") ? "work" : ""}</p>
                         <p ref={companyStirRef}>{get(item, "company_stir")}</p>
