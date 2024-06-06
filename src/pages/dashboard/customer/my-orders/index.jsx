@@ -225,12 +225,12 @@ const Index = () => {
 
                       </textarea>
 
-                            <div>
+                            <div style={{ display: 'flex', flexDirection: 'row' }}>
                                 {[...Array(5)].map((star, index) => {
                                     const ratingValue = index + 1;
 
                                     return (
-                                        <label key={index}>
+                                        <label key={index} style={{ display: 'inline-block' }}>
                                             <input
                                                 type="radio"
                                                 name="rating"
