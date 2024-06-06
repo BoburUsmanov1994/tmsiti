@@ -37,6 +37,13 @@ const ViewPage = () => {
     setSelectOrder(choose);
   };
 
+  const {data: ratingCompany, isLoading: isLoadingRatingCompany} = useGetQuery({
+      key: KEYS.orderRatingCompany,
+      url: URLS.orderRatingCompany
+  })
+
+    console.log(ratingCompany)
+
   const {
     data: company,
     isLoading,

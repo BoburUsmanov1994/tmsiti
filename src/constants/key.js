@@ -44,5 +44,6 @@ export const KEYS = {
   myWork: "myWork",
   orderListCompany: "orderListCompany",
   orderListCustomer: "orderListCustomer",
-  customerComment: "customerComment"
+  customerComment: "customerComment",
+  orderRatingCompany: "orderRatingCompany"
 };

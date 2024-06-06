@@ -221,7 +221,7 @@ const Index = () => {
 
                       </textarea>
 
-                            <div className={"flex items-center justify-center"}>
+                            <div className={"flex flex-col items-center justify-center"}>
                                 <p className={"text-lg mb-[20px]"}>Mahsulotni baholang</p>
                                 {[...Array(totalStars)].map((_, index) => (
                                     <Star

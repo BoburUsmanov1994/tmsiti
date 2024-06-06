@@ -66,14 +66,7 @@ const Index = () => {
 
 
 
-  const { data, isLoading, isFetching } = useGetQuery({
-    key: KEYS.companyAds,
-    url: `${URLS.companyAds}${stir}/`,
-    params: {
-      page,
-      page_size: pageSize,
-    },
-  });
+
 
   const handleIncrement = (product) => {
     console.log("product", product, JSON.stringify(product));
@@ -274,12 +267,37 @@ const Index = () => {
 
                           <div className={"col-span-4 text-center"}>
                             <h1 className={"text-lg font-bold mb-[20px]"}>Tanlangan mahsulotning umumiy narxi</h1>
-                            <p ref={priceRef}>
+                            <p ref={priceRef} className={`${isEmpty(get(JSON.parse(head(item)), "material_name")) ? "hidden" : "visible"}`}>
                               <NumericFormat
                                   displayType={"text"}
                                   thousandSeparator={" "}
                                   value={get(JSON.parse(head(item)), "material_price", 0) * last(item)}
                                   suffix={` / ${get(JSON.parse(head(item)), "material_measure")}`}
+                              />
+                            </p>
+                            <p ref={priceRef} className={`${isEmpty(get(JSON.parse(head(item)), "techno_name")) ? "hidden" : "visible"}`}>
+                              <NumericFormat
+                                  displayType={"text"}
+                                  thousandSeparator={" "}
+
+                                  value={get(JSON.parse(head(item)), "techno_price", 0) * last(item)}
+                                  suffix={` / ${get(JSON.parse(head(item)), "techno_measure")}`}
+                              />
+                            </p>
+                            <p ref={priceRef} className={`${isEmpty(get(JSON.parse(head(item)), "mmechano_name")) ? "hidden" : "visible"}`}>
+                              <NumericFormat
+                                  displayType={"text"}
+                                  thousandSeparator={" "}
+                                  value={get(JSON.parse(head(item)), "mmechano_rent_price", 0) * last(item)}
+                                  suffix={` / ${get(JSON.parse(head(item)), "mmechano_measure")}`}
+                              />
+                            </p>
+                            <p ref={priceRef} className={`${isEmpty(get(JSON.parse(head(item)), "smallmechano_name")) ? "hidden" : "visible"}`}>
+                              <NumericFormat
+                                  displayType={"text"}
+                                  thousandSeparator={" "}
+                                  value={get(JSON.parse(head(item)), "smallmechano_rent_price", 0) * last(item)}
+                                  suffix={` / ${get(JSON.parse(head(item)), "smallmechano_measure")}`}
                               />
                             </p>
                           </div>
