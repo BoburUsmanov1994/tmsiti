@@ -216,7 +216,7 @@ const Index = () => {
                       </textarea>
                       <Rating
                           onClick={handleRating}
-                          ratingValue={rating} // props
+                          ratingValue={rating}
                           size={40}
                           label
                           transition
@@ -225,10 +225,10 @@ const Index = () => {
                           className='foo' // Will remove the inline style if applied
                       />
 
-                      <button onClick={handleReset}>reset</button>
+                      <button onClick={handleSubmit}>Submit Rating</button>
 
 
-                    <button onClick={handleSendComment}>yuborish</button>
+                      <button onClick={handleSendComment}>yuborish</button>
                   </div>
                 </div>
             }
