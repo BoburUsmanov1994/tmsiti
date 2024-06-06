@@ -79,7 +79,7 @@ const Index = () => {
 
     const handleSendComment = () => {
         const enteredProductCategory = productCategoryRef.current?.textContent;
-        const selectedStars = selectedStars.current?.map(star => star.value);
+        const selectedStars = selectedStars.current.map(star => star.value);
         const enteredComment = commentRef.current?.textContent;
         const customer = +get(user, "data.id");
         const productId = productIdRef.current?.textContent;
