@@ -63,11 +63,10 @@ const ViewPage = () => {
   const handleListComment = () => {
     const enteredProductCategory = productCategoryRef.current?.textContent;
     const productId = +productIdRef.current?.textContent;
-    const enteredCompanyStir = companyStirRef.current?.textContent;
+
     const commentInfo = {
       product_category: enteredProductCategory,
       ad_id: productId,
-      company_stir: enteredCompanyStir,
     }
 
     setPostComments(commentInfo)
