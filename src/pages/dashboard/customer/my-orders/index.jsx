@@ -108,20 +108,19 @@ const Index = () => {
             customer: customer,
         }
 
-        if (!enteredComment) {
-            setComments(commentInfo)
 
-            sendComment({
-                    url: URLS.sendComment,
-                    attributes: commentInfo
-                },
-                {
+        setComments(commentInfo)
+
+        sendComment({
+                url: URLS.sendComment,
+                attributes: commentInfo
+            },
+            {
                     onSuccess: () => {
                         toast.success('Siz bergan izoh va baho yetkazib beruvchiga yuborildi', {position: 'top-right'})
                     }
-                }
+            }
             )
-        }
     }
 
 
