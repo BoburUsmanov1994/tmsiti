@@ -255,7 +255,7 @@ const Index = () => {
 
 
 
-                            <div  className={"hidden"}>
+                            <div>
                                     <p ref={productCategoryRef}>{get(row, "product_category")}</p>
                                     <p ref={productIdRef}>{last(get(row, "ad_id"))}</p>
                                     <p ref={companyStirRef}>{get(row, "company")}</p>
