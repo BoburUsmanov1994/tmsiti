@@ -46,9 +46,7 @@ const ViewPage = () => {
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
-    if(!isOpen) {
-      handleListComment();
-    }
+
   };
 
 
@@ -611,8 +609,8 @@ const ViewPage = () => {
                     onClick={toggleAccordion}
                     className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"
                 >
-                  <button>Buyurtmachilar fikri</button>
-                  <span>{isOpen ? '-' : '+'}</span>
+                  <button onClick={handleListComment}>Buyurtmachilar fikri</button>
+
                 </div>
                 {isOpen && <div className="p-3">
                   {get(materialAds, "data.results", []).map((item, index) =>
