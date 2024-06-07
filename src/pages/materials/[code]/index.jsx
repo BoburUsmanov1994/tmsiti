@@ -55,9 +55,11 @@ const ViewPage = () => {
     enabled: !!(get(session, 'user.token') || token)
   })
 
-  const {mutate: listComment, isLoadingComment} = usePostQuery({
+  const {mutate: listComment, isLoadingComment, responseData} = usePostQuery({
     listKeyId: "list-comment-one",
   });
+
+  console.log(responseData, "responseData")
 
   const handleListComment = () => {
     const enteredProductCategory = productCategoryRef.current?.textContent;
