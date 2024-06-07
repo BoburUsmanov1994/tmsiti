@@ -86,8 +86,8 @@ const ViewPage = () => {
   function handleListComment() {
 
 
-    const enteredProductCategory = productCategoryRef.current?.textContent;
-    const productId = productIdRef.current?.textContent;
+    const enteredProductCategory = productCategoryRef?.current?.textContent;
+    const productId = productIdRef?.current?.textContent;
 
     fetch(`${config.API_URL}${URLS.customerComment}`, {
       method: "POST",
