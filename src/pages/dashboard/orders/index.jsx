@@ -116,7 +116,7 @@ const Index = () => {
         <Dashboard>
             <Subheader title={"Buyurtmalar"}/>
             <div>
-                <button onClick={() => {downloadExcel?.data}}>yuklab olish</button>
+                <a href={`${downloadExcel?.data}`} download>yuklab olish</a>
             </div>
             <div className="p-7">
                 <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany}
