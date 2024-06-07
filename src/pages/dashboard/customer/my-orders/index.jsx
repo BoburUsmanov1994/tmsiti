@@ -99,7 +99,7 @@ const Index = () => {
         const selectedStars = ratingValueRef.current?.value;
         const enteredComment = commentRef.current?.value;
         const customer = +get(user, "data.id");
-        const productId = +productIdRef.current?.value;
+        const productId = +productIdRef.current?.textContent;
         console.log(productId)
 
         const enteredCompanyStir = companyStirRef.current?.textContent
@@ -260,7 +260,7 @@ const Index = () => {
 
                             <div>
                                     <p ref={productCategoryRef}>{get(row, "product_category")}</p>
-                                    <p ref={productIdRef}>{last(get(row, "ad_id"))}</p>
+                                    <p ref={productIdRef}>{get(row, "ad_id")}</p>
                                     <p ref={companyStirRef}>{get(row, "company")}</p>
                             </div>
 
