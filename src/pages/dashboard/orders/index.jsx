@@ -18,7 +18,7 @@ const Index = () => {
     const { t } = useTranslation();
     const [pageSize, setPageSize] = useState(48);
 
-    const {data: downloadExcel, isLoading} = useGetQuery({
+    const {data: downloadExcel, isLoadingExcel} = useGetQuery({
         key: KEYS.orderExcel,
         url: URLS.orderExcel
     })
