@@ -23,7 +23,7 @@ const Index = () => {
         url: URLS.orderExcel
     })
 
-    console.log(downloadExcel.data);
+    console.log(downloadExcel?.data);
 
     const { mutate: sendOrderStatus, isLoading } = usePostQuery({
         listKeyId: "company-info-one",
@@ -116,7 +116,7 @@ const Index = () => {
         <Dashboard>
             <Subheader title={"Buyurtmalar"}/>
             <div>
-                <button onClick={() => {downloadExcel.data}}>yuklab olish</button>
+                <button onClick={() => {downloadExcel?.data}}>yuklab olish</button>
             </div>
             <div className="p-7">
                 <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany}
