@@ -100,6 +100,8 @@ const Index = () => {
         const enteredComment = commentRef.current?.value;
         const customer = +get(user, "data.id");
         const productId = +productIdRef.current?.textContent;
+        console.log(productId)
+
         const enteredCompanyStir = companyStirRef.current?.textContent
 
         const commentInfo = {

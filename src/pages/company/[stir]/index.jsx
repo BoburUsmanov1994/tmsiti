@@ -311,7 +311,7 @@ const ViewPage = () => {
 
                     </div>
                     <div style={{display: 'flex', flexDirection: 'row'}}>
-                        {[...Array(5)].map((star, index) => {
+                        {[...Array(get(ratingCompany, "data.average_rating"))].map((star, index) => {
                             const ratingValue = index + 1;
 
                             return (
