@@ -185,6 +185,17 @@ const Sidebar = ({ openSidebar }) => {
               </Link>
             </li>
 
+            <li>
+              <Link
+                  className={clsx("py-3.5 px-7 block hover:text-white", {
+                    "bg-[#3F54A5] text-white": router.pathname === "/dashboard/customer/comments",
+                  })}
+                  href={"/dashboard/customer/comments"}
+              >
+                Izohlar
+              </Link>
+            </li>
+
           </ul>
 
       }

@@ -48,9 +48,6 @@ const Index = () => {
 
     };
 
-
-
-
     const openModal = () => setIsOpen(true);
     const closeModal = () => setIsOpen(false);
 
@@ -257,13 +254,12 @@ const Index = () => {
                             </div>
 
 
-                            {get(orderListCustomer, "data.results", []).map((item, index) =>
-                                <div key={index} className={"hidden"}>
+
+                            <div  className={"hidden"}>
                                     <p ref={productCategoryRef}>{get(row, "product_category")}</p>
                                     <p ref={productIdRef}>{last(get(row, "ad_id"))}</p>
                                     <p ref={companyStirRef}>{get(row, "company")}</p>
-                                </div>
-                            )}
+                            </div>
 
                             <button
                                 className={"bg-blue-500 hover:bg-blue-600 active:bg-blue-400 mt-[30px] text-white w-full text-lg py-2 rounded-[6px]"}
