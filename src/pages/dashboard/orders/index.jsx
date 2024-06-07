@@ -115,10 +115,11 @@ const Index = () => {
     return (
         <Dashboard>
             <Subheader title={"Buyurtmalar"}/>
-            <div>
-                <a href={`${downloadExcel?.data}`} download>yuklab olish</a>
-            </div>
+
             <div className="p-7">
+                <div>
+                    <a href={`${downloadExcel?.data}`} download>yuklab olish</a>
+                </div>
                 <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany}
                           defaultPageSize={pageSize}/>
             </div>

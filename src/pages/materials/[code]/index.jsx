@@ -204,15 +204,15 @@ const ViewPage = () => {
     enable: !!regionId,
   });
 
-  const totalPrice = get(materialAds, "data.results", []).reduce((sumResult, price) => sumResult + price["material_price"], 0)
+  const totalPrice = get(materialAds, "data.results", []).reduce((sumResult, price) => sumResult + (price["material_price"] * get(currency, `data[${price["material_price_currency"]}]`, 1)), 0)
   const averagePrice = +(totalPrice / get(materialAds, "data.results", []).length).toFixed(2)
 
   const maxPrice = get(materialAds, "data.results", []).reduce((max, obj) => {
-    return obj["material_price"] > max ? obj["material_price"] : max
+    return obj["material_price"] * get(currency, `data[${obj["material_price_currency"]}]`, 1) > max ? obj["material_price"] * get(currency, `data[${obj["material_price_currency"]}]`, 1) : max
   }, 0)
 
   const minPrice = get(materialAds, "data.results", []).reduce((min, obj) => {
-    return obj["material_price"] < min ? obj["material_price"] : min
+    return obj["material_price"] * get(currency, `data[${obj["material_price_currency"]}]`, 1) < min ? obj["material_price"] * get(currency, `data[${obj["material_price_currency"]}]`, 1) : min
   }, Infinity)
 
 
