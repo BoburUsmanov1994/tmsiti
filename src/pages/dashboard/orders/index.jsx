@@ -18,6 +18,12 @@ const Index = () => {
     const { t } = useTranslation();
     const [pageSize, setPageSize] = useState(48);
 
+    const {data: downloadExcel, isLoading} = useGetQuery({
+        key: KEYS.orderExcel,
+        url: URLS.orderExcel
+    })
+
+    console.log(downloadExcel);
 
     const { mutate: sendOrderStatus, isLoading } = usePostQuery({
         listKeyId: "company-info-one",
@@ -109,6 +115,9 @@ const Index = () => {
     return (
         <Dashboard>
             <Subheader title={"Buyurtmalar"}/>
+            <div>
+                <button>yuklab olish</button>
+            </div>
             <div className="p-7">
                 <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany}
                           defaultPageSize={pageSize}/>

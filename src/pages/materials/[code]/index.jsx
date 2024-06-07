@@ -26,6 +26,7 @@ import Title from "@/components/title";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import {useForm} from "react-hook-form";
 import Button from "@/components/button";
+import {config} from "@/config";
 
 const ViewPage = () => {
   const router = useRouter();
@@ -34,8 +35,8 @@ const ViewPage = () => {
   const { t } = useTranslation();
   const [regionId, setRegionId] = useState(null);
   const [districtId, setDistrictId] = useState(null);
+  const [extractedData, setExtractedData] = useState(null);
   const productCategoryRef = useRef(null);
-  const companyStirRef = useRef(null);
   const productIdRef = useRef(null);
   const [isOpen, setIsOpen] = useState()
   const [postComments, setPostComments] = useState({})
@@ -55,52 +56,99 @@ const ViewPage = () => {
     enabled: !!(get(session, 'user.token') || token)
   })
 
-  const {mutate: listComment, isLoadingComment, responseData} = usePostQuery({
-    listKeyId: "list-comment-one",
-  });
+  // const {mutate: listComment, isLoadingComment} = usePostQuery({
+  //   listKeyId: "list-comment-one",
+  // });
+  //
+  // const handleListComment = () => {
+  //   const enteredProductCategory = productCategoryRef.current?.textContent;
+  //   const productId = productIdRef.current?.textContent;
+  //
+  //   listComment({
+  //         url: URLS.customerComment,
+  //         attributes: {
+  //           "product_category": enteredProductCategory,
+  //           "ad_id": Number(productId),
+  //         }
+  //       },
+  //       {
+  //           onSuccess: () => {
+  //             toast.success('Siz bergan izoh va baho yetkazib beruvchiga yuborildi', {position: 'top-right'})
+  //           }
+  //       }
+  //     )
+  //
+  // }
 
-  console.log(responseData, "responseData")
+  function handleListComment() {
 
-  const handleListComment = () => {
+
     const enteredProductCategory = productCategoryRef.current?.textContent;
     const productId = productIdRef.current?.textContent;
 
-    listComment({
-          url: URLS.customerComment,
-          attributes: {
-            "product_category": enteredProductCategory,
-            "ad_id": Number(productId),
+    fetch(`${config.API_URL}${URLS.customerComment}`, {
+      method: "POST",
+      body: JSON.stringify({
+        "product_category": enteredProductCategory,
+        "ad_id": Number(productId),
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then((response) => response.json())
+        .then((data) => {
+          const extractedData = data; // replace 'someSpecificField' with the actual field name
+          console.log(extractedData);
+          if (Array.isArray(extractedData)) {
+            setExtractedData(extractedData);
+          } else {
+            console.error("Extracted data is not an array:", extractedData);
           }
-        },
-        {
-            onSuccess: () => {
-              toast.success('Siz bergan izoh va baho yetkazib beruvchiga yuborildi', {position: 'top-right'})
-            }
-        }
-      )
 
+        })
+  }
+
+  const handleBoth = () => {
+    toggleAccordion();
+    handleListComment()
   }
 
 
 
 
-
-  const { mutate: certificate, isLoadingCertificate } = usePostQuery({
-    listKeyId: "certificate-one",
-  });
-
+  // const { mutate: certificate, isLoadingCertificate } = usePostQuery({
+  //   listKeyId: "certificate-one",
+  // });
+  //
+  //
+  // const handleSendCertificate = (inn, certificate_number) => {
+  //
+  //   certificate({
+  //     url: URLS.certificate,
+  //     attributes: {
+  //       "inn": inn,
+  //       "certificate_number": certificate_number
+  //     }
+  //
+  //   })
+  //
+  // }
 
   const handleSendCertificate = (inn, certificate_number) => {
-
-    certificate({
-      url: URLS.certificate,
-      attributes: {
+    fetch(`${config.API_URL}${URLS.certificate}`, {
+      method: "POST",
+      body: JSON.stringify({
         "inn": inn,
-        "certificate_number": certificate_number
+        "certificate_number": certificate_number,
+      }),
+      headers: {
+        'Content-Type': 'application/json'
       }
-
-    })
-
+    }).then((response) => response.json())
+        .then((data) => {
+          const certificateData = data;
+          console.log(certificateData);
+        })
   }
 
   const handleIncrement = (product) => {
@@ -559,29 +607,67 @@ const ViewPage = () => {
                 />
               </div>
 
-              <div className="border col-span-12 border-gray-300 rounded mb-2">
-                {/*<div*/}
-                {/*    onClick={toggleAccordion}*/}
-                {/*    className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"*/}
-                {/*>*/}
-                {/*  <button>Buyurtmachilar fikri</button>*/}
-                {/*  <span>{isOpen ? '-' : '+'}</span>*/}
-                {/*</div>*/}
-                <div className="p-3">
+              <div className="border col-span-12 border-gray-300 rounded mb-2 mt-[50px]">
+                <div
+                    onClick={handleBoth}
+                    className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"
+                >
+                  <button>Buyurtmachilar fikri</button>
+                  <span>{isOpen ? '-' : '+'}</span>
+                </div>
+                {isOpen && <div className="p-3">
                   {get(materialAds, "data.results", []).map((item, index) =>
-                      <div  key={index}>
-                        <button onClick={() => handleListComment()}>Olish</button>
+                      <div key={index} className={"hidden"}>
+                        <button>Olish</button>
                         <p ref={productIdRef}>{get(item, "id")}</p>
                         <p ref={productCategoryRef}>{get(item, "material_code") ? "material" : get(item, "mmechano_code") ? "mmechano" : get(item, "techno_code") ? "techno" : get(item, "smallmechano_code") ? "smallmechano" : get(item, "work_code") ? "work" : ""}</p>
-                        <p ref={companyStirRef}>{get(item, "company_stir")}</p>
                       </div>
                   )}
+                  {
+                    extractedData?.map((item, index) =>
+                        <div key={index} className={"border mb-[10px] shadow rounded-[10px]"}>
+                          <div className={"flex gap-x-2 p-2 font-bold"}>
+                            <p>{get(item, "first_name")}</p>
+                            <p>{get(item, "last_name")}</p>
+                          </div>
 
-                </div>
+                          <div style={{display: 'flex', flexDirection: 'row'}} className={"p-2 shadow"}>
+                            {[...Array(get(item, "rating"))].map((star, index) => {
+
+                              return (
+                                  <label key={index} style={{display: 'inline-block'}}>
+                                    <input
+                                        type="radio"
+                                        name="rating"
+                                        value={get(item, "rating")}
+                                        style={{display: 'none'}}
+                                    />
+                                    <svg
+                                        className="star"
+                                        width="25"
+                                        height="25"
+                                        viewBox="0 0 24 24"
+                                        fill={"#ffd700"}
+                                        fill={"#ffd700"}
+
+                                    >
+                                      <polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8"/>
+                                    </svg>
+                                  </label>
+                              );
+                            })}
+                          </div>
+
+                          <div className={"w-full mt-[10px] min-h-[10vh] p-2"}>
+                            <p>{get(item, "comment")}</p>
+                          </div>
+                        </div>
+                    )
+                  }
+                </div>}
               </div>
             </div>
           </Section>
-
 
 
         </Main>
