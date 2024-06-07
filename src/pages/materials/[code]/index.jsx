@@ -111,14 +111,6 @@ const ViewPage = () => {
   };
 
 
-  
-
-
-
-
-
-
-
   const { data: currency } = useGetQuery({
     key: KEYS.currency,
     url: URLS.currency,

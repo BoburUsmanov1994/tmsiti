@@ -275,7 +275,7 @@ const Index = () => {
                                   suffix={` / ${get(JSON.parse(head(item)), "material_measure")}`}
                               />
                             </p>
-                            <p ref={priceRef} className={`${isEmpty(get(JSON.parse(head(item)), "techno_name")) ? "hidden" : "visible"}`}>
+                            <p  className={`${isEmpty(get(JSON.parse(head(item)), "techno_name")) ? "hidden" : "visible"}`}>
                               <NumericFormat
                                   displayType={"text"}
                                   thousandSeparator={" "}
@@ -284,7 +284,7 @@ const Index = () => {
                                   suffix={` / ${get(JSON.parse(head(item)), "techno_measure")}`}
                               />
                             </p>
-                            <p ref={priceRef} className={`${isEmpty(get(JSON.parse(head(item)), "mmechano_name")) ? "hidden" : "visible"}`}>
+                            <p  className={`${isEmpty(get(JSON.parse(head(item)), "mmechano_name")) ? "hidden" : "visible"}`}>
                               <NumericFormat
                                   displayType={"text"}
                                   thousandSeparator={" "}
@@ -292,7 +292,7 @@ const Index = () => {
                                   suffix={` / ${get(JSON.parse(head(item)), "mmechano_measure")}`}
                               />
                             </p>
-                            <p ref={priceRef} className={`${isEmpty(get(JSON.parse(head(item)), "smallmechano_name")) ? "hidden" : "visible"}`}>
+                            <p  className={`${isEmpty(get(JSON.parse(head(item)), "smallmechano_name")) ? "hidden" : "visible"}`}>
                               <NumericFormat
                                   displayType={"text"}
                                   thousandSeparator={" "}
