@@ -38,7 +38,7 @@ const ViewPage = () => {
   const [extractedData, setExtractedData] = useState(null);
   const productCategoryRef = useRef(null);
   const productIdRef = useRef(null);
-  const [isOpen, setIsOpen] = useState()
+  const [isOpen, setIsOpen] = useState(false)
   const [postComments, setPostComments] = useState({})
   const token = useSettingsStore(state => get(state, 'token', null))
 
@@ -46,6 +46,9 @@ const ViewPage = () => {
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
+    if(!isOpen) {
+      handleListComment();
+    }
   };
 
 
@@ -108,10 +111,6 @@ const ViewPage = () => {
         })
   }
 
-  const handleBoth = () => {
-    toggleAccordion();
-    handleListComment()
-  }
 
 
 
@@ -609,7 +608,7 @@ const ViewPage = () => {
 
               <div className="border col-span-12 border-gray-300 rounded mb-2 mt-[50px]">
                 <div
-                    onClick={handleBoth}
+                    onClick={toggleAccordion}
                     className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"
                 >
                   <button>Buyurtmachilar fikri</button>
