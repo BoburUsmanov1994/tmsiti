@@ -79,7 +79,7 @@ const Index = () => {
                     product_code: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_code`),
                     product_name: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_name`),
                     phone: get(user, "data.phone"),
-                    price: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_price`),
+                    price: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item))) == 'mmechano' ? 'mmechano_rent' : findCategoryName(JSON.parse(head(item)))}_price`),
                     order_status: ORDER_STATUS.new_order,
                     quantity: parseInt(last(item))
                 }
