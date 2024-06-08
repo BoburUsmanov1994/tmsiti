@@ -111,7 +111,7 @@ const Index = () => {
                                     <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
                                 </div>
                                 <button className={"flex bg-yellow-600  hover:bg-yellow-700 active:bg-yellow-500 items-center gap-x-2"} onClick={() => handleSendOrderStatus(get(row, "id"), "on_way")}>
-                                    <p>Buyurtma yo'ldaligini aytish</p>
+                                    <p className={"!text-start"}>Buyurtma yo'ldaligini aytish</p>
                                     <Image src={"/images/on_way.png"} alt={"success"} width={22} height={22}/>
                                 </button>
                             </div> : get(row, "order_status") === "customer_canceled" ?
