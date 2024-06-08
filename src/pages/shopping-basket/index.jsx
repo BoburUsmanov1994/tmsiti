@@ -22,6 +22,8 @@ import toast from "react-hot-toast";
 import {useSession} from "next-auth/react";
 import {useSettingsStore} from "@/store";
 import {entries} from "lodash/object";
+import {findCategoryName} from "../../utils";
+import {ORDER_STATUS} from "../../constants/enums";
 
 const Index = () => {
     const {state, dispatch} = useCounter();
@@ -67,16 +69,24 @@ const Index = () => {
     const onSubmit = (e) => {
         e.preventDefault();
         forEach(entries(state), (item) => {
-            console.log('item',JSON.parse(head(item)))
-            sendOrder({url: URLS.sendOrders, attributes: {
-                    customer:parseInt(get(user, "data.id")),
-                    company_name:get(JSON.parse(head(item)),'company_name'),
-                    // product_category:findCategoryName(get(JSON.parse(head(item)),''),
-                }})
+            sendOrder({
+                url: URLS.sendOrders, attributes: {
+                    customer: parseInt(get(user, "data.id")),
+                    company_name: get(JSON.parse(head(item)), 'company_name'),
+                    product_category: findCategoryName(JSON.parse(head(item))),
+                    ad_id: get(JSON.parse(head(item)), 'id'),
+                    company: get(JSON.parse(head(item)), 'company_stir'),
+                    product_code: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_code`),
+                    product_name: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_name`),
+                    phone: get(user, "data.phone"),
+                    price: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_price`),
+                    order_status: ORDER_STATUS.new_order,
+                    quantity: parseInt(last(item))
+                }
+            })
         })
     }
 
-    console.log('state', state)
 
     return (
         <Main>
@@ -172,17 +182,17 @@ const Index = () => {
                                                 {get(JSON.parse(head(item)), "company_name")}
                                             </h1>
                                             <p
-                                               className={'hidden'}>{get(JSON.parse(head(item)), "company_stir")}</p>
+                                                className={'hidden'}>{get(JSON.parse(head(item)), "company_stir")}</p>
                                             <p
-                                               className={'hidden'}>{get(JSON.parse(head(item)), "id")}</p>
+                                                className={'hidden'}>{get(JSON.parse(head(item)), "id")}</p>
                                             <p
-                                               className={'hidden'}>{get(JSON.parse(head(item)), "material_code") ? "material" : get(JSON.parse(head(item)), "mmechano_code") ? "mmechano" : get(JSON.parse(head(item)), "techno_code") ? "techno" : get(JSON.parse(head(item)), "smallmechano_code") ? "smallmechano" : get(JSON.parse(head(item)), "work_code") ? "work" : ""}</p>
+                                                className={'hidden'}>{get(JSON.parse(head(item)), "material_code") ? "material" : get(JSON.parse(head(item)), "mmechano_code") ? "mmechano" : get(JSON.parse(head(item)), "techno_code") ? "techno" : get(JSON.parse(head(item)), "smallmechano_code") ? "smallmechano" : get(JSON.parse(head(item)), "work_code") ? "work" : ""}</p>
                                         </div>
 
 
                                         <div className={`col-span-4 `}>
                                             <p
-                                               className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "material_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "material_code")}</p>
+                                                className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "material_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "material_code")}</p>
                                             <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "smallmechano_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "smallmechano_code")}</p>
                                             <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "mmechano_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "mmechano_code")}</p>
                                             <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "techno_code")) ? "hidden" : "visible"} text-sm text-[#28366D]  inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "techno_code")}</p>
@@ -190,7 +200,7 @@ const Index = () => {
 
                                             {/* Product Name */}
                                             <p
-                                               className={`text-base font-bold ${isEmpty(get(JSON.parse(head(item)), "material_name")) ? "hidden" : "visible"}`}>{get(JSON.parse(head(item)), "material_name")}</p>
+                                                className={`text-base font-bold ${isEmpty(get(JSON.parse(head(item)), "material_name")) ? "hidden" : "visible"}`}>{get(JSON.parse(head(item)), "material_name")}</p>
                                             <p
                                                 className={`text-base ${isEmpty(get(JSON.parse(head(item)), "smallmechano_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "smallmechano_name")}</p>
                                             <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "techno_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "techno_name")}</p>
@@ -206,7 +216,7 @@ const Index = () => {
                                                 onClick={() => handleDecrement(JSON.parse(head(item)))}>-
                                             </button>
                                             <p
-                                               className={"p-3  inline-flex  text-[#28366D]"}>{last(item)}</p>
+                                                className={"p-3  inline-flex  text-[#28366D]"}>{last(item)}</p>
                                             <button
                                                 className={"p-3 border inline-flex rounded-[6px] bg-[#28366D] text-white"}
                                                 onClick={() => handleIncrement(JSON.parse(head(item)))}>+
@@ -222,7 +232,7 @@ const Index = () => {
                                             <h1 className={"text-lg font-bold mb-[20px]"}>Tanlangan mahsulotning umumiy
                                                 narxi</h1>
                                             <p
-                                               className={`${isEmpty(get(JSON.parse(head(item)), "material_name")) ? "hidden" : "visible"}`}>
+                                                className={`${isEmpty(get(JSON.parse(head(item)), "material_name")) ? "hidden" : "visible"}`}>
                                                 <NumericFormat
                                                     displayType={"text"}
                                                     thousandSeparator={" "}
