@@ -60,7 +60,7 @@ const ViewPage = () => {
   });
 
     const averageRating = get(ratingCompany, "data.average_rating");
-    if (typeof averageRating === 'number' && averageRating >= 0 && Number.isInteger(averageRating)) {
+    if (typeof averageRating === 'number' && averageRating > 0 && Number.isInteger(averageRating)) {
         const array = Array(averageRating);
         console.log(array);
     } else {
