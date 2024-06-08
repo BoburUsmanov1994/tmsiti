@@ -122,7 +122,8 @@ const Index = () => {
               toast.success('Buyurtma yetkazib beruvchi kompaniyaga yuborildi', {position: 'top-right'})
             }
           })
-
+      newBasket = {}
+      router.push("/")
     }
 
 
