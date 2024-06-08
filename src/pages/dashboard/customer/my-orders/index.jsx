@@ -97,7 +97,7 @@ const Index = () => {
 
     const handleSendComment = () => {
         const enteredProductCategory = productCategoryRef.current?.textContent;
-        const selectedStars = ratingValueRef.current?.value;
+        const selectedStars = rating
         const enteredComment = commentRef.current?.value;
         const customer = +get(user, "data.id");
         const productId = +productIdRef.current?.textContent;
@@ -224,7 +224,7 @@ const Index = () => {
                             <textarea ref={commentRef} rows={10} placeholder={"Izoh qoldirish"}
                                       className={"border p-3 shadow-lg rounded-[6px] mb-[20px] "}>
 
-                      </textarea>
+                            </textarea>
 
                             <div style={{ display: 'flex', flexDirection: 'row' }}>
                                 {[...Array(5)].map((star, index) => {
@@ -235,7 +235,6 @@ const Index = () => {
                                             <input
                                                 type="radio"
                                                 name="rating"
-                                                ref={ratingValueRef}
                                                 value={ratingValue}
                                                 onClick={() => handleClick(ratingValue)}
                                                 style={{display: 'none'}}
