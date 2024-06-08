@@ -206,9 +206,9 @@ const Index = () => {
                                         <Image src={"/images/error.png"} alt={"error"} width={22} height={22}/>
                                     </div> : get(row, "order_status") === "on_way" ?
                                         <div>
-                                            <p>Mahsulot yo'lda</p>
+                                            <p>Mahsulot yo'ldaligini buyurtmachiga xabar berish</p>
                                             <Image src={"/images/on_way.png"} alt={"success"} width={22} height={22}/>
-                                        </div> : ""
+                                        </div>
             ,
             classnames: "text-center",
         },

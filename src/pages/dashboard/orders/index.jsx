@@ -67,6 +67,12 @@ const Index = () => {
             key: "phone",
         },
         {
+            title: "Vaqti",
+            key: "create_at",
+            render: ({ value }) =>
+                dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
+        },
+        {
             title: "Narxi",
             key: "price",
             classnames: "text-center",
@@ -114,7 +120,7 @@ const Index = () => {
                                 </div> : ""
             ,
 
-            classnames: "text-center",
+
         },
     ]
 
