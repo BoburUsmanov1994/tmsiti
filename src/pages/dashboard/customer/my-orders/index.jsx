@@ -167,6 +167,12 @@ const Index = () => {
                 classnames: "text-center",
             },
             {
+                title: "Vaqti",
+                key: "create_at",
+                render: ({ value }) =>
+                    dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
+            },
+            {
                 title: "Miqdori",
                 key: "quantity",
                 classnames: "text-center",

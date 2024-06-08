@@ -10,6 +10,7 @@ import {URLS} from "@/constants/url";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import Image from "next/image";
 import useGetQuery from "@/hooks/api/useGetQuery";
+import dayjs from "dayjs";
 
 
 
@@ -70,6 +71,12 @@ const Index = () => {
             title: "Narxi",
             key: "price",
             classnames: "text-center",
+        },
+        {
+            title: "Vaqti",
+            key: "create_at",
+            render: ({ value }) =>
+                dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
         },
         {
             title: "Miqdori",
