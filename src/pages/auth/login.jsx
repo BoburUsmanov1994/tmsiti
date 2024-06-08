@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import AuthLayout from "../../layouts/auth";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const { t } = useTranslation();
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -70,27 +71,34 @@ const Login = () => {
           )}
         </div>
 
-        <div className={"mb-4"}>
+        <div className={"mb-4 relative"}>
           <label className={"block mb-1.5"} htmlFor="#">
             Parol
           </label>
           <input
-            {...register("password", { required: true })}
-            className={
-              "w-full shadow-input h-12 rounded-[5px] outline-none px-3"
-            }
-            type="password"
+              {...register("password", {required: true})}
+              className={
+                "w-full shadow-input h-12 rounded-[5px] outline-none px-3"
+              }
+              type={showPassword ? "text" : "password"}
           />
+          <button
+              type="button"
+              className="absolute top-[30px] px-3 bottom-0 right-0  flex items-center"
+              onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? '🔒' : '👁️'}
+          </button>
           {errors.password && (
-            <span className={"text-xs text-red-500"}>
+              <span className={"text-xs text-red-500"}>
               {t("Ushbu qator to'ldirilishi shart")}
             </span>
           )}
         </div>
         <div className="mb-8">
           <Link
-            className={"text-[#525D89] text-sm"}
-            href={"/auth/reset-password"}
+              className={"text-[#525D89] text-sm"}
+              href={"/auth/reset-password"}
           >
             {t("Parolni unitdingizmi")}
           </Link>
@@ -98,8 +106,8 @@ const Login = () => {
 
         <div className="text-center">
           <button
-            className={
-              "bg-[#017EFA] rounded-[5px] text-white text-xl font-medium py-2.5 px-7"
+              className={
+                "bg-[#017EFA] rounded-[5px] text-white text-xl font-medium py-2.5 px-7"
             }
           >
             {t("Kirish")}

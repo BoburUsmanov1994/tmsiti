@@ -10,7 +10,6 @@ import {URLS} from "@/constants/url";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import Image from "next/image";
 import useGetQuery from "@/hooks/api/useGetQuery";
-import dayjs from "dayjs";
 
 
 
@@ -73,12 +72,6 @@ const Index = () => {
             classnames: "text-center",
         },
         {
-            title: "Vaqti",
-            key: "create_at",
-            render: ({ value }) =>
-                dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
-        },
-        {
             title: "Miqdori",
             key: "quantity",
             classnames: "text-center",
@@ -105,18 +98,20 @@ const Index = () => {
                                 Yuborish
                             </button>
                         </div> : get(row, "order_status") === "sent" ?
-                            <div className={"flex items-center gap-x-2  rounded-[6px]"}>
-                                <p>Mahsulot yuborildi</p>
-                                <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
+                            <div className={"flex flex-col items-center gap-y-2  rounded-[6px]"}>
+                                <div>
+                                    <p>Mahsulot yuborildi</p>
+                                    <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
+                                </div>
+                                <button onClick={() => handleSendOrderStatus(get(row, "id"), "on_way")}>
+                                    <p>Mahsulot yo'ldaligini buyurtmachiga xabar berish</p>
+                                    <Image src={"/images/on_way.png"} alt={"success"} width={22} height={22}/>
+                                </button>
                             </div> : get(row, "order_status") === "customer_canceled" ?
                                 <div className={"flex items-center gap-x-2  rounded-[6px]"}>
                                     <p>Buyurtmachi mahsulotni bekor qildi</p>
                                     <Image src={"/images/error.png"} alt={"success"} width={22} height={22}/>
-                                </div> : get(row, "order_status") === "on_way" ?
-                                    <div className={"flex items-center gap-x-2 bg-yellow-300 rounded-[6px]"}>
-                                        <p>Mahsulot yo'lda</p>
-                                        <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
-                                    </div> : ""
+                                </div> : ""
             ,
 
             classnames: "text-center",

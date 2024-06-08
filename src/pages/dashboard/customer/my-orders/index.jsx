@@ -204,14 +204,18 @@ const Index = () => {
                                     <div className={"flex items-center gap-x-2  rounded-[6px]"}>
                                         <p>Yetkazib beruvchi mahsulotni bekor qildi</p>
                                         <Image src={"/images/error.png"} alt={"error"} width={22} height={22}/>
-                                    </div> : ""
+                                    </div> : get(row, "order_status") === "on_way" ?
+                                        <div>
+                                            <p>Mahsulot yo'lda</p>
+                                            <Image src={"/images/on_way.png"} alt={"success"} width={22} height={22}/>
+                                        </div> : ""
             ,
             classnames: "text-center",
         },
         {
             title: "Sharh qoldirish",
             key: "",
-            render: ({ row }) => <div className={""}>
+            render: ({row}) => <div className={""}>
                 <button onClick={openModal} className={"text-center"}>
                     Sharh qoldirish
                 </button>
