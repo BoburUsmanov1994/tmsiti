@@ -15,6 +15,7 @@ const Signup = () => {
     const router = useRouter();
     const {register, handleSubmit, formState: {errors}} = useForm();
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.signup})
+    const [showPassword, setShowPassword] = useState(false);
     const onSubmit = (data) => {
         signupRequest({
                 url: URLS.signup,
@@ -60,11 +61,19 @@ const Signup = () => {
                 </div>
 
 
-                <div className={'mb-4'}>
+                <div className={'mb-4 relative'}>
                     <label className={'block mb-1.5'} htmlFor="#">Parol*</label>
                     <input {...register("password", {required: true})}
                            className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="password"/>
-                    {errors.password && <span className={'text-xs text-red-500'}>{t("Ushbu qator to'ldirilishi shart")}</span>}
+                    <button
+                        type="button"
+                        className="absolute inset-y-0 right-0 px-3 flex items-center"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? '🙈' : '👁️'}
+                    </button>
+                    {errors.password &&
+                        <span className={'text-xs text-red-500'}>{t("Ushbu qator to'ldirilishi shart")}</span>}
                 </div>
 
                 <div className={'mb-4'}>
