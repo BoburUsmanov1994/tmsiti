@@ -45,7 +45,8 @@ const Index = () => {
 
     const handleClick = (ratingValue) => {
         setRating(ratingValue);
-        ratingValueRef.current.value = value;
+        ratingValueRef.current.value = ratingValue;
+
     };
 
     const openModal = () => setIsOpen(true);
