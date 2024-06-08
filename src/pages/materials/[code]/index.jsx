@@ -606,10 +606,10 @@ const ViewPage = () => {
 
               <div className="border col-span-12 border-gray-300 rounded mb-2 mt-[50px]">
                 <div
-                    onClick={toggleAccordion}
+                    onClick={handleListComment}
                     className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"
                 >
-                  <button onClick={handleListComment}>Buyurtmachilar fikri</button>
+                  <button>Buyurtmachilar fikri</button>
 
                 </div>
                 {isOpen && <div className="p-3">

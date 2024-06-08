@@ -59,6 +59,15 @@ const ViewPage = () => {
     url: URLS.currency,
   });
 
+    const averageRating = get(ratingCompany, "data.average_rating");
+    if (typeof averageRating === 'number' && averageRating >= 0 && Number.isInteger(averageRating)) {
+        const array = Array(averageRating);
+        console.log(array);
+    } else {
+        console.error('Invalid average rating:', averageRating);
+    }
+
+
   const columns = [
     {
       title: "№",
@@ -311,32 +320,31 @@ const ViewPage = () => {
 
                     </div>
                     <div style={{display: 'flex', flexDirection: 'row'}}>
-                        {get(ratingCompany, "data.average_rating") > 0 ?
-                            [...Array(get(ratingCompany, "data.average_rating"))].map((star, index) => {
+                        {[...Array(averageRating)].map((star, index) => {
 
-                                return (
-                                    <label key={index} style={{display: 'inline-block'}}>
-                                        <input
-                                            type="radio"
-                                            name="rating"
-                                            value={get(ratingCompany, "data.average_rating")}
-                                            style={{display: 'none'}}
-                                        />
-                                        <svg
-                                            className="star"
-                                            width="25"
-                                            height="25"
-                                            viewBox="0 0 24 24"
-                                            fill={"#ffd700"}
-                                            fill={"#ffd700"}
 
-                                        >
-                                            <polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8"/>
-                                        </svg>
-                                    </label>
-                                );
-                            }) : ""
-                        }
+                            return (
+                                <label key={index} style={{display: 'inline-block'}}>
+                                    <input
+                                        type="radio"
+                                        name="rating"
+                                        value={get(ratingCompany, "data.average_rating")}
+                                        style={{display: 'none'}}
+                                    />
+                                    <svg
+                                        className="star"
+                                        width="25"
+                                        height="25"
+                                        viewBox="0 0 24 24"
+                                        fill={"#ffd700"}
+                                        fill={"#ffd700"}
+
+                                    >
+                                        <polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8"/>
+                                    </svg>
+                                </label>
+                            );
+                        })}
                     </div>
 
                     <div className="flex flex-col laptop:items-start items-center mt-2.5">
