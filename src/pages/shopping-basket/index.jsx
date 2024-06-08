@@ -327,7 +327,7 @@ const Index = () => {
               handleClick={onSubmit}
               className="px-4 py-2 bg-blue-500 text-white rounded"
           >
-            Shartnoma tuzish
+            Sotib olish
           </Button>
 
           {isOpen && (
