@@ -10,6 +10,7 @@ import {URLS} from "@/constants/url";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import Image from "next/image";
 import useGetQuery from "@/hooks/api/useGetQuery";
+import dayjs from "dayjs";
 
 
 
