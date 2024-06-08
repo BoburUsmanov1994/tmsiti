@@ -1,5 +1,6 @@
-import {find, get, isArray, isNil} from "lodash";
+import {find, get, hasIn, head, isArray, isNil, split} from "lodash";
 import i18config from "../services/i18n"
+import {CATEGORY_LIST} from "@/constants/enums";
 
 export const getDefaultValue = (options, id) => {
     return find(options, (option) => get(option, 'value') === id)
@@ -22,6 +23,9 @@ export const findCurrency = (currencyList = [], currency) => {
     return find(currencyList, (_currency) => get(_currency, 'Ccy') === _currency) || {}
 }
 
+export const findCategoryName = (item,key) => {
+    return hasIn(item,key) ? CATEGORY_LIST[head(split(key,'_'))] : '';
+}
 
 export const getPriceByCurrency = (currencyList, currency) => {
     return get(findCurrency(findCurrency, currency), 'Rate') || 0;

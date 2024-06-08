@@ -44,7 +44,6 @@ const ViewPage = () => {
   const { state, dispatch } = useCounter();
 
   const handleIncrement = (product) => {
-    console.log("product", product, JSON.stringify(product));
     dispatch({ type: "INCREMENT", payload: JSON.stringify(product) });
     toast.success('Tanlagan mahsulotingiz savatchaga qo\'shildi!', {
       duration: 3000,

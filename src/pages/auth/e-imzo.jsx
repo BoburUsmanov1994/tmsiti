@@ -9,7 +9,6 @@ const ESIGN = dynamic(() => import("../../components/e-imzo"), { ssr: false });
 
 const EimzoLogin = () => {
   const loginWithKey = async (data, key) => {
-    console.log("key", data, key);
     if (get(key, "O")) {
       const result = await signIn("eimzo", {
         company_name: get(key, "O"),

@@ -39,7 +39,6 @@ const Login = () => {
     enabled: !!get(session, "user.token"),
   });
 
-  console.log(get(customer, "data.role"), "customer");
 
   const onSubmit = (data) => {
     signIn("credentials", {

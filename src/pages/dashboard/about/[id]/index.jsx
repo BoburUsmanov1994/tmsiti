@@ -32,7 +32,6 @@ const Index = () => {
         key: KEYS.aboutCompany,
         url: URLS.aboutCompany
     })
-    console.log(data, "company")
 
 
     const { mutate: editCompanyInfo, isLoading } = usePostQuery({
