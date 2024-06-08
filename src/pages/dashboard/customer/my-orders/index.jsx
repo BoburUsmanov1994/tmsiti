@@ -210,7 +210,7 @@ const Index = () => {
                                             <Image src={"/images/on_way.png"} alt={"success"} width={22} height={22}/>
                                         </div> : ""
             ,
-            classnames: "text-center",
+
         },
         {
             title: "Sharh qoldirish",

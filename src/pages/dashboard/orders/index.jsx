@@ -106,12 +106,12 @@ const Index = () => {
                             </button>
                         </div> : get(row, "order_status") === "sent" ?
                             <div className={"flex flex-col items-center gap-y-2  rounded-[6px]"}>
-                                <div>
+                                <div className={"flex items-center gap-x-2"}>
                                     <p>Mahsulot yuborildi</p>
                                     <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
                                 </div>
-                                <button onClick={() => handleSendOrderStatus(get(row, "id"), "on_way")}>
-                                    <p>Mahsulot yo'ldaligini buyurtmachiga xabar berish</p>
+                                <button className={"flex bg-yellow-600  hover:bg-yellow-700 active:bg-yellow-500 items-center gap-x-2"} onClick={() => handleSendOrderStatus(get(row, "id"), "on_way")}>
+                                    <p>Buyurtma yo'ldaligini aytish</p>
                                     <Image src={"/images/on_way.png"} alt={"success"} width={22} height={22}/>
                                 </button>
                             </div> : get(row, "order_status") === "customer_canceled" ?
@@ -119,7 +119,7 @@ const Index = () => {
                                     <p>Buyurtmachi mahsulotni bekor qildi</p>
                                     <Image src={"/images/error.png"} alt={"success"} width={22} height={22}/>
                                 </div> : ""
-            ,
+
 
 
         },
