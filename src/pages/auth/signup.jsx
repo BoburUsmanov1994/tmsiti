@@ -64,13 +64,13 @@ const Signup = () => {
                 <div className={'mb-4 relative'}>
                     <label className={'block mb-1.5'} htmlFor="#">Parol*</label>
                     <input {...register("password", {required: true})}
-                           className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="password"/>
+                           className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type={showPassword ? "text" : "password"}/>
                     <button
                         type="button"
-                        className="absolute inset-y-0 right-0 px-3 flex items-center"
+                        className="absolute top-[30px] px-3 bottom-0 right-0  flex items-center"
                         onClick={() => setShowPassword(!showPassword)}
                     >
-                        {showPassword ? '🙈' : '👁️'}
+                        {showPassword ? '🔒' : '👁️'}
                     </button>
                     {errors.password &&
                         <span className={'text-xs text-red-500'}>{t("Ushbu qator to'ldirilishi shart")}</span>}

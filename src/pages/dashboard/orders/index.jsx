@@ -112,7 +112,11 @@ const Index = () => {
                                 <div className={"flex items-center gap-x-2  rounded-[6px]"}>
                                     <p>Buyurtmachi mahsulotni bekor qildi</p>
                                     <Image src={"/images/error.png"} alt={"success"} width={22} height={22}/>
-                                </div> : ""
+                                </div> : get(row, "order_status") === "on_way" ?
+                                    <div className={"flex items-center gap-x-2 bg-yellow-300 rounded-[6px]"}>
+                                        <p>Mahsulot yo'lda</p>
+                                        <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
+                                    </div> : ""
             ,
 
             classnames: "text-center",
