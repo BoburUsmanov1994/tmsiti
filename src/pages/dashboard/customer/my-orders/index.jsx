@@ -208,7 +208,7 @@ const Index = () => {
                                         <div>
                                             <p>Mahsulot yo'ldaligini buyurtmachiga xabar berish</p>
                                             <Image src={"/images/on_way.png"} alt={"success"} width={22} height={22}/>
-                                        </div>
+                                        </div> : ""
             ,
             classnames: "text-center",
         },
