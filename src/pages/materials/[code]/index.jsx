@@ -84,14 +84,14 @@ const ViewPage = () => {
   function handleListComment() {
 
 
-    const enteredProductCategory = productCategoryRef?.current?.textContent;
-    const productId = productIdRef.current?.value;
+    const enteredProductCategory = productCategoryRef.current?.textContent;
+    const productId = productIdRef.current?.textContent;
 
     fetch(`${config.API_URL}${URLS.customerComment}`, {
       method: "POST",
       body: JSON.stringify({
-        product_category: enteredProductCategory,
-        ad_id: Number(productId),
+        "product_category": enteredProductCategory,
+        "ad_id": +productId,
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -351,7 +351,7 @@ const ViewPage = () => {
       sorter: true,
     },
     {
-      title: t("Action"),
+      title: t("Sotib olish"),
       key: "action",
       render: ({value,row}) => (
           <div className={"flex items-center"}>
@@ -606,13 +606,11 @@ const ViewPage = () => {
 
               <div className="border col-span-12 border-gray-300 rounded mb-2 mt-[50px]">
                 <div
-                    onClick={handleListComment}
+                    onClick={toggleAccordion}
                     className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"
                 >
-                  <button>Buyurtmachilar fikri</button>
+                  <button onClick={handleListComment}>Buyurtmachilar fikri</button>
 
-                </div>
-                {isOpen && <div className="p-3">
                   {get(materialAds, "data.results", []).map((item, index) =>
                       <div key={index} className={"hidden"}>
                         <button>Olish</button>
@@ -620,6 +618,10 @@ const ViewPage = () => {
                         <p ref={productCategoryRef}>{get(item, "material_code") ? "material" : get(item, "mmechano_code") ? "mmechano" : get(item, "techno_code") ? "techno" : get(item, "smallmechano_code") ? "smallmechano" : get(item, "work_code") ? "work" : ""}</p>
                       </div>
                   )}
+
+                </div>
+                {isOpen && <div className="p-3">
+
                   {
                     extractedData?.map((item, index) =>
                         <div key={index} className={"border mb-[10px] shadow rounded-[10px]"}>
