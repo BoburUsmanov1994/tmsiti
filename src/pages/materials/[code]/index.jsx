@@ -85,7 +85,7 @@ const ViewPage = () => {
 
 
     const enteredProductCategory = productCategoryRef?.current?.textContent;
-    const productId = productIdRef.current?.textContent;
+    const productId = productIdRef.current?.value;
 
     fetch(`${config.API_URL}${URLS.customerComment}`, {
       method: "POST",
