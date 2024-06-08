@@ -140,6 +140,7 @@ const ViewPage = () => {
     return obj["techno_price"] * get(currency, `data[${obj["techno_price_currency"]}]`, 1) < min ? obj["techno_price"] * get(currency, `data[${obj["techno_price_currency"]}]`, 1) : min
   }, Infinity)
 
+  console.log(minPrice, maxPrice, averagePrice)
 
 
   const columns = [

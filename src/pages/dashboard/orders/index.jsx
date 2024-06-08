@@ -94,7 +94,7 @@ const Index = () => {
                     : get(row, "order_status") === "accepted" ?
                         <div>
                             <button onClick={() => handleSendOrderStatus(get(row, "id"), "sent")}
-                                    className={"bg-blue-600  hover:bg-blue-700 active:bg-blue-500 text-white py-2 px-8 rounded-[6px]"}>
+                                    className={"bg-blue-600  hover:bg-blue-700 active:bg-blue-500 text-white py-2 px-8 rounded-[6px] w-full"}>
                                 Yuborish
                             </button>
                         </div> : get(row, "order_status") === "sent" ?

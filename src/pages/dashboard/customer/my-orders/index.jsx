@@ -45,7 +45,7 @@ const Index = () => {
 
     const handleClick = (ratingValue) => {
         setRating(ratingValue);
-
+        ratingValueRef.current.value = value;
     };
 
     const openModal = () => setIsOpen(true);
@@ -258,7 +258,7 @@ const Index = () => {
 
 
 
-                            <div>
+                            <div className={"hidden"}>
                                     <p ref={productCategoryRef}>{get(row, "product_category")}</p>
                                     <p ref={productIdRef}>{get(row, "ad_id")}</p>
                                     <p ref={companyStirRef}>{get(row, "company")}</p>
