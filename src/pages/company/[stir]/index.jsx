@@ -59,12 +59,10 @@ const ViewPage = () => {
     url: URLS.currency,
   });
 
-    const averageRating = get(ratingCompany, "data.average_rating");
-    if (typeof averageRating === 'number' && averageRating > 0 && Number.isInteger(averageRating)) {
-        const array = Array(averageRating);
-        console.log(array);
-    } else {
+    let averageRating = get(ratingCompany, "data.average_rating");
+    if (typeof averageRating !== 'number' || averageRating < 0 || !Number.isInteger(averageRating)) {
         console.error('Invalid average rating:', averageRating);
+        averageRating = 0; // Default to 0 if invalid
     }
 
 
