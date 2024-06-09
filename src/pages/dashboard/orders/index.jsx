@@ -113,7 +113,7 @@ const Index = () => {
                                 <button
                                     className={"flex bg-yellow-600 text-white py-2 px-2 rounded-[6px] hover:bg-yellow-700 active:bg-yellow-500 items-center gap-x-2"}
                                     onClick={() => handleSendOrderStatus(get(row, "id"), "on_way")}>
-                                    <p className={"!text-start"}>Buyurtma yo'ldaligini aytish</p>
+                                    <p className={"!text-start"}>Yo'ldaligini aytish</p>
                                     <Image src={"/images/on_way.png"} alt={"success"} width={22} height={22}/>
                                 </button>
                             </div> : get(row, "order_status") === "customer_canceled" ?
@@ -123,12 +123,16 @@ const Index = () => {
                                 </div> : get(row, "order_status") === "customer_accepted" ?
                                     <div className={"flex items-center gap-x-2  rounded-[6px]"}>
                                         <p>Buyurtmachi qabul qildi</p>
-                                        <Image src={"/images/error.png"} alt={"success"} width={22} height={22}/>
+                                        <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
                                     </div> : get(row, "order_status") === "canceled" ?
                                         <div className={"flex items-center gap-x-2  rounded-[6px]"}>
                                             <p>Buyurtmani bekor qildingiz</p>
                                             <Image src={"/images/error.png"} alt={"success"} width={22} height={22}/>
-                                        </div> : ""
+                                        </div> : get(row, "order_status") === "on_way" ?
+                                            <div className={"flex items-center gap-x-2  rounded-[6px]"}>
+                                                <p>Xabar yetkazildi</p>
+                                                <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
+                                            </div> : ""
 
 
         },
@@ -139,7 +143,8 @@ const Index = () => {
             <Subheader title={"Buyurtmalar"}/>
 
             <div className="p-7">
-                <a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white"} href={`${downloadExcel?.data}`} download>
+                <a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white"}
+                   href={`${downloadExcel?.data}`} download>
                     <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>
                     yuklab olish
                 </a>
