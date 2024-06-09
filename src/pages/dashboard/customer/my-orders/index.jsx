@@ -117,6 +117,8 @@ const Index = () => {
             rating_company: enteredRatingCompany
         }
 
+        console.log(row.product_category)
+
         setComments(commentInfo)
 
         sendComment({
@@ -313,7 +315,7 @@ const Index = () => {
 
                             <button
                                 className={"bg-blue-500 hover:bg-blue-600 active:bg-blue-400 mt-[30px] text-white w-full text-lg py-2 rounded-[6px]"}
-                                onClick={() => handleSendComment(row)}>Yuborish
+                                onClick={() => handleSendComment({row})}>Yuborish
                             </button>
                         </div>
                     </div>
