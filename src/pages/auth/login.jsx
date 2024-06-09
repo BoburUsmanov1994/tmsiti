@@ -46,7 +46,8 @@ const Login = () => {
       password: get(data, "password"),
       redirect: true,
       callbackUrl: "/dashboard/customer/my-orders",
-    });
+    }
+    );
   };
   return (
     <AuthLayout>

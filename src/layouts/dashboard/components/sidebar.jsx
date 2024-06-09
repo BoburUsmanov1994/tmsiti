@@ -21,14 +21,14 @@ const Sidebar = ({ openSidebar }) => {
     key: KEYS.getMe,
     url: URLS.getMe,
     headers: {token: token ??`${get(session, 'user.token')}`},
-    enabled: !!(get(session, 'user.token') || token)
+    enabled: !!(get(session, 'user.token') && get(session, 'user.role') === 'company')
   })
 
   const {data: customer} = useGetQuery({
     key: KEYS.getCustomer,
     url: URLS.getCustomer,
     headers: {token: token ??`${get(session, 'user.token')}`},
-    enabled: !!(get(session, 'user.token') || token)
+    enabled: !!(get(session, 'user.token') && get(session, 'user.role') === 'customer')
   })
 
   return (
