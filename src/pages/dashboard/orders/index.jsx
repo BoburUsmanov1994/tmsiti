@@ -139,9 +139,12 @@ const Index = () => {
             <Subheader title={"Buyurtmalar"}/>
 
             <div className="p-7">
-                <div>
-                    <a href={`${downloadExcel?.data}`} download>yuklab olish</a>
-                </div>
+                <a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white"} href={`${downloadExcel?.data}`} download>
+                    <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>
+                    yuklab olish
+                </a>
+
+
                 <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany}
                           defaultPageSize={pageSize}/>
             </div>
