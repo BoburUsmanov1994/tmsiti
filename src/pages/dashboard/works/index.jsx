@@ -11,7 +11,6 @@ import {get, isNil} from "lodash";
 import {NumericFormat} from "react-number-format";
 import dayjs from "dayjs";
 import Image from "next/image";
-import {OverlayLoader} from "@/components/loader";
 import Button from "@/components/button";
 import GridView from "@/containers/grid-view";
 import {toast} from "react-hot-toast";
