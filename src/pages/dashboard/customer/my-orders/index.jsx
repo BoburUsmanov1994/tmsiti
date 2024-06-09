@@ -42,6 +42,7 @@ const Index = () => {
     const [rating, setRating] = useState(0);
     const [ratingCompany, setRatingCompany] = useState(0);
     const [hover, setHover] = useState(0);
+    const [hoverRatingCompany, setHoverRatingCompany] = useState(0);
 
 
 
@@ -291,8 +292,8 @@ const Index = () => {
                                                 width="25"
                                                 height="25"
                                                 viewBox="0 0 24 24"
-                                                fill={companyRatingValue <= (hover || rating) ? "#ffd700" : "#ccc"}
-                                                fill={companyRatingValue <= (hover || rating) ? "#ffd700" : "#ccc"}
+                                                fill={companyRatingValue <= (hoverRatingCompany || ratingCompany) ? "#ffd700" : "#ccc"}
+                                                fill={companyRatingValue <= (hoverRatingCompany || ratingCompany) ? "#ffd700" : "#ccc"}
                                                 onMouseEnter={() => setHover(companyRatingValue)}
                                                 onMouseLeave={() => setHover(0)}
                                             >
