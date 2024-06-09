@@ -199,7 +199,7 @@ const Index = () => {
                                     <p>Buyurtma yo'lda</p>
                                 </div>
                                 <button onClick={() => handleSendOrderStatus(get(row, "id"), "customer_accepted")}
-                                        className={"bg-green-600 hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>
+                                        className={"bg-green-600 w-full text-center hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>
                                     Qabul qildim
                                 </button>
                             </div> : get(row, "order_status") === "customer_canceled" ?
@@ -211,7 +211,7 @@ const Index = () => {
                                         <p>Yetkazib beruvchi mahsulotni bekor qildi</p>
                                         <Image src={"/images/error.png"} alt={"error"} width={22} height={22}/>
                                     </div> : get(row, "order_status") === "on_way" ?
-                                        <div>
+                                        <div className={"text-center w-full mb-[15px]"}>
                                             <p>Mahsulot yo'lda</p>
                                             <Image src={"/images/on_way.png"} alt={"success"} width={22} height={22}/>
                                         </div> : ""
@@ -294,8 +294,8 @@ const Index = () => {
                                                 viewBox="0 0 24 24"
                                                 fill={companyRatingValue <= (hoverRatingCompany || ratingCompany) ? "#ffd700" : "#ccc"}
                                                 fill={companyRatingValue <= (hoverRatingCompany || ratingCompany) ? "#ffd700" : "#ccc"}
-                                                onMouseEnter={() => setHover(companyRatingValue)}
-                                                onMouseLeave={() => setHover(0)}
+                                                onMouseEnter={() => setHoverRatingCompany(companyRatingValue)}
+                                                onMouseLeave={() => setHoverRatingCompany(0)}
                                             >
                                                 <polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8"/>
                                             </svg>
