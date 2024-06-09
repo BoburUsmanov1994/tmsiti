@@ -103,7 +103,7 @@ const Index = () => {
         },
         {
             title: "Miqdori",
-            key: "work_measure",
+            key: "work_amount",
             classnames: "text-center",
         },
         {
