@@ -30,19 +30,6 @@ const Index = () => {
     const token = useSettingsStore(state => get(state, 'token', null))
     const [page, setPage] = useState(1);
     const [template, setTemplate] = useState('standard');
-    const initialFormState = {
-        customer: '',
-        company_name: '',
-        product_category: '',
-        ad_id: '',
-        company: '',
-        product_code: '',
-        product_name: '',
-        phone: '',
-        price: '',
-        quantity: '',
-    };
-    const [formState, setFormState] = useState(initialFormState);
 
     const [isOpen, setIsOpen] = useState(false);
     const {stir} = router.query;
@@ -83,10 +70,27 @@ const Index = () => {
         }
 
     };
+    const initialFormState = {
+        customer: '',
+        company_name: '',
+        product_category: '',
+        ad_id: '',
+        company: '',
+        product_code: '',
+        product_name: '',
+        phone: '',
+        price: '',
+        quantity: '',
+    };
 
+    const [formState, setFormState] = useState(initialFormState);
 
-
-
+    useEffect(() => {
+        const savedFormState = localStorage.getItem('formState');
+        if (savedFormState) {
+            setFormState(JSON.stringify(savedFormState));
+        }
+    }, []);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -107,8 +111,10 @@ const Index = () => {
                 }
             })
         })
+
         setFormState(initialFormState);
 
+        localStorage.setItem('formState', JSON.stringify(initialFormState));
     }
 
 

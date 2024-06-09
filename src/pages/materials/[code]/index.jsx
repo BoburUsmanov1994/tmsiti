@@ -279,47 +279,25 @@ const ViewPage = () => {
       key: "sertificate_blank_num",
       render: ({ row }) => (
         <div className={"group relative inline-block cursor-pointer"}>
-          <Image
-            className={
-              "mx-auto laptop:w-[24px] laptop:h-[24px] tablet:w-[21px] tablet:h-[21px] w-[18px] h-[18px] "
-            }
-            width={24}
-            height={24}
-            src={"/images/certificate.png"}
-            alt={"certificate"}
-            onClick={() => handleSendCertificate(parseInt(get(row, "company_stir")), parseInt(get(row, "sertificate_blank_num")))}
-          />
-          <ul className="text-left text-white hidden group-hover:block absolute left-full bottom-full p-2.5 bg-[#3D7AB6] w-[200px] rounded shadow-[5px_5px_15px_rgba(0, 0, 0, 0.1)]">
-            {get(row, "sertificate_blank_num") &&
+          <abbr title="bosing">
+            <Image
+                className={
+                  "mx-auto laptop:w-[24px] laptop:h-[24px] tablet:w-[21px] tablet:h-[21px] w-[18px] h-[18px] "
+                }
+                width={24}
+                height={24}
+                src={"/images/certificate.png"}
+                alt={"certificate"}
+                onClick={() => handleSendCertificate(parseInt(get(row, "sertificate_reestr_num")), parseInt(get(row, "sertificate_blank_num")))}
+            />
+          </abbr>
+          <div className={"mt-[10px]"}>
+            {pdf && get(row, "sertificate_blank_num") &&
             get(row, "sertificate_reestr_num") &&
             get(row, "sertificate_reestr_num")?.length > 1 &&
             get(row, "sertificate_blank_num")?.length > 1 ? (
-              <>
-                <li>
-                  {t("Blank raqami")}: {get(row, "sertificate_blank_num")}
-                </li>
-                <li>
-                  {t("Reestr raqami")}: {get(row, "sertificate_reestr_num")}
-                </li>
-                <li className={"underline"}>
-                  <a
-                    target={"_blank"}
-                    href={`http://sert2.standart.uz/site/register?Search[number_of_blank]=${get(
-                      row,
-                      "sertificate_blank_num",
-                    )}&Search[gov_register]=${get(
-                      row,
-                      "sertificate_reestr_num",
-                    )}`}
-                  >
-                    {t("Tekshirish")}
-                  </a>
-                </li>
-              </>
-            ) : (
-              <li>{t("Ma’lumot mavjud emas")}</li>
-            )}
-          </ul>
+                <Link className={" bg-blue-500 text-white py-2 px-4 rounded-[6px] mt-[20px]"} href={`${pdf}`}>Ko'rish</Link>) : ""}
+          </div>
         </div>
       ),
       classnames: "text-center",
