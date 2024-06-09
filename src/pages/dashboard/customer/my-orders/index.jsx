@@ -91,7 +91,7 @@ const Index = () => {
         listKeyId: "comment-one",
     });
 
-    const handleSendComment = (row) => {
+    const handleSendComment = ({row}) => {
         const enteredProductCategory = row.product_category;
         const selectedStars = rating
         const enteredComment = commentRef.current?.value;
