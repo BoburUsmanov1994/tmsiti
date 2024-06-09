@@ -195,7 +195,7 @@ const Index = () => {
                             <p className={"bg-green-600 hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>Buyurtma qabul qilindi</p>
                         </div> : get(row, "order_status") === "sent" ?
                             <div className={"rounded-[6px]"}>
-                                <div className={"flex bg-yellow-600 text-white py-2 px-2 rounded-[6px] items-center gap-x-2"}>
+                                <div className={"flex bg-yellow-600 text-white text-center py-2 px-2 rounded-[6px] items-center gap-x-2"}>
                                     <p>Buyurtma yo'lda</p>
                                 </div>
                                 <button onClick={() => handleSendOrderStatus(get(row, "id"), "customer_accepted")}
@@ -227,7 +227,7 @@ const Index = () => {
                 </button>
 
                 {isOpen &&
-                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
                         <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
                             <div className={"flex justify-between items-center "}>
                                 <Title>Mahsulotni baholash</Title>

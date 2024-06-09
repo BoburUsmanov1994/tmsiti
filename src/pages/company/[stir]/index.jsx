@@ -40,8 +40,9 @@ const ViewPage = () => {
   };
 
   const {data: ratingCompany, isLoading: isLoadingRatingCompany} = useGetQuery({
-      key: KEYS.orderRatingCompany,
-      url: `${URLS.orderRatingCompany}/${stir}/`
+      key: [KEYS.orderRatingCompany, stir],
+      url: `${URLS.orderRatingCompany}/${stir}/`,
+      enabled: !!stir,
   })
 
   const {
@@ -317,9 +318,7 @@ const ViewPage = () => {
 
                     </div>
                     <div style={{display: 'flex', flexDirection: 'row'}}>
-                        {[...Array(averageRating)].map((star, index) => {
-
-
+                        {[...Array(Math.round(get(ratingCompany, "data.average_rating", 1)))].map((star, index) => {
                             return (
                                 <label key={index} style={{display: 'inline-block'}}>
                                     <input
