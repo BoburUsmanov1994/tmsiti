@@ -194,9 +194,8 @@ const Index = () => {
                             <p className={"bg-green-600 hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>Buyurtma qabul qilindi</p>
                         </div> : get(row, "order_status") === "sent" ?
                             <div className={"rounded-[6px]"}>
-                                <div>
+                                <div className={"flex bg-yellow-600 text-white py-2 px-2 rounded-[6px] items-center gap-x-2"}>
                                     <p>Buyurtma yo'lda</p>
-                                    <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
                                 </div>
                                 <button onClick={() => handleSendOrderStatus(get(row, "id"), "customer_accepted")}
                                         className={"bg-green-600 hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>
