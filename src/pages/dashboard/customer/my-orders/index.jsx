@@ -48,12 +48,12 @@ const Index = () => {
 
     const handleClick = (ratingValue) => {
         setRating(ratingValue);
-        ratingValueRef.current.value = ratingValue;
+        ratingValue = ratingValueRef.current?.value;
     };
 
     const handleRatingCompany = (ratingValue) => {
         setRatingCompany(ratingValue);
-        companyRatingValueRef.current.value = ratingValue;
+        ratingValue = companyRatingValueRef.current?.value;
     };
 
     const openModal = () => setIsOpen(true);
