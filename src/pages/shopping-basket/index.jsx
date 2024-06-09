@@ -34,6 +34,12 @@ const Index = () => {
     const [isOpen, setIsOpen] = useState(false);
     const {stir} = router.query;
 
+
+    const { data: currency } = useGetQuery({
+        key: KEYS.currency,
+        url: URLS.currency,
+    });
+
     const openModal = () => setIsOpen(true);
     const closeModal = () => setIsOpen(false);
     const selectTemplate = (temp) => {
@@ -46,6 +52,8 @@ const Index = () => {
         headers: {token: token ?? `${get(session, 'user.token')}`},
         enabled: !!(get(session, 'user.token') || token)
     })
+
+
 
 
     const {mutate: sendOrder, isLoading: isLoadingOrder} = usePostQuery({listKeyId: "order-one"})
@@ -77,7 +85,7 @@ const Index = () => {
                     product_code: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_code`),
                     product_name: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_name`),
                     phone: get(user, "data.phone"),
-                    price: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item))) == 'mmechano' ? 'mmechano_rent' : findCategoryName(JSON.parse(head(item)))}_price`) * parseInt(last(item)),
+                    price: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item))) === 'mmechano' ? 'mmechano_rent' : findCategoryName(JSON.parse(head(item))) === "smallmechano" ? "smallmechano_rent" : findCategoryName(JSON.parse(head(item)))}_price`) * parseInt(last(item)),
                     order_status: ORDER_STATUS.new_order,
                     quantity: parseInt(last(item))
                 }

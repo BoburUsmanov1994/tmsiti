@@ -9,7 +9,7 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
 import Image from "next/image";
-import {get, head, isEmpty, isEqual, values} from "lodash";
+import {get, head, isEmpty, isEqual, parseInt, values} from "lodash";
 import Select from "@/components/select";
 import GridView from "@/containers/grid-view";
 import { NumericFormat } from "react-number-format";
@@ -36,6 +36,8 @@ const ViewPage = () => {
   const [regionId, setRegionId] = useState(null);
   const [districtId, setDistrictId] = useState(null);
   const [extractedData, setExtractedData] = useState(null);
+  const [pdf, setPdf] = useState(null);
+  const [inn, setInn] = useState(false);
   const productCategoryRef = useRef(null);
   const productIdRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false)
@@ -91,7 +93,7 @@ const ViewPage = () => {
       method: "POST",
       body: JSON.stringify({
         "product_category": enteredProductCategory,
-        "ad_id": +productId,
+        "ad_id": parseInt(productId),
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -131,22 +133,37 @@ const ViewPage = () => {
   //
   // }
 
-  const handleSendCertificate = (inn, certificate_number) => {
-    fetch(`${config.API_URL}${URLS.certificate}`, {
-      method: "POST",
-      body: JSON.stringify({
-        "inn": inn,
-        "certificate_number": certificate_number,
-      }),
-      headers: {
-        'Content-Type': 'application/json'
+  const handleSendCertificate = async (inn, certificate_number) => {
+    try {
+      const response = await fetch(`${config.API_URL}${URLS.certificate}`, {
+        method: "POST",
+        body: JSON.stringify({
+          inn: inn,
+          certificate_number: certificate_number,
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    }).then((response) => response.json())
-        .then((data) => {
-          const certificateData = data;
-          console.log(certificateData);
-        })
-  }
+
+      const data = await response.json();
+      const jsonObject = JSON.parse(data)
+
+      const getPDF = jsonObject.pdf;
+      const getInn = jsonObject.inn;
+
+      setPdf(getPDF);
+      setInn(getInn);
+
+      console.log(getPDF, getInn)
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   const handleIncrement = (product) => {
     dispatch({ type: "INCREMENT", payload: JSON.stringify(product) });
@@ -266,12 +283,11 @@ const ViewPage = () => {
             className={
               "mx-auto laptop:w-[24px] laptop:h-[24px] tablet:w-[21px] tablet:h-[21px] w-[18px] h-[18px] "
             }
-
             width={24}
             height={24}
             src={"/images/certificate.png"}
             alt={"certificate"}
-            onClick={() => handleSendCertificate(+get(row, "company_stir"), +get(row, "sertificate_blank_num"))}
+            onClick={() => handleSendCertificate(parseInt(get(row, "company_stir")), parseInt(get(row, "sertificate_blank_num")))}
           />
           <ul className="text-left text-white hidden group-hover:block absolute left-full bottom-full p-2.5 bg-[#3D7AB6] w-[200px] rounded shadow-[5px_5px_15px_rgba(0, 0, 0, 0.1)]">
             {get(row, "sertificate_blank_num") &&

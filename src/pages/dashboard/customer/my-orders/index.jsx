@@ -70,10 +70,6 @@ const Index = () => {
     })
 
 
-
-
-
-
     const { mutate: sendOrderStatus, isLoading } = usePostQuery({
         listKeyId: "customer-info-one",
     });
@@ -111,6 +107,8 @@ const Index = () => {
             customer: customer,
             company_stir: enteredCompanyStir
         }
+
+
 
 
         setComments(commentInfo)
