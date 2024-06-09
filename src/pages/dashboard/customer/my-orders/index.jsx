@@ -241,8 +241,8 @@ const Index = () => {
 
                             </textarea>
 
-                            <p>Mahsulotni baholang</p>
-                            <div style={{display: 'flex', flexDirection: 'row'}}>
+                            <p className={"text-lg mb-[15px]"}>Mahsulotni baholang</p>
+                            <div className={"mb-[30px]"} style={{display: 'flex', flexDirection: 'row'}}>
                                 {[...Array(5)].map((star, index) => {
                                     const ratingValue = index + 1;
 
@@ -272,7 +272,7 @@ const Index = () => {
                                 })}
                             </div>
 
-                            <p>Yetkazib beruvchini baholang</p>
+                            <p className={"text-lg mb-[15px]"}>Yetkazib beruvchini baholang</p>
                             <div style={{display: 'flex', flexDirection: 'row'}}>
                                 {[...Array(5)].map((star, index) => {
                                     const companyRatingValue = index + 1;
@@ -283,7 +283,7 @@ const Index = () => {
                                                 type="radio"
                                                 name="rating"
                                                 value={companyRatingValue}
-                                                onClick={() => handleClick(companyRatingValue)}
+                                                onClick={() => handleRatingCompany(companyRatingValue)}
                                                 style={{display: 'none'}}
                                             />
                                             <svg
