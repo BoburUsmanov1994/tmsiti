@@ -114,7 +114,6 @@ const Index = () => {
                                     className={"flex bg-yellow-600 text-white py-2 px-2 rounded-[6px] hover:bg-yellow-700 active:bg-yellow-500 items-center gap-x-2"}
                                     onClick={() => handleSendOrderStatus(get(row, "id"), "on_way")}>
                                     <p className={"!text-start"}>Yo'ldaligini aytish</p>
-                                    <Image src={"/images/on_way.png"} alt={"success"} width={22} height={22}/>
                                 </button>
                             </div> : get(row, "order_status") === "customer_canceled" ?
                                 <div className={"flex items-center gap-x-2  rounded-[6px]"}>
@@ -143,7 +142,7 @@ const Index = () => {
             <Subheader title={"Buyurtmalar"}/>
 
             <div className="p-7">
-                <a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white"}
+                <a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white transition-all duration-400"}
                    href={`${downloadExcel?.data}`} download>
                     <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>
                     yuklab olish
@@ -151,7 +150,7 @@ const Index = () => {
 
 
                 <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany}
-                          defaultPageSize={pageSize}/>
+                          defaultPageSize={pageSize} getCount={}/>
             </div>
         </Dashboard>
     );
