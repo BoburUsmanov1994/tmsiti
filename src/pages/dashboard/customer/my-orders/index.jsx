@@ -35,10 +35,12 @@ const Index = () => {
     const productCategoryRef = useRef(null);
     const companyStirRef = useRef(null);
     const ratingValueRef = useRef(null);
+    const companyRatingValueRef = useRef(null);
     const commentRef = useRef(null);
     const productIdRef = useRef(null);
     const token = useSettingsStore(state => get(state, 'token', null))
     const [rating, setRating] = useState(0);
+    const [ratingCompany, setRatingCompany] = useState(0);
     const [hover, setHover] = useState(0);
 
 
@@ -46,7 +48,11 @@ const Index = () => {
     const handleClick = (ratingValue) => {
         setRating(ratingValue);
         ratingValueRef.current.value = ratingValue;
+    };
 
+    const handleRatingCompany = (ratingValue) => {
+        setRatingCompany(ratingValue);
+        companyRatingValueRef.current.value = ratingValue;
     };
 
     const openModal = () => setIsOpen(true);
@@ -97,6 +103,7 @@ const Index = () => {
         const enteredComment = commentRef.current?.value;
         const customer = +get(user, "data.id");
         const productId = parseInt(row.ad_id);
+        const ratingCompany = companyRating
         const enteredCompanyStir = row.company
 
         const commentInfo = {
@@ -234,12 +241,13 @@ const Index = () => {
 
                             </textarea>
 
-                            <div style={{ display: 'flex', flexDirection: 'row' }}>
+                            <p>Mahsulotni baholang</p>
+                            <div style={{display: 'flex', flexDirection: 'row'}}>
                                 {[...Array(5)].map((star, index) => {
                                     const ratingValue = index + 1;
 
                                     return (
-                                        <label key={index} style={{ display: 'inline-block' }}>
+                                        <label key={index} style={{display: 'inline-block'}}>
                                             <input
                                                 type="radio"
                                                 name="rating"
@@ -264,12 +272,42 @@ const Index = () => {
                                 })}
                             </div>
 
+                            <p>Yetkazib beruvchini baholang</p>
+                            <div style={{display: 'flex', flexDirection: 'row'}}>
+                                {[...Array(5)].map((star, index) => {
+                                    const companyRatingValue = index + 1;
+
+                                    return (
+                                        <label key={index} style={{display: 'inline-block'}}>
+                                            <input
+                                                type="radio"
+                                                name="rating"
+                                                value={companyRatingValue}
+                                                onClick={() => handleClick(companyRatingValue)}
+                                                style={{display: 'none'}}
+                                            />
+                                            <svg
+                                                className="star"
+                                                width="25"
+                                                height="25"
+                                                viewBox="0 0 24 24"
+                                                fill={companyRatingValue <= (hover || rating) ? "#ffd700" : "#ccc"}
+                                                fill={companyRatingValue <= (hover || rating) ? "#ffd700" : "#ccc"}
+                                                onMouseEnter={() => setHover(companyRatingValue)}
+                                                onMouseLeave={() => setHover(0)}
+                                            >
+                                                <polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8"/>
+                                            </svg>
+                                        </label>
+                                    );
+                                })}
+                            </div>
 
 
                             <div className={"hidden"}>
-                                    <p>{get(row, "product_category")}</p>
-                                    <p>{get(row, "ad_id")}</p>
-                                    <p>{get(row, "company")}</p>
+                                <p>{get(row, "product_category")}</p>
+                                <p>{get(row, "ad_id")}</p>
+                                <p>{get(row, "company")}</p>
                             </div>
 
                             <button
