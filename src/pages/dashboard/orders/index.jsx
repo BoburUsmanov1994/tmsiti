@@ -110,7 +110,9 @@ const Index = () => {
                                     <p>Mahsulot yuborildi</p>
                                     <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
                                 </div>
-                                <button className={"flex bg-yellow-600 text-white py-2 px-2 rounded-[6px] hover:bg-yellow-700 active:bg-yellow-500 items-center gap-x-2"} onClick={() => handleSendOrderStatus(get(row, "id"), "on_way")}>
+                                <button
+                                    className={"flex bg-yellow-600 text-white py-2 px-2 rounded-[6px] hover:bg-yellow-700 active:bg-yellow-500 items-center gap-x-2"}
+                                    onClick={() => handleSendOrderStatus(get(row, "id"), "on_way")}>
                                     <p className={"!text-start"}>Buyurtma yo'ldaligini aytish</p>
                                     <Image src={"/images/on_way.png"} alt={"success"} width={22} height={22}/>
                                 </button>
@@ -118,8 +120,11 @@ const Index = () => {
                                 <div className={"flex items-center gap-x-2  rounded-[6px]"}>
                                     <p>Buyurtmachi mahsulotni bekor qildi</p>
                                     <Image src={"/images/error.png"} alt={"success"} width={22} height={22}/>
-                                </div> : ""
-
+                                </div> : get(row, "order_status") === "customer_accepted" ?
+                                    <div className={"flex items-center gap-x-2  rounded-[6px]"}>
+                                        <p>Buyurtmachi qabul qildi</p>
+                                        <Image src={"/images/error.png"} alt={"success"} width={22} height={22}/>
+                                    </div> : ""
 
 
         },

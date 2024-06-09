@@ -25,7 +25,6 @@ export const KEYS = {
   search: "search",
   myMaterials: "myMaterials",
   currency: "currency",
-  worksAds: "worksAds",
   companies: "companies",
   companyAds: "companyAds",
   userStat: "userStat",
