@@ -166,7 +166,62 @@ const Ads = () => {
 
                     {/*  material kategoriyasi  */}
                     <div className={'col-span-12  gap-x-[30px] mt-[30px]'}>
-                        <h4 className={'text-[#28366D] text-base'}>Kichik mexanizatsiyalar kategoriyasi</h4>
+                        <h4 className={'text-[#28366D] text-base'}<div className={"flex  items-center gap-x-[30px]"}>
+                            <select
+                                className={"p-[10px] cursor-pointer"}
+                                onChange={(e) => setPageSize(e?.target?.value)}
+                                value={pageSize}
+                            >
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                            </select>
+
+                            <span className={"ml-[10px]"}> {t("tadan ko'rish")} </span>
+
+                            <div className={"w-[370px] h-[40px] flex relative "}>
+                                <input
+                                    type="search"
+                                    placeholder={"Qidirish..."}
+                                    onChange={(e) => setSearch(e?.target?.value)}
+                                    value={search}
+                                    className="bg-white h-[40px] w-[370px] pl-[50px]  rounded-lg focus:outline-none hover:cursor-pointer"
+                                    name=""
+                                />
+                                <span className="absolute top-2 left-0 pl-4 z-50">
+                                  <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      width="24"
+                                      height="24"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                  >
+                                    <g clipPath="url(#clip0_1_1276)">
+                                      <rect width="24" height="24" fill="white"/>
+                                      <path
+                                          d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
+                                          stroke="#516164"
+                                          strokeWidth="1.25"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                      />
+                                      <path
+                                          d="M21 21L15 15"
+                                          stroke="#516164"
+                                          strokeWidth="1.25"
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                      />
+                                    </g>
+                                    <defs>
+                                      <clipPath id="clip0_1_1276">
+                                        <rect width="24" height="24" fill="white"/>
+                                      </clipPath>
+                                    </defs>
+                                  </svg>
+                                </span>
+                            </div>
+                        </div> kategoriyasi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
                             defaultValue={get(smallMechano, 'smallmechano_category_name')}
@@ -180,7 +235,7 @@ const Ads = () => {
 
                     <div className={'col-span-12   gap-x-[30px] mt-[20px]'}>
 
-                        <h4 className={'text-[#28366D] text-base '}>Kichik mexanizatsiyalar guruhi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Mahsulot guruhi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
 
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
@@ -193,7 +248,7 @@ const Ads = () => {
                     {/*  material nomi  */}
 
                     <div className={'col-span-12  gap-x-[30px] mt-[20px]'}>
-                        <h4 className={'text-[#28366D] text-base'}>Kichik mexanizatsiyalar nomi</h4>
+                        <h4 className={'text-[#28366D] text-base'}>Mahsulot nomi</h4>
                         <p className={'text-[12px] text-[#516164]'}>*qidiruv natijasiga ko’ra avtomatik to’ldiriladi</p>
                         <input
 
@@ -214,7 +269,7 @@ const Ads = () => {
 
                     {/* Material tavsifi */}
                     <div className={'col-span-12 gap-x-[30px]'}>
-                        <h4 className={'text-[#28366D] text-base my-[10px]'}>Kichik mexanizatsiyalar tavsifi</h4>
+                        <h4 className={'text-[#28366D] text-base my-[10px]'}>Mahsulot tavsifi</h4>
                         <textarea {...register('smallmechano_description')} rows={5}
                                   className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}></textarea>
                     </div>
@@ -222,7 +277,7 @@ const Ads = () => {
 
                     {/* Material narxi */}
                     <div className={'col-span-6 '}>
-                        <h4 className={'text-[#28366D] text-base '}>Kichik mexanizatsiyalar narxi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Mahsulot narxi</h4>
                         <div className={'flex items-center rounded-[5px]'}>
                             <input placeholder={''} type={'number'}
                                    {...register('smallmechano_rent_price', {required: true})}
@@ -241,7 +296,7 @@ const Ads = () => {
 
                     {/* Material o'lchov birligi */}
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Kichik mexanizatsiyalar o’lchov birligi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Mahsulot o’lchov birligi</h4>
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                {...register('smallmechano_measure')}
@@ -253,7 +308,7 @@ const Ads = () => {
 
                     {/*Material miqdori*/}
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Kichik mexanizatsiyalar miqdori</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Mahsulot miqdori</h4>
                         <input placeholder={'Kichik mexanizatsiya miqdori'} type={'number'}
                                {...register('smallmechano_amount', {required: true})}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
@@ -264,7 +319,7 @@ const Ads = () => {
 
                     {/*Material miqdor o’lchov birligi*/}
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Kichik mexanizatsiyalar miqdor o’lchov birligi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Mahsulot miqdor o’lchov birligi</h4>
                         <input placeholder={'*qidiruv natijasiga ko’ra avtomatik to’ldiriladi'}
                                className={'py-[15px] px-[20px] w-full shadow-xl rounded-[5px] my-[10px]'}
                                defaultValue={get(smallMechano, 'smallmechano_measure')}
@@ -276,7 +331,7 @@ const Ads = () => {
 
                     {/*Material rasmi*/}
                     <div className={'col-span-6'}>
-                        <h4 className={'text-[#28366D] text-base '}>Kichik mexanizatsiyalar rasmi</h4>
+                        <h4 className={'text-[#28366D] text-base '}>Mahsulot rasmi</h4>
                         <label htmlFor="dropzone-file"
                                className={'shadow-2xl py-[20px] px-[30px] my-[10px] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center  w-[320px] h-[224px] bg-white'}>
                             <Image src={'/icons/upload.svg'} alt={'upload'} width={48} height={48}/>

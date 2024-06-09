@@ -84,7 +84,7 @@ const Materials = () => {
     },
     {
       title: "Miqdori",
-      key: "material_measure",
+      key: "material_amount",
       classnames: "text-center",
     },
     {
