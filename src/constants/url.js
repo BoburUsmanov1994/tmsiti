@@ -6,7 +6,7 @@ export const URLS = {
   materialAds: "materials/ads/",
   machinesMechanos: "machines-mechanos/",
   works: "works/",
-  cdworksAds: "works/ads/",
+  worksAds: "works/ads/filter/",
   machinesMechanosAds: "machines-mechanos/ads/",
   smallMechanos: "small-mechanos/",
   smallMechanosAds: "small-mechanos/ads/",

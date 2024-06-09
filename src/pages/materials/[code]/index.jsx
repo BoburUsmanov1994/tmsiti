@@ -59,29 +59,7 @@ const ViewPage = () => {
     enabled: !!(get(session, 'user.token') || token)
   })
 
-  // const {mutate: listComment, isLoadingComment} = usePostQuery({
-  //   listKeyId: "list-comment-one",
-  // });
-  //
-  // const handleListComment = () => {
-  //   const enteredProductCategory = productCategoryRef.current?.textContent;
-  //   const productId = productIdRef.current?.textContent;
-  //
-  //   listComment({
-  //         url: URLS.customerComment,
-  //         attributes: {
-  //           "product_category": enteredProductCategory,
-  //           "ad_id": Number(productId),
-  //         }
-  //       },
-  //       {
-  //           onSuccess: () => {
-  //             toast.success('Siz bergan izoh va baho yetkazib beruvchiga yuborildi', {position: 'top-right'})
-  //           }
-  //       }
-  //     )
-  //
-  // }
+
 
   function handleListComment() {
 
@@ -112,26 +90,6 @@ const ViewPage = () => {
   }
 
 
-
-
-
-  // const { mutate: certificate, isLoadingCertificate } = usePostQuery({
-  //   listKeyId: "certificate-one",
-  // });
-  //
-  //
-  // const handleSendCertificate = (inn, certificate_number) => {
-  //
-  //   certificate({
-  //     url: URLS.certificate,
-  //     attributes: {
-  //       "inn": inn,
-  //       "certificate_number": certificate_number
-  //     }
-  //
-  //   })
-  //
-  // }
 
   const handleSendCertificate = async (inn, certificate_number) => {
     try {
@@ -291,13 +249,18 @@ const ViewPage = () => {
                 onClick={() => handleSendCertificate(parseInt(get(row, "sertificate_reestr_num")), parseInt(get(row, "sertificate_blank_num")))}
             />
           </abbr>
-          <div className={"mt-[10px]"}>
-            {pdf && get(row, "sertificate_blank_num") &&
-            get(row, "sertificate_reestr_num") &&
-            get(row, "sertificate_reestr_num")?.length > 1 &&
-            get(row, "sertificate_blank_num")?.length > 1 ? (
-                <Link className={" bg-blue-500 text-white py-2 px-4 rounded-[6px] mt-[20px]"} href={`${pdf}`}>Ko'rish</Link>) : <p className={" bg-blue-500 text-white py-2 px-4 rounded-[6px] mt-[20px]"}>Mavjud emas</p>}
-          </div>
+          {pdf ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-20">
+            <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
+              <div className={"mt-[10px]"}>
+
+                        <Link className={" bg-blue-500 w-full text-white py-2 px-4 rounded-[6px] "}
+                              href={`${pdf}`}>Ko'rish</Link>
+              </div>
+            </div>
+          </div> : <ul className="text-left text-white hidden group-hover:block absolute left-full bottom-full p-2.5 bg-[#3D7AB6] w-[200px] rounded shadow-[5px_5px_15px_rgba(0, 0, 0, 0.1)]">
+            <li>{t("Ma’lumot mavjud emas")}</li>
+          </ul>}
+
         </div>
       ),
       classnames: "text-center",
@@ -305,23 +268,23 @@ const ViewPage = () => {
     {
       title: t("Narxi(so`m)"),
       key: "material_price",
-      render: ({ value, row,index }) =>
-        value *
-          get(currency, `data[${get(row, "material_price_currency")}]`, 1) >
-        0 ? (
-          <NumericFormat
-            displayType={"text"}
-            className={"text-center bg-transparent"}
-            thousandSeparator={" "}
-            value={
-              value *
-              get(currency, `data[${get(row, "material_price_currency")}]`, 1)
-            }
-            suffix={` (${get(row, "material_measure")})`}
-          />
-        ) : (
-          t("by_order")
-        ),
+      render: ({value, row, index}) =>
+          (value *
+              get(currency, `data[${get(row, "material_price_currency")}]`, 1)).toFixed(2) >
+          0 ? (
+              <NumericFormat
+                  displayType={"text"}
+                  className={"text-center bg-transparent"}
+                  thousandSeparator={" "}
+                  value={
+                    (value *
+                        get(currency, `data[${get(row, "material_price_currency")}]`, 1)).toFixed(2)
+                  }
+                  suffix={` (${get(row, "material_measure")})`}
+              />
+          ) : (
+              t("by_order")
+          ),
       classnames: "text-center",
       sorter: true,
     },

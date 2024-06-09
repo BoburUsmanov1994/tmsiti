@@ -108,9 +108,6 @@ const Index = () => {
             company_stir: enteredCompanyStir
         }
 
-
-
-
         setComments(commentInfo)
 
         sendComment({
