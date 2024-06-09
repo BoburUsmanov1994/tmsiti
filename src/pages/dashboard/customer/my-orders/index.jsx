@@ -104,7 +104,7 @@ const Index = () => {
         const enteredComment = commentRef.current?.value;
         const customer = +get(user, "data.id");
         const productId = parseInt(row.ad_id);
-        const ratingCompany = companyRating
+        const ratingCompany = ratingCompany
         const enteredCompanyStir = row.company
 
         const commentInfo = {
@@ -113,7 +113,8 @@ const Index = () => {
             comment: enteredComment,
             rating: selectedStars,
             customer: customer,
-            company_stir: enteredCompanyStir
+            company_stir: enteredCompanyStir,
+            rating_company: ratingCompany
         }
 
         setComments(commentInfo)
