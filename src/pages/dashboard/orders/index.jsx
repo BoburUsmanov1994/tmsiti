@@ -150,7 +150,7 @@ const Index = () => {
 
 
                 <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany}
-                          defaultPageSize={pageSize} getCount={}/>
+                          defaultPageSize={pageSize}/>
             </div>
         </Dashboard>
     );
