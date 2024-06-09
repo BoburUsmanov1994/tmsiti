@@ -28,7 +28,7 @@ const Header = (toggleMenu) => {
         key: KEYS.getMe,
         url: URLS.getMe,
         headers: {token: token ?? `${get(session, "user.token")}`},
-        enabled: !!(get(session, "user.token") || token),
+        enabled: !!(get(session, 'user.token') && get(session, 'user.role') === 'company'),
     });
 
 
@@ -36,7 +36,7 @@ const Header = (toggleMenu) => {
       key: KEYS.getCustomer,
       url: URLS.getCustomer,
       headers: {token: token ?? `${get(sessionCustomer, "user.token")}`},
-      enabled: !!(get(sessionCustomer, "user.token") || token),
+      enabled: !!(get(session, 'user.token') && get(session, 'user.role') === 'customer'),
     })
 
 

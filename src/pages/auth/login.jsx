@@ -36,7 +36,7 @@ const Login = () => {
     key: KEYS.getCustomer,
     url: URLS.getCustomer,
     headers: { token: `${get(session, "user.token")}` },
-    enabled: !!get(session, "user.token"),
+    enabled: !!(get(session, 'user.token') && get(session, 'user.role') === 'customer'),
   });
 
 
