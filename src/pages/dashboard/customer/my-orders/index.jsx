@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import Dashboard from "@/layouts/dashboard";
 import Subheader from "@/layouts/dashboard/components/subheader";
 import Link from "next/link";
-import {get, head} from "lodash";
+import {get, head, parseInt} from "lodash";
 import {NumericFormat} from "react-number-format";
 import dayjs from "dayjs";
 import Image from "next/image";
@@ -95,15 +95,13 @@ const Index = () => {
         listKeyId: "comment-one",
     });
 
-    const handleSendComment = () => {
-        const enteredProductCategory = productCategoryRef.current?.textContent;
+    const handleSendComment = (row) => {
+        const enteredProductCategory = row.product_category;
         const selectedStars = rating
         const enteredComment = commentRef.current?.value;
         const customer = +get(user, "data.id");
-        const productId = +productIdRef.current?.textContent;
-        console.log(productId)
-
-        const enteredCompanyStir = companyStirRef.current?.textContent
+        const productId = parseInt(row.ad_id);
+        const enteredCompanyStir = row.company
 
         const commentInfo = {
             product_category: enteredProductCategory,
@@ -269,14 +267,14 @@ const Index = () => {
 
 
                             <div className={"hidden"}>
-                                    <p ref={productCategoryRef}>{get(row, "product_category")}</p>
-                                    <p ref={productIdRef}>{get(row, "ad_id")}</p>
-                                    <p ref={companyStirRef}>{get(row, "company")}</p>
+                                    <p>{get(row, "product_category")}</p>
+                                    <p>{get(row, "ad_id")}</p>
+                                    <p>{get(row, "company")}</p>
                             </div>
 
                             <button
                                 className={"bg-blue-500 hover:bg-blue-600 active:bg-blue-400 mt-[30px] text-white w-full text-lg py-2 rounded-[6px]"}
-                                onClick={handleSendComment}>Yuborish
+                                onClick={() => handleSendComment(row)}>Yuborish
                             </button>
                         </div>
                     </div>

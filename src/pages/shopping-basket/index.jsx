@@ -2,9 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import Main from "@/layouts/main";
 import Menu from "@/components/menu";
 import Section from "@/components/section";
-
 import Link from "next/link";
-
 import {useCounter} from "@/context/counter";
 import {useRouter} from "next/router";
 import useGetQuery from "@/hooks/api/useGetQuery";
@@ -22,8 +20,8 @@ import toast from "react-hot-toast";
 import {useSession} from "next-auth/react";
 import {useSettingsStore} from "@/store";
 import {entries} from "lodash/object";
-import {findCategoryName} from "../../utils";
-import {ORDER_STATUS} from "../../constants/enums";
+import {findCategoryName} from "@/utils";
+import {ORDER_STATUS} from "@/constants/enums";
 
 const Index = () => {
     const {state, dispatch} = useCounter();
@@ -191,18 +189,15 @@ const Index = () => {
 
 
                                         <div className={`col-span-4 `}>
-                                            <p
-                                                className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "material_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "material_code")}</p>
+                                            <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "material_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "material_code")}</p>
                                             <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "smallmechano_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "smallmechano_code")}</p>
                                             <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "mmechano_code")) ? "hidden" : "visible"} text-sm text-[#28366D] inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "mmechano_code")}</p>
                                             <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "techno_code")) ? "hidden" : "visible"} text-sm text-[#28366D]  inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "techno_code")}</p>
                                             <p className={`bg-[#D1E9FF]  ${isEmpty(get(JSON.parse(head(item)), "work_code")) ? "hidden" : "visible"} text-sm text-[#28366D]  inline-flex p-2 my-[10px]`}>{get(JSON.parse(head(item)), "work_code")}</p>
 
                                             {/* Product Name */}
-                                            <p
-                                                className={`text-base font-bold ${isEmpty(get(JSON.parse(head(item)), "material_name")) ? "hidden" : "visible"}`}>{get(JSON.parse(head(item)), "material_name")}</p>
-                                            <p
-                                                className={`text-base ${isEmpty(get(JSON.parse(head(item)), "smallmechano_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "smallmechano_name")}</p>
+                                            <p className={`text-base font-bold ${isEmpty(get(JSON.parse(head(item)), "material_name")) ? "hidden" : "visible"}`}>{get(JSON.parse(head(item)), "material_name")}</p>
+                                            <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "smallmechano_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "smallmechano_name")}</p>
                                             <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "techno_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "techno_name")}</p>
                                             <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "work_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "work_name")}</p>
                                             <p className={`text-base ${isEmpty(get(JSON.parse(head(item)), "mmechano_name")) ? "hidden" : "visible"} font-bold`}>{get(JSON.parse(head(item)), "mmechano_name")}</p>
@@ -222,11 +217,7 @@ const Index = () => {
                                                 onClick={() => handleIncrement(JSON.parse(head(item)))}>+
                                             </button>
                                         </div>
-                                        {/*<p>*/}
-                                        {/*{get(JSON.parse(head(item)), "material_price", 0) **/}
-                                        {/*    last(item)}*/}
-                                        {/*  {get(JSON.parse(head(item)), "material_price_currency")}*/}
-                                        {/*</p>*/}
+
 
                                         <div className={"col-span-4 text-center"}>
                                             <h1 className={"text-lg font-bold mb-[20px]"}>Tanlangan mahsulotning umumiy
