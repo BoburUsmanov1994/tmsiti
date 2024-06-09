@@ -99,12 +99,12 @@ const Index = () => {
     });
 
     const handleSendComment = ({row}) => {
-        const enteredProductCategory = row.product_category;
+        const enteredProductCategory = row?.product_category;
         const selectedStars = rating
         const enteredComment = commentRef.current?.value;
         const customer = +get(user, "data.id");
         const productId = parseInt(row.ad_id);
-        const ratingCompany = ratingCompany
+        const enteredRatingCompany = ratingCompany
         const enteredCompanyStir = row.company
 
         const commentInfo = {
@@ -114,7 +114,7 @@ const Index = () => {
             rating: selectedStars,
             customer: customer,
             company_stir: enteredCompanyStir,
-            rating_company: ratingCompany
+            rating_company: enteredRatingCompany
         }
 
         setComments(commentInfo)
