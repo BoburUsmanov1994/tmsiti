@@ -375,7 +375,7 @@ const ViewPage = () => {
                                 }
                             >
                                 <strong className={"text-[#000]"}>{t("Telefon")}:</strong>{" "}
-                                {get(company, "company_phone_main", "-")}
+                                {get(company, "data.company_phone_main", "-")}
                             </div>
                         ) : (
                             <div
@@ -399,7 +399,7 @@ const ViewPage = () => {
                                 }
                             >
                                 <strong className={"text-[#000]"}>{t("Manzil")}:</strong>{" "}
-                                {get(company, "company_phone_main", "-")}
+                                {get(company, "data.company_address", "-")}
                             </div>
                         ) : (
                             <div
