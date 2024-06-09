@@ -10,11 +10,7 @@ import {debounce, head, get, isEmpty, find} from "lodash";
 import {useForm} from "react-hook-form";
 import {toast} from "react-hot-toast";
 import useGetQuery from "@/hooks/api/useGetQuery";
-import {OverlayLoader} from "@/components/loader";
 import {useRouter} from 'next/navigation';
-import {motion} from "framer-motion";
-import {warn} from "next/dist/build/output/log";
-import {getDefaultValue, getOptionList} from "@/utils";
 import Select from "react-select";
 
 const Ads = () => {
@@ -113,31 +109,6 @@ const Ads = () => {
                     </div>
 
                     <div className={'col-span-12  gap-x-[30px]'}>
-                        {/*<input list={'search-list'} defaultValue={search} placeholder={'nomni rus tilida kiriting'}*/}
-                        {/*       onChange={debounce(function (e) {*/}
-                        {/*           if (e.target.value.length > 3) {*/}
-                        {/*               setSearch(e.target.value)*/}
-                        {/*               setWarning(false)*/}
-
-                        {/*           } else {*/}
-                        {/*               setWarning(true)*/}
-                        {/*           }*/}
-                        {/*       }, 500)}*/}
-                        {/*       className={'placeholder:italic py-[15px] px-[20px] w-full shadow-xl rounded-[5px] relative'}*/}
-                        {/*/>*/}
-                        {/*{warning === true && <motion.p initial={{opacity: 0}}*/}
-                        {/*                               animate={{opacity: 1, marginTop: 100}}*/}
-                        {/*                               className={'text-red-800 mt-[10px]'}>Iltimos kamida 4 ta belgi*/}
-                        {/*    kiriting.</motion.p>}*/}
-
-                        {/*<datalist id={'search-list'} className={'w-[1000px]'}*/}
-                        {/*          onChange={(e) => setPageSize(e?.target?.value)}>*/}
-
-                        {/*    {*/}
-                        {/*        get(materials, 'data.results', []).map(item => <option*/}
-                        {/*            value={get(item, 'material_name')}></option>)*/}
-                        {/*    }*/}
-                        {/*</datalist>*/}
 
                         <Select
                             isClearable

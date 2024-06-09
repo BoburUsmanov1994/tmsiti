@@ -7,7 +7,6 @@ import {URLS} from "@/constants/url";
 import Image from "next/image";
 import Button from "@/components/button";
 import {useTranslation} from "react-i18next";
-import Search from "@/layouts/dashboard/components/search";
 import {get, isNil} from "lodash";
 import {NumericFormat} from "react-number-format";
 import useGetQuery from "@/hooks/api/useGetQuery";
