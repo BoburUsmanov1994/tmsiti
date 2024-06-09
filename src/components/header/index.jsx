@@ -120,7 +120,7 @@ const Header = (toggleMenu) => {
                                     width={36}
                                     height={36}
                                     alt={"map"}
-                                    src={"/icons/shopping-bag.svg"}
+                                    src={"/images/shop-basket.png"}
                                 />
                                 <span
                                     className={
