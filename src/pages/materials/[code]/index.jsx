@@ -296,7 +296,7 @@ const ViewPage = () => {
             get(row, "sertificate_reestr_num") &&
             get(row, "sertificate_reestr_num")?.length > 1 &&
             get(row, "sertificate_blank_num")?.length > 1 ? (
-                <Link className={" bg-blue-500 text-white py-2 px-4 rounded-[6px] mt-[20px]"} href={`${pdf}`}>Ko'rish</Link>) : ""}
+                <Link className={" bg-blue-500 text-white py-2 px-4 rounded-[6px] mt-[20px]"} href={`${pdf}`}>Ko'rish</Link>) : <p className={" bg-blue-500 text-white py-2 px-4 rounded-[6px] mt-[20px]"}>Mavjud emas</p>}
           </div>
         </div>
       ),
