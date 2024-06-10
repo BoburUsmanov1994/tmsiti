@@ -107,14 +107,9 @@ const Index = () => {
                         </div> : get(row, "order_status") === "sent" ?
                             <div className={"flex flex-col items-center gap-y-2  rounded-[6px]"}>
                                 <div className={"flex items-center gap-x-2"}>
-                                    <p>Mahsulot yuborildi</p>
+                                    <p>Mahsulot yo'lda</p>
                                     <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
                                 </div>
-                                <button
-                                    className={"flex bg-yellow-600 text-white w-full py-2 px-2 justify-center text-center rounded-[6px] hover:bg-yellow-700 active:bg-yellow-500 items-center gap-x-2"}
-                                    onClick={() => handleSendOrderStatus(get(row, "id"), "on_way")}>
-                                    <p className={"!text-start"}>Yo'ldaligini aytish</p>
-                                </button>
                             </div> : get(row, "order_status") === "customer_canceled" ?
                                 <div className={"flex items-center gap-x-2  rounded-[6px]"}>
                                     <p>Buyurtmachi mahsulotni bekor qildi</p>

@@ -220,7 +220,7 @@ const Index = () => {
                                             <Image src={"/images/on_way.png"} alt={"success"} width={22} height={22}/>
                                         </div> : get(row, "order_status") === "customer_accepted" ?
                                             <div className={"text-center w-full mb-[15px]"}>
-                                                <p>Qabul qildim</p>
+                                                <p>Mahsulot qabul qilindi</p>
                                             </div> : ""
 
             ,
