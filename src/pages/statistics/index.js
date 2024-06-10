@@ -458,7 +458,7 @@ export default function Home() {
             )}
           </div>
         </div>
-        <div className={"grid grid-cols-10 mt-[30px] min-h-fit gap-x-[30px] gap-y-[30px]"}>
+        <div className={"grid grid-cols-12 mt-[30px] min-h-fit gap-x-[30px] gap-y-[30px]"}>
           <div
               onClick={() => toggleTabs(1)}
               className={
@@ -530,6 +530,20 @@ export default function Home() {
             />
             <h3>Tartibga solish agentligi</h3>
           </div>
+          <div
+              onClick={() => toggleTabs(6)}
+              className={
+                "col-span-2 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+              }
+          >
+            <Image
+                src={"/images/tax.png"}
+                alt={"stock-market"}
+                width={70}
+                height={70}
+            />
+            <h3>Soliq qo'mitasi</h3>
+          </div>
         </div>
 
         {/*Tovar hom-ashyo birjasi*/}
@@ -545,9 +559,9 @@ export default function Home() {
                       <p key={index}
                          className={
                            "text-[#fff] inline-block text-sm laptop:text-base my-[20px] px-[10px] py-[10px] bg-blue-500 rounded-[5px]"
-                  }
-                >
-                  {dayjs(get(item, "startdate")).format("DD.MM.YYYY")} -
+                         }
+                      >
+                      {dayjs(get(item, "startdate")).format("DD.MM.YYYY")} -
                   {dayjs(get(item, "enddate")).format("DD.MM.YYYY")}
                 </p>
               )),
@@ -737,7 +751,14 @@ export default function Home() {
                       O'zbekiston texnik jihatdan tartibga solish agentligi
                     </Title>
                   </div>
-                </div> : ""}
+                </div> : tabs === 6 ?
+                    <div className={"grid grid-cols-12"}>
+                      <div className={"col-span-12 my-[30px]"}>
+                        <Title>
+                          O'zbekiston Respublikasi Vazirlar Mahkamasi huzuridagi Soliq qo'mitasi
+                        </Title>
+                      </div>
+                    </div> : ""}
       </Section>
     </Main>
   );
