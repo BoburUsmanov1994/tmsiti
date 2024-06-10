@@ -18,6 +18,7 @@ export const KEYS = {
   classifier: "classifier",
   signup: "signup",
   changePassword: "changepassword",
+  resendVerificationCode: "resendVerificationCode",
   getMe: "getMe",
   getCustomer: "getCustomer",
   login: "login",

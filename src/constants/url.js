@@ -17,6 +17,7 @@ export const URLS = {
   classifier: "classifier/",
   signup: "api/cutomer/register/",
   changePassword: "api/passowrd/change/",
+  resendVerificationCode: "api/resend-verification-code/",
   getMe: "api/user",
   getCustomer: "api/customer",
   login: "api/login",

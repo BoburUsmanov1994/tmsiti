@@ -24,9 +24,10 @@ const Signup = () => {
             {
                 onSuccess: () => {
                     toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
+                    router.push("/auth/confirm-email")
                 }
             })
-        router.push("/auth/login")
+
     };
     return (
         <AuthLayout>
