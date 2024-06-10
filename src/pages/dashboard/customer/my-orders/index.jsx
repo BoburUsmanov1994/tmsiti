@@ -221,7 +221,6 @@ const Index = () => {
                                         </div> : get(row, "order_status") === "customer_accepted" ?
                                             <div className={"text-center w-full mb-[15px]"}>
                                                 <p>Qabul qildim</p>
-
                                             </div> : ""
 
             ,
