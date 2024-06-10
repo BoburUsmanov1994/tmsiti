@@ -221,7 +221,7 @@ const Index = () => {
                                         </div> : get(row, "order_status") === "customer_accepted" ?
                                             <div className={"text-center w-full mb-[15px]"}>
                                                 <p>Qabul qildim</p>
-                                                <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
+
                                             </div> : ""
 
             ,
