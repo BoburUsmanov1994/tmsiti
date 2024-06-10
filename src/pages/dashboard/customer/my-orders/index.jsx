@@ -204,7 +204,7 @@ const Index = () => {
                                 </div>
                                 <button onClick={() => handleSendOrderStatus(get(row, "id"), "customer_accepted")}
                                         className={"bg-green-600 w-full text-center hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>
-                                    Qabul qildim
+                                    Mahsulotni qabul qilish
                                 </button>
                             </div> : get(row, "order_status") === "customer_canceled" ?
                                 <div className={"flex items-center gap-x-2  rounded-[6px]"}>
