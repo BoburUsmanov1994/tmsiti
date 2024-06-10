@@ -9,28 +9,38 @@ import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import Image from "next/image";
-import useGetQuery from "@/hooks/api/useGetQuery";
+
 import dayjs from "dayjs";
 
-
+import { saveAs } from 'file-saver'
+import axios from "axios";
 
 
 const Index = () => {
     const { t } = useTranslation();
     const [pageSize, setPageSize] = useState(48);
 
-    const {data: downloadExcel, isLoadingExcel} = useGetQuery({
-        key: KEYS.orderExcel,
-        url: URLS.orderExcel
-    })
+    const handleDownload = async () => {
+        try {
+            // Make a GET request to the server to fetch the file
+            const response = await axios.get('http://backend-market.tmsiti.uz/order/excel/', {
+                responseType: 'blob', // Important to specify response type as blob
+            });
 
-    console.log(downloadExcel?.data);
+            // Create a new Blob object using the response data
+            const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+            // Use file-saver to save the file
+            saveAs(blob, 'order.xlsx');
+        } catch (error) {
+            console.error('Error downloading the file:', error);
+        }
+    };
+
 
     const { mutate: sendOrderStatus, isLoading } = usePostQuery({
         listKeyId: "company-info-one",
     });
-
-
 
     const handleSendOrderStatus = (id, selectStatus) => {
         const selectedId = +id
@@ -111,7 +121,7 @@ const Index = () => {
                                     <Image src={"/images/success.png"} alt={"success"} width={22} height={22}/>
                                 </div>
                                 <button
-                                    className={"flex bg-yellow-600 text-white py-2 px-2 rounded-[6px] hover:bg-yellow-700 active:bg-yellow-500 items-center gap-x-2"}
+                                    className={"flex bg-yellow-600 text-white w-full py-2 px-2 rounded-[6px] hover:bg-yellow-700 active:bg-yellow-500 items-center gap-x-2"}
                                     onClick={() => handleSendOrderStatus(get(row, "id"), "on_way")}>
                                     <p className={"!text-start"}>Yo'ldaligini aytish</p>
                                 </button>
@@ -142,11 +152,15 @@ const Index = () => {
             <Subheader title={"Buyurtmalar"}/>
 
             <div className="p-7">
-                <a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white transition-all duration-400"}
-                   href={`${downloadExcel?.data}`} download>
-                    <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>
-                    yuklab olish
-                </a>
+                {/*<a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white transition-all duration-400"}*/}
+                {/*   href={`${downloadExcel?.data}`} download>*/}
+                {/*    <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>*/}
+                {/*    yuklab olish*/}
+                {/*</a>*/}
+
+                <button onClick={handleDownload}>
+                    Download Excel
+                </button>
 
 
                 <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany}

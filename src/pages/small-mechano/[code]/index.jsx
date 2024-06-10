@@ -285,7 +285,7 @@ const ViewPage = () => {
       sorter: true,
     },
     {
-      title: t("Action"),
+      title: t("Sotib olish"),
       key: "action",
       render: ({row}) => (
           <div className={"flex items-center justify-between gap-x-4 relative"}>

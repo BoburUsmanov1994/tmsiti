@@ -153,11 +153,7 @@ const ViewPage = () => {
   })
 
 
-  const { data: price } = useGetQuery({
-    key: [KEYS.prices, code],
-    url: `${URLS.prices}?resource=${code}`,
-    enabled: !!code,
-  });
+
   const { data: regions, isLoading: isLoadingRegion } = useGetQuery({
     key: [KEYS.territories, "regions"],
     url: `${URLS.territories}`,

@@ -194,7 +194,7 @@ const Index = () => {
                     </div>
                     : get(row, "order_status") === "accepted" ?
                         <div>
-                            <p className={"bg-green-600 hover:bg-green-700 active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>Buyurtma
+                            <p className={"bg-green-600 hover:bg-green-700 text-center active:bg-green-500 text-white py-2 px-8 rounded-[6px]"}>Buyurtma
                                 qabul qilindi</p>
                         </div> : get(row, "order_status") === "sent" ?
                             <div className={"rounded-[6px]"}>
