@@ -46,9 +46,18 @@ const Login = () => {
         <AuthLayout>
             <h2 className={"text-center mb-7 text-2xl font-medium"}>Elektron pochtani tasdiqlash</h2>
             <form onSubmit={handleSubmit(onSubmit)} className={"text-left"}>
+                <div className={'mb-4'}>
+                    <label className={'block mb-1.5'} htmlFor="#">Email*</label>
+                    <input {...register("email", {required: true})}
+                           className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="text"/>
+                    {errors.email &&
+                        <span className={'text-xs text-red-500'}>{t("Ushbu qator to'ldirilishi shart")}</span>}
+                </div>
+
+
                 <div className={"mb-4 relative"}>
                     <label className={"block mb-1.5"} htmlFor="#">
-                        Parolni kiriting
+                        Pochtangizga yuborilgan parolni kiriting
                     </label>
                     <input
                         {...register("password", {required: true})}
