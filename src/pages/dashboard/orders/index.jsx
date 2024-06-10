@@ -11,9 +11,6 @@ import usePostQuery from "@/hooks/api/usePostQuery";
 import Image from "next/image";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import dayjs from "dayjs";
-import axios from "axios";
-import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
 
 
 
@@ -27,42 +24,7 @@ const Index = () => {
         url: URLS.orderExcel
     })
 
-    const downloadFile = () => {
-        axios({
-            url: 'https://backend-market.tmsiti.uz/order/excel/', // replace with your API endpoint
-            method: 'GET',
-            responseType: 'arraybuffer', // important
-        })
-            .then((response) => {
-                // Debugging: Log the response to verify it's an ArrayBuffer
-                console.log(response);
-
-                // Convert the ArrayBuffer to a Blob
-                const data = new Uint8Array(response.data);
-                const workbook = XLSX.read(data, { type: 'array' });
-
-                // Optional: If you want to do any processing on the workbook
-                // e.g., you can manipulate the workbook object here
-
-                // Convert the workbook to a binary string
-                const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-
-                // Create a Blob from the binary string
-                const blob = new Blob([wbout], { type: 'application/octet-stream' });
-
-                // Save the file using FileSaver.js
-                saveAs(blob, 'file.xlsx'); // or any other extension
-            })
-            .catch((error) => {
-                console.error('Error downloading the file', error);
-                // Debugging: Log the error response to understand the issue
-                console.log(error.response);
-            });
-    };
-
-
-
-    console.log(downloadExcel, "downloadExcel");
+    console.log(downloadExcel?.data);
 
     const { mutate: sendOrderStatus, isLoading } = usePostQuery({
         listKeyId: "company-info-one",
@@ -180,8 +142,6 @@ const Index = () => {
                     <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>
                     yuklab olish
                 </a>
-
-                <button onClick={downloadFile}>Download Excel</button>
 
 
                 <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany}
