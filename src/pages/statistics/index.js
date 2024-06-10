@@ -458,12 +458,12 @@ export default function Home() {
             )}
           </div>
         </div>
-        <div className={"grid grid-cols-12 mt-[30px] min-h-fit gap-x-[30px]"}>
+        <div className={"grid grid-cols-12 mt-[30px] min-h-fit gap-x-[30px] gap-y-[30px]"}>
           <div
-            onClick={() => toggleTabs(1)}
-            className={
-              "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
-            }
+              onClick={() => toggleTabs(1)}
+              className={
+                "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+              }
           >
             <Image
                 src={"/images/stock-market.png"}
@@ -474,10 +474,10 @@ export default function Home() {
             <h3>Tovar-xom ashyo birjasi</h3>
           </div>
           <div
-            onClick={() => toggleTabs(2)}
-            className={
-              "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
-            }
+              onClick={() => toggleTabs(2)}
+              className={
+                "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+              }
           >
             <Image
                 src={"/images/building-material.png"}
@@ -505,24 +505,46 @@ export default function Home() {
           <div
               onClick={() => toggleTabs(4)}
               className={
-                "col-span-3 border-[2px] min-h-[150px] rounded-[8px] cursor-pointer"
-            }
-          ></div>
+                "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+              }
+          >
+            <Image
+                src={"/images/customs.png"}
+                alt={"stock-market"}
+                width={70}
+                height={70}
+            />
+            <h3>Bojxona qo'mitasi</h3>
+          </div>
+          <div
+              onClick={() => toggleTabs(5)}
+              className={
+                "col-span-3 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+              }
+          >
+            <Image
+                src={"/images/arrangement.png"}
+                alt={"stock-market"}
+                width={70}
+                height={70}
+            />
+            <h3>Tartibga solish agentligi</h3>
+          </div>
         </div>
 
         {/*Tovar hom-ashyo birjasi*/}
 
         {tabs === 1 ? (
-          <div className={"mt-[30px]"}>
-            <Title>
-              Tovar hom-ashyo birjasi
-            </Title>
-            <br/>
-            {head(
-              get(stock, "data")?.map((item, index) => (
-                <p key={index}
-                  className={
-                    "text-[#fff] inline-block text-sm laptop:text-base my-[20px] px-[10px] py-[10px] bg-blue-500 rounded-[5px]"
+            <div className={"mt-[30px]"}>
+              <Title>
+                Tovar hom-ashyo birjasi
+              </Title>
+              <br/>
+              {head(
+                  get(stock, "data")?.map((item, index) => (
+                      <p key={index}
+                         className={
+                           "text-[#fff] inline-block text-sm laptop:text-base my-[20px] px-[10px] py-[10px] bg-blue-500 rounded-[5px]"
                   }
                 >
                   {dayjs(get(item, "startdate")).format("DD.MM.YYYY")} -
@@ -701,7 +723,21 @@ export default function Home() {
                 </table>
               </div>
             </div>
-        ) : ""}
+        ) : tabs === 4 ?
+            <div className={"grid grid-cols-12"}>
+              <div className={"col-span-12 my-[30px]"}>
+                <Title>
+                  O'zbekiston Respublikasi iqtisodiyot va moliya vazirligi huzuridagi bojxona qo'mitasi
+                </Title>
+              </div>
+            </div> : tabs === 5 ?
+                <div className={"grid grid-cols-12"}>
+                  <div className={"col-span-12 my-[30px]"}>
+                    <Title>
+                      O'zbekiston texnik jihatdan tartibga solish agentligi
+                    </Title>
+                  </div>
+                </div> : ""}
       </Section>
     </Main>
   );
