@@ -98,14 +98,14 @@ const Index = () => {
         listKeyId: "comment-one",
     });
 
-    const handleSendComment = (row) => {
+    const handleSendComment = ({row}) => {
         const enteredProductCategory = row?.product_category;
         const selectedStars = rating
         const enteredComment = commentRef.current?.value;
         const customer = +get(user, "data.id");
-        const productId = parseInt(row.ad_id);
+        const productId = parseInt(row?.ad_id);
         const enteredRatingCompany = ratingCompany
-        const enteredCompanyStir = row.company
+        const enteredCompanyStir = row?.company
 
         const commentInfo = {
             product_category: enteredProductCategory,
