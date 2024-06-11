@@ -231,11 +231,13 @@ const Index = () => {
             title: "Sharh qoldirish",
             key: "",
             render: ({row, index}) => <div key={index} className={""}>
-                <button onClick={openModal} className={"text-center"}>
+                <button onClick={()=>{
+                    setIsOpen(row)
+                }} className={"text-center"}>
                     Sharh qoldirish
                 </button>
 
-                {isOpen &&
+                {Boolean(isOpen) &&
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
                         <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
                             <div className={"flex justify-between items-center "}>
@@ -315,7 +317,7 @@ const Index = () => {
 
                             <button
                                 className={"bg-blue-500 hover:bg-blue-600 active:bg-blue-400 mt-[30px] text-white w-full text-lg py-2 rounded-[6px]"}
-                                onClick={() => handleSendComment({row})}>Yuborish
+                                onClick={() => handleSendComment(isOpen)}>Yuborish
                             </button>
                         </div>
                     </div>
