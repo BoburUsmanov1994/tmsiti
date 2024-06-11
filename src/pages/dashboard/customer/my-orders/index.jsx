@@ -45,6 +45,8 @@ const Index = () => {
     const [hoverRatingCompany, setHoverRatingCompany] = useState(0);
 
 
+    console.log(isOpen,"ISOPEN")
+
 
     const handleClick = (ratingValue) => {
         setRating(ratingValue);
