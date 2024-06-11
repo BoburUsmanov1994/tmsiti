@@ -13,6 +13,7 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import dayjs from "dayjs";
 import Title from "@/components/title";
 import {config} from "@/config";
+import { saveAs } from 'file-saver';
 
 
 
@@ -38,6 +39,10 @@ const Index = () => {
         listKeyId: "company-info-one",
     });
 
+
+    const downloadFile = (data)=>{
+        saveAs(data, "hello-world.xlsx")
+    }
 
 
     const handleSendOrderStatus = (id, selectStatus) => {
@@ -295,7 +300,9 @@ const Index = () => {
 
             <div className="p-7">
                 <a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white transition-all duration-400"}
-                   href={`${downloadExcel?.data}`} download>
+                  onClick={()=>{
+                       downloadFile(downloadExcel?.data)
+                }}>
                 <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>
                     yuklab olish
                 </a>
