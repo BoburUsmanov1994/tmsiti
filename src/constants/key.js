@@ -19,6 +19,7 @@ export const KEYS = {
   signup: "signup",
   changePassword: "changepassword",
   resendVerificationCode: "resendVerificationCode",
+  verifyEmail: "verifyEmail",
   getMe: "getMe",
   getCustomer: "getCustomer",
   login: "login",

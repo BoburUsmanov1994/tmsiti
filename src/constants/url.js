@@ -18,6 +18,7 @@ export const URLS = {
   signup: "api/cutomer/register/",
   changePassword: "api/passowrd/change/",
   resendVerificationCode: "api/resend-verification-code/",
+  verifyEmail: "api/verify-email/",
   getMe: "api/user",
   getCustomer: "api/customer",
   login: "api/login",

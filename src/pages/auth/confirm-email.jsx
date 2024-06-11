@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import AuthLayout from "../../layouts/auth";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
@@ -13,10 +13,24 @@ import { get } from "lodash";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import { useTranslation } from "react-i18next";
 
-const Login = () => {
+const ConfirmEmail = () => {
     const { t } = useTranslation();
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
+    const [seconds, setSeconds] = useState(105);
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+    useEffect(() => {
+        if (seconds > 0) {
+            const timerId = setInterval(() => {
+                setSeconds((prevSeconds) => prevSeconds - 1);
+            }, 1000);
+            return () => clearInterval(timerId);
+        } else {
+            setIsButtonDisabled(false);
+        }
+    }, [seconds]);
+
 
     const {
         register,
@@ -24,11 +38,11 @@ const Login = () => {
         watch,
         formState: { errors },
     } = useForm();
-    const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.signup})
+    const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.verifyEmail})
 
     const onSubmit = (data) => {
         signupRequest({
-                url: URLS.resendVerificationCode,
+                url: URLS.verifyEmail,
                 attributes: {...data}
             },
             {
@@ -46,38 +60,36 @@ const Login = () => {
         <AuthLayout>
             <h2 className={"text-center mb-7 text-2xl font-medium"}>Elektron pochtani tasdiqlash</h2>
             <form onSubmit={handleSubmit(onSubmit)} className={"text-left"}>
-                <div className={'mb-4'}>
-                    <label className={'block mb-1.5'} htmlFor="#">Email*</label>
-                    <input {...register("email", {required: true})}
-                           className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="text"/>
-                    {errors.email &&
-                        <span className={'text-xs text-red-500'}>{t("Ushbu qator to'ldirilishi shart")}</span>}
-                </div>
 
+                <p className={"block mb-2"} htmlFor="#">
+                    Elektron pochtaga kelgan kodni kiriting
+                </p>
+                <div className={"flex gap-x-8 mb-[30px]  items-center"}>
+                    <div className={" relative w-2/3"}>
 
-                <div className={"mb-4 relative"}>
-                    <label className={"block mb-1.5"} htmlFor="#">
-                        Pochtangizga yuborilgan parolni kiriting
-                    </label>
-                    <input
-                        {...register("password", {required: true})}
-                        className={
-                            "w-full shadow-input h-12 rounded-[5px] outline-none px-3"
-                        }
-                        type={showPassword ? "text" : "password"}
-                    />
-                    <button
-                        type="button"
-                        className="absolute top-[30px] px-3 bottom-0 right-0  flex items-center"
-                        onClick={() => setShowPassword(!showPassword)}
-                    >
-                        {showPassword ? '🔒' : '👁️'}
-                    </button>
-                    {errors.password && (
-                        <span className={"text-xs text-red-500"}>
-              {t("Ushbu qator to'ldirilishi shart")}
-            </span>
-                    )}
+                        <input
+                            {...register("password", {required: true})}
+                            className={
+                                "w-full shadow-input h-12 rounded-[5px] outline-none px-3"
+                            }
+                            type={showPassword ? "text" : "password"}
+                        />
+                        <button
+                            type="button"
+                            className={`absolute  px-3 bottom-0 right-0 ${errors.password ? "-top-[20px]" : 'top-0'} flex items-center`}
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? '🔒' : '👁️'}
+                        </button>
+                        {errors.password && (
+                            <span className={"text-xs text-red-500"}>
+                            {t("Ushbu qator to'ldirilishi shart")}
+                        </span>
+                        )}
+                    </div>
+                    {seconds === 0 ? <button className={"text-start text-sm bg-[#62B3FF] hover:bg-[#53ACFF] active:bg-[#3EA2FF] text-white rounded py-2 px-[10px]"}>Qayta jo'natish</button> : <div className={"w-1/3"}>
+                        <p>{Math.floor(seconds / 60)} : {('0' + (seconds % 60)).slice(-2)}</p>
+                    </div>}
                 </div>
 
 
@@ -96,4 +108,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default ConfirmEmail;
