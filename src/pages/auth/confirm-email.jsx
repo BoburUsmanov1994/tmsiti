@@ -82,7 +82,7 @@ const ConfirmEmail = () => {
                     <div className={" relative w-2/3"}>
                         <input
                             className={
-                                "w-full shadow-input h-12 rounded-[5px] mb-[20px] outline-none px-3 "
+                                "w-full hidden shadow-input h-12 rounded-[5px] mb-[20px] outline-none px-3 "
                             }
                             defaultValue={email}
 
