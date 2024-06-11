@@ -102,7 +102,7 @@ const Index = () => {
         const enteredProductCategory = row?.product_category;
         const selectedStars = rating
         const enteredComment = commentRef.current?.value;
-        const customer = +get(user, "data.id");
+        const customer = parseInt(get(user, "data.id"));
         const productId = parseInt(row?.ad_id);
         const enteredRatingCompany = ratingCompany
         const enteredCompanyStir = parseInt(row?.company)
@@ -310,13 +310,6 @@ const Index = () => {
                                         </label>
                                     );
                                 })}
-                            </div>
-
-
-                            <div key={index} className={"hidden"}>
-                                <p>{get(row, "product_category")}</p>
-                                <p>{get(row, "ad_id")}</p>
-                                <p>{get(row, "company")}</p>
                             </div>
 
                             <button

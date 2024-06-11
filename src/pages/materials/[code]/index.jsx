@@ -38,8 +38,6 @@ const ViewPage = () => {
   const [extractedData, setExtractedData] = useState(null);
   const [pdf, setPdf] = useState(null);
   const [inn, setInn] = useState(false);
-  const productCategoryRef = useRef(null);
-  const productIdRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false)
   const [postComments, setPostComments] = useState({})
   const token = useSettingsStore(state => get(state, 'token', null))
@@ -62,10 +60,6 @@ const ViewPage = () => {
 
 
   function handleListComment({item}) {
-
-
-    const enteredProductCategory = productCategoryRef.current?.textContent;
-    const productId = productIdRef.current?.textContent;
 
     fetch(`${config.API_URL}${URLS.customerComment}`, {
       method: "POST",
