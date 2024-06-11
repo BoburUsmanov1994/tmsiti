@@ -12,6 +12,7 @@ import { useSettingsStore } from "@/store";
 import { get } from "lodash";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import { useTranslation } from "react-i18next";
+import {OverlayLoader} from "@/components/loader";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -51,6 +52,7 @@ const Login = () => {
   };
   return (
     <AuthLayout>
+      {isLoading && <OverlayLoader />}
       <h2 className={"text-center mb-7 text-2xl font-medium"}>Kirish</h2>
       <form onSubmit={handleSubmit(onSubmit)} className={"text-left"}>
         <div className={"mb-4"}>
