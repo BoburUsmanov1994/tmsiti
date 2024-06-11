@@ -100,7 +100,7 @@ const Index = () => {
         listKeyId: "comment-one",
     });
 
-    const handleSendComment = ({row}) => {
+    const handleSendComment = (row) => {
         console.log(row,"ROEw")
         const enteredProductCategory = row?.product_category;
         const selectedStars = rating
@@ -319,7 +319,7 @@ const Index = () => {
 
                             <button
                                 className={"bg-blue-500 hover:bg-blue-600 active:bg-blue-400 mt-[30px] text-white w-full text-lg py-2 rounded-[6px]"}
-                                onClick={() => handleSendComment(isOpen)}>Yuborish
+                                onClick={() => handleSendComment({isOpen})}>Yuborish
                             </button>
                         </div>
                     </div>
