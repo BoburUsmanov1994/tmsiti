@@ -51,10 +51,10 @@ const Index = () => {
 
     }
 
-    function handleListComment() {
+    function handleListComment({row}) {
 
 
-        const enteredProductCategory = productCategoryRef.current?.textContent;
+        const enteredProductCategory = row.product_category;
         const productId = productIdRef.current?.textContent;
 
         fetch(`${config.API_URL}${URLS.customerComment}`, {
@@ -81,7 +81,7 @@ const Index = () => {
 
     const openModal = () => {
         setIsOpen(!isOpen)
-        handleListComment()
+
     }
 
 
@@ -195,6 +195,8 @@ const Index = () => {
                         </button>
 
                         <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
+                            <button onClick={() => handleListComment(row)}>Ko'rish</button>
+
                             <div key={index} className={"hidden"}>
                                 <p>{get(row, "id")}</p>
                                 <p>{get(row, "material_code") ? "material" : get(row, "mmechano_code") ? "mmechano" : get(row, "techno_code") ? "techno" : get(row, "smallmechano_code") ? "smallmechano" : get(row, "work_code") ? "work" : ""}</p>

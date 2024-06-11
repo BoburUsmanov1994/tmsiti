@@ -15,7 +15,7 @@ import GridView from "@/containers/grid-view";
 import { NumericFormat } from "react-number-format";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
-import { getOptionList } from "@/utils";
+import {findCategoryName, getOptionList} from "@/utils";
 import Link from "next/link";
 import {useCounter} from "@/context/counter";
 import {sum} from "lodash/math";
@@ -61,7 +61,7 @@ const ViewPage = () => {
 
 
 
-  function handleListComment() {
+  function handleListComment({item}) {
 
 
     const enteredProductCategory = productCategoryRef.current?.textContent;
@@ -70,8 +70,8 @@ const ViewPage = () => {
     fetch(`${config.API_URL}${URLS.customerComment}`, {
       method: "POST",
       body: JSON.stringify({
-        "product_category": enteredProductCategory,
-        "ad_id": parseInt(productId),
+        "product_category": findCategoryName(item),
+        "ad_id": parseInt(item.id),
       }),
       headers: {
         'Content-Type': 'application/json'
@@ -561,18 +561,16 @@ const ViewPage = () => {
                     onClick={toggleAccordion}
                     className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"
                 >
-                  <button onClick={handleListComment}>Buyurtmachilar fikri</button>
+
 
                   {get(materialAds, "data.results", []).map((item, index) =>
-                      <div key={index} className={"hidden"}>
-                        <button>Olish</button>
-                        <p ref={productIdRef}>{get(item, "id")}</p>
-                        <p ref={productCategoryRef}>{get(item, "material_code") ? "material" : get(item, "mmechano_code") ? "mmechano" : get(item, "techno_code") ? "techno" : get(item, "smallmechano_code") ? "smallmechano" : get(item, "work_code") ? "work" : ""}</p>
+                      <div key={index}>
+                        <button onClick={() => handleListComment({item})}>Buyurtmachilar fikri</button>
                       </div>
                   )}
 
                 </div>
-                {isOpen && <div className="p-3">
+                <div className="p-3">
 
                   {
                     extractedData?.map((item, index) =>
@@ -615,7 +613,7 @@ const ViewPage = () => {
                         </div>
                     )
                   }
-                </div>}
+                </div>
               </div>
             </div>
           </Section>
