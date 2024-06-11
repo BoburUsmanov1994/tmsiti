@@ -17,13 +17,16 @@ const ConfirmEmail = () => {
     const [seconds, setSeconds] = useState(105);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-    useEffect(() => {
-        if (!email) {
-            // Redirect back to signup page if no email is found in query params
-            router.push("/auth/signup");
-        }
-    }, [email, router]);
+    console.log(email)
 
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setValue,
+        formState: { errors },
+    } = useForm();
+    const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.verifyEmail})
 
     useEffect(() => {
         if (seconds > 0) {
@@ -37,18 +40,23 @@ const ConfirmEmail = () => {
     }, [seconds]);
 
 
-    const {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-    } = useForm();
-    const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.verifyEmail})
+    useEffect(() => {
+        if (!email) {
+            // Redirect back to signup page if no email is found in query params
+            router.push("/auth/signup");
+        } else {
+            // Set the email in the form's default values
+            setValue('email', email);
+        }
+    }, [email, router, setValue]);
 
     const onSubmit = (data) => {
         signupRequest({
                 url: URLS.verifyEmail,
-                attributes: {email, ...data}
+                attributes: {
+                    email: email,
+                    verification_code: parseInt(data.password)
+                }
             },
             {
                 onSuccess: () => {
@@ -74,9 +82,10 @@ const ConfirmEmail = () => {
                     <div className={" relative w-2/3"}>
                         <input
                             className={
-                                "w-full shadow-input h-12 rounded-[5px] mb-[20px] outline-none px-3 hidden"
+                                "w-full shadow-input h-12 rounded-[5px] mb-[20px] outline-none px-3 "
                             }
-                            value={email}
+                            defaultValue={email}
+
 
                         />
 
@@ -84,7 +93,7 @@ const ConfirmEmail = () => {
                         <input
                             {...register("password", {required: true})}
                             className={
-                                "w-full shadow-input h-12 rounded-[5px] outline-none px-3"
+                                "w-full shadow-input  h-12 rounded-[5px] outline-none px-3"
                             }
                             type={showPassword ? "text" : "password"}
                         />
