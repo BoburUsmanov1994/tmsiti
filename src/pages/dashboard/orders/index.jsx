@@ -25,9 +25,7 @@ const Index = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [extractedData, setExtractedData] = useState(null);
 
-    const openModal = () => {
-        setIsOpen(!isOpen)
-    }
+
 
     const {data: downloadExcel, isLoadingExcel} = useGetQuery({
         key: KEYS.orderExcel,
@@ -79,6 +77,11 @@ const Index = () => {
                 }
 
             })
+    }
+
+    const openModal = () => {
+        setIsOpen(!isOpen)
+        handleListComment()
     }
 
 
@@ -178,6 +181,8 @@ const Index = () => {
 
                 {isOpen &&
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+
+
                         <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
                             <div key={index} className={"hidden"}>
                                 <p>{get(row, "id")}</p>
