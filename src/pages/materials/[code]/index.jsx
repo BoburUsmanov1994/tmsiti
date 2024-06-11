@@ -141,9 +141,9 @@ const ViewPage = () => {
   });
 
   const {data: materialAds, isLoading: isLoadingMaterialAds} = useGetQuery({
-    key: KEYS.materialAds,
+    key: [KEYS.materialAds,code],
     url: `${URLS.materialAds}${code}/`,
-
+    enabled: !!code,
   })
 
 
@@ -177,7 +177,7 @@ const ViewPage = () => {
   }, Infinity)
 
 
-
+  console.log(materialAds,'materialAds')
   // const { data: gost, isLoading: isLoadingGost } = useGetQuery({
   //   key: KEYS.materialGost,
   //   url: URLS.materialGost,
@@ -557,7 +557,7 @@ const ViewPage = () => {
                 >
 
 
-                  {get(materialAds, "data.results", []).map((item, index) =>
+                  {get(materialAds, "data.results", [])?.map((item, index) =>
                       <div key={index}>
                         <button onClick={() => handleListComment({item})}>Buyurtmachilar fikri</button>
                       </div>

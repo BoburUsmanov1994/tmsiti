@@ -99,6 +99,7 @@ const Index = () => {
     });
 
     const handleSendComment = ({row}) => {
+        console.log(row,"ROEw")
         const enteredProductCategory = row?.product_category;
         const selectedStars = rating
         const enteredComment = commentRef.current?.value;
