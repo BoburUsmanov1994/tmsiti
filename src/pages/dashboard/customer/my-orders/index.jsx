@@ -105,7 +105,7 @@ const Index = () => {
         const customer = +get(user, "data.id");
         const productId = parseInt(row?.ad_id);
         const enteredRatingCompany = ratingCompany
-        const enteredCompanyStir = row?.company
+        const enteredCompanyStir = parseInt(row?.company)
 
         const commentInfo = {
             product_category: enteredProductCategory,
