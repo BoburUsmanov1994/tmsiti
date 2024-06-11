@@ -229,7 +229,7 @@ const Index = () => {
         {
             title: "Sharh qoldirish",
             key: "",
-            render: ({row, index}) => <div className={""}>
+            render: ({row, index}) => <div key={index} className={""}>
                 <button onClick={openModal} className={"text-center"}>
                     Sharh qoldirish
                 </button>
