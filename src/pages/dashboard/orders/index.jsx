@@ -1,8 +1,8 @@
-import React, {useState, useTransition} from 'react';
+import React, {useRef, useState, useTransition} from 'react';
 import Dashboard from "@/layouts/dashboard";
 import Subheader from "@/layouts/dashboard/components/subheader";
 import Link from "next/link";
-import {get} from "lodash";
+import {get, parseInt} from "lodash";
 import {useTranslation} from "react-i18next";
 import GridView from "@/containers/grid-view";
 import {KEYS} from "@/constants/key";
@@ -11,6 +11,8 @@ import usePostQuery from "@/hooks/api/usePostQuery";
 import Image from "next/image";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import dayjs from "dayjs";
+import Title from "@/components/title";
+import {config} from "@/config";
 
 
 
@@ -18,6 +20,14 @@ import dayjs from "dayjs";
 const Index = () => {
     const { t } = useTranslation();
     const [pageSize, setPageSize] = useState(48);
+    const productCategoryRef = useRef(null);
+    const productIdRef = useRef(null);
+    const [isOpen, setIsOpen] = useState(false)
+    const [extractedData, setExtractedData] = useState(null);
+
+    const openModal = () => {
+        setIsOpen(!isOpen)
+    }
 
     const {data: downloadExcel, isLoadingExcel} = useGetQuery({
         key: KEYS.orderExcel,
@@ -41,6 +51,34 @@ const Index = () => {
             }
         })
 
+    }
+
+    function handleListComment() {
+
+
+        const enteredProductCategory = productCategoryRef.current?.textContent;
+        const productId = productIdRef.current?.textContent;
+
+        fetch(`${config.API_URL}${URLS.customerComment}`, {
+            method: "POST",
+            body: JSON.stringify({
+                "product_category": enteredProductCategory,
+                "ad_id": parseInt(productId),
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => response.json())
+            .then((data) => {
+                const extractedData = data; // replace 'someSpecificField' with the actual field name
+                console.log(extractedData);
+                if (Array.isArray(extractedData)) {
+                    setExtractedData(extractedData);
+                } else {
+                    console.error("Extracted data is not an array:", extractedData);
+                }
+
+            })
     }
 
 
@@ -130,6 +168,107 @@ const Index = () => {
 
 
         },
+        {
+            title: "Sharhni ko'rish",
+            key: "",
+            render: ({row, index}) => <div className={""}>
+                <button onClick={openModal} className={"text-center"}>
+                    Sharh qoldirish
+                </button>
+
+                {isOpen &&
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+                        <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
+                            <div key={index} className={"hidden"}>
+                                <p>{get(row, "id")}</p>
+                                <p>{get(row, "material_code") ? "material" : get(row, "mmechano_code") ? "mmechano" : get(row, "techno_code") ? "techno" : get(row, "smallmechano_code") ? "smallmechano" : get(row, "work_code") ? "work" : ""}</p>
+                            </div>
+
+
+                            {
+                                extractedData?.map((item, index) =>
+                                    <div key={index} className={"border mb-[10px] shadow rounded-[10px]"}>
+                                        <div className={"flex gap-x-2 p-2 font-bold"}>
+                                            <p>{get(item, "first_name")}</p>
+                                            <p>{get(item, "last_name")}</p>
+                                        </div>
+
+                                        <p className={"text-lg mb-[15px]"}>Mahsulotga berilgan baho</p>
+                                        <div className={"mb-[30px]"} style={{display: 'flex', flexDirection: 'row'}}>
+                                            {[...Array(get(item, "rating"))].map((star, index) => {
+
+                                                return (
+                                                    <label key={index} style={{display: 'inline-block'}}>
+                                                        <input
+                                                            type="radio"
+                                                            name="rating"
+                                                            value={get(item, "rating")}
+                                                            style={{display: 'none'}}
+                                                        />
+                                                        <svg
+                                                            className="star"
+                                                            width="25"
+                                                            height="25"
+                                                            viewBox="0 0 24 24"
+                                                            fill={"#ffd700"}
+                                                            fill={"#ffd700"}
+
+                                                        >
+                                                            <polygon
+                                                                points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8"/>
+                                                        </svg>
+                                                    </label>
+                                                );
+                                            })}
+                                        </div>
+
+                                        <div className={"w-full mt-[10px] min-h-[10vh] p-2"}>
+                                            <p>{get(item, "comment")}</p>
+                                        </div>
+
+
+                                        <p className={"text-lg mb-[15px]"}>Yetkazib beruvchiga berilgan baho</p>
+                                        <div style={{display: 'flex', flexDirection: 'row'}}>
+                                            {[...Array(get(item, "rating"))].map((star, index) => {
+
+                                                return (
+                                                    <label key={index} style={{display: 'inline-block'}}>
+                                                        <input
+                                                            type="radio"
+                                                            name="rating"
+                                                            value={get(item, "rating")}
+                                                            style={{display: 'none'}}
+                                                        />
+                                                        <svg
+                                                            className="star"
+                                                            width="25"
+                                                            height="25"
+                                                            viewBox="0 0 24 24"
+                                                            fill={"#ffd700"}
+                                                            fill={"#ffd700"}
+
+                                                        >
+                                                            <polygon
+                                                                points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8"/>
+                                                        </svg>
+                                                    </label>
+                                                );
+                                            })}
+                                        </div>
+
+                                        <div className={"w-full mt-[10px] min-h-[10vh] p-2"}>
+                                            <p>{get(item, "comment")}</p>
+                                        </div>
+                                    </div>
+                                )
+                            }
+
+                        </div>
+                    </div>
+                }
+            </div>,
+
+        },
     ]
 
     return (
@@ -139,7 +278,7 @@ const Index = () => {
             <div className="p-7">
                 <a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white transition-all duration-400"}
                    href={`${downloadExcel?.data}`} download>
-                    <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>
+                <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>
                     yuklab olish
                 </a>
 

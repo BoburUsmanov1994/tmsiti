@@ -95,26 +95,27 @@ const Index = () => {
     const onSubmit = (e) => {
         e.preventDefault();
         forEach(entries(state), (item) => {
-            sendOrder({
-                url: URLS.sendOrders, attributes: {
-                    customer: parseInt(get(user, "data.id")),
-                    company_name: get(JSON.parse(head(item)), 'company_name'),
-                    product_category: findCategoryName(JSON.parse(head(item))),
-                    ad_id: get(JSON.parse(head(item)), 'id'),
-                    company: get(JSON.parse(head(item)), 'company_stir'),
-                    product_code: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_code`),
-                    product_name: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_name`),
-                    phone: get(user, "data.phone"),
-                    price: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item))) === 'mmechano' ? 'mmechano_rent' : findCategoryName(JSON.parse(head(item))) === "smallmechano" ? "smallmechano_rent" : findCategoryName(JSON.parse(head(item)))}_price`) * parseInt(last(item)),
-                    order_status: ORDER_STATUS.new_order,
-                    quantity: parseInt(last(item))
-                }
-            })
+
+            const attributes = {
+                customer: parseInt(get(user, "data.id")),
+                company_name: get(JSON.parse(head(item)), 'company_name'),
+                product_category: findCategoryName(JSON.parse(head(item))),
+                ad_id: get(JSON.parse(head(item)), 'id'),
+                company: get(JSON.parse(head(item)), 'company_stir'),
+                product_code: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_code`),
+                product_name: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_name`),
+                phone: get(user, "data.phone"),
+                price: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item))) === 'mmechano' ? 'mmechano_rent' : findCategoryName(JSON.parse(head(item))) === "smallmechano" ? "smallmechano_rent" : findCategoryName(JSON.parse(head(item)))}_price`) * parseInt(last(item)),
+                order_status: ORDER_STATUS.new_order,
+                quantity: parseInt(last(item))
+            }
+
+            sendOrder({ url: URLS.sendOrders, attributes: attributes })
         })
 
-        setFormState(initialFormState);
 
-        localStorage.setItem('formState', JSON.stringify(initialFormState));
+
+
     }
 
 

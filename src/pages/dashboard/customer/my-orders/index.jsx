@@ -229,7 +229,7 @@ const Index = () => {
         {
             title: "Sharh qoldirish",
             key: "",
-            render: ({row}) => <div className={""}>
+            render: ({row, index}) => <div className={""}>
                 <button onClick={openModal} className={"text-center"}>
                     Sharh qoldirish
                 </button>
@@ -313,7 +313,7 @@ const Index = () => {
                             </div>
 
 
-                            <div className={"hidden"}>
+                            <div key={index} className={"hidden"}>
                                 <p>{get(row, "product_category")}</p>
                                 <p>{get(row, "ad_id")}</p>
                                 <p>{get(row, "company")}</p>
