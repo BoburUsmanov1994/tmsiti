@@ -85,8 +85,6 @@ const ConfirmEmail = () => {
                                 "w-full hidden shadow-input h-12 rounded-[5px] mb-[20px] outline-none px-3 "
                             }
                             defaultValue={email}
-
-
                         />
 
 
