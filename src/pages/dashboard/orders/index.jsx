@@ -181,7 +181,18 @@ const Index = () => {
 
                 {isOpen &&
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
-
+                        <button onClick={() => setIsOpen(isOpen)}>
+                            <Image
+                                onClick={() => setItemId(null)}
+                                src={"/icons/closeModal.svg"}
+                                alt={"modalcloser"}
+                                width={24}
+                                height={24}
+                                className={
+                                    "float-right block cursor-pointer bg-white p-1 rounded-[2px]"
+                                }
+                            />
+                        </button>
 
                         <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
                             <div key={index} className={"hidden"}>
