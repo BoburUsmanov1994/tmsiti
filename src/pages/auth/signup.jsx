@@ -16,6 +16,8 @@ const Signup = () => {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.signup})
     const [showPassword, setShowPassword] = useState(false);
+
+
     const onSubmit = (data) => {
         signupRequest({
                 url: URLS.signup,
@@ -23,8 +25,11 @@ const Signup = () => {
             },
             {
                 onSuccess: () => {
-                    toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
-                    router.push("/auth/login")
+                    toast.success('Biz sizning elektron pochta manzilingizga tasdiqlash kodini yubordik', {position: 'top-right'})
+                    router.push({
+                        pathname: "/auth/confirm-email",
+                        query: { email: data.email }
+                    })
                 }
             })
 

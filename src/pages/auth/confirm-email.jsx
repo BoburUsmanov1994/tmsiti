@@ -1,24 +1,29 @@
 import React, {useEffect, useState} from "react";
 import AuthLayout from "../../layouts/auth";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
-import { useSettingsStore } from "@/store";
-import { get } from "lodash";
-import useGetQuery from "@/hooks/api/useGetQuery";
 import { useTranslation } from "react-i18next";
+import {OverlayLoader} from "@/components/loader";
 
 const ConfirmEmail = () => {
     const { t } = useTranslation();
     const router = useRouter();
+    const { email } = router.query;
     const [showPassword, setShowPassword] = useState(false);
     const [seconds, setSeconds] = useState(105);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+    useEffect(() => {
+        if (!email) {
+            // Redirect back to signup page if no email is found in query params
+            router.push("/auth/signup");
+        }
+    }, [email, router]);
+
 
     useEffect(() => {
         if (seconds > 0) {
@@ -43,11 +48,11 @@ const ConfirmEmail = () => {
     const onSubmit = (data) => {
         signupRequest({
                 url: URLS.verifyEmail,
-                attributes: {...data}
+                attributes: {email, ...data}
             },
             {
                 onSuccess: () => {
-                    toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
+                    toast.success('Muvaqqiyatli yakunlandi', {position: 'top-right'})
                     router.push("/auth/login")
                 }
             })
@@ -58,6 +63,7 @@ const ConfirmEmail = () => {
 
     return (
         <AuthLayout>
+            {isLoading && <OverlayLoader />}
             <h2 className={"text-center mb-7 text-2xl font-medium"}>Elektron pochtani tasdiqlash</h2>
             <form onSubmit={handleSubmit(onSubmit)} className={"text-left"}>
 
@@ -66,6 +72,15 @@ const ConfirmEmail = () => {
                 </p>
                 <div className={"flex gap-x-8 mb-[30px]  items-center"}>
                     <div className={" relative w-2/3"}>
+                        <input
+                            {...register("password", {required: true})}
+                            className={
+                                "w-full shadow-input h-12 rounded-[5px] outline-none px-3"
+                            }
+                            value={email}
+                            type={showPassword ? "text" : "password"}
+                        />
+
 
                         <input
                             {...register("password", {required: true})}
@@ -87,7 +102,9 @@ const ConfirmEmail = () => {
                         </span>
                         )}
                     </div>
-                    {seconds === 0 ? <button className={"text-start text-sm bg-[#62B3FF] hover:bg-[#53ACFF] active:bg-[#3EA2FF] text-white rounded py-2 px-[10px]"}>Qayta jo'natish</button> : <div className={"w-1/3"}>
+                    {seconds === 0 ? <button
+                        className={"text-start text-sm bg-[#62B3FF] hover:bg-[#53ACFF] active:bg-[#3EA2FF] text-white rounded py-2 px-[10px]"}>Qayta
+                        jo'natish</button> : <div className={"w-1/3"}>
                         <p>{Math.floor(seconds / 60)} : {('0' + (seconds % 60)).slice(-2)}</p>
                     </div>}
                 </div>
