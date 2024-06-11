@@ -63,7 +63,6 @@ const ConfirmEmail = () => {
 
     return (
         <AuthLayout>
-
             {isLoading && <OverlayLoader />}
             <h2 className={"text-center mb-7 text-2xl font-medium"}>Elektron pochtani tasdiqlash</h2>
             <form onSubmit={handleSubmit(onSubmit)} className={"text-left"}>
@@ -74,7 +73,6 @@ const ConfirmEmail = () => {
                 <div className={"flex gap-x-8 mb-[30px]  items-center"}>
                     <div className={" relative w-2/3"}>
                         <input
-                            {...register("email", {required: true})}
                             className={
                                 "w-full shadow-input h-12 rounded-[5px] mb-[20px] outline-none px-3 hidden"
                             }
