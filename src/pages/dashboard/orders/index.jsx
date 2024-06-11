@@ -40,7 +40,8 @@ const Index = () => {
     });
 
 
-    const downloadFile = (data)=>{
+    const downloadFile = (data,full)=>{
+        console.log(full,"FULL")
         saveAs(data, "hello-world.xlsx")
     }
 
@@ -301,7 +302,7 @@ const Index = () => {
             <div className="p-7">
                 <a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white transition-all duration-400"}
                   onClick={()=>{
-                       downloadFile(downloadExcel?.data)
+                       downloadFile(downloadExcel?.data , downloadExcel)
                 }}>
                 <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>
                     yuklab olish
