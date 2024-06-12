@@ -39,7 +39,7 @@ const ForgetPassword = () => {
                 url: URLS.confirmCode,
                 attributes: {
                     reset_code: reset_code,
-                    new_password: parseInt(data.new_password)
+                    new_password: data.new_password
                 }
             },
             {
