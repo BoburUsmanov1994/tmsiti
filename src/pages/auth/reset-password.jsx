@@ -10,10 +10,10 @@ import {useRouter} from "next/router";
 
 const Login = () => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
-    const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.changePassword})
+    const {mutate: changePassword, isLoading} = usePostQuery({listKeyId: KEYS.changePassword})
     const router = useRouter();
     const onSubmit = (data) => {
-        signupRequest({
+        changePassword({
                 url: URLS.changePassword,
                 attributes: {...data}
             },
