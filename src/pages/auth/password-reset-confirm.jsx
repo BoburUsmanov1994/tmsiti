@@ -20,7 +20,7 @@ const ForgetPassword = () => {
         setValue,
         formState: { errors },
     } = useForm();
-    const {mutate: confirmCodeForNewPassword, isLoading} = usePostQuery({listKeyId: KEYS.forgetPassword})
+    const {mutate: confirmCodeForNewPassword, isLoading} = usePostQuery({listKeyId: KEYS.newPasswordConfirm})
 
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const ForgetPassword = () => {
 
     const onSubmit = (data) => {
         confirmCodeForNewPassword({
-                url: URLS.confirmCode,
+                url: URLS.newPasswordConfirm,
                 attributes: {
                     reset_code: reset_code,
                     new_password: data.new_password
