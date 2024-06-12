@@ -16,7 +16,7 @@ import {config} from "@/config";
 import { saveAs } from 'file-saver';
 import {findCategoryName} from "@/utils";
 import * as XLSX from "xlsx";
-import {fetchData} from "next-auth/client/_utils";
+
 
 
 
@@ -51,7 +51,7 @@ const Index = () => {
         };
 
         fetchData();
-    }, [fetchData]);
+    }, [downloadExcel]);
 
 
 

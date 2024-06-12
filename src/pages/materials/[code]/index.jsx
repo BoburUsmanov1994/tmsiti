@@ -242,7 +242,7 @@ const ViewPage = () => {
             />
           </abbr>
           {pdf ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-20">
-            <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
+            <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto ">
               <div className={"mt-[10px]"}>
                 <button onClick={() => setIsOpen(!isOpen)} className={"float-right"}>
                   <Image
