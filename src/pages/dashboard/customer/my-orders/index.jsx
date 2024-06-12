@@ -44,10 +44,6 @@ const Index = () => {
     const [hover, setHover] = useState(0);
     const [hoverRatingCompany, setHoverRatingCompany] = useState(0);
 
-
-    console.log(isOpen,"ISOPEN")
-
-
     const handleClick = (ratingValue) => {
         setRating(ratingValue);
         ratingValue = ratingValueRef.current?.value;
@@ -120,7 +116,7 @@ const Index = () => {
             rating_company: enteredRatingCompany
         }
 
-        console.log(row.product_category)
+
 
         setComments(commentInfo)
 

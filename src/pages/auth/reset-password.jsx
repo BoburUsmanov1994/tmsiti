@@ -2,7 +2,6 @@ import React from 'react';
 import AuthLayout from "../../layouts/auth";
 import {useForm} from "react-hook-form";
 import Link from "next/link";
-import {signIn} from "next-auth/react";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
@@ -44,7 +43,7 @@ const Login = () => {
 
                 <div className="text-center">
                     <button
-                        className={'bg-[#017EFA] rounded-[5px] text-white text-xl font-medium py-2.5 px-7'}>Kirish
+                        className={'bg-[#017EFA] rounded-[5px] text-white text-xl font-medium py-2.5 px-7'}>Yuborish
                     </button>
                 </div>
                 <div className="mt-5 text-center">
