@@ -24,8 +24,6 @@ import {fetchData} from "next-auth/client/_utils";
 const Index = () => {
     const { t } = useTranslation();
     const [pageSize, setPageSize] = useState(48);
-    const productCategoryRef = useRef(null);
-    const productIdRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false)
     const [extractedData, setExtractedData] = useState(null);
     const [data, setData] = useState([]);

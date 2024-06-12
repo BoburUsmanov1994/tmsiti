@@ -244,23 +244,22 @@ const ViewPage = () => {
           {pdf ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-20">
             <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
               <div className={"mt-[10px]"}>
+                <button onClick={() => setIsOpen(!isOpen)} className={"float-right"}>
+                  <Image
+
+                      src={"/icons/closeModal.svg"}
+                      alt={"modalcloser"}
+                      width={30}
+                      height={30}
+                      className={
+                        "float-right block cursor-pointer bg-white p-1 rounded-[2px]"
+                      }
+                  />
+                </button>
                 <div className={"flex justify-between"}>
 
                   <Link className={" bg-blue-500 w-full text-white py-2 px-4 rounded-[6px] "}
                         href={`${pdf}`}>Ko'rish</Link>
-
-                  <button onClick={() => setIsOpen(!isOpen)}>
-                    <Image
-
-                        src={"/icons/closeModal.svg"}
-                        alt={"modalcloser"}
-                        width={24}
-                        height={24}
-                        className={
-                          "float-right block cursor-pointer bg-white p-1 rounded-[2px]"
-                        }
-                    />
-                  </button>
                 </div>
               </div>
             </div>
