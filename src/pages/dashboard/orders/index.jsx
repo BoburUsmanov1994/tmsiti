@@ -198,7 +198,7 @@ const Index = () => {
                         </button>
 
                         <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
-                            <button onClick={() => handleListComment(row)}>Ko'rish</button>
+                            <button onClick={() => handleListComment({row})}>Ko'rish</button>
 
 
 
