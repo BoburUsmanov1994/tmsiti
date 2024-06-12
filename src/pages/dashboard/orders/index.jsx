@@ -183,7 +183,7 @@ const Index = () => {
                 </button>
 
                 {isOpen &&
-                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-transparent bg-opacity-30">
                         <button onClick={() => setIsOpen(!isOpen)}>
                             <Image
 
@@ -239,7 +239,7 @@ const Index = () => {
                                             })}
                                         </div>
 
-                                        <div className={"w-full mt-[10px] min-h-[10vh] p-2"}>
+                                        <div className={"w-full mt-[10px]  p-2"}>
                                             <p>{get(item, "comment")}</p>
                                         </div>
 
