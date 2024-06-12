@@ -63,7 +63,7 @@ const Index = () => {
         fetch(`${config.API_URL}${URLS.customerComment}`, {
             method: "POST",
             body: JSON.stringify({
-                "product_category": row?.product_category,
+                "product_category": "material",
                 "ad_id": 47257,
             }),
             headers: {
