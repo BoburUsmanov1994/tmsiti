@@ -35,7 +35,7 @@ const Index = () => {
         url: URLS.orderListCompany
     })
 
-    console.log(downloadExcel)
+
 
     useEffect(() => {
         // Fetch data from API when component mounts
@@ -219,7 +219,7 @@ const Index = () => {
                         <div
                             className="bg-white p-8 rounded shadow-md w-[700px] h-[500px] overflow-y-scroll flex flex-col">
                             <div className={"flex justify-between items-center"}>
-                                <button className={"text-lg "} onClick={() => handleListComment({row})}>Ko'rish</button>
+                                <button className={"text-lg "} onClick={() => handleListComment(row)}>Ko'rish</button>
 
                                 <button onClick={() => setIsOpen(!isOpen)}>
                                     <Image
