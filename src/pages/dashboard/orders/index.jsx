@@ -70,7 +70,7 @@ const Index = () => {
         const blob = new Blob([wbout], { type: 'application/octet-stream' });
 
         // Use FileSaver.js to save the Blob as an Excel file
-        saveAs(blob, 'data.xlsx');
+        saveAs(blob, 'order.xlsx');
     };
 
 
@@ -215,7 +215,7 @@ const Index = () => {
                 </button>
 
                 {isOpen &&
-                    <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-smbg-transparent bg-opacity-30">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-transparent bg-opacity-30">
                         <div
                             className="bg-white p-8 rounded shadow-md w-[700px] h-[500px] overflow-y-scroll flex flex-col">
                             <div className={"flex justify-between items-center"}>

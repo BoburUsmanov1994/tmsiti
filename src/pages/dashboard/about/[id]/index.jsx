@@ -30,7 +30,7 @@ const Index = () => {
 
     const { data, isLoadingCompanyInfo } = useGetQuery({
         key: KEYS.aboutCompany,
-        url: URLS.aboutCompany
+        url: URLS.  aboutCompany
     })
 
 

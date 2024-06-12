@@ -244,14 +244,27 @@ const ViewPage = () => {
           {pdf ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-20">
             <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
               <div className={"mt-[10px]"}>
+                <div className={"flex justify-between"}>
 
-                        <Link className={" bg-blue-500 w-full text-white py-2 px-4 rounded-[6px] "}
-                              href={`${pdf}`}>Ko'rish</Link>
+                  <Link className={" bg-blue-500 w-full text-white py-2 px-4 rounded-[6px] "}
+                        href={`${pdf}`}>Ko'rish</Link>
+
+                  <button onClick={() => setIsOpen(!isOpen)}>
+                    <Image
+
+                        src={"/icons/closeModal.svg"}
+                        alt={"modalcloser"}
+                        width={24}
+                        height={24}
+                        className={
+                          "float-right block cursor-pointer bg-white p-1 rounded-[2px]"
+                        }
+                    />
+                  </button>
+                </div>
               </div>
             </div>
-          </div> : <ul className="text-left text-white hidden group-hover:block absolute left-full bottom-full p-2.5 bg-[#3D7AB6] w-[200px] rounded shadow-[5px_5px_15px_rgba(0, 0, 0, 0.1)]">
-            <li>{t("Ma’lumot mavjud emas")}</li>
-          </ul>}
+          </div> : ""}
 
         </div>
       ),
