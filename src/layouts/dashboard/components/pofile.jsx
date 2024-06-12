@@ -42,7 +42,7 @@ const Pofile = () => {
 
             <div>
                 {get(session, "user.role") === "company" ?
-                    <Link href={"/auth/reset-password"}> <span className={'mr-3'}>{get(user, 'data.company_ceo')}</span></Link> :
+                    <span className={'mr-3'}>{get(user, 'data.company_ceo')}</span> :
                     get(session, "user.role") === "customer" ?
                         <Link href={"/auth/reset-password"}><span
                             className={'mr-3'}>{get(customer, 'data.first_name')} {get(customer, 'data.last_name')}</span></Link> : ""}

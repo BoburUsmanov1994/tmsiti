@@ -12,14 +12,20 @@ const Login = () => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.changePassword})
     const router = useRouter();
-    const onSubmit = (data) => {
+    const onSubmit = ({
+                          old_password,
+                          new_password
+                      }) => {
+        let formData = new FormData();
+        formData.append("old_password", old_password);
+        formData.append("new_password", new_password);
         signupRequest({
                 url: URLS.changePassword,
-                attributes: {...data}
+                attributes: {formData}
             },
             {
                 onSuccess: () => {
-                    toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
+                    toast.success('Parol o\'zgartirildi', {position: 'top-right'})
                     router.push('/dashboard')
                 }
             })
@@ -49,10 +55,7 @@ const Login = () => {
                         className={'bg-[#017EFA] rounded-[5px] text-white text-xl font-medium py-2.5 px-7'}>Yuborish
                     </button>
                 </div>
-                <div className="mt-5 text-center">
-                    <Link className={'text-[#525D89] text-sm underline'} href={'/auth/signup'}>Ro’yhatdan
-                        o’tmaganmisiz?</Link>
-                </div>
+
             </form>
         </AuthLayout>
     );
