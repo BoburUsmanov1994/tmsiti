@@ -32,10 +32,12 @@ const Index = () => {
 
 
 
-    // const {data: downloadExcel, isLoadingExcel} = useGetQuery({
-    //     key: KEYS.orderExcel,
-    //     url: URLS.orderExcel
-    // })
+    const {data: downloadExcel, isLoadingExcel} = useGetQuery({
+        key: KEYS.orderListCompany,
+        url: URLS.orderListCompany
+    })
+
+    console.log(downloadExcel)
 
     useEffect(() => {
         // Fetch data from API when component mounts
