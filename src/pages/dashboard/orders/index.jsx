@@ -204,7 +204,7 @@ const Index = () => {
 
                             {
                                 extractedData?.map((item, index) =>
-                                    <div key={index} className={"border mb-[10px] shadow rounded-[10px]"}>
+                                    <div key={index} className={"border mb-[10px] h-[500px] overflow-y-scroll  shadow rounded-[10px]"}>
                                         <div className={"flex gap-x-2 p-2 font-bold"}>
                                             <p>{get(item, "first_name")}</p>
                                             <p>{get(item, "last_name")}</p>
