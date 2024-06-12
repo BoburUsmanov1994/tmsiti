@@ -184,23 +184,24 @@ const Index = () => {
 
                 {isOpen &&
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-transparent bg-opacity-30">
-                        <button onClick={() => setIsOpen(!isOpen)}>
-                            <Image
+                        <div
+                            className="bg-white p-8 rounded shadow-md w-[700px] h-[500px] overflow-y-scroll flex flex-col">
+                            <div className={"flex justify-between items-center"}>
+                                <button className={"text-lg "} onClick={() => handleListComment({row})}>Ko'rish</button>
 
-                                src={"/icons/closeModal.svg"}
-                                alt={"modalcloser"}
-                                width={24}
-                                height={24}
-                                className={
-                                    "float-right block cursor-pointer bg-white p-1 rounded-[2px]"
-                                }
-                            />
-                        </button>
+                                <button onClick={() => setIsOpen(!isOpen)}>
+                                    <Image
 
-                        <div className="bg-white p-8 rounded shadow-md w-[700px] h-[500px] overflow-y-scroll flex flex-col">
-                            <button onClick={() => handleListComment({row})}>Ko'rish</button>
-
-
+                                        src={"/icons/closeModal.svg"}
+                                        alt={"modalcloser"}
+                                        width={24}
+                                        height={24}
+                                        className={
+                                            "float-right block cursor-pointer bg-white p-1 rounded-[2px]"
+                                        }
+                                    />
+                                </button>
+                            </div>
 
                             {
                                 extractedData?.map((item, index) =>
@@ -210,8 +211,8 @@ const Index = () => {
                                             <p>{get(item, "last_name")}</p>
                                         </div>
 
-                                        <p className={"text-lg mb-[15px]"}>Mahsulotga berilgan baho</p>
-                                        <div className={"mb-[10px]"} style={{display: 'flex', flexDirection: 'row'}}>
+                                        <p className={"text-lg mb-[15px] p-2"}>Mahsulotga berilgan baho</p>
+                                        <div className={"mb-[10px] p-2"} style={{display: 'flex', flexDirection: 'row'}}>
                                             {[...Array(get(item, "rating"))].map((star, index) => {
 
                                                 return (
@@ -244,8 +245,8 @@ const Index = () => {
                                         </div>
 
                                         <div className={"w-full h-[1px] bg-gray-400 my-[20px]"}></div>
-                                        <p className={"text-lg mb-[15px]"}>Yetkazib beruvchiga berilgan baho</p>
-                                        <div style={{display: 'flex', flexDirection: 'row'}}>
+                                        <p className={"text-lg p-2 mb-[15px]"}>Yetkazib beruvchiga berilgan baho</p>
+                                        <div style={{display: 'flex', flexDirection: 'row', padding: "6px`"}}>
                                             {[...Array(get(item, "rating_company"))].map((star, index) => {
 
                                                 return (
@@ -291,9 +292,9 @@ const Index = () => {
 
             <div className="p-7">
                 <a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white transition-all duration-400"}
-                  onClick={()=>{
-                       downloadFile(downloadExcel?.data , downloadExcel)
-                }}>
+                   onClick={() => {
+                       downloadFile(downloadExcel?.data, downloadExcel)
+                   }}>
                 <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>
                     yuklab olish
                 </a>
