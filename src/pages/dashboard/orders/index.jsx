@@ -58,13 +58,13 @@ const Index = () => {
 
     }
 
-    function handleListComment({item}) {
+    function handleListComment({row}) {
 
         fetch(`${config.API_URL}${URLS.customerComment}`, {
             method: "POST",
             body: JSON.stringify({
-                "product_category": findCategoryName(item),
-                "ad_id": parseInt(item?.id),
+                "product_category": row?.product_category,
+                "ad_id": parseInt(row?.ad_id),
             }),
             headers: {
                 'Content-Type': 'application/json'
