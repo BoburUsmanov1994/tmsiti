@@ -39,7 +39,7 @@ const Login = () => {
                 <div className={'mb-4'}>
                     <label className={'block mb-1.5'} htmlFor="#">Yangi Parol</label>
                     <input {...register("new_password", {required: true})}
-                           className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="password"/>
+                           className={'w-full shadow-input h-12 rounded-[5px] outline-none px-3'} type="text"/>
                     {errors.password && <span className={'text-xs text-red-500'}>This field is required</span>}
                 </div>
 
