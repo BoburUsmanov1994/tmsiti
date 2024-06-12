@@ -32,7 +32,6 @@ const ViewPage = () => {
   const { t } = useTranslation();
   const {data: session} = useSession()
   const inputRef = useRef(null);
-  const [comments, setComments] = useState([])
   const token = useSettingsStore(state => get(state, 'token', null))
   const [pdf, setPdf] = useState(null);
   const [inn, setInn] = useState(false);
@@ -59,32 +58,9 @@ const ViewPage = () => {
   console.log(get(customer, "data.role"), "customer")
 
 
-  const submitComment = (e) => {
-    e.preventDefault();
-    const inputValue = inputRef.current?.value;
 
 
-    const firstName = get(customer, "data.first_name")
-    const lastName = get(customer, "data.last_name")
 
-    const info = {
-      inputValue,
-      firstName,
-      lastName
-    }
-    if (inputValue.trim()) {
-      const newComments = [...comments, info];
-      setComments(newComments);
-      localStorage.setItem('comments', JSON.stringify(newComments));
-      inputRef.current.value = ''; // Clear the input field after submission
-    }
-  }
-
-  const deleteComment = (index) => {
-    const newComments = comments.filter((_, i) => i !== index);
-    setComments(newComments);
-    localStorage.setItem('comments', JSON.stringify(newComments));
-  };
 
 
   const {data: technosAds, isLoading: isLoadingMaterialAds} = useGetQuery({
@@ -200,16 +176,29 @@ const ViewPage = () => {
               />
             </abbr>
             {pdf ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-20">
-              <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
-                <div className={"mt-[10px]"}>
+              <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex  flex-col">
+                <div>
+                  <button onClick={() => setPdf(null)} className={"float-right mb-[20px]"}>
+                    <Image
 
-                  <Link className={" bg-blue-500 w-full text-white py-2 px-4 rounded-[6px] "}
-                        href={`${pdf}`}>Ko'rish</Link>
+                        src={"/icons/closeModal.svg"}
+                        alt={"modalcloser"}
+                        width={30}
+                        height={30}
+                        className={
+                          "float-right  cursor-pointer bg-white  rounded-[2px]"
+                        }
+                    />
+                  </button>
                 </div>
+
+
+                <Link className={" bg-blue-500 w-full text-white py-2 px-4 rounded-[6px] "}
+                      href={`${pdf}`}>Ko'rish</Link>
+
+
               </div>
-            </div> : <ul className="text-left text-white hidden group-hover:block absolute left-full bottom-full p-2.5 bg-[#3D7AB6] w-[200px] rounded shadow-[5px_5px_15px_rgba(0, 0, 0, 0.1)]">
-              <li>{t("Ma’lumot mavjud emas")}</li>
-            </ul>}
+            </div> : ""}
 
           </div>
       ),
@@ -484,31 +473,7 @@ const ViewPage = () => {
               </div>
             </div>
           </Section>
-          <Section>
-            <div className={"bg-white p-4"}>
-              <Title>Sharh</Title>
-              <p className={"mb-[15px]"}>Mahsulot bo'yicha o'z fikringiz, taklifingiz yoki e'tirozlaringizni
-                qoldirishingiz mumkin</p>
-              {comments.map((comment, index) =>
-                  <div key={index} className={" w-full border mb-[30px] rounded-[6px] shadow-xl p-2"}>
-                    <p className={"text-sm text-gray-400"}>{get(comment, "firstName")} {get(comment, "lastName")}</p>
-                    <h1 className={"text-lg"}>{get(comment, "inputValue")}</h1>
-                    <button className={"bg-red-500 px-[30px] text-white text-sm mt-[50px] active:bg-red-400 hover:bg-red-600 rounded-[6px] py-[5px]"} onClick={() => deleteComment(index)}>O'chirish</button>
-                  </div>
-              )}
 
-
-
-              <form className={"flex gap-x-8"} onClick={submitComment}>
-
-                <input ref={inputRef} type={"text"} className={'w-2/3 border rounded-[6px] h-[50px] text-base px-2'}
-                       placeholder={"Izoh yozishingiz uchun joy"}/>
-                <button
-                    className={"w-1/3 border h-[50px] bg-[#62B3FF] text-white active:bg-blue-500 rounded-[6px]"}>Yuborish
-                </button>
-              </form>
-            </div>
-          </Section>
         </Main>
       </>
   );

@@ -6,10 +6,12 @@ import usePostQuery from "@/hooks/api/usePostQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
 import toast from "react-hot-toast";
+import {useRouter} from "next/router";
 
 const Login = () => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.changePassword})
+    const router = useRouter();
     const onSubmit = (data) => {
         signupRequest({
                 url: URLS.changePassword,
@@ -18,6 +20,7 @@ const Login = () => {
             {
                 onSuccess: () => {
                     toast.success('We have sent confirmation code to your email address', {position: 'top-right'})
+                    router.push('/dashboard')
                 }
             })
 

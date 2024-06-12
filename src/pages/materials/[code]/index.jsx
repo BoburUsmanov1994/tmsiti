@@ -566,67 +566,67 @@ const ViewPage = () => {
                 />
               </div>
 
-              <div className="border col-span-12 border-gray-300 rounded mb-2 mt-[50px]">
-                <div
-                    onClick={toggleAccordion}
-                    className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"
-                >
+              {/*<div className="border col-span-12 border-gray-300 rounded mb-2 mt-[50px]">*/}
+              {/*  <div*/}
+              {/*      onClick={toggleAccordion}*/}
+              {/*      className="cursor-pointer bg-gray-100 p-3 font-bold flex justify-between items-center"*/}
+              {/*  >*/}
 
 
-                  {get(materialAds, "data.results", [])?.map((item, index) =>
-                      <div key={index}>
-                        <button onClick={() => handleListComment({item})}>Buyurtmachilar fikri</button>
-                      </div>
-                  )}
+              {/*    {get(materialAds, "data.results", [])?.map((item, index) =>*/}
+              {/*        <div key={index}>*/}
+              {/*          <button onClick={() => handleListComment({item})}>Buyurtmachilar fikri</button>*/}
+              {/*        </div>*/}
+              {/*    )}*/}
 
-                  {isOpen ? "-" : "+"}
+              {/*    {isOpen ? "-" : "+"}*/}
 
-                </div>
-                {isOpen && <div className="p-3">
+              {/*  </div>*/}
+              {/*  {isOpen && <div className="p-3">*/}
 
-                  {
-                    extractedData?.map((item, index) =>
-                        <div key={index} className={"border mb-[10px] shadow rounded-[10px]"}>
-                          <div className={"flex gap-x-2 p-2 font-bold"}>
-                            <p>{get(item, "first_name")}</p>
-                            <p>{get(item, "last_name")}</p>
-                          </div>
+              {/*    {*/}
+              {/*      extractedData?.map((item, index) =>*/}
+              {/*          <div key={index} className={"border mb-[10px] shadow rounded-[10px]"}>*/}
+              {/*            <div className={"flex gap-x-2 p-2 font-bold"}>*/}
+              {/*              <p>{get(item, "first_name")}</p>*/}
+              {/*              <p>{get(item, "last_name")}</p>*/}
+              {/*            </div>*/}
 
-                          <div style={{display: 'flex', flexDirection: 'row'}} className={"p-2 shadow"}>
-                            {[...Array(get(item, "rating"))].map((star, index) => {
+              {/*            <div style={{display: 'flex', flexDirection: 'row'}} className={"p-2 shadow"}>*/}
+              {/*              {[...Array(get(item, "rating"))].map((star, index) => {*/}
 
-                              return (
-                                  <label key={index} style={{display: 'inline-block'}}>
-                                    <input
-                                        type="radio"
-                                        name="rating"
-                                        value={get(item, "rating")}
-                                        style={{display: 'none'}}
-                                    />
-                                    <svg
-                                        className="star"
-                                        width="25"
-                                        height="25"
-                                        viewBox="0 0 24 24"
-                                        fill={"#ffd700"}
-                                        fill={"#ffd700"}
+              {/*                return (*/}
+              {/*                    <label key={index} style={{display: 'inline-block'}}>*/}
+              {/*                      <input*/}
+              {/*                          type="radio"*/}
+              {/*                          name="rating"*/}
+              {/*                          value={get(item, "rating")}*/}
+              {/*                          style={{display: 'none'}}*/}
+              {/*                      />*/}
+              {/*                      <svg*/}
+              {/*                          className="star"*/}
+              {/*                          width="25"*/}
+              {/*                          height="25"*/}
+              {/*                          viewBox="0 0 24 24"*/}
+              {/*                          fill={"#ffd700"}*/}
+              {/*                          fill={"#ffd700"}*/}
 
-                                    >
-                                      <polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8"/>
-                                    </svg>
-                                  </label>
-                              );
-                            })}
-                          </div>
+              {/*                      >*/}
+              {/*                        <polygon points="12,2 15,8 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,8"/>*/}
+              {/*                      </svg>*/}
+              {/*                    </label>*/}
+              {/*                );*/}
+              {/*              })}*/}
+              {/*            </div>*/}
 
-                          <div className={"w-full mt-[10px] min-h-[10vh] p-2"}>
-                            <p>{get(item, "comment")}</p>
-                          </div>
-                        </div>
-                    )
-                  }
-                </div>}
-              </div>
+              {/*            <div className={"w-full mt-[10px] min-h-[10vh] p-2"}>*/}
+              {/*              <p>{get(item, "comment")}</p>*/}
+              {/*            </div>*/}
+              {/*          </div>*/}
+              {/*      )*/}
+              {/*    }*/}
+              {/*  </div>}*/}
+              {/*</div>*/}
             </div>
           </Section>
 

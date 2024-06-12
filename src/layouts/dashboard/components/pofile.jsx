@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 import useGetQuery from "../../../hooks/api/useGetQuery";
 import {KEYS} from "@/constants/key";
 import {URLS} from "@/constants/url";
+import Link from "next/link";
 
 const Pofile = () => {
     const {data: session} = useSession();
@@ -41,9 +42,10 @@ const Pofile = () => {
 
             <div>
                 {get(session, "user.role") === "company" ?
-                    <span className={'mr-3'}>{get(user, 'data.company_ceo')}</span> :
+                    <Link href={"/auth/reset-password"}> <span className={'mr-3'}>{get(user, 'data.company_ceo')}</span></Link> :
                     get(session, "user.role") === "customer" ?
-                    <span className={'mr-3'}>{get(customer, 'data.first_name')} {get(customer, 'data.last_name')}</span> : ""}
+                        <Link href={"/auth/reset-password"}><span
+                            className={'mr-3'}>{get(customer, 'data.first_name')} {get(customer, 'data.last_name')}</span></Link> : ""}
                 <button className={'block text-base'} onClick={() => signOut({callbackUrl: "/"})}>
                     {t('Logout')}
                 </button>
