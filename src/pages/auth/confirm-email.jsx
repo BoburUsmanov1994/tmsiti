@@ -27,7 +27,7 @@ const ConfirmEmail = () => {
         formState: { errors },
     } = useForm();
     const {mutate: verifying, isLoading} = usePostQuery({listKeyId: KEYS.verifyEmail})
-    const {mutate: resendCode, isLoading} = usePostQuery({listKeyId: KEYS.resendVerificationCode})
+    // const {mutate: resendCode, isLoading} = usePostQuery({listKeyId: KEYS.resendVerificationCode})
 
     useEffect(() => {
         if (seconds > 0) {
@@ -67,19 +67,19 @@ const ConfirmEmail = () => {
             })
 
     };
-
-    const resendCode = (data) => {
-        verifying({
-                url: URLS.resendVerificationCode,
-                attributes: {...data}
-            },
-            {
-                onSuccess: () => {
-                    toast.success('Muvaqqiyatli yuborildi', {position: 'top-right'})
-
-                }
-            })
-    }
+    //
+    // const resendCode = (data) => {
+    //     verifying({
+    //             url: URLS.resendVerificationCode,
+    //             attributes: {...data}
+    //         },
+    //         {
+    //             onSuccess: () => {
+    //                 toast.success('Muvaqqiyatli yuborildi', {position: 'top-right'})
+    //
+    //             }
+    //         })
+    // }
 
 
     return (
@@ -122,7 +122,7 @@ const ConfirmEmail = () => {
                         )}
                     </div>
                     {seconds === 0 ? <button
-                        className={"text-start text-sm bg-[#62B3FF] hover:bg-[#53ACFF] active:bg-[#3EA2FF] text-white rounded py-2 px-[10px]"} onSubmit={handleSubmit(resendCode)}>Qayta
+                        className={"text-start text-sm bg-[#62B3FF] hover:bg-[#53ACFF] active:bg-[#3EA2FF] text-white rounded py-2 px-[10px]"}>Qayta
                         jo'natish</button> : <div className={"w-1/3"}>
                         <p>{Math.floor(seconds / 60)} : {('0' + (seconds % 60)).slice(-2)}</p>
                     </div>}
