@@ -53,12 +53,24 @@ const Index = () => {
     }, [downloadExcel]);
 
 
+    const dataExcel = [
+        {
+            ad_id: 47257,
+            company: "310037819",
+            company_name: "QURILISHDA TEXNIK ME'YORLASH VA STANDARTLASHTIRISH ILMIY-TADQIQOT INSTITUTI DM",
+            create_at: "2024-06-10T12:55:29.887576+05:00",
+            customer: 36,
+            first_name: "Durdona",
+            id: 69,
+            last_name: "Raximova"
+        },
 
+    ]
 
 
     const handleDownload = () => {
 
-        const ws = XLSX.utils.json_to_sheet(data);
+        const ws = XLSX.utils.json_to_sheet(dataExcel);
 
         // Create a new workbook and append the worksheet
         const wb = XLSX.utils.book_new();
