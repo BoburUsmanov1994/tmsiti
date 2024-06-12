@@ -210,13 +210,11 @@ const Index = () => {
             title: "Sharhni ko'rish",
             key: "",
             render: ({row, index}) => <div className={""}>
-                <button onClick={()=>{
-                    setIsOpen(row)
-                }} className={"text-center"}>
+                <button onClick={openModal} className={"text-center"}>
                     Ko'rish
                 </button>
 
-                {Boolean(isOpen) &&
+                {isOpen &&
                     <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-smbg-transparent bg-opacity-30">
                         <div
                             className="bg-white p-8 rounded shadow-md w-[700px] h-[500px] overflow-y-scroll flex flex-col">
