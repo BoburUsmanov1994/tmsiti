@@ -41,7 +41,7 @@ const Index = () => {
         // Fetch data from API when component mounts
         const fetchData = async () => {
             try {
-                const response = await fetch(`${URLS.orderExcel}`);
+                const response = await fetch(`${config.API_URL}${URLS.orderExcel}`);
                 const result = await response.json();
                 console.log(result)
                 setData(result);
