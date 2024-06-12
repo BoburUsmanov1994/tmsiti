@@ -214,12 +214,12 @@ const Index = () => {
                     Ko'rish
                 </button>
 
-                {isOpen &&
+                {Boolean(isOpen) &&
                     <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-transparent bg-opacity-30">
                         <div
                             className="bg-white p-8 rounded shadow-md w-[700px] h-[500px] overflow-y-scroll flex flex-col">
                             <div className={"flex justify-between items-center"}>
-                                <button className={"text-lg "} onClick={() => handleListComment(row)}>Ko'rish</button>
+                                <button className={"text-lg "} onClick={() => handleListComment(isOpen)}>Ko'rish</button>
 
                                 <button onClick={() => setIsOpen(!isOpen)}>
                                     <Image
