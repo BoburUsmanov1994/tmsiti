@@ -216,8 +216,8 @@ const Index = () => {
                 {Boolean(isOpen) &&
                     <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-transparent bg-opacity-30">
                         <div
-                            className="bg-white p-8 rounded shadow-md w-[700px] h-[500px] overflow-y-scroll flex flex-col">
-                            <div className={"flex justify-between items-center"}>
+                            className="bg-white p-8 rounded shadow-md w-[700px] h-[800px] overflow-y-scroll flex flex-col">
+                            <div className={"flex justify-between items-center mb-[30px]"}>
                                 <button className={"text-lg "} onClick={() => handleListComment(isOpen)}>Ko'rish</button>
 
                                 <button onClick={() => setIsOpen(!isOpen)}>
@@ -236,7 +236,7 @@ const Index = () => {
 
                             {
                                 extractedData?.map((item, index) =>
-                                    <div key={index} className={"border mb-[10px] shadow rounded-[10px]"}>
+                                    <div key={index} className={"border mb-[20px] shadow rounded-[10px]"}>
                                         <div className={"flex gap-x-2 p-2 font-bold"}>
                                             <p>{get(item, "first_name")}</p>
                                             <p>{get(item, "last_name")}</p>
@@ -277,7 +277,7 @@ const Index = () => {
 
                                         <div className={"w-full h-[1px] bg-gray-400 my-[20px]"}></div>
                                         <p className={"text-lg p-2 mb-[15px]"}>Yetkazib beruvchiga berilgan baho</p>
-                                        <div style={{display: 'flex', flexDirection: 'row', padding: "6px`"}}>
+                                        <div style={{display: 'flex', flexDirection: 'row'}} className={"p-2"}>
                                             {[...Array(get(item, "rating_company"))].map((star, index) => {
 
                                                 return (
