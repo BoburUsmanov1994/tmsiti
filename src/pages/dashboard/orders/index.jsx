@@ -43,6 +43,7 @@ const Index = () => {
             try {
                 const response = await fetch(`${URLS.orderExcel}`);
                 const result = await response.json();
+                console.log(result)
                 setData(result);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -324,16 +325,9 @@ const Index = () => {
             <Subheader title={"Buyurtmalar"}/>
 
             <div className="p-7">
-                {/*<a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white transition-all duration-400"}*/}
-                {/*   onClick={() => {*/}
-                {/*       downloadFile(downloadExcel?.data, downloadExcel)*/}
-                {/*   }}>*/}
-                {/*    <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>*/}
-                {/*    yuklab olish*/}
-                {/*</a>*/}
-
-                <button onClick={handleDownload}>
-                    Download Excel
+                <button className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white transition-all duration-400"} onClick={handleDownload}>
+                    <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>
+                    yuklab olish
                 </button>
 
 
