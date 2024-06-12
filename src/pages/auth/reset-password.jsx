@@ -12,16 +12,10 @@ const Login = () => {
     const {register, handleSubmit, watch, formState: {errors}} = useForm();
     const {mutate: signupRequest, isLoading} = usePostQuery({listKeyId: KEYS.changePassword})
     const router = useRouter();
-    const onSubmit = ({
-                          old_password,
-                          new_password
-                      }) => {
-        let formData = new FormData();
-        formData.append("old_password", old_password);
-        formData.append("new_password", new_password);
+    const onSubmit = (data) => {
         signupRequest({
                 url: URLS.changePassword,
-                attributes: {formData}
+                attributes: {...data}
             },
             {
                 onSuccess: () => {
