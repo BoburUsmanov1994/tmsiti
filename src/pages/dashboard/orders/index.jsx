@@ -41,8 +41,7 @@ const Index = () => {
         // Fetch data from API when component mounts
         const fetchData = async () => {
             try {
-                const response = get(downloadExcel, "data.results", []);
-                const result = await response.json();
+                const result = get(downloadExcel, "data.results", []);
                 console.log(result)
                 setData(result);
             } catch (error) {
