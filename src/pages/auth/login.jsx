@@ -100,7 +100,7 @@ const Login = () => {
         <div className="mb-8">
           <Link
               className={"text-[#525D89] text-sm"}
-              href={"/auth/reset-password"}
+              href={"/auth/forget-password"}
           >
             {t("Parolni unitdingizmi")}
           </Link>
