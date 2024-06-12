@@ -38,7 +38,8 @@ const ViewPage = () => {
   const [extractedData, setExtractedData] = useState(null);
   const [pdf, setPdf] = useState(null);
   const [inn, setInn] = useState(false);
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+
   const [postComments, setPostComments] = useState({})
   const token = useSettingsStore(state => get(state, 'token', null))
 
@@ -242,9 +243,9 @@ const ViewPage = () => {
             />
           </abbr>
           {pdf ? <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-20">
-            <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto ">
-              <div className={"mt-[10px]"}>
-                <button onClick={() => setIsOpen(!isOpen)} className={"float-right"}>
+            <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex  flex-col">
+              <div>
+                <button onClick={() => setPdf(null)} className={"float-right mb-[20px]"}>
                   <Image
 
                       src={"/icons/closeModal.svg"}
@@ -252,16 +253,17 @@ const ViewPage = () => {
                       width={30}
                       height={30}
                       className={
-                        "float-right block cursor-pointer bg-white p-1 rounded-[2px]"
+                        "float-right  cursor-pointer bg-white  rounded-[2px]"
                       }
                   />
                 </button>
-                <div className={"flex justify-between"}>
-
-                  <Link className={" bg-blue-500 w-full text-white py-2 px-4 rounded-[6px] "}
-                        href={`${pdf}`}>Ko'rish</Link>
-                </div>
               </div>
+
+
+              <Link className={" bg-blue-500 w-full text-white py-2 px-4 rounded-[6px] "}
+                    href={`${pdf}`}>Ko'rish</Link>
+
+
             </div>
           </div> : ""}
 
