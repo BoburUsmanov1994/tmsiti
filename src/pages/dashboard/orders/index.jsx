@@ -64,7 +64,7 @@ const Index = () => {
             method: "POST",
             body: JSON.stringify({
                 "product_category": row?.product_category,
-                "ad_id": parseInt(row?.id),
+                "ad_id": parseInt(row?.ad_id),
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -185,7 +185,7 @@ const Index = () => {
                 </button>
 
                 {Boolean(isOpen) &&
-                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-transparent bg-opacity-30">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-md bg-transparent bg-opacity-30">
                         <div
                             className="bg-white p-8 rounded shadow-md w-[700px] h-[500px] overflow-y-scroll flex flex-col">
                             <div className={"flex justify-between items-center"}>
