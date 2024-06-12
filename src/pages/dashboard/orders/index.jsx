@@ -14,6 +14,7 @@ import dayjs from "dayjs";
 import Title from "@/components/title";
 import {config} from "@/config";
 import { saveAs } from 'file-saver';
+import {findCategoryName} from "@/utils";
 
 
 
@@ -57,17 +58,13 @@ const Index = () => {
 
     }
 
-    function handleListComment({row}) {
-
-
-        const enteredProductCategory = row.product_category;
-        const productId = productIdRef.current?.textContent;
+    function handleListComment({item}) {
 
         fetch(`${config.API_URL}${URLS.customerComment}`, {
             method: "POST",
             body: JSON.stringify({
-                "product_category": enteredProductCategory,
-                "ad_id": parseInt(productId),
+                "product_category": findCategoryName(item),
+                "ad_id": parseInt(item?.id),
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -182,14 +179,14 @@ const Index = () => {
             key: "",
             render: ({row, index}) => <div className={""}>
                 <button onClick={openModal} className={"text-center"}>
-                    Sharh qoldirish
+                    Ko'rish
                 </button>
 
                 {isOpen &&
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
-                        <button onClick={() => setIsOpen(isOpen)}>
+                        <button onClick={() => setIsOpen(!isOpen)}>
                             <Image
-                                onClick={() => setItemId(null)}
+
                                 src={"/icons/closeModal.svg"}
                                 alt={"modalcloser"}
                                 width={24}
@@ -203,10 +200,6 @@ const Index = () => {
                         <div className="bg-white p-8 rounded shadow-md w-[700px] h-auto flex flex-col">
                             <button onClick={() => handleListComment(row)}>Ko'rish</button>
 
-                            <div key={index} className={"hidden"}>
-                                <p>{get(row, "id")}</p>
-                                <p>{get(row, "material_code") ? "material" : get(row, "mmechano_code") ? "mmechano" : get(row, "techno_code") ? "techno" : get(row, "smallmechano_code") ? "smallmechano" : get(row, "work_code") ? "work" : ""}</p>
-                            </div>
 
 
                             {
@@ -253,14 +246,14 @@ const Index = () => {
 
                                         <p className={"text-lg mb-[15px]"}>Yetkazib beruvchiga berilgan baho</p>
                                         <div style={{display: 'flex', flexDirection: 'row'}}>
-                                            {[...Array(get(item, "rating"))].map((star, index) => {
+                                            {[...Array(get(item, "rating_company"))].map((star, index) => {
 
                                                 return (
                                                     <label key={index} style={{display: 'inline-block'}}>
                                                         <input
                                                             type="radio"
                                                             name="rating"
-                                                            value={get(item, "rating")}
+                                                            value={get(item, "rating_company")}
                                                             style={{display: 'none'}}
                                                         />
                                                         <svg

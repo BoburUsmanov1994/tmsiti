@@ -123,7 +123,9 @@ const ViewPage = () => {
       duration: 3000,
       position: "top-left"
     });
-  };
+  }
+
+
 
 
   const { data: currency } = useGetQuery({
@@ -169,11 +171,11 @@ const ViewPage = () => {
   const averagePrice = +(totalPrice / get(materialAds, "data.results", []).length).toFixed(2)
 
   const maxPrice = get(materialAds, "data.results", []).reduce((max, obj) => {
-    return obj["material_price"] * get(currency, `data[${obj["material_price_currency"]}]`, 1) > max ? obj["material_price"] * get(currency, `data[${obj["material_price_currency"]}]`, 1) : max
+    return (obj["material_price"] * get(currency, `data[${obj["material_price_currency"]}]`, 1)).toFixed(2) > max ? (obj["material_price"] * get(currency, `data[${obj["material_price_currency"]}]`, 1)).toFixed(2) : max
   }, 0)
 
   const minPrice = get(materialAds, "data.results", []).reduce((min, obj) => {
-    return obj["material_price"] * get(currency, `data[${obj["material_price_currency"]}]`, 1) < min ? obj["material_price"] * get(currency, `data[${obj["material_price_currency"]}]`, 1) : min
+    return (obj["material_price"] * get(currency, `data[${obj["material_price_currency"]}]`, 1)).toFixed(2) < min ? (obj["material_price"] * get(currency, `data[${obj["material_price_currency"]}]`, 1)).toFixed(2) : min
   }, Infinity)
 
 
@@ -563,8 +565,10 @@ const ViewPage = () => {
                       </div>
                   )}
 
+                  {isOpen ? "-" : "+"}
+
                 </div>
-                <div className="p-3">
+                {isOpen && <div className="p-3">
 
                   {
                     extractedData?.map((item, index) =>
@@ -607,7 +611,7 @@ const ViewPage = () => {
                         </div>
                     )
                   }
-                </div>
+                </div>}
               </div>
             </div>
           </Section>
