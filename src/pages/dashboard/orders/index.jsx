@@ -211,7 +211,7 @@ const Index = () => {
                                         </div>
 
                                         <p className={"text-lg mb-[15px]"}>Mahsulotga berilgan baho</p>
-                                        <div className={"mb-[30px]"} style={{display: 'flex', flexDirection: 'row'}}>
+                                        <div className={"mb-[10px]"} style={{display: 'flex', flexDirection: 'row'}}>
                                             {[...Array(get(item, "rating"))].map((star, index) => {
 
                                                 return (
@@ -243,7 +243,7 @@ const Index = () => {
                                             <p>{get(item, "comment")}</p>
                                         </div>
 
-
+                                        <div className={"w-full h-[1px] bg-gray-400 my-[20px]"}></div>
                                         <p className={"text-lg mb-[15px]"}>Yetkazib beruvchiga berilgan baho</p>
                                         <div style={{display: 'flex', flexDirection: 'row'}}>
                                             {[...Array(get(item, "rating_company"))].map((star, index) => {
@@ -273,9 +273,6 @@ const Index = () => {
                                             })}
                                         </div>
 
-                                        <div className={"w-full mt-[10px] min-h-[10vh] p-2"}>
-                                            <p>{get(item, "comment")}</p>
-                                        </div>
                                     </div>
                                 )
                             }
