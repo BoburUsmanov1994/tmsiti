@@ -1,4 +1,4 @@
-import React, {useRef, useState, useTransition} from 'react';
+import React, {useEffect, useRef, useState, useTransition} from 'react';
 import Dashboard from "@/layouts/dashboard";
 import Subheader from "@/layouts/dashboard/components/subheader";
 import Link from "next/link";
@@ -15,6 +15,8 @@ import Title from "@/components/title";
 import {config} from "@/config";
 import { saveAs } from 'file-saver';
 import {findCategoryName} from "@/utils";
+import * as XLSX from "xlsx";
+import {fetchData} from "next-auth/client/_utils";
 
 
 
@@ -26,25 +28,54 @@ const Index = () => {
     const productIdRef = useRef(null);
     const [isOpen, setIsOpen] = useState(false)
     const [extractedData, setExtractedData] = useState(null);
+    const [data, setData] = useState([]);
 
 
 
-    const {data: downloadExcel, isLoadingExcel} = useGetQuery({
-        key: KEYS.orderExcel,
-        url: URLS.orderExcel
-    })
+    // const {data: downloadExcel, isLoadingExcel} = useGetQuery({
+    //     key: KEYS.orderExcel,
+    //     url: URLS.orderExcel
+    // })
 
-    console.log(downloadExcel?.data);
+    useEffect(() => {
+        // Fetch data from API when component mounts
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${URLS.orderExcel}`);
+                const result = await response.json();
+                setData(result);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, [fetchData]);
+
+
+
+
+
+    const handleDownload = () => {
+
+        const ws = XLSX.utils.json_to_sheet(data);
+
+        // Create a new workbook and append the worksheet
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+        // Write the workbook to a binary array and create a Blob
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([wbout], { type: 'application/octet-stream' });
+
+        // Use FileSaver.js to save the Blob as an Excel file
+        saveAs(blob, 'data.xlsx');
+    };
+
 
     const { mutate: sendOrderStatus, isLoading } = usePostQuery({
         listKeyId: "company-info-one",
     });
-
-
-    const downloadFile = (data,full)=>{
-        console.log(full,"FULL")
-        saveAs(data, "hello-world.xlsx")
-    }
 
 
     const handleSendOrderStatus = (id, selectStatus) => {
@@ -293,13 +324,17 @@ const Index = () => {
             <Subheader title={"Buyurtmalar"}/>
 
             <div className="p-7">
-                <a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white transition-all duration-400"}
-                   onClick={() => {
-                       downloadFile(downloadExcel?.data, downloadExcel)
-                   }}>
-                <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>
-                    yuklab olish
-                </a>
+                {/*<a className={" items-center gap-x-2 inline-flex py-2.5 px-5 min-w-[170px] mb-[30px] rounded-[10px] bg-green-500 hover:bg-green-600 active:bg-green-400 text-white transition-all duration-400"}*/}
+                {/*   onClick={() => {*/}
+                {/*       downloadFile(downloadExcel?.data, downloadExcel)*/}
+                {/*   }}>*/}
+                {/*    <Image src={'/images/excel.png'} alt={"excel"} width={40} height={40}/>*/}
+                {/*    yuklab olish*/}
+                {/*</a>*/}
+
+                <button onClick={handleDownload}>
+                    Download Excel
+                </button>
 
 
                 <GridView columns={columns} key={KEYS.orderListCompany} url={URLS.orderListCompany}

@@ -113,9 +113,6 @@ const Index = () => {
             sendOrder({ url: URLS.sendOrders, attributes: attributes })
         })
 
-
-
-
     }
 
 
