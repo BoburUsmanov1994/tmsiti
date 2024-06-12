@@ -64,7 +64,7 @@ const Index = () => {
             method: "POST",
             body: JSON.stringify({
                 "product_category": row?.product_category,
-                "ad_id": parseInt(row?.ad_id),
+                "ad_id": 47257,
             }),
             headers: {
                 'Content-Type': 'application/json'
