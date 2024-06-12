@@ -63,8 +63,8 @@ const Index = () => {
         fetch(`${config.API_URL}${URLS.customerComment}`, {
             method: "POST",
             body: JSON.stringify({
-                "product_category": "material",
-                "ad_id": 47257,
+                "product_category": row?.product_category,
+                "ad_id": parseInt(row?.id),
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -178,16 +178,18 @@ const Index = () => {
             title: "Sharhni ko'rish",
             key: "",
             render: ({row, index}) => <div className={""}>
-                <button onClick={openModal} className={"text-center"}>
+                <button onClick={()=>{
+                    setIsOpen(row)
+                }} className={"text-center"}>
                     Ko'rish
                 </button>
 
-                {isOpen &&
+                {Boolean(isOpen) &&
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-transparent bg-opacity-30">
                         <div
                             className="bg-white p-8 rounded shadow-md w-[700px] h-[500px] overflow-y-scroll flex flex-col">
                             <div className={"flex justify-between items-center"}>
-                                <button className={"text-lg "} onClick={() => handleListComment({row})}>Ko'rish</button>
+                                <button className={"text-lg "} onClick={() => handleListComment(isOpen)}>Ko'rish</button>
 
                                 <button onClick={() => setIsOpen(!isOpen)}>
                                     <Image
