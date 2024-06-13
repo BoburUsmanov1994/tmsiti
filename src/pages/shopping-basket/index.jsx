@@ -121,7 +121,7 @@ const Index = () => {
 
                     onError: () => {
                         if(attributes.customer === null) {
-                            toast.success("Iltimos ro'yxatdan o'ting!", {
+                            toast.error("Iltimos ro'yxatdan o'ting!", {
                                 position: "top-center",
                             });
                         }
