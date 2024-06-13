@@ -110,7 +110,24 @@ const Index = () => {
                 quantity: parseInt(last(item))
             }
 
-            sendOrder({ url: URLS.sendOrders, attributes: attributes })
+            sendOrder({ url: URLS.sendOrders, attributes: attributes },
+                {
+                    onSuccess: () => {
+                        toast.success("Jarayon muvafaqqiyatli yakunlandi!", {
+                            position: "top-center",
+                        });
+
+                    },
+
+                    onError: () => {
+                        if(attributes.customer === null || attributes.phone === "") {
+                            toast.success("Iltimos ro'yxatdan o'ting!", {
+                                position: "top-center",
+                            });
+                        }
+                    }
+                },
+            )
         })
 
     }
