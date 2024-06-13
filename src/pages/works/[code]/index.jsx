@@ -222,7 +222,7 @@ const ViewPage = () => {
       title: t("Narxi(so`m)"),
       key: "work_price",
       render: ({ value, row }) =>
-        value * get(currency, `data[${get(row, "techno_price_currency")}]`, 1) >
+        value * get(currency, `data[${get(row, "work_price_currency")}]`, 1) >
         0 ? (
           <NumericFormat
             displayType={"text"}

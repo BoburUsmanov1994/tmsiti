@@ -105,7 +105,7 @@ const Index = () => {
                 product_code: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_code`),
                 product_name: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_name`),
                 phone: get(user, "data.phone"),
-                price: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item))) === 'mmechano' ? 'mmechano_rent' : findCategoryName(JSON.parse(head(item))) === "smallmechano" ? "smallmechano_rent" : findCategoryName(JSON.parse(head(item)))}_price`) * parseInt(last(item)),
+                price: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item))) === 'mmechano' ? 'mmechano_rent' : findCategoryName(JSON.parse(head(item))) === "smallmechano" ? "smallmechano_rent" : findCategoryName(JSON.parse(head(item)))}_price`),
                 order_status: ORDER_STATUS.new_order,
                 quantity: parseInt(last(item))
             }
@@ -257,33 +257,40 @@ const Index = () => {
                                                 <NumericFormat
                                                     displayType={"text"}
                                                     thousandSeparator={" "}
-                                                    value={get(JSON.parse(head(item)), "material_price", 0) * last(item)}
-                                                    suffix={` / ${get(JSON.parse(head(item)), "material_measure")}`}
+                                                    value={(get(JSON.parse(head(item)), "material_price", 0) * last(item) * get(currency, `data[${get(JSON.parse(head(item)), "material_price_currency")}]`, 1,)).toFixed(2)}
+                                                    suffix={` so'm / ${get(JSON.parse(head(item)), "material_measure")}`}
                                                 />
                                             </p>
                                             <p className={`${isEmpty(get(JSON.parse(head(item)), "techno_name")) ? "hidden" : "visible"}`}>
                                                 <NumericFormat
                                                     displayType={"text"}
                                                     thousandSeparator={" "}
-
-                                                    value={get(JSON.parse(head(item)), "techno_price", 0) * last(item)}
-                                                    suffix={` / ${get(JSON.parse(head(item)), "techno_measure")}`}
+                                                    value={(get(JSON.parse(head(item)), "techno_price", 0) * last(item) * get(currency, `data[${get(JSON.parse(head(item)), "techno_price_currency")}]`, 1,)).toFixed(2)}
+                                                    suffix={` so'm / ${get(JSON.parse(head(item)), "techno_measure")}`}
                                                 />
                                             </p>
                                             <p className={`${isEmpty(get(JSON.parse(head(item)), "mmechano_name")) ? "hidden" : "visible"}`}>
                                                 <NumericFormat
                                                     displayType={"text"}
                                                     thousandSeparator={" "}
-                                                    value={get(JSON.parse(head(item)), "mmechano_rent_price", 0) * last(item)}
-                                                    suffix={` / ${get(JSON.parse(head(item)), "mmechano_measure")}`}
+                                                    value={(get(JSON.parse(head(item)), "mmechano_rent_price", 0) * last(item) * get(currency, `data[${get(JSON.parse(head(item)), "mmechano_rent_price_currency")}]`, 1,)).toFixed(2)}
+                                                    suffix={` so'm / ${get(JSON.parse(head(item)), "mmechano_measure")}`}
                                                 />
                                             </p>
                                             <p className={`${isEmpty(get(JSON.parse(head(item)), "smallmechano_name")) ? "hidden" : "visible"}`}>
                                                 <NumericFormat
                                                     displayType={"text"}
                                                     thousandSeparator={" "}
-                                                    value={get(JSON.parse(head(item)), "smallmechano_rent_price", 0) * last(item)}
-                                                    suffix={` / ${get(JSON.parse(head(item)), "smallmechano_measure")}`}
+                                                    value={(get(JSON.parse(head(item)), "smallmechano_rent_price", 0) * last(item) * get(currency, `data[${get(JSON.parse(head(item)), "smallmechano_rent_price_currency")}]`, 1,)).toFixed(2)}
+                                                    suffix={` so'm / ${get(JSON.parse(head(item)), "smallmechano_measure")}`}
+                                                />
+                                            </p>
+                                            <p className={`${isEmpty(get(JSON.parse(head(item)), "work_name")) ? "hidden" : "visible"}`}>
+                                                <NumericFormat
+                                                    displayType={"text"}
+                                                    thousandSeparator={" "}
+                                                    value={(get(JSON.parse(head(item)), "work_price", 0) * last(item) * get(currency, `data[${get(JSON.parse(head(item)), "work_price_currency")}]`, 1,)).toFixed(2)}
+                                                    suffix={` so'm / ${get(JSON.parse(head(item)), "work_measure")}`}
                                                 />
                                             </p>
                                         </div>
