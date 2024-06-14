@@ -66,5 +66,6 @@ export const URLS = {
   customerComment: "order/rating_comment/list/customer/",
   sendComment: "order/rating_comment/create/customer/",
   orderRatingCompany: "order/rating/company",
-  orderExcel: "order/excel/"
+  orderExcel: "order/excel/",
+  machineMechanoExcel: "machines-mechanos/mmechno/2023/"
 };

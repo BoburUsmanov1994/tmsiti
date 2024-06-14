@@ -14,10 +14,32 @@ import ErrorPage from "@/pages/500";
 import { URLS } from "@/constants/url";
 import { useTranslation } from "react-i18next";
 import Template from "@/components/template";
+import GridView from "@/containers/grid-view";
 
 export default function MachinesMechanos() {
   const [pageSize, setPageSize] = useState(24);
   const [isActive, setIsActive] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleButton = () => {
+    setIsOpen(!isOpen)
+  }
+
+
+  const columns = [
+    {
+      title: "Nomi",
+      key: "mmechano_name",
+    },
+    {
+      title: "O'lchov birligi",
+      key: "mmechano_measure",
+    },
+    {
+      title: "Narxi",
+      key: "mmechano_name",
+    },
+  ]
 
   const handleClickFormat = (type) => {
     setIsActive(type);
@@ -79,15 +101,23 @@ export default function MachinesMechanos() {
             ))}
         </div>
         <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
-          <div className="col-span-12">
+          <div className="col-span-12 flex justify-between items-center">
             <Title>Ko‘p ko‘rilganlar</Title>
+
+            <button className={"bg-blue-500 text-white py-2 px-6 rounded-[6px] active:scale-90 transition-all duration-300"} onClick={toggleButton}>Jadval</button>
           </div>
 
-          <Template active={isActive} handleClickFormat={setIsActive} />
+          {isOpen &&
+              <div className={"col-span-12"}>
+                <GridView url={URLS.machineMechanoExcel} key={KEYS.machineMechanoExcel} columns={columns}/>
+              </div>
+          }
+
+          <Template active={isActive} handleClickFormat={setIsActive}/>
 
           {get(items, "results", []).map((item) => (
-            <div
-              key={get(item, "material_csr_code")}
+              <div
+                  key={get(item, "material_csr_code")}
               className={`${isActive === 1 && isActive === 2 && "col-span-3"} ${
                 isActive === 0 && "col-span-6"
               } col-span-3 mb-[30px] `}

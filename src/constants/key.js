@@ -51,5 +51,6 @@ export const KEYS = {
   orderListCustomer: "orderListCustomer",
   customerComment: "customerComment",
   orderRatingCompany: "orderRatingCompany",
-  orderExcel: "orderExcel"
+  orderExcel: "orderExcel",
+  machineMechanoExcel: "machineMechanoExcel"
 };
