@@ -15,6 +15,7 @@ import { URLS } from "@/constants/url";
 import { useTranslation } from "react-i18next";
 import Template from "@/components/template";
 import GridView from "@/containers/grid-view";
+import {NumericFormat} from "react-number-format";
 
 export default function MachinesMechanos() {
   const [pageSize, setPageSize] = useState(24);
@@ -37,7 +38,9 @@ export default function MachinesMechanos() {
     },
     {
       title: "Narxi",
-      key: "mmechano_name",
+      key: "mmechno_price",
+      render: ({row}) => <p><NumericFormat displayType={'text'} className={'text-center bg-transparent'}
+                                      thousandSeparator={' '} value={get(row, "mmechno_price")} suffix={" so'm"}/></p>
     },
   ]
 
