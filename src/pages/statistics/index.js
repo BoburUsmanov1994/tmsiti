@@ -540,7 +540,7 @@ export default function Home() {
           <div
               onClick={() => toggleTabs(1)}
               className={
-                "col-span-2 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+                `col-span-2 flex items-center ${tabs === 1 ? "bg-sky-700" : "bg-sky-500"} justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer  hover:bg-sky-600 transition-all duration-500 text-white`
               }
           >
             <Image
@@ -554,7 +554,7 @@ export default function Home() {
           <div
               onClick={() => toggleTabs(2)}
               className={
-                "col-span-2 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+                `col-span-2 flex items-center ${tabs === 2 ? "bg-sky-700" : "bg-sky-500"} justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer  hover:bg-sky-600 transition-all duration-500 text-white`
               }
           >
             <Image
@@ -569,7 +569,7 @@ export default function Home() {
           <div
               onClick={() => toggleTabs(3)}
               className={
-                "col-span-2 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+                `col-span-2 flex items-center ${tabs === 3 ? "bg-sky-700" : "bg-sky-500"} justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer  hover:bg-sky-600 transition-all duration-500 text-white`
               }
           >
             <Image
@@ -583,7 +583,7 @@ export default function Home() {
           <div
               onClick={() => toggleTabs(4)}
               className={
-                "col-span-2 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+                `col-span-2 flex items-center justify-center ${tabs === 4 ? "bg-sky-700" : "bg-sky-500"} flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer  hover:bg-sky-600 transition-all duration-500 text-white`
               }
           >
             <Image
@@ -597,7 +597,7 @@ export default function Home() {
           <div
               onClick={() => toggleTabs(5)}
               className={
-                "col-span-2 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+                `col-span-2 flex items-center justify-center ${tabs === 5 ? "bg-sky-700" : "bg-sky-500"} flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer  hover:bg-sky-600 transition-all duration-500 text-white`
               }
           >
             <Image
@@ -611,7 +611,7 @@ export default function Home() {
           <div
               onClick={() => toggleTabs(6)}
               className={
-                "col-span-2 flex items-center justify-center flex-col gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer bg-sky-500 hover:bg-sky-600 transition-all duration-500 text-white"
+                `col-span-2 flex items-center justify-center flex-col ${tabs === 6 ? "bg-sky-700" : "bg-sky-500"} gap-y-[10px] border-[2px]  min-h-[150px] rounded-[8px] cursor-pointer  hover:bg-sky-600 transition-all duration-500 text-white`
               }
           >
             <Image
