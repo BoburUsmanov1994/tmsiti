@@ -20,6 +20,9 @@ export default function Works() {
   const { t } = useTranslation();
   const [pageSize, setPageSize] = useState(24);
   const [isActive, setIsActive] = useState(0);
+  const [tab, setTab] = useState(1);
+
+
 
   const handleClickFormat = (type) => {
     setIsActive(type);
@@ -57,7 +60,21 @@ export default function Works() {
     <Main>
       <Menu active={3} />
       <Section>
-        <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 ">
+        <div className={"grid grid-cols-12 tablet:gap-x-8 gap-x-4"}>
+          <div className={"col-span-12 flex justify-center items-center gap-x-8"}>
+            <button onClick={() => setTab(1)}
+                className={`${tab === 1 ? "bg-blue-500 " :  "bg-white text-blue-500 border-blue-500 border-[1px]"} text-white py-2 px-6 rounded-[6px] active:scale-90 transition-all duration-300`}>
+              Hajm usuli
+            </button>
+            <button onClick={() => setTab(2)}
+                className={`bg-blue-500 ${tab === 2 ? "bg-blue-500 " :  "bg-white text-blue-500 border-blue-500 border-[1px]"} text-white py-2 px-6 rounded-[6px] active:scale-90 transition-all duration-300`}>
+              Resurs usuli
+            </button>
+          </div>
+        </div>
+      </Section>
+      <Section>
+        {tab === 1 && <div><div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 ">
           {!isEmpty(get(volumes, "results", [])) &&
             get(volumes, "results", []).map((volume) => (
               <div
@@ -108,6 +125,32 @@ export default function Works() {
             </span>
           </div>
         </div>
+        </div>
+        }
+      </Section>
+
+      <Section>
+        {tab === 2 &&
+            <div>
+              <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 ">
+                {!isEmpty(get(volumes, "results", [])) &&
+                    get(volumes, "results", []).map((volume) => (
+                        <div
+                            key={get(volume, "id")}
+                            className={
+                              "desktop:col-span-3 mobile:col-span-12 tablet:col-span-6 laptop:col-span-4 col-span-12 mb-5"
+                            }
+                        >
+                          <Category
+                              url={"works/category"}
+                              name={"category_name"}
+                              logo_url={"category_logo"}
+                              data={volume}
+                          />
+                        </div>
+                    ))}
+              </div>
+            </div>}
       </Section>
     </Main>
   );
@@ -117,10 +160,10 @@ export const getStaticProps = async (context) => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery([KEYS.categories], () =>
-    getCategories({ url: URLS.categories, params: { key: KEYS.works } }),
+      getCategories({url: URLS.categories, params: {key: KEYS.works}}),
   );
   await queryClient.prefetchQuery([KEYS.works], () =>
-    getMostOrdered({ url: URLS.works, params: { key: KEYS.viewCounts } }),
+      getMostOrdered({url: URLS.works, params: {key: KEYS.viewCounts}}),
   );
 
   return {

@@ -104,17 +104,26 @@ export default function MachinesMechanos() {
             ))}
         </div>
         <div className="grid grid-cols-12 tablet:gap-x-8 gap-x-4 mt-[30px] min-h-fit">
-          <div className="col-span-12 flex justify-between items-center">
-            <Title>Ko‘p ko‘rilganlar</Title>
+          <div className={"col-span-12 float-right"}>
+            <button
+                className={"bg-blue-500 text-white py-2 px-6 mb-[30px] rounded-[6px] active:scale-90 transition-all duration-300"}
+                onClick={toggleButton}>Jadval
+            </button>
 
-            <button className={"bg-blue-500 text-white py-2 px-6 rounded-[6px] active:scale-90 transition-all duration-300"} onClick={toggleButton}>Jadval</button>
+            {isOpen &&
+                <div className={"col-span-12"}>
+                  <Title>Mashina mexanizmlar uchun o'rtacha mash/soat narxlari ro'yxati</Title>
+                  <GridView url={URLS.machineMechanoExcel} key={KEYS.machineMechanoExcel} columns={columns}/>
+                </div>
+            }
+
           </div>
 
-          {isOpen &&
-              <div className={"col-span-12"}>
-                <GridView url={URLS.machineMechanoExcel} key={KEYS.machineMechanoExcel} columns={columns}/>
-              </div>
-          }
+          <div className="col-span-12 flex justify-between items-center">
+            <Title>Ko‘p ko‘rilganlar</Title>
+          </div>
+
+
 
           <Template active={isActive} handleClickFormat={setIsActive}/>
 

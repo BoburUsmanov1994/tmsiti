@@ -67,5 +67,7 @@ export const URLS = {
   sendComment: "order/rating_comment/create/customer/",
   orderRatingCompany: "order/rating/company",
   orderExcel: "order/excel/",
-  machineMechanoExcel: "machines-mechanos/mmechno/2023/"
+  machineMechanoExcel: "machines-mechanos/mmechno/2023/",
+  customs: "bojxona/list/",
+  technicTSA: "texnikjtsa/list/"
 };

@@ -22,6 +22,7 @@ import TemporaryProduct from "@/components/temporary_product";
 
 import { useRouter } from "next/router";
 import Link from "next/link";
+import GridView from "@/containers/grid-view";
 
 export default function Home() {
   const router = useRouter();
@@ -38,6 +39,76 @@ export default function Home() {
     setSelectedRegion(regionId);
     setRegionName(event.target.getAttribute("data-name"));
   };
+
+  const columnCustoms = [
+    {
+      title: "№",
+      key: "id",
+      render: ({ index }) => <span>{index}</span>,
+    },
+    {
+      title: "Kodi",
+      key: "codeTiftn",
+      classnames: "text-center"
+
+    },
+    {
+      title: "Massasi",
+      key: "netMass",
+      classnames: "text-center"
+
+    },
+    {
+      title: "Qiymati",
+      key: "value",
+      classnames: "text-center"
+
+    },
+    {
+      title: "Joylangan vaqti",
+      key: "create_date",
+      render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
+      classnames: "text-center"
+    },
+    {
+      title: "Kod nomi",
+      key: "codeName",
+      classnames: "text-center"
+    },
+
+  ]
+
+  const columnTSA = [
+    {
+      title: "№",
+      key: "id",
+      render: ({ index }) => <span>{index}</span>,
+    },
+    {
+      title: "Nomi",
+      key: "name"
+    },
+    {
+      title: "GOST",
+      key: "gost"
+    },
+    {
+      title: "Sxema",
+      key: "sxema"
+    },
+    {
+      title: "Kompaniya nomi",
+      key: "company_name"
+    },
+    {
+      title: "Narxi",
+      key: "price"
+    },
+    {
+      title: "Davlat",
+      key: "country",
+    }
+  ]
 
   const closeRegion = () => {
     setSelectedRegion(null);
@@ -56,6 +127,13 @@ export default function Home() {
     url: "https://cs.egov.uz/apiPartner/Table/Get?accessToken=65f171e8d204616a6824dc91&name=077-3-001&limit=50&offset=50&lang=1"
   })
 
+
+  const {data: customs, isLoadingCustoms} = useGetQuery({
+    key: KEYS.customs,
+    url: URLS.customs
+  })
+
+  console.log(customs)
 
 
 
@@ -744,6 +822,10 @@ export default function Home() {
                   O'zbekiston Respublikasi iqtisodiyot va moliya vazirligi huzuridagi bojxona qo'mitasi
                 </Title>
               </div>
+
+              <div className={"col-span-12"}>
+                  <GridView url={URLS.customs} key={KEYS.customs} columns={columnCustoms} />
+              </div>
             </div> : tabs === 5 ?
                 <div className={"grid grid-cols-12"}>
                   <div className={"col-span-12 my-[30px]"}>
@@ -751,10 +833,16 @@ export default function Home() {
                       O'zbekiston texnik jihatdan tartibga solish agentligi
                     </Title>
                   </div>
+
+                  <div className={"col-span-12"}>
+                    <GridView url={URLS.technicTSA} key={KEYS.technicTSA} columns={columnTSA}/>
+                  </div>
+
+
                 </div> : tabs === 6 ?
                     <div className={"grid grid-cols-12"}>
                       <div className={"col-span-12 my-[30px]"}>
-                        <Title>
+                      <Title>
                           O'zbekiston Respublikasi Vazirlar Mahkamasi huzuridagi Soliq qo'mitasi
                         </Title>
                       </div>
