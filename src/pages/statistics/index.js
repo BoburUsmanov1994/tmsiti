@@ -33,6 +33,7 @@ export default function Home() {
   const { t } = useTranslation();
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [regionName, setRegionName] = useState("");
+  const [dataStatistics, setDataStatistics] = useState([]);
 
   const handleRegionClick = (event) => {
     const regionId = event.target.id;
@@ -110,6 +111,28 @@ export default function Home() {
     }
   ]
 
+
+
+  useEffect(() => {
+    const fetchStatistics = async () => {
+      try {
+        const response = await fetch('/statistics-json/statistics.json');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setDataStatistics(data[0]); // Adjust based on your JSON structure
+      } catch (error) {
+        console.error('Failed to fetch the JSON data:', error);
+      }
+    };
+
+    fetchStatistics();
+  }, []);
+
+// Call the function
+
+
   const closeRegion = () => {
     setSelectedRegion(null);
   };
@@ -154,7 +177,7 @@ export default function Home() {
     enabled: !!regionName,
   });
 
-  console.log(get(region, "data.results"));
+
 
 
   return (
@@ -780,38 +803,285 @@ export default function Home() {
                     >
                       Nomi
                     </th>
+
+                    <th>Kodi</th>
+
                     <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
-                      Qiymati
+                      2010
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2011
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2012
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2013
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2014
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2015
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2016
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2017
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2018
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2019
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2020
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2021
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2022
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2023
+                    </th>
+                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                      2024
                     </th>
 
                   </tr>
                   </thead>
-                  {get(ministry, "data.result.data").map((stockItem, index) => (
+
+                  {get(dataStatistics, "data")?.map((stat, index) => (
                       <tbody key={index} className={"even:bg-white odd:bg-[#E2E6ED]"}>
                       <tr>
-                        <td className="border px-4 py-2">{get(stockItem, "CLASSIFIER CODE")}</td>
                         <td className="border px-4 py-2">
-                          {get(stockItem, "KINGA")}
-                        </td>
-
-                        <td className="border px-4 py-2">
-                          {get(stockItem, "RAZDEL")}
-                        </td>
-
-                        <td className="border px-4 py-2">
-                          {get(stockItem, "GROUP")}
-                        </td>
-
-                        <td className="border px-4 py-2">
-                          {get(stockItem, "RESURS")}
+                          {get(stat, "Klassifikator")}
                         </td>
 
                         <td className="border px-4 py-2 text-center">
-                          {get(stockItem, "UNIT MEASUREMENT")}
+                          {get(stat, "Code")}
                         </td>
+
+                        <td className="border px-4 py-2">
+                          {get(stat, "2010-М01")} <br/>
+                          {get(stat, "2010-М02")} <br/>
+                          {get(stat, "2010-М03")} <br/>
+                          {get(stat, "2010-М04")} <br/>
+                          {get(stat, "2010-М05")} <br/>
+                          {get(stat, "2010-М06")} <br/>
+                          {get(stat, "2010-М07")} <br/>
+                          {get(stat, "2010-М08")} <br/>
+                          {get(stat, "2010-М09")} <br/>
+                          {get(stat, "2010-М10")} <br/>
+                          {get(stat, "2010-М11")} <br/>
+                          {get(stat, "2010-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2011-М01")} <br/>
+                          {get(stat, "2011-М02")} <br/>
+                          {get(stat, "2011-М03")} <br/>
+                          {get(stat, "2011-М04")} <br/>
+                          {get(stat, "2011-М05")} <br/>
+                          {get(stat, "2011-М06")} <br/>
+                          {get(stat, "2011-М07")} <br/>
+                          {get(stat, "2011-М08")} <br/>
+                          {get(stat, "2011-М09")} <br/>
+                          {get(stat, "2011-М10")} <br/>
+                          {get(stat, "2011-М11")} <br/>
+                          {get(stat, "2011-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2012-М01")} <br/>
+                          {get(stat, "2012-М02")} <br/>
+                          {get(stat, "2012-М03")} <br/>
+                          {get(stat, "2012-М04")} <br/>
+                          {get(stat, "2012-М05")} <br/>
+                          {get(stat, "2012-М06")} <br/>
+                          {get(stat, "2012-М07")} <br/>
+                          {get(stat, "2012-М08")} <br/>
+                          {get(stat, "2012-М09")} <br/>
+                          {get(stat, "2012-М10")} <br/>
+                          {get(stat, "2012-М11")} <br/>
+                          {get(stat, "2012-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2013-М01")} <br/>
+                          {get(stat, "2013-М02")} <br/>
+                          {get(stat, "2013-М03")} <br/>
+                          {get(stat, "2013-М04")} <br/>
+                          {get(stat, "2013-М05")} <br/>
+                          {get(stat, "2013-М06")} <br/>
+                          {get(stat, "2013-М07")} <br/>
+                          {get(stat, "2013-М08")} <br/>
+                          {get(stat, "2013-М09")} <br/>
+                          {get(stat, "2013-М10")} <br/>
+                          {get(stat, "2013-М11")} <br/>
+                          {get(stat, "2013-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2014-М01")} <br/>
+                          {get(stat, "2014-М02")} <br/>
+                          {get(stat, "2014-М03")} <br/>
+                          {get(stat, "2014-М04")} <br/>
+                          {get(stat, "2014-М05")} <br/>
+                          {get(stat, "2014-М06")} <br/>
+                          {get(stat, "2014-М07")} <br/>
+                          {get(stat, "2014-М08")} <br/>
+                          {get(stat, "2014-М09")} <br/>
+                          {get(stat, "2014-М10")} <br/>
+                          {get(stat, "2014-М11")} <br/>
+                          {get(stat, "2014-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2015-М01")} <br/>
+                          {get(stat, "2015-М02")} <br/>
+                          {get(stat, "2015-М03")} <br/>
+                          {get(stat, "2015-М04")} <br/>
+                          {get(stat, "2015-М05")} <br/>
+                          {get(stat, "2015-М06")} <br/>
+                          {get(stat, "2015-М07")} <br/>
+                          {get(stat, "2015-М08")} <br/>
+                          {get(stat, "2015-М09")} <br/>
+                          {get(stat, "2015-М10")} <br/>
+                          {get(stat, "2015-М11")} <br/>
+                          {get(stat, "2015-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2016-М01")} <br/>
+                          {get(stat, "2016-М02")} <br/>
+                          {get(stat, "2016-М03")} <br/>
+                          {get(stat, "2016-М04")} <br/>
+                          {get(stat, "2016-М05")} <br/>
+                          {get(stat, "2016-М06")} <br/>
+                          {get(stat, "2016-М07")} <br/>
+                          {get(stat, "2016-М08")} <br/>
+                          {get(stat, "2016-М09")} <br/>
+                          {get(stat, "2016-М10")} <br/>
+                          {get(stat, "2016-М11")} <br/>
+                          {get(stat, "2016-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2017-М01")} <br/>
+                          {get(stat, "2017-М02")} <br/>
+                          {get(stat, "2017-М03")} <br/>
+                          {get(stat, "2017-М04")} <br/>
+                          {get(stat, "2017-М05")} <br/>
+                          {get(stat, "2017-М06")} <br/>
+                          {get(stat, "2017-М07")} <br/>
+                          {get(stat, "2017-М08")} <br/>
+                          {get(stat, "2017-М09")} <br/>
+                          {get(stat, "2017-М10")} <br/>
+                          {get(stat, "2017-М11")} <br/>
+                          {get(stat, "2017-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2018-М01")} <br/>
+                          {get(stat, "2018-М02")} <br/>
+                          {get(stat, "2018-М03")} <br/>
+                          {get(stat, "2018-М04")} <br/>
+                          {get(stat, "2018-М05")} <br/>
+                          {get(stat, "2018-М06")} <br/>
+                          {get(stat, "2018-М07")} <br/>
+                          {get(stat, "2018-М08")} <br/>
+                          {get(stat, "2018-М09")} <br/>
+                          {get(stat, "2018-М10")} <br/>
+                          {get(stat, "2018-М11")} <br/>
+                          {get(stat, "2018-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2019-М01")} <br/>
+                          {get(stat, "2019-М02")} <br/>
+                          {get(stat, "2019-М03")} <br/>
+                          {get(stat, "2019-М04")} <br/>
+                          {get(stat, "2019-М05")} <br/>
+                          {get(stat, "2019-М06")} <br/>
+                          {get(stat, "2019-М07")} <br/>
+                          {get(stat, "2019-М08")} <br/>
+                          {get(stat, "2019-М09")} <br/>
+                          {get(stat, "2019-М10")} <br/>
+                          {get(stat, "2019-М11")} <br/>
+                          {get(stat, "2019-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2020-М01")} <br/>
+                          {get(stat, "2020-М02")} <br/>
+                          {get(stat, "2020-М03")} <br/>
+                          {get(stat, "2020-М04")} <br/>
+                          {get(stat, "2020-М05")} <br/>
+                          {get(stat, "2020-М06")} <br/>
+                          {get(stat, "2020-М07")} <br/>
+                          {get(stat, "2020-М08")} <br/>
+                          {get(stat, "2020-М09")} <br/>
+                          {get(stat, "2020-М10")} <br/>
+                          {get(stat, "2020-М11")} <br/>
+                          {get(stat, "2020-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2021-М01")} <br/>
+                          {get(stat, "2021-М02")} <br/>
+                          {get(stat, "2021-М03")} <br/>
+                          {get(stat, "2021-М04")} <br/>
+                          {get(stat, "2021-М05")} <br/>
+                          {get(stat, "2021-М06")} <br/>
+                          {get(stat, "2021-М07")} <br/>
+                          {get(stat, "2021-М08")} <br/>
+                          {get(stat, "2021-М09")} <br/>
+                          {get(stat, "2021-М10")} <br/>
+                          {get(stat, "2021-М11")} <br/>
+                          {get(stat, "2021-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2022-М01")} <br/>
+                          {get(stat, "2022-М02")} <br/>
+                          {get(stat, "2022-М03")} <br/>
+                          {get(stat, "2022-М04")} <br/>
+                          {get(stat, "2022-М05")} <br/>
+                          {get(stat, "2022-М06")} <br/>
+                          {get(stat, "2022-М07")} <br/>
+                          {get(stat, "2022-М08")} <br/>
+                          {get(stat, "2022-М09")} <br/>
+                          {get(stat, "2022-М10")} <br/>
+                          {get(stat, "2022-М11")} <br/>
+                          {get(stat, "2022-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2023-М01")} <br/>
+                          {get(stat, "2023-М02")} <br/>
+                          {get(stat, "2023-М03")} <br/>
+                          {get(stat, "2023-М04")} <br/>
+                          {get(stat, "2023-М05")} <br/>
+                          {get(stat, "2023-М06")} <br/>
+                          {get(stat, "2023-М07")} <br/>
+                          {get(stat, "2023-М08")} <br/>
+                          {get(stat, "2023-М09")} <br/>
+                          {get(stat, "2023-М10")} <br/>
+                          {get(stat, "2023-М11")} <br/>
+                          {get(stat, "2023-М12")} <br/>
+                        </td>
+                        <td className="border px-4 py-2">
+                          {get(stat, "2024-М01")} <br/>
+                          {get(stat, "2024-М02")} <br/>
+                          {get(stat, "2024-М03")} <br/>
+                          {get(stat, "2024-М04")} <br/>
+                          {get(stat, "2024-М05")} <br/>
+                          {get(stat, "2024-М06")} <br/>
+                          {get(stat, "2024-М07")} <br/>
+                          {get(stat, "2024-М08")} <br/>
+                          {get(stat, "2024-М09")} <br/>
+                          {get(stat, "2024-М10")} <br/>
+                          {get(stat, "2024-М11")} <br/>
+                          {get(stat, "2024-М12")} <br/>
+                        </td>
+
                       </tr>
                       </tbody>
                   ))}
+
+
                 </table>
               </div>
             </div>
@@ -824,7 +1094,7 @@ export default function Home() {
               </div>
 
               <div className={"col-span-12"}>
-                  <GridView url={URLS.customs} key={KEYS.customs} columns={columnCustoms} />
+                <GridView url={URLS.customs} key={KEYS.customs} columns={columnCustoms}/>
               </div>
             </div> : tabs === 5 ?
                 <div className={"grid grid-cols-12"}>
