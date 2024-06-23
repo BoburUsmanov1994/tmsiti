@@ -39,7 +39,7 @@ export default function Home() {
     key: KEYS.currency,
     url: URLS.currency,
   });
-  const currencyUSD = currency.data.USD;
+  const currencyUSD = currency?.data?.USD;
 
 
   const handleRegionClick = (event) => {
