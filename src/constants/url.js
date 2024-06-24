@@ -69,5 +69,6 @@ export const URLS = {
   orderExcel: "order/excel/",
   machineMechanoExcel: "machines-mechanos/mmechno/2023/",
   customs: "bojxona/list/",
-  technicTSA: "texnikjtsa/list/"
+  technicTSA: "texnikjtsa/list/",
+  tax: "soliq/"
 };

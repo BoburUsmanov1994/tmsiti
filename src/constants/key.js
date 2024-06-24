@@ -54,5 +54,6 @@ export const KEYS = {
   orderExcel: "orderExcel",
   machineMechanoExcel: "machineMechanoExcel",
   customs: "customs",
-  technicTSA: "technicTSA"
+  technicTSA: "technicTSA",
+  tax: "tax"
 };

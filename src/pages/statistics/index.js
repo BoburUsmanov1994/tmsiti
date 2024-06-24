@@ -35,9 +35,14 @@ export default function Home() {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [regionName, setRegionName] = useState("");
   const [dataStatistics, setDataStatistics] = useState([]);
+  // stock
   const [searchQuery, setSearchQuery] = useState('');
   const [dataStock, setDataStock] = useState([]);
   const [sortOrderStock, setSortOrderStock] = useState('asc');
+  // ministry
+  const [dataMinistry, setDataMinistry] = useState([])
+  const [sortOrderMinistry, setSortOrderMinistry] = useState('asc');
+  const [searchQueryMinistry, setSearchQueryMinistry] = useState('');
 
   const { data: currency } = useGetQuery({
     key: KEYS.currency,
@@ -112,10 +117,7 @@ export default function Home() {
       title: "GOST",
       key: "gost"
     },
-    {
-      title: "Sxema",
-      key: "sxema"
-    },
+
     {
       title: "Kompaniya nomi",
       key: "company_name"
@@ -126,7 +128,7 @@ export default function Home() {
       render: ({value}) =>
           <NumericFormat
               displayType={"text"}
-              className={"text-center bg-transparent"}
+              className={" bg-transparent"}
               thousandSeparator={" "}
               value={value}
               suffix={" so'm  "}
@@ -176,11 +178,54 @@ export default function Home() {
     url: "https://cs.egov.uz/apiPartner/Table/Get?accessToken=65f171e8d204616a6824dc91&name=039-3-002&limit=500&offset=0&lang=1"
   })
 
+  useEffect(() => {
+    if(get(ministry, "data.result.data", [])) {
+      setDataMinistry(get(ministry, "data.result.data", []))
+    }
+  }, [get(ministry, "data.result.data", [])]);
+
+  const sortDataMinistry = () => {
+    const sortedData = [...get(ministry, "data.result.data", [])].sort((a, b) => {
+      if (sortOrderMinistry === 'asc') {
+        return a.price - b.price;
+      } else {
+        return b.price - a.price;
+      }
+    });
+
+    setDataStock(sortedData)
+    setSortOrderMinistry(sortOrderMinistry === 'asc' ? 'desc' : 'asc');
+
+
+  };
+
+  const handleSearchMinistry = (e) => {
+    setSearchQueryMinistry(e.target.value);
+  };
+
+  const filteredDataMinistry = dataMinistry.filter((item) => {
+    return (
+        get(item, 'categoryCode', '').toLowerCase().includes(searchQueryMinistry.toLowerCase()) ||
+        get(item, 'productCode', '').toString().includes(searchQueryMinistry) ||
+        get(item, 'productName', '').toString().includes(searchQueryMinistry) ||
+        get(item, 'fieldName', '').toString().includes(searchQueryMinistry) ||
+        get(item, 'fieldValue', '').toString().includes(searchQueryMinistry)
+    );
+  });
+
+
 
   const {data: customs, isLoadingCustoms} = useGetQuery({
     key: KEYS.customs,
     url: URLS.customs
   })
+
+  const {data: taxes, isLoadingTax} = useGetQuery({
+    key: KEYS.tax,
+    url: URLS.tax
+  })
+
+  console.log(taxes)
 
 
 
@@ -208,7 +253,7 @@ export default function Home() {
     });
 
     setDataStock(sortedData)
-    setSortOrderStock(sortOrderStock === 'asc' ? 'desc' : 'asc'); // Toggle sort order
+    setSortOrderStock(sortOrderStock === 'asc' ? 'desc' : 'asc');
 
 
   };
@@ -772,7 +817,8 @@ export default function Home() {
                     </td>
 
                     <td className="border px-4 py-2 text-center">
-                      <NumericFormat className={"bg-transparent"} value={get(stockItem, "price").toFixed(2)} thousandSeparator={" "} suffix={" so'm"}/>
+                      <NumericFormat className={"bg-transparent"} value={parseInt(
+                          get(stockItem, "price")).toFixed(2)} thousandSeparator={" "} suffix={" so'm"}/>
                     </td>
 
                     <td className="border px-4 py-2">
@@ -796,6 +842,21 @@ export default function Home() {
                 </Title>
               </div>
 
+              <div className={"col-span-12 flex items-center gap-x-8"}>
+                <input
+                    type="text"
+                    placeholder="Kerakli mahsulotni qidiring..."
+                    value={searchQueryMinistry}
+                    onChange={handleSearchMinistry}
+                    className="border px-[10px] py-[10px]  w-2/3 rounded-[6px]"
+                />
+                <button onClick={sortDataMinistry} className={
+                  "text-[#fff] inline-block text-sm laptop:text-base my-[20px] px-[10px] py-[10px] bg-blue-500 rounded-[5px]"
+                }>
+                  Narx bo'yicha tartiblash {sortOrderMinistry === "asc" ? "(max-min)" : "(min-max)"}
+                </button>
+              </div>
+
               <div className={"col-span-12"}>
                 <table className="table-auto w-full mt-[20px]">
                   <thead>
@@ -817,14 +878,14 @@ export default function Home() {
                           "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
                         }
                     >
-                      Mahsulot kategoriyasi kodi
+                      Toifa kodi
                     </th>
                     <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
-                      Maydon nomi
+                      Xususiyat nomi
                     </th>
 
                     <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
-                      Maydon qiymati
+                      Xususiyat qiymati
                     </th>
 
                     <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
@@ -832,7 +893,7 @@ export default function Home() {
                     </th>
                   </tr>
                   </thead>
-                  {get(ministry, "data.result.data").map((stockItem, index) => (
+                  {filteredDataMinistry.map((stockItem, index) => (
                       <tbody key={index} className={"even:bg-white odd:bg-[#E2E6ED]"}>
                       <tr>
                         <td className="border px-4 py-2 text-center">{index + 1}</td>
@@ -852,13 +913,13 @@ export default function Home() {
                         <td className="border px-4 py-2">
                           {get(stockItem, "fieldName")}
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-center">
                           {get(stockItem, "fieldValue")}
                         </td>
 
 
                         <td className="border px-4 py-2 text-center">
-                          0
+                          <NumericFormat value={0} suffix={".00 so'm"} className={"bg-transparent text-center"}/>
                         </td>
                       </tr>
                       </tbody>
@@ -1204,6 +1265,74 @@ export default function Home() {
                           O'zbekiston Respublikasi Vazirlar Mahkamasi huzuridagi Soliq qo'mitasi
                         </Title>
                       </div>
+
+                      <div className={"col-span-12 my-[30px]"}>
+                        <table className="table-auto w-full">
+                          <thead>
+                          <tr>
+                            <th
+                                className={
+                                  "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
+                                }
+                            >
+                              №
+                            </th>
+                            <th className="px-4 py-2 text-start bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                              mxik kod
+                            </th>
+                            <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                              O'lchov birligi
+                            </th>
+                            <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                              Mahsulot soni
+                            </th>
+                            <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                              Faktura sanasi
+                            </th>
+                            <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                              Yetkazib berish narxi
+                            </th>
+                            <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                              QQS
+                            </th>
+                          </tr>
+                          </thead>
+                          {get(taxes, "data.data").map((item, index) => (
+                              <tbody key={index} className={"even:bg-white odd:bg-[#E2E6ED]"}>
+                              <tr>
+                                <td className="border px-4 py-2">
+                                  {index}
+                                </td>
+                                <td className="border px-4 py-2">
+                                  {get(item, "mxik_code")}
+                                </td>
+
+
+                                <td className="border px-4 py-2">
+                                  {get(item, "unit_measurment")}
+                                </td>
+
+                                <td className="border px-4 py-2">
+                                  {get(item, "product_count")}
+                                </td>
+
+                                <td className="border px-4 py-2">
+                                  {get(item, "factura_date")}
+                                </td>
+
+                                <td className="border px-4 py-2">
+                                  {get(item, "delivery_sum")}
+                                </td>
+
+                                <td className="border px-4 py-2">
+                                  {get(item, "vat_sum")}
+                                </td>
+                              </tr>
+                              </tbody>
+                          ))}
+                        </table>
+                      </div>
+
                     </div> : ""}
       </Section>
     </Main>
