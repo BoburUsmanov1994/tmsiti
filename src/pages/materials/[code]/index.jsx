@@ -180,7 +180,7 @@ const ViewPage = () => {
   }, Infinity)
 
 
-  console.log(materialAds,'materialAds')
+
   // const { data: gost, isLoading: isLoadingGost } = useGetQuery({
   //   key: KEYS.materialGost,
   //   url: URLS.materialGost,

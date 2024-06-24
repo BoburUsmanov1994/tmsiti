@@ -92,22 +92,30 @@ const Index = () => {
         }
     }, []);
 
+
     const onSubmit = (e) => {
         e.preventDefault();
         forEach(entries(state), (item) => {
+            const customer = parseInt(get(user, "data.id"), 10);
+            const phone = get(user, "data.phone");
 
             const attributes = {
-                customer: parseInt(get(user, "data.id")),
+                customer: customer,
                 company_name: get(JSON.parse(head(item)), 'company_name'),
                 product_category: findCategoryName(JSON.parse(head(item))),
                 ad_id: get(JSON.parse(head(item)), 'id'),
                 company: get(JSON.parse(head(item)), 'company_stir'),
                 product_code: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_code`),
                 product_name: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item)))}_name`),
-                phone: get(user, "data.phone"),
+                phone: phone,
                 price: get(JSON.parse(head(item)), `${findCategoryName(JSON.parse(head(item))) === 'mmechano' ? 'mmechano_rent' : findCategoryName(JSON.parse(head(item))) === "smallmechano" ? "smallmechano_rent" : findCategoryName(JSON.parse(head(item)))}_price`),
                 order_status: ORDER_STATUS.new_order,
                 quantity: parseInt(last(item))
+            }
+
+            if (!customer && !phone) {
+                setIsOpen(true);
+                return;
             }
 
             sendOrder({ url: URLS.sendOrders, attributes: attributes },
@@ -119,16 +127,11 @@ const Index = () => {
 
                     },
 
-                    onError: () => {
-                        if(attributes.customer === null) {
-                            toast.error("Iltimos ro'yxatdan o'ting!", {
-                                position: "top-center",
-                            });
-                        }
-                    }
                 },
             )
         })
+
+
 
     }
 
@@ -345,24 +348,32 @@ const Index = () => {
 
                 {isOpen && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-                        <div className="bg-white p-8 rounded shadow-md w-[500px] h-auto">
+
+                        <div className="bg-white relative p-8 rounded shadow-md w-[500px] h-auto">
+                            <div className={"absolute right-0 top-1 p-2"}>
+                                <Image
+                                    onClick={closeModal}
+                                    src={"/icons/closeModal.svg"}
+                                    alt={"modalcloser"}
+                                    width={30}
+                                    height={30}
+                                    className={
+                                        "float-right block cursor-pointer bg-white p-1 rounded-[2px]"
+                                    }
+                                />
+                            </div>
                             <h1 className="text-xl mb-4">Shartnoma tuzilishidan oldin, siz ro'yxatdan o'tishingiz
                                 lozim!</h1>
                             <p className="mb-4">Ro'yxatdan o'tish uchun pastdagi tugmani bosing</p>
                             <div className={"flex gap-x-2"}>
-                                <Link href={"/auth/signup"}
+                                <Link href={"/auth/login"}
 
                                       className="px-4 py-2 bg-blue-500 text-white rounded"
                                 >
                                     Ro'yxatdan o'tish
                                 </Link>
 
-                                <button
-                                    onClick={closeModal}
-                                    className="px-4 py-2 bg-red-500 text-white rounded"
-                                >
-                                    Yopish
-                                </button>
+
                             </div>
                         </div>
                     </div>
