@@ -35,6 +35,10 @@ export default function Home() {
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [regionName, setRegionName] = useState("");
   const [dataStatistics, setDataStatistics] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [dataStock, setDataStock] = useState([]);
+  const [sortOrderStock, setSortOrderStock] = useState('asc');
+
   const { data: currency } = useGetQuery({
     key: KEYS.currency,
     url: URLS.currency,
@@ -67,15 +71,15 @@ export default function Home() {
 
     },
     {
-      title: "Qiymati",
+      title: "Narxi",
       key: "value",
       render: ({value}) =>
           <NumericFormat
               displayType={"text"}
               className={"text-center bg-transparent"}
               thousandSeparator={" "}
-              value={(value * 1000 * parseInt(currencyUSD))}
-              suffix={" so'm"}
+              value={(value * 1000 * parseInt(currencyUSD)).toFixed(2)}
+              suffix={" so'm  "}
           />,
       classnames: "text-center"
 
@@ -87,7 +91,7 @@ export default function Home() {
       classnames: "text-center"
     },
     {
-      title: "Kod nomi",
+      title: "Guruh nomi",
       key: "codeName",
       classnames: "text-center"
     },
@@ -118,7 +122,15 @@ export default function Home() {
     },
     {
       title: "Narxi",
-      key: "price"
+      key: "price",
+      render: ({value}) =>
+          <NumericFormat
+              displayType={"text"}
+              className={"text-center bg-transparent"}
+              thousandSeparator={" "}
+              value={value}
+              suffix={" so'm  "}
+          />,
     },
     {
       title: "Davlat",
@@ -142,6 +154,7 @@ export default function Home() {
       }
     };
 
+
     fetchStatistics();
   }, []);
 
@@ -156,13 +169,11 @@ export default function Home() {
     setTabs(index);
   };
 
-  const handleClickFormat = (type) => {
-    setIsActive(type);
-  };
+
 
   const { data: ministry, isLoading: isLoadingMinistry } = useGetQuery({
     key: "ministry-key",
-    url: "https://cs.egov.uz/apiPartner/Table/Get?accessToken=65f171e8d204616a6824dc91&name=077-3-001&limit=50&offset=50&lang=1"
+    url: "https://cs.egov.uz/apiPartner/Table/Get?accessToken=65f171e8d204616a6824dc91&name=039-3-002&limit=500&offset=0&lang=1"
   })
 
 
@@ -179,6 +190,40 @@ export default function Home() {
   const { data: stock, isLoading: isLoadingStock } = useGetQuery({
     key: KEYS.apiBirja,
     url: URLS.apiBirja,
+  });
+
+  useEffect(() => {
+    if(get(stock, "data", [])) {
+      setDataStock(get(stock, "data", []))
+    }
+  }, [get(stock, "data", [])]);
+
+  const sortData = () => {
+    const sortedData = [...get(stock, "data", [])].sort((a, b) => {
+      if (sortOrderStock === 'asc') {
+        return a.price - b.price;
+      } else {
+        return b.price - a.price;
+      }
+    });
+
+    setDataStock(sortedData)
+    setSortOrderStock(sortOrderStock === 'asc' ? 'desc' : 'asc'); // Toggle sort order
+
+
+  };
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredData = dataStock.filter((stockItem) => {
+    return (
+        get(stockItem, 'name', '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        get(stockItem, 'rn', '').toString().includes(searchQuery) ||
+        get(stockItem, 'price', '').toString().includes(searchQuery) ||
+        get(stockItem, 'range', '').toString().includes(searchQuery)
+    );
   });
 
 
@@ -671,7 +716,7 @@ export default function Home() {
               </Title>
               <br/>
               {head(
-                  get(stock, "data")?.map((item, index) => (
+                  dataStock.map((item, index) => (
                       <p key={index}
                          className={
                            "text-[#fff] inline-block text-sm laptop:text-base my-[20px] px-[10px] py-[10px] bg-blue-500 rounded-[5px]"
@@ -679,20 +724,35 @@ export default function Home() {
                       >
                       {dayjs(get(item, "startdate")).format("DD.MM.YYYY")} -
                   {dayjs(get(item, "enddate")).format("DD.MM.YYYY")}
+                        <span> muddatlar oralig'ida</span>
                 </p>
               )),
             )}
-            <table className="table-auto w-full">
-              <thead>
+              <div className={"col-span-12 flex items-center gap-x-8"}>
+                <input
+                    type="text"
+                    placeholder="Kerakli mahsulotni qidiring..."
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    className="border px-[10px] py-[10px]  w-2/3 rounded-[6px]"
+                />
+                <button onClick={sortData} className={
+                  "text-[#fff] inline-block text-sm laptop:text-base my-[20px] px-[10px] py-[10px] bg-blue-500 rounded-[5px]"
+                }>
+                  Narx bo'yicha tartiblash {sortOrderStock === "asc" ? "(max-min)" : "(min-max)"}
+                </button>
+              </div>
+              <table className="table-auto w-full">
+                <thead>
                 <tr>
                   <th
-                    className={
-                      "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
+                      className={
+                        "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
                     }
                   >
                     №
                   </th>
-                  <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                  <th className="px-4 py-2 text-start bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
                     Mahsulot nomi
                   </th>
                   <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
@@ -703,16 +763,16 @@ export default function Home() {
                   </th>
                 </tr>
               </thead>
-              {get(stock, "data", []).map((stockItem, index) => (
+              {filteredData.map((stockItem, index) => (
                 <tbody key={index} className={"even:bg-white odd:bg-[#E2E6ED]"}>
                   <tr>
-                    <td className="border px-4 py-2">{get(stockItem, "rn")}</td>
+                    <td className="border px-4 py-2 text-center">{get(stockItem, "rn")}</td>
                     <td className="border px-4 py-2">
                       {get(stockItem, "name")}
                     </td>
 
-                    <td className="border px-4 py-2">
-                      {get(stockItem, "price")}
+                    <td className="border px-4 py-2 text-center">
+                      <NumericFormat className={"bg-transparent"} value={get(stockItem, "price").toFixed(2)} thousandSeparator={" "} suffix={" so'm"}/>
                     </td>
 
                     <td className="border px-4 py-2">
@@ -740,6 +800,8 @@ export default function Home() {
                 <table className="table-auto w-full mt-[20px]">
                   <thead>
                   <tr>
+                    <th className={"px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"}>№</th>
+
                     <th
                         className={
                           "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
@@ -750,42 +812,53 @@ export default function Home() {
                     <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
                       Mahsulot nomi
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
-                      Bo'lim
+                    <th
+                        className={
+                          "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
+                        }
+                    >
+                      Mahsulot kategoriyasi kodi
                     </th>
                     <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
-                      Guruh
+                      Maydon nomi
                     </th>
+
                     <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
-                      Resurs
+                      Maydon qiymati
                     </th>
+
                     <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
-                      O'lchov birligi
+                      Narxi
                     </th>
                   </tr>
                   </thead>
                   {get(ministry, "data.result.data").map((stockItem, index) => (
                       <tbody key={index} className={"even:bg-white odd:bg-[#E2E6ED]"}>
                       <tr>
-                        <td className="border px-4 py-2">{get(stockItem, "CLASSIFIER CODE")}</td>
+                        <td className="border px-4 py-2 text-center">{index + 1}</td>
+
                         <td className="border px-4 py-2">
-                          {get(stockItem, "KINGA")}
+                          {get(stockItem, "productCode")}
                         </td>
 
                         <td className="border px-4 py-2">
-                          {get(stockItem, "RAZDEL")}
+                          {get(stockItem, "productName")}
                         </td>
 
                         <td className="border px-4 py-2">
-                          {get(stockItem, "GROUP")}
+                          {get(stockItem, "categoryCode")}
                         </td>
 
                         <td className="border px-4 py-2">
-                          {get(stockItem, "RESURS")}
+                          {get(stockItem, "fieldName")}
                         </td>
+                        <td className="border px-4 py-2">
+                          {get(stockItem, "fieldValue")}
+                        </td>
+
 
                         <td className="border px-4 py-2 text-center">
-                          {get(stockItem, "UNIT MEASUREMENT")}
+                          0
                         </td>
                       </tr>
                       </tbody>
