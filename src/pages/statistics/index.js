@@ -43,6 +43,15 @@ export default function Home() {
   const [dataMinistry, setDataMinistry] = useState([])
   const [sortOrderMinistry, setSortOrderMinistry] = useState('asc');
   const [searchQueryMinistry, setSearchQueryMinistry] = useState('');
+  // tax
+  const [dataTax, setDataTax] = useState([])
+  const [sortOrderTax, setSortOrderTax] = useState('asc');
+  const [searchQueryTax, setSearchQueryTax] = useState('');
+  // customs
+  const [dataCustoms, setDataCustoms] = useState([])
+  const [sortOrderCustoms, setSortOrderCustoms] = useState('asc');
+  const [searchQueryCustoms, setSearchQueryCustoms] = useState('');
+
 
   const { data: currency } = useGetQuery({
     key: KEYS.currency,
@@ -56,6 +65,44 @@ export default function Home() {
     setSelectedRegion(regionId);
     setRegionName(event.target.getAttribute("data-name"));
   };
+
+  const {data: customs, isLoadingCustoms} = useGetQuery({
+    key: KEYS.customs,
+    url: URLS.customs
+  })
+
+  useEffect(() => {
+    if(get(customs, "data.results", [])) {
+      setDataCustoms(get(customs, "data.results", []))
+    }
+  }, [get(customs, "data.results", [])]);
+
+  const sortDataCustoms = () => {
+    const sortedData = [...get(customs, "data.results", [])].sort((a, b) => {
+      if (sortOrderCustoms === 'asc') {
+        return a.value - b.value;
+      } else {
+        return b.value - a.value;
+      }
+    });
+
+    setDataCustoms(sortedData)
+    setSortOrderCustoms(sortOrderCustoms === 'asc' ? 'desc' : 'asc');
+
+  };
+
+  const handleSearchCustoms = (e) => {
+    setSearchQueryCustoms(e.target.value);
+  };
+
+  const filteredDataCustoms = dataCustoms.filter((item) => {
+    return (
+        get(item, 'codeTiftn', '').toLowerCase().includes(searchQueryCustoms.toLowerCase()) ||
+        get(item, 'netMass', '').toString().includes(searchQueryCustoms) ||
+        get(item, 'codeName', '').toString().includes(searchQueryCustoms)
+    );
+  });
+
 
   const columnCustoms = [
     {
@@ -193,7 +240,7 @@ export default function Home() {
       }
     });
 
-    setDataStock(sortedData)
+    setDataMinistry(sortedData)
     setSortOrderMinistry(sortOrderMinistry === 'asc' ? 'desc' : 'asc');
 
 
@@ -215,17 +262,63 @@ export default function Home() {
 
 
 
-  const {data: customs, isLoadingCustoms} = useGetQuery({
-    key: KEYS.customs,
-    url: URLS.customs
-  })
+
 
   const {data: taxes, isLoadingTax} = useGetQuery({
     key: KEYS.tax,
     url: URLS.tax
   })
 
-  console.log(taxes)
+  useEffect(() => {
+    if(get(taxes, "data.data", [])) {
+      setDataTax(get(taxes, "data.data", []))
+    }
+  }, [get(taxes, "data.data", [])]);
+
+  const sortDataTaxDelivery = () => {
+    const sortedData = [...get(taxes, "data.data", [])].sort((a, b) => {
+      if (sortOrderTax === 'asc') {
+        return a.delivery_sum - b.delivery_sum;
+      } else {
+        return b.delivery_sum - a.delivery_sum;
+      }
+    });
+
+    setDataTax(sortedData)
+    setSortOrderTax(sortOrderTax === 'asc' ? 'desc' : 'asc');
+
+
+  };
+
+  const sortDataTaxQQS = () => {
+    const sortedData = [...get(taxes, "data.data", [])].sort((a, b) => {
+      if (sortOrderTax === 'asc') {
+        return a.vat_sum - b.vat_sum;
+      } else {
+        return b.vat_sum - a.vat_sum;
+      }
+    });
+
+    setDataTax(sortedData)
+    setSortOrderTax(sortOrderTax === 'asc' ? 'desc' : 'asc');
+
+
+  };
+
+  const handleSearchTax = (e) => {
+    setSearchQueryTax(e.target.value);
+  };
+
+  const filteredDataTax = dataTax.filter((item) => {
+    return (
+        get(item, 'mxik_code', '').toLowerCase().includes(searchQueryTax.toLowerCase()) ||
+        get(item, 'unit_measurment', '').toString().includes(searchQueryTax) ||
+        get(item, 'product_count', '').toString().includes(searchQueryTax)
+
+    );
+  });
+
+
 
 
 
@@ -788,28 +881,28 @@ export default function Home() {
                 </button>
               </div>
               <table className="table-auto w-full">
-                <thead>
+                <thead className={"! text-black"}>
                 <tr>
                   <th
                       className={
-                        "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
+                        "px-4 py-2 border bg-white  text-gray-600 uppercase font-semibold text-sm"
                     }
                   >
                     №
                   </th>
-                  <th className="px-4 py-2 text-start bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                  <th className="px-4 py-2 border  text-start bg-white text-gray-600 uppercase font-semibold text-sm">
                     Mahsulot nomi
                   </th>
-                  <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                  <th className="px-4 py-2 border  bg-white text-gray-600 uppercase font-semibold text-sm">
                     Narxi
                   </th>
-                  <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                  <th className="px-4 py-2 border  bg-white text-gray-600 uppercase font-semibold text-sm">
                     Narxlar orasidagi o'zgarish
                   </th>
                 </tr>
               </thead>
               {filteredData.map((stockItem, index) => (
-                <tbody key={index} className={"even:bg-white odd:bg-[#E2E6ED]"}>
+                <tbody key={index} className={"even:bg-white odd:bg-[#FBFBFC] text-black"}>
                   <tr>
                     <td className="border px-4 py-2 text-center">{get(stockItem, "rn")}</td>
                     <td className="border px-4 py-2">
@@ -861,59 +954,59 @@ export default function Home() {
                 <table className="table-auto w-full mt-[20px]">
                   <thead>
                   <tr>
-                    <th className={"px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"}>№</th>
+                    <th className={"px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"}>№</th>
 
                     <th
                         className={
-                          "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
+                          "px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"
                         }
                     >
                       Mahsulot kodi
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       Mahsulot nomi
                     </th>
                     <th
                         className={
-                          "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
+                          "px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"
                         }
                     >
                       Toifa kodi
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       Xususiyat nomi
                     </th>
 
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       Xususiyat qiymati
                     </th>
 
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       Narxi
                     </th>
                   </tr>
                   </thead>
                   {filteredDataMinistry.map((stockItem, index) => (
-                      <tbody key={index} className={"even:bg-white odd:bg-[#E2E6ED]"}>
+                      <tbody key={index} className={"even:bg-white odd:bg-[#FBFBFC] text-black"}>
                       <tr>
                         <td className="border px-4 py-2 text-center">{index + 1}</td>
 
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stockItem, "productCode")}
                         </td>
 
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stockItem, "productName")}
                         </td>
 
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stockItem, "categoryCode")}
                         </td>
 
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stockItem, "fieldName")}
                         </td>
-                        <td className="border px-4 py-2 text-center">
+                        <td className="border px-4 py-2 text-sm text-center">
                           {get(stockItem, "fieldValue")}
                         </td>
 
@@ -942,62 +1035,62 @@ export default function Home() {
               </div>
 
               <div className={"col-span-12"}>
-                <table className="table-auto w-full mt-[20px]">
+                <table className="table-auto w-full mt-[20px] !text-black">
                   <thead>
                   <tr>
                     <th
                         className={
-                          "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
+                          "px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"
                         }
                     >
                       Nomi
                     </th>
 
-                    <th>Kodi</th>
+                    <th className={"px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"}>Kodi</th>
 
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2010
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2011
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2012
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2013
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2014
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2015
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2016
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2017
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2018
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2019
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2020
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2021
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2022
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2023
                     </th>
-                    <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
                       2024
                     </th>
 
@@ -1005,17 +1098,17 @@ export default function Home() {
                   </thead>
 
                   {get(dataStatistics, "data")?.map((stat, index) => (
-                      <tbody key={index} className={"even:bg-white odd:bg-[#E2E6ED]"}>
+                      <tbody key={index} className={"even:bg-white odd:bg-[#FBFBFC]"}>
                       <tr>
-                        <td className="border px-4 py-2 text-center">
+                        <td className="border px-4 py-2 text-center text-sm">
                           {get(stat, "Klassifikator")}
                         </td>
 
-                        <td className="border px-4 py-2 text-center">
+                        <td className="border px-4 py-2 text-center text-sm">
                           {get(stat, "Code")}
                         </td>
 
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2010-М01")} <br/>
                           {get(stat, "2010-М02")} <br/>
                           {get(stat, "2010-М03")} <br/>
@@ -1029,7 +1122,7 @@ export default function Home() {
                           {get(stat, "2010-М11")} <br/>
                           {get(stat, "2010-М12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2011-М01")} <br/>
                           {get(stat, "2011-М02")} <br/>
                           {get(stat, "2011-М03")} <br/>
@@ -1043,7 +1136,7 @@ export default function Home() {
                           {get(stat, "2011-М11")} <br/>
                           {get(stat, "2011-М12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2012-М01")} <br/>
                           {get(stat, "2012-М02")} <br/>
                           {get(stat, "2012-М03")} <br/>
@@ -1057,7 +1150,7 @@ export default function Home() {
                           {get(stat, "2012-М11")} <br/>
                           {get(stat, "2012-М12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2013-M01")} <br/>
                           {get(stat, "2013-M02")} <br/>
                           {get(stat, "2013-M03")} <br/>
@@ -1071,7 +1164,7 @@ export default function Home() {
                           {get(stat, "2013-M11")} <br/>
                           {get(stat, "2013-M12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2014-M01")} <br/>
                           {get(stat, "2014-M02")} <br/>
                           {get(stat, "2014-M03")} <br/>
@@ -1085,7 +1178,7 @@ export default function Home() {
                           {get(stat, "2014-M11")} <br/>
                           {get(stat, "2014-M12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2015-M01")} <br/>
                           {get(stat, "2015-M02")} <br/>
                           {get(stat, "2015-M03")} <br/>
@@ -1099,7 +1192,7 @@ export default function Home() {
                           {get(stat, "2015-M11")} <br/>
                           {get(stat, "2015-M12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2016-M01")} <br/>
                           {get(stat, "2016-M02")} <br/>
                           {get(stat, "2016-M03")} <br/>
@@ -1113,7 +1206,7 @@ export default function Home() {
                           {get(stat, "2016-M11")} <br/>
                           {get(stat, "2016-M12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2017-M01")} <br/>
                           {get(stat, "2017-M02")} <br/>
                           {get(stat, "2017-M03")} <br/>
@@ -1127,7 +1220,7 @@ export default function Home() {
                           {get(stat, "2017-M11")} <br/>
                           {get(stat, "2017-M12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2018-M01")} <br/>
                           {get(stat, "2018-M02")} <br/>
                           {get(stat, "2018-M03")} <br/>
@@ -1141,7 +1234,7 @@ export default function Home() {
                           {get(stat, "2018-M11")} <br/>
                           {get(stat, "2018-M12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2019-M01")} <br/>
                           {get(stat, "2019-M02")} <br/>
                           {get(stat, "2019-M03")} <br/>
@@ -1155,7 +1248,7 @@ export default function Home() {
                           {get(stat, "2019-M11")} <br/>
                           {get(stat, "2019-M12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2020-M01")} <br/>
                           {get(stat, "2020-M02")} <br/>
                           {get(stat, "2020-M03")} <br/>
@@ -1169,7 +1262,7 @@ export default function Home() {
                           {get(stat, "2020-M11")} <br/>
                           {get(stat, "2020-M12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2021-M01")} <br/>
                           {get(stat, "2021-M02")} <br/>
                           {get(stat, "2021-M03")} <br/>
@@ -1183,7 +1276,7 @@ export default function Home() {
                           {get(stat, "2021-M11")} <br/>
                           {get(stat, "2021-M12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2022-M01")} <br/>
                           {get(stat, "2022-M02")} <br/>
                           {get(stat, "2022-M03")} <br/>
@@ -1197,7 +1290,7 @@ export default function Home() {
                           {get(stat, "2022-M11")} <br/>
                           {get(stat, "2022-M12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2023-M01")} <br/>
                           {get(stat, "2023-M02")} <br/>
                           {get(stat, "2023-M03")} <br/>
@@ -1211,7 +1304,7 @@ export default function Home() {
                           {get(stat, "2023-M11")} <br/>
                           {get(stat, "2023-M12")} <br/>
                         </td>
-                        <td className="border px-4 py-2">
+                        <td className="border px-4 py-2 text-sm">
                           {get(stat, "2024-M01")} <br/>
                           {get(stat, "2024-M02")} <br/>
                           {get(stat, "2024-M03")} <br/>
@@ -1240,10 +1333,94 @@ export default function Home() {
                 <Title>
                   O'zbekiston Respublikasi iqtisodiyot va moliya vazirligi huzuridagi bojxona qo'mitasi
                 </Title>
+
+              </div>
+
+              <div className={"col-span-12 flex items-center gap-x-8"}>
+                <input
+                    type="text"
+                    placeholder="Kerakli mahsulotni qidiring..."
+                    value={searchQueryCustoms}
+                    onChange={handleSearchCustoms}
+                    className="border px-[10px] py-[10px]  w-2/3 rounded-[6px]"
+                />
+
+                <button onClick={sortDataCustoms} className={
+                  "text-[#fff] inline-block text-sm laptop:text-base my-[20px] px-[10px] py-[10px] bg-blue-500 rounded-[5px]"
+                }>
+                  Narx bo'yicha tartiblash {sortOrderCustoms === "asc" ? "(max-min)" : "(min-max)"}
+                </button>
               </div>
 
               <div className={"col-span-12"}>
-                <GridView url={URLS.customs} key={KEYS.customs} columns={columnCustoms}/>
+                <table className="table-auto w-full mt-[20px]">
+                  <thead>
+                  <tr>
+                    <th className={"px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"}>№</th>
+
+                    <th
+                        className={
+                          "px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"
+                        }
+                    >
+                      Mahsulot kodi
+                    </th>
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
+                      Massasi
+                    </th>
+                    <th
+                        className={
+                          "px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"
+                        }
+                    >
+                      Narxi
+                    </th>
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
+                      Joylangan vaqti
+                    </th>
+
+                    <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
+                      Guruh nomi
+                    </th>
+
+                  </tr>
+                  </thead>
+                  {filteredDataCustoms.map((stockItem, index) => (
+                      <tbody key={index} className={"even:bg-white odd:bg-[#FBFBFC] text-black"}>
+                      <tr>
+                        <td className="border px-4 py-2 text-center">{index + 1}</td>
+
+                        <td className="border px-4 py-2 text-sm">
+                          {get(stockItem, "codeTiftn")}
+                        </td>
+
+                        <td className="border px-4 py-2 text-sm">
+                          {get(stockItem, "netMass")}
+                        </td>
+
+                        <td className="border px-4 py-2 text-sm text-center">
+
+                          <NumericFormat
+                              displayType={"text"}
+                              className={"text-center bg-transparent"}
+                              thousandSeparator={" "}
+                              value={(get(stockItem, "value") * 1000 * parseInt(currencyUSD)).toFixed(2)}
+                              suffix={" so'm  "}
+                          />
+                        </td>
+
+                        <td className="border px-4 py-2 text-sm text-center">
+                          {dayjs(get(stockItem, "create_date")).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent")}
+                        </td>
+                        <td className="border px-4 py-2 text-sm text-center">
+                          {get(stockItem, "codeName")}
+                        </td>
+
+                      </tr>
+                      </tbody>
+                  ))}
+                </table>
+
               </div>
             </div> : tabs === 5 ?
                 <div className={"grid grid-cols-12"}>
@@ -1261,9 +1438,35 @@ export default function Home() {
                 </div> : tabs === 6 ?
                     <div className={"grid grid-cols-12"}>
                       <div className={"col-span-12 my-[30px]"}>
-                      <Title>
+                        <Title>
                           O'zbekiston Respublikasi Vazirlar Mahkamasi huzuridagi Soliq qo'mitasi
                         </Title>
+                      </div>
+
+                      <div className={"col-span-12 flex  items-center flex-wrap gap-x-4"}>
+                        <input
+                            type="text"
+                            placeholder="Kerakli mahsulotni qidiring..."
+                            value={searchQueryTax}
+                            onChange={handleSearchTax}
+                            className="border px-[10px] py-[10px]  w-2/3 rounded-[6px]"
+                        />
+                      </div>
+
+                      <div className={"col-span-12 flex items-center gap-x-4"}>
+                        <button onClick={sortDataTaxDelivery} className={
+                          "text-[#fff] inline-block text-sm laptop:text-base my-[20px] px-[10px] py-[10px] bg-blue-500 rounded-[5px]"
+                        }>
+                          Yetkazib berish narxi bo'yicha
+                          tartiblash {sortOrderCustoms === "asc" ? "(max-min)" : "(min-max)"}
+                        </button>
+
+                        <button onClick={sortDataTaxQQS} className={
+                          "text-[#fff] inline-block text-sm laptop:text-base my-[20px] px-[10px] py-[10px] bg-blue-500 rounded-[5px]"
+                        }>
+                          QQS narxi bo'yicha
+                          tartiblash {sortOrderCustoms === "asc" ? "(max-min)" : "(min-max)"}
+                        </button>
                       </div>
 
                       <div className={"col-span-12 my-[30px]"}>
@@ -1272,36 +1475,36 @@ export default function Home() {
                           <tr>
                             <th
                                 className={
-                                  "px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm"
+                                  "px-4 py-2 bg-white text-gray-600 uppercase font-semibold text-sm"
                                 }
                             >
                               №
                             </th>
-                            <th className="px-4 py-2 text-start bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
-                              mxik kod
+                            <th className="px-4 py-2 text-start bg-white border text-gray-600  font-semibold text-sm">
+                              Mxik kod
                             </th>
-                            <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
-                              O'lchov birligi
+                            <th className="px-4 py-2 bg-white border text-gray-600  font-semibold text-sm">
+                            O'lchov birligi
                             </th>
-                            <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                            <th className="px-4 py-2 bg-white border text-gray-600  font-semibold text-sm">
                               Mahsulot soni
                             </th>
-                            <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                            <th className="px-4 py-2 bg-white border text-gray-600  font-semibold text-sm">
                               Faktura sanasi
                             </th>
-                            <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
+                            <th className="px-4 py-2 bg-white border text-gray-600  font-semibold text-sm">
                               Yetkazib berish narxi
                             </th>
-                            <th className="px-4 py-2 bg-gray-200 text-gray-600 uppercase font-semibold text-sm">
-                              QQS
+                            <th className="px-4 py-2 bg-white border text-gray-600  font-semibold text-sm">
+                            QQS
                             </th>
                           </tr>
                           </thead>
-                          {get(taxes, "data.data").map((item, index) => (
-                              <tbody key={index} className={"even:bg-white odd:bg-[#E2E6ED]"}>
+                          {filteredDataTax.map((item, index) => (
+                              <tbody key={index} className={"even:bg-white odd:bg-[#FBFBFC] text-black text-sm text-center"}>
                               <tr>
                                 <td className="border px-4 py-2">
-                                  {index}
+                                  {index + 1}
                                 </td>
                                 <td className="border px-4 py-2">
                                   {get(item, "mxik_code")}
@@ -1321,11 +1524,12 @@ export default function Home() {
                                 </td>
 
                                 <td className="border px-4 py-2">
-                                  {get(item, "delivery_sum")}
+                                  {<NumericFormat value={get(item, "delivery_sum")} thousandSeparator={" "} suffix={" so'm"} className={"text-center"}/>}
+
                                 </td>
 
                                 <td className="border px-4 py-2">
-                                  {get(item, "vat_sum")}
+                                  {<NumericFormat value={get(item, "vat_sum")} thousandSeparator={" "} suffix={" so'm"} className={"text-center"}/>}
                                 </td>
                               </tr>
                               </tbody>
