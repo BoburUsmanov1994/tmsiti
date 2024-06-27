@@ -39,7 +39,14 @@ const Header = (toggleMenu) => {
       enabled: !!(get(session, 'user.token') && get(session, 'user.role') === 'customer'),
     })
 
+    const handleLogout = async () => {
 
+        await signOut({ callbackUrl: "/" });
+
+
+        localStorage.clear();
+        sessionStorage.clear();
+    };
 
     return (
         <header>
@@ -172,7 +179,7 @@ const Header = (toggleMenu) => {
                                         </button>
                                         <button
                                             className={"block text-base"}
-                                            onClick={() => signOut({callbackUrl: "/"})}
+                                            onClick={handleLogout}
                                         >
                                             {t("Logout")}
                                         </button>
