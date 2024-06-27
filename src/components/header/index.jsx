@@ -18,7 +18,7 @@ import {useSettingsStore} from "@/store";
 const Lang = dynamic(() => import("@/components/lang"), {ssr: false});
 const Header = (toggleMenu) => {
     const [openMenu, setOpenMenu] = useState(false);
-    const {data: session} = useSession();
+    const {data: session, status} = useSession();
     const {data: sessionCustomer } = useSession();
     const {t} = useTranslation();
     const router = useRouter();
@@ -38,6 +38,20 @@ const Header = (toggleMenu) => {
       headers: {token: token ?? `${get(sessionCustomer, "user.token")}`},
       enabled: !!(get(session, 'user.token') && get(session, 'user.role') === 'customer'),
     })
+
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            // Clear any client-side state or local storage if needed
+            localStorage.clear();
+            sessionStorage.clear();
+            // Redirect to the homepage or a login page
+            window.location.href = "/";
+        }
+    }, [status]);
+
+    const handleLogout = () => {
+        signOut({ callbackUrl: "/" });
+    };
 
 
 
@@ -172,7 +186,7 @@ const Header = (toggleMenu) => {
                                         </button>
                                         <button
                                             className={"block text-base"}
-                                            onClick={() => signOut({callbackUrl: "/"})}
+                                            onClick={handleLogout}
                                         >
                                             {t("Logout")}
                                         </button>
