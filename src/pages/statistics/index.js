@@ -24,12 +24,15 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import GridView from "@/containers/grid-view";
 import {NumericFormat} from "react-number-format";
+import Pagination from "@/components/pagination";
 
 export default function Home() {
   const router = useRouter();
   const { region_name } = router.query;
+  const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(24);
   const [isActive, setIsActive] = useState(0);
+
   const [tabs, setTabs] = useState(1);
   const { t } = useTranslation();
   const [selectedRegion, setSelectedRegion] = useState(null);
@@ -51,6 +54,10 @@ export default function Home() {
   const [dataCustoms, setDataCustoms] = useState([])
   const [sortOrderCustoms, setSortOrderCustoms] = useState('asc');
   const [searchQueryCustoms, setSearchQueryCustoms] = useState('');
+  // TSA
+  const [dataTechnicTSA, setDataTechnicTSA] = useState([])
+  const [sortOrderTechnicTSA, setSortOrderTechnicTSA] = useState('asc');
+  const [searchQueryTechnicTSA, setSearchQueryTechnicTSA] = useState('');
 
 
   const { data: currency } = useGetQuery({
@@ -104,88 +111,9 @@ export default function Home() {
   });
 
 
-  const columnCustoms = [
-    {
-      title: "№",
-      key: "id",
-      render: ({ index }) => <span>{index}</span>,
-    },
-    {
-      title: "Kodi",
-      key: "codeTiftn",
-      classnames: "text-center"
 
-    },
-    {
-      title: "Massasi",
-      key: "netMass",
-      classnames: "text-center"
 
-    },
-    {
-      title: "Narxi",
-      key: "value",
-      render: ({value}) =>
-          <NumericFormat
-              displayType={"text"}
-              className={"text-center bg-transparent"}
-              thousandSeparator={" "}
-              value={(value * 1000 * parseInt(currencyUSD)).toFixed(2)}
-              suffix={" so'm  "}
-          />,
-      classnames: "text-center"
 
-    },
-    {
-      title: "Joylangan vaqti",
-      key: "create_date",
-      render: ({value}) => dayjs(value).format("DD.MM.YYYY HH:mm ", "Asia/Tashkent"),
-      classnames: "text-center"
-    },
-    {
-      title: "Guruh nomi",
-      key: "codeName",
-      classnames: "text-center"
-    },
-
-  ]
-
-  const columnTSA = [
-    {
-      title: "№",
-      key: "id",
-      render: ({ index }) => <span>{index}</span>,
-    },
-    {
-      title: "Nomi",
-      key: "name"
-    },
-    {
-      title: "GOST",
-      key: "gost"
-    },
-
-    {
-      title: "Kompaniya nomi",
-      key: "company_name"
-    },
-    {
-      title: "Narxi",
-      key: "price",
-      render: ({value}) =>
-          <NumericFormat
-              displayType={"text"}
-              className={" bg-transparent"}
-              thousandSeparator={" "}
-              value={value}
-              suffix={" so'm  "}
-          />,
-    },
-    {
-      title: "Davlat",
-      key: "country",
-    }
-  ]
 
 
 
@@ -207,16 +135,60 @@ export default function Home() {
     fetchStatistics();
   }, []);
 
-// Call the function
 
 
   const closeRegion = () => {
+
     setSelectedRegion(null);
   };
 
   const toggleTabs = (index) => {
     setTabs(index);
   };
+
+  const {data: technicsTSA, isLoadingTSA} = useGetQuery({
+    key: KEYS.technicTSA,
+    url: URLS.technicTSA,
+    params: {
+      page,
+      page_size: pageSize
+    }
+  })
+
+  useEffect(() => {
+    if(get(technicsTSA, "data.results", [])) {
+      setDataTechnicTSA(get(technicsTSA, "data.results", []))
+    }
+  }, [get(technicsTSA, "data.results", [])]);
+
+  const sortDataTechnicTSA = () => {
+    const sortedData = [...get(technicsTSA, "data.results", [])].sort((a, b) => {
+      if (sortOrderTechnicTSA === 'asc') {
+        return a.price - b.price;
+      } else {
+        return b.price - a.price;
+      }
+    });
+
+    setDataTechnicTSA(sortedData)
+    setSortOrderTechnicTSA(sortOrderTechnicTSA === 'asc' ? 'desc' : 'asc');
+
+
+  };
+
+  const handleSearchTechnicTSA = (e) => {
+    setSearchQueryTechnicTSA(e.target.value);
+  };
+
+  const filteredDataTechnicTSA = dataTechnicTSA.filter((item) => {
+    return (
+        get(item, 'name', '').toLowerCase().includes(searchQueryTechnicTSA.toLowerCase()) ||
+        get(item, 'gost', '').toString().includes(searchQueryTechnicTSA) ||
+        get(item, 'company_name', '').toString().includes(searchQueryTechnicTSA) ||
+        get(item, 'price', '').toString().includes(searchQueryTechnicTSA) ||
+        get(item, 'country', '').toString().includes(searchQueryTechnicTSA)
+    );
+  });
 
 
 
@@ -1386,7 +1358,7 @@ export default function Home() {
                   </tr>
                   </thead>
                   {filteredDataCustoms.map((stockItem, index) => (
-                      <tbody key={index} className={"even:bg-white odd:bg-[#FBFBFC] text-black"}>
+                      <tbody key={index} className={"even:bg-white odd:bg-[#FBFBFC] text-black text-center"}>
                       <tr>
                         <td className="border px-4 py-2 text-center">{index + 1}</td>
 
@@ -1430,8 +1402,102 @@ export default function Home() {
                     </Title>
                   </div>
 
+                  <div className={"col-span-12 flex items-center gap-x-8"}>
+                    <input
+                        type="text"
+                        placeholder="Kerakli mahsulotni qidiring..."
+                        value={searchQueryTechnicTSA}
+                        onChange={handleSearchTechnicTSA}
+                        className="border px-[10px] py-[10px]  w-2/3 rounded-[6px]"
+                    />
+
+                    <button onClick={sortDataTechnicTSA} className={
+                      "text-[#fff] inline-block text-sm laptop:text-base my-[20px] px-[10px] py-[10px] bg-blue-500 rounded-[5px]"
+                    }>
+                      Narx bo'yicha tartiblash {sortOrderCustoms === "asc" ? "(max-min)" : "(min-max)"}
+                    </button>
+
+                  </div>
+
                   <div className={"col-span-12"}>
-                    <GridView url={URLS.technicTSA} key={KEYS.technicTSA} columns={columnTSA}/>
+                    <table className="table-auto w-full my-[20px]">
+                      <thead>
+                      <tr>
+                        <th className={"px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"}>№</th>
+
+                        <th
+                            className={
+                              "px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"
+                            }
+                        >
+                          Nomi
+                        </th>
+                        <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
+                          GOST
+                        </th>
+                        <th
+                            className={
+                              "px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"
+                            }
+                        >
+                          Kompaniya nomi
+                        </th>
+                        <th
+                            className={
+                              "px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"
+                            }
+                        >
+                          Narxi
+                        </th>
+                        <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
+                          Davlat
+                        </th>
+
+
+                      </tr>
+                      </thead>
+                      {filteredDataTechnicTSA.map((item, index) => (
+                          <tbody key={index} className={"even:bg-white odd:bg-[#FBFBFC] text-black"}>
+                          <tr>
+                            <td className="border px-4 py-2 text-center">{index + 1}</td>
+
+                            <td className="border px-4 py-2 text-sm">
+                              {get(item, "name")}
+                            </td>
+
+                            <td className="border px-4 py-2 text-sm">
+                              {get(item, "gost")}
+                            </td>
+
+                            <td className="border px-4 py-2 text-sm">
+                              {get(item, "company_name")}
+                            </td>
+
+                            <td className="border px-4 py-2 text-sm text-center">
+
+                              <NumericFormat
+                                  displayType={"text"}
+                                  className={"text-center bg-transparent"}
+                                  thousandSeparator={" "}
+                                  value={get(item, "price")}
+                                  suffix={" so'm  "}
+                              />
+                            </td>
+
+
+                            <td className="border px-4 py-2 text-sm text-center">
+                              {get(item, "country")}
+                            </td>
+
+                          </tr>
+
+                          </tbody>
+
+                      ))}
+
+                    </table>
+                    <Pagination page={page} setPage={setPage} pageCount={get(technicsTSA, 'data.total_pages', 0)}/>
+
                   </div>
 
 
@@ -1475,16 +1541,16 @@ export default function Home() {
                           <tr>
                             <th
                                 className={
-                                  "px-4 py-2 bg-white text-gray-600 uppercase font-semibold text-sm"
+                                  "px-4 py-2 bg-white text-gray-600 uppercase font-semibold text-sm text-center"
                                 }
                             >
                               №
                             </th>
-                            <th className="px-4 py-2 text-start bg-white border text-gray-600  font-semibold text-sm">
+                            <th className="px-4 py-2  bg-white border text-gray-600  font-semibold text-sm text-center">
                               Mxik kod
                             </th>
                             <th className="px-4 py-2 bg-white border text-gray-600  font-semibold text-sm">
-                            O'lchov birligi
+                              O'lchov birligi
                             </th>
                             <th className="px-4 py-2 bg-white border text-gray-600  font-semibold text-sm">
                               Mahsulot soni
