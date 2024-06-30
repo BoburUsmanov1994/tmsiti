@@ -85,11 +85,21 @@ const ViewPage = () => {
   });
   const {
     data: material,
-    isLoading,
-    isError,
+    isLoadingWorkAds,
+    isErrorWorkAds,
   } = useGetQuery({
     key: [KEYS.worksAds, code],
     url: `${URLS.worksAds}${code}/`,
+    enabled: !!code,
+  });
+
+  const {
+    data: works,
+    isLoading,
+    isError,
+  } = useGetQuery({
+    key: [KEYS.works, code],
+    url: `${URLS.works}${code}/`,
     enabled: !!code,
   });
 
@@ -101,32 +111,7 @@ const ViewPage = () => {
     enabled: !!(get(session, 'user.token') || token)
   })
 
-  const submitComment = (e) => {
-    e.preventDefault();
-    const inputValue = inputRef.current?.value;
 
-
-    const firstName = get(customer, "data.first_name")
-    const lastName = get(customer, "data.last_name")
-
-    const info = {
-      inputValue,
-      firstName,
-      lastName
-    }
-    if (inputValue.trim()) {
-      const newComments = [...comments, info];
-      setComments(newComments);
-      localStorage.setItem('comments', JSON.stringify(newComments));
-      inputRef.current.value = ''; // Clear the input field after submission
-    }
-  }
-
-  const deleteComment = (index) => {
-    const newComments = comments.filter((_, i) => i !== index);
-    setComments(newComments);
-    localStorage.setItem('comments', JSON.stringify(newComments));
-  };
 
 
 
@@ -299,7 +284,7 @@ const ViewPage = () => {
                   layout={"fill"}
                   objectFit={"contain"}
                   loader={() => get(material, "data.work_image")}
-                  src={get(material, "data.work_image")}
+                  src={get(works, "data.work_image")}
                   alt={"code"}
                 />
               ) : (
@@ -331,7 +316,7 @@ const ViewPage = () => {
                       "font-medium tablet:text-sm laptop:text-base text-xs"
                     }
                   >
-                    #{get(material, "data.work_csr_code")}
+                    #{get(works, "data.work_csr_code")}
                   </span>
                 </div>
                 <div className={"inline-flex mr-8"}>
@@ -376,7 +361,7 @@ const ViewPage = () => {
                   "my-3 laptop:text-xl tablet:tex-lg text-base tablet:text-start  text-center font-semibold "
                 }
               >
-                {get(material, "data.work_name")}
+                {get(works, "data.work_name")}
               </h2>
               <p className={"text-[#4B5055] text-sm"}>
                 {get(material, "data.work_description", "")}
@@ -426,32 +411,7 @@ const ViewPage = () => {
           </div>
         </Section>
 
-        <Section>
-          <div className={"bg-white p-4"}>
-            <
-              Title>Sharh</Title>
-            <p className={"mb-[15px]"}>Mahsulot bo'yicha o'z fikringiz, taklifingiz yoki e'tirozlaringizni
-              qoldirishingiz mumkin</p>
-            {comments.map((comment, index) =>
-                <div key={index} className={" w-full border mb-[30px] rounded-[6px] shadow-xl p-2"}>
-                  <p className={"text-sm text-gray-400"}>{get(comment, "firstName")} {get(comment, "lastName")}</p>
-                  <h1 className={"text-lg"}>{get(comment, "inputValue")}</h1>
-                  <button className={"bg-red-500 px-[30px] text-white text-sm mt-[50px] active:bg-red-400 hover:bg-red-600 rounded-[6px] py-[5px]"} onClick={() => deleteComment(index)}>O'chirish</button>
-                </div>
-            )}
 
-
-
-            <form className={"flex gap-x-8"} onClick={submitComment}>
-
-              <input ref={inputRef} type={"text"} className={'w-2/3 border rounded-[6px] h-[50px] text-base px-2'}
-                     placeholder={"Izoh yozishingiz uchun joy"}/>
-              <button
-                  className={"w-1/3 border h-[50px] bg-[#62B3FF] text-white active:bg-blue-500 rounded-[6px]"}>Yuborish
-              </button>
-            </form>
-          </div>
-        </Section>
       </Main>
     </>
   );
