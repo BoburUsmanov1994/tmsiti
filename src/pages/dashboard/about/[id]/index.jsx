@@ -79,28 +79,7 @@ const Index = () => {
             <div className="p-7">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className={" flex gap-x-[30px] mb-[50px]"}>
-                        <div className={" min-w-[250px]"}>
-                            <label
-                                htmlFor="dropzone-file"
-                                className={
-                                    "shadow-2xl ] rounded-[5px] cursor-pointer  flex flex-col justify-center items-center w-[240px] h-[170px] object-cover bg-white"
-                                }
-                            >
-                                <Image
-                                    src={"/icons/upload.svg"}
-                                    alt={"upload"}
-                                    width={48}
-                                    height={48}
-                                />
-                                <p>yuklash</p>
-                            </label>
-                            <input
-                                id={"dropzone-file"}
-                                type={"file"}
-                                accept={"image/png, image/jpeg, image/jpg"}
-                                className={"hidden"}
-                            />
-                        </div>
+
 
                         <div>
                             {/*  Company name */}
