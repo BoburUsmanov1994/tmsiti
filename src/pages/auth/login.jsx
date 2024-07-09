@@ -13,6 +13,7 @@ import { get } from "lodash";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import { useTranslation } from "react-i18next";
 import {OverlayLoader} from "@/components/loader";
+import {ReCAPTCHA} from "react-google-recaptcha";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -39,6 +40,10 @@ const Login = () => {
     headers: { token: `${get(session, "user.token")}` },
     enabled: !!(get(session, 'user.token') && get(session, 'user.role') === 'customer'),
   });
+
+  function onChange(value) {
+    console.log("Captcha value:", value);
+  }
 
 
 
@@ -108,6 +113,7 @@ const Login = () => {
           </Link>
         </div>
 
+
         <div className="text-center">
           <button
               className={
@@ -116,6 +122,8 @@ const Login = () => {
           >
             {t("Kirish")}
           </button>
+
+          <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} />
         </div>
         <div className="mt-5 text-center">
           <Link
