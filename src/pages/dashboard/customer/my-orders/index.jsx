@@ -223,6 +223,7 @@ const Index = () => {
                                             </div> : ""
 
             ,
+            classnames: "text-center"
 
         },
         {

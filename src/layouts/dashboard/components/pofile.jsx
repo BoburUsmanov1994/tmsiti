@@ -30,6 +30,15 @@ const Pofile = () => {
         enabled: !!(get(session, 'user.token') && get(session, 'user.role') === 'customer')
     })
 
+    const handleLogout = async () => {
+
+        await signOut({ callbackUrl: "/" });
+
+
+        localStorage.clear();
+        sessionStorage.clear();
+    };
+
 
     useEffect(() => {
         if (get(session, 'user.token')) {
@@ -46,7 +55,7 @@ const Pofile = () => {
                     get(session, "user.role") === "customer" ?
                         <Link href={"/auth/reset-password"}><span
                             className={'mr-3'}>{get(customer, 'data.first_name')} {get(customer, 'data.last_name')}</span></Link> : ""}
-                <button className={'block text-base'} onClick={() => signOut({callbackUrl: "/"})}>
+                <button className={'block text-base'} onClick={handleLogout}>
                     {t('Logout')}
                 </button>
             </div>
