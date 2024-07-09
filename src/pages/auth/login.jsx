@@ -13,11 +13,12 @@ import { get } from "lodash";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import { useTranslation } from "react-i18next";
 import {OverlayLoader} from "@/components/loader";
-import {ReCAPTCHA} from "react-google-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = () => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState(null);
   const {
     register,
     handleSubmit,
@@ -41,9 +42,10 @@ const Login = () => {
     enabled: !!(get(session, 'user.token') && get(session, 'user.role') === 'customer'),
   });
 
-  function onChange(value) {
-    console.log("Captcha value:", value);
-  }
+  const onChange = (value) => {
+    setCaptchaValue(value);
+
+  };
 
 
 
@@ -111,19 +113,26 @@ const Login = () => {
           >
             {t("Parolni unitdingizmi")}
           </Link>
+
+        </div>
+
+        <div className="mb-8">
+          <ReCAPTCHA
+              sitekey="6LcC5gsqAAAAAOw-JLW5sh9Ze_Vzp4RDTig6YVin"
+              onChange={onChange}
+          />
         </div>
 
 
         <div className="text-center">
           <button
               className={
-                "bg-[#017EFA] rounded-[5px] text-white text-xl font-medium py-2.5 px-7"
+                ` ${captchaValue ? "bg-[#017EFA]" : "bg-gray-500"} rounded-[5px] text-white text-xl font-medium py-2.5 px-7 transition-all duration-500`
             }
+              disabled={!captchaValue}
           >
             {t("Kirish")}
           </button>
-
-          <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} />
         </div>
         <div className="mt-5 text-center">
           <Link
