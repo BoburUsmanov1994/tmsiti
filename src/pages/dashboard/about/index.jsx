@@ -222,7 +222,7 @@ const Index = () => {
         }
 
         <div className={"mb-[268px]"}>
-          <Link href={`/dashboard/about/${id}`}
+          <Link href={`/dashboard/about/${get(item, "company_stir")}`}
                 className={
                   "flex items-center gap-x-[10px] bg-[#1890FF] py-[6px] px-[31px] rounded-[5px] float-left mt-[30px] hover:bg-[#0084FF] transition-all duration-300 "
                 }
