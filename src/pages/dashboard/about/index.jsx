@@ -77,7 +77,7 @@ const Index = () => {
                       <strong>Manzil: </strong> {isNull(get(item, "company_address")) ? "Ma'lumot kiritilmagan" : get(item, "company_address")}
                     </p>
                   </div>
-                  <Link href={`/dashboard/about/${id}`}
+                  <Link href={`/dashboard/about/${get(item, "company_stir")}`}
                       className={
                         "flex items-center gap-x-[10px] bg-[#1890FF] py-[6px] px-[31px] rounded-[5px] float-right hover:bg-[#0084FF] transition-all duration-300"
                       }
