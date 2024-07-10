@@ -45,6 +45,8 @@ const ViewPage = () => {
       enabled: !!stir,
   })
 
+    const rating = Math.round(get(ratingCompany, "data.average_rating", 1))
+
   const {
     data: company,
     isLoading,
@@ -318,7 +320,7 @@ const ViewPage = () => {
 
                     </div>
                     <div style={{display: 'flex', flexDirection: 'row'}}>
-                        {[...Array(Math.round(get(ratingCompany, "data.average_rating", 1)))].map((star, index) => {
+                        {!isNaN(rating) && rating > 0 ? [...Array(rating )].map((star, index) => {
                             return (
                                 <label key={index} style={{display: 'inline-block'}}>
                                     <input
@@ -340,7 +342,7 @@ const ViewPage = () => {
                                     </svg>
                                 </label>
                             );
-                        })}
+                        }) : ""}
                     </div>
 
                     <div className="flex flex-col laptop:items-start items-center mt-2.5">
