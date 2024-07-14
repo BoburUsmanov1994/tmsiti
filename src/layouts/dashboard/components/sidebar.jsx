@@ -31,6 +31,22 @@ const Sidebar = ({ openSidebar }) => {
     enabled: !!(get(session, 'user.token') && get(session, 'user.role') === 'customer')
   })
 
+  useEffect(() => {
+    // Function to check and redirect based on role
+    const checkRoleAndRedirect = () => {
+      const userRole = get(session, "user.role");
+      const pathname = router.pathname;
+      if (
+          userRole === "company" &&
+          pathname.includes("/dashboard/customer/my-orders")
+      ) {
+        router.push("/login");
+      }
+    };
+
+    checkRoleAndRedirect();
+  }, [router.pathname, session]);
+
   return (
     <div
       className={clsx(
