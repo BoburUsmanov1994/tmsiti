@@ -40,7 +40,11 @@ const Sidebar = ({ openSidebar }) => {
       console.log(userRole, "role of user");
       console.log(pathname, "pathname");
 
-      if (userRole === "customer" && pathname.includes("/dashboard") && pathname.includes("/dashboard/machine-mechano") && pathname.includes("/dashboard/materials") && pathname.includes("/dashboard/about") && pathname.includes("/dashboard/orders") && pathname.includes("/dashboard/small-mechano") && pathname.includes("/dashboard/technos") && pathname.includes("/dashboard/about")) {
+      if (
+          userRole === "customer" &&
+          pathname.startsWith("/dashboard") &&
+          pathname !== "/dashboard/customer/my-orders"
+      ) {
         router.push("/select-position");
       }
     };
