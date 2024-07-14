@@ -36,14 +36,13 @@ const Sidebar = ({ openSidebar }) => {
     const checkRoleAndRedirect = () => {
       const userRole = get(session, "user.role");
       const pathname = router.pathname;
-      if (
-          userRole === "company" &&
-          pathname.includes("/dashboard/customer/my-orders")
-      ) {
+
+      if (userRole === "company" && pathname.includes("/dashboard/customer/my-orders")) {
         router.push("/login");
       }
     };
 
+    // Run the function initially and whenever pathname or session changes
     checkRoleAndRedirect();
   }, [router.pathname, session]);
 
