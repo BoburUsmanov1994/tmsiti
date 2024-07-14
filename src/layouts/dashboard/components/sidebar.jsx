@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Brand from "../../../components/brand";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
