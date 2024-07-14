@@ -37,6 +37,9 @@ const Sidebar = ({ openSidebar }) => {
       const userRole = get(session, "user.role");
       const pathname = router.pathname;
 
+      console.log(userRole, "role of user");
+      console.log(pathname, "pathname");
+
       if (userRole === "company" && pathname.includes("/dashboard/customer/my-orders")) {
         router.push("/login");
       }
