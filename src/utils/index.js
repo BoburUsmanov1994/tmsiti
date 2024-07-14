@@ -44,5 +44,5 @@ export async function getUserRole(req) {
     if (!session) {
         return null;
     }
-    return session.user.role; // Assuming role is stored in session.user.role
+    return session?.user?.role; // Assuming role is stored in session.user.role
 }
