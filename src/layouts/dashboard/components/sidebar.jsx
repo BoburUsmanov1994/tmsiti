@@ -40,8 +40,8 @@ const Sidebar = ({ openSidebar }) => {
       console.log(userRole, "role of user");
       console.log(pathname, "pathname");
 
-      if (userRole === "customer" && pathname.includes("/dashboard/:path*")) {
-        router.push("/auth/e-imzo?callbackUrl=https%3A%2F%2Fcatalog-tmsiti.vercel.app%2Fselect-position");
+      if (userRole === "customer" && pathname.includes("/dashboard/machine-mechano/add-ads")) {
+        router.push("/select-position");
       }
     };
 
