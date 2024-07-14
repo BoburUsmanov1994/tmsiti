@@ -17,7 +17,7 @@ export async function middleware(req) {
     return NextResponse.redirect("/login");
   }
 
-  if (url.startsWith("/dashboard/path*") && role !== "admin") {
+  if (url.startsWith("/dashboard/path*") && role !== "company") {
     return NextResponse.redirect("/auth/e-imzo");
   }
 
