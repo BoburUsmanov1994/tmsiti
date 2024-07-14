@@ -1,7 +1,6 @@
 import {find, get,  isArray, isNil, forEach, keys, includes} from "lodash";
 import i18config from "../services/i18n"
 import {CATEGORY_LIST} from "@/constants/enums";
-import {getSession} from "next-auth/react";
 
 export const getDefaultValue = (options, id) => {
     return find(options, (option) => get(option, 'value') === id)
@@ -36,13 +35,4 @@ export const findCategoryName = (item) => {
 
 export const getPriceByCurrency = (currencyList, currency) => {
     return get(findCurrency(findCurrency, currency), 'Rate') || 0;
-}
-
-
-export async function getUserRole(req) {
-    const session = await getSession({ req });
-    if (!session) {
-        return null;
-    }
-    return session?.user?.role; // Assuming role is stored in session.user.role
 }
