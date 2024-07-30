@@ -22,7 +22,7 @@ const FondStock = () => {
     <>
       <div
         className={"text-center bg-[#202B57] cursor-pointer py-3"}
-        onClick={Collapse}
+
       >
         <h3
           className={
@@ -42,9 +42,7 @@ const FondStock = () => {
         )}
       </div>
       <div
-        className={`${
-          !open ? "opacity-0 hidden" : "opacity-100"
-        }  bg-[#475ADC] transition-all duration-500`}
+        className={` bg-[#475ADC] transition-all duration-500`}
       >
         <motion.div>
           <Marquee autoFill={true} pauseOnClick={true} direction={"right"}>
