@@ -55,5 +55,6 @@ export const KEYS = {
   machineMechanoExcel: "machineMechanoExcel",
   customs: "customs",
   technicTSA: "technicTSA",
-  tax: "tax"
+  tax: "tax",
+  cmetaCategory: "cmetaCategory",
 };

@@ -70,5 +70,6 @@ export const URLS = {
   machineMechanoExcel: "machines-mechanos/mmechno/2023/",
   customs: "bojxona/list/",
   technicTSA: "texnikjtsa/list/",
-  tax: "soliq/"
+  tax: "soliq/",
+  cmt_category: "cmeta/cmeta/category/",
 };
