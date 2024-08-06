@@ -406,7 +406,7 @@ export default function Works() {
               {get(sample_project_category, "data.results", []).map(
                 (item, index) => (
                   <div
-                    key={index}
+                    key={get(item, "id")}
                     // onClick={() => handleClick(item.id)}
                     onClick={() => handlecmetaClick(get(item, "id"))}
                     className={`col-span-4 flex items-center ${
@@ -416,7 +416,7 @@ export default function Works() {
                     <h3 className="my-[10px] text-lg font-medium">
                       {item.name}
                     </h3>
-                    <img
+                    <Image
                       src={`/images/${get(item, "name")?.toLowerCase()}.png`}
                       alt={`${item.name}`}
                       quality={100}
