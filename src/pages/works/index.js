@@ -414,9 +414,10 @@ export default function Works() {
                     } justify-center flex-col gap-y-[10px] border-[2px] min-h-[150px] rounded-[8px] cursor-pointer hover:bg-blue-200 transition-all duration-500 text-black`}
                   >
                     <h3 className="my-[10px] font-medium">{item.name}</h3>
-                    <Image
+                    <img
                       src={`/images/${get(item, "name")?.toLowerCase()}.png`}
-                      alt={item.name}
+                      alt={`${item.name}`}
+                      quality={100}
                       width={320}
                       height={240}
                     />
