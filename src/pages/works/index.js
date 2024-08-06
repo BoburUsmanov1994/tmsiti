@@ -413,7 +413,7 @@ export default function Works() {
                       tabs === item.id ? "bg-blue-200" : "bg-white-100"
                     } justify-center flex-col gap-y-[10px] border-[2px] min-h-[150px] rounded-[8px] cursor-pointer hover:bg-blue-200 transition-all duration-500 text-black`}
                   >
-                    <h3>{item.name}</h3>
+                    <h3 className="my-[10px] font-medium">{item.name}</h3>
                     <Image
                       src={`/images/${get(item, "name")?.toLowerCase()}.png`}
                       alt={item.name}
