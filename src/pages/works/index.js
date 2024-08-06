@@ -405,7 +405,7 @@ export default function Works() {
             >
               {SampledataCategory.map((item, index) => (
                 <div
-                  key={item.id}
+                  key={index}
                   // onClick={() => handleClick(item.id)}
                   onClick={() => handlecmetaClick(item.id)}
                   className={`col-span-4 flex items-center ${
