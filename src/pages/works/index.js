@@ -424,6 +424,21 @@ export default function Works() {
                   />
                 </div>
               ))}
+
+              <div
+                className={`col-span-4 flex items-center  justify-center flex-col gap-y-[10px] border-[2px] min-h-[150px] rounded-[8px] cursor-pointer hover:bg-blue-200 transition-all duration-500 text-black`}
+              >
+                <h3 className="my-[10px] text-lg font-medium text-[#23A8F2]">
+                  Polikilinka
+                </h3>
+                <Image
+                  src={`/images/polikilinka.png`}
+                  alt={`poliklinika`}
+                  quality={100}
+                  width={120}
+                  height={120}
+                />
+              </div>
             </div>
 
             {tabs === 1 ? (
