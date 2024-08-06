@@ -414,7 +414,7 @@ export default function Works() {
                 >
                   <h3>{item.name}</h3>
                   <Image
-                    src={`/images/${item.name.toLowerCase()}.png`}
+                    src={`/images/${item?.name.toLowerCase()}.png`}
                     alt={item.name}
                     width={120}
                     height={120}
