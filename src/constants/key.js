@@ -57,4 +57,6 @@ export const KEYS = {
   technicTSA: "technicTSA",
   tax: "tax",
   cmetaCategory: "cmetaCategory",
+  sample: "sample",
+  sampleCategory: "sampleCategory",
 };

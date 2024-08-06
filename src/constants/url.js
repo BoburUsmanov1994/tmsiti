@@ -72,4 +72,6 @@ export const URLS = {
   technicTSA: "texnikjtsa/list/",
   tax: "soliq/",
   cmt_category: "cmeta/cmeta/category/",
+  sample_project_category: "cmeta/sample/category/",
+  sample_project: "cmeta/sample/",
 };
