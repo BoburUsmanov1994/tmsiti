@@ -403,24 +403,26 @@ export default function Works() {
                 "grid grid-cols-12 mt-[30px] min-h-fit gap-x-[30px] gap-y-[30px]"
               }
             >
-              {SampledataCategory.map((item, index) => (
-                <div
-                  key={index}
-                  // onClick={() => handleClick(item.id)}
-                  onClick={() => handlecmetaClick(item.id)}
-                  className={`col-span-4 flex items-center ${
-                    tabs === item.id ? "bg-blue-200" : "bg-white-100"
-                  } justify-center flex-col gap-y-[10px] border-[2px] min-h-[150px] rounded-[8px] cursor-pointer hover:bg-blue-200 transition-all duration-500 text-black`}
-                >
-                  <h3>{item.name}</h3>
-                  <Image
-                    src={`/images/${item?.name.toLowerCase()}.png`}
-                    alt={item.name}
-                    width={320}
-                    height={240}
-                  />
-                </div>
-              ))}
+              {get(sample_project_category, "data.results", []).map(
+                (item, index) => (
+                  <div
+                    key={index}
+                    // onClick={() => handleClick(item.id)}
+                    onClick={() => handlecmetaClick(get(item, "id"))}
+                    className={`col-span-4 flex items-center ${
+                      tabs === item.id ? "bg-blue-200" : "bg-white-100"
+                    } justify-center flex-col gap-y-[10px] border-[2px] min-h-[150px] rounded-[8px] cursor-pointer hover:bg-blue-200 transition-all duration-500 text-black`}
+                  >
+                    <h3>{item.name}</h3>
+                    <Image
+                      src={`/images/${get(item, "name")?.toLowerCase()}.png`}
+                      alt={item.name}
+                      width={320}
+                      height={240}
+                    />
+                  </div>
+                )
+              )}
             </div>
 
             {tabs === 1 ? (
