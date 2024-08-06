@@ -420,8 +420,8 @@ export default function Works() {
                       src={`/images/${get(item, "name")?.toLowerCase()}.png`}
                       alt={`${item.name}`}
                       quality={100}
-                      width={320}
-                      height={240}
+                      width={120}
+                      height={120}
                     />
                   </div>
                 )
