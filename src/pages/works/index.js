@@ -416,8 +416,8 @@ export default function Works() {
                   <Image
                     src={`/images/${item?.name.toLowerCase()}.png`}
                     alt={item.name}
-                    width={120}
-                    height={120}
+                    width={320}
+                    height={240}
                   />
                 </div>
               ))}
