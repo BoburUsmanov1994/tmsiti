@@ -8,13 +8,12 @@ import { ContentLoader } from "@/components/loader";
 import Category from "@/components/category";
 import Title from "@/components/title";
 import { get, isEmpty } from "lodash";
-import Product from "@/components/product";
+
 import ErrorPage from "@/pages/500";
 import { URLS } from "@/constants/url";
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import Format1 from "@/components/product/format1";
-import Template from "@/components/template";
+import { useState } from "react";
+
 import useGetQuery from "@/hooks/api/useGetQuery";
 import Image from "next/image";
 import { NumericFormat } from "react-number-format";
