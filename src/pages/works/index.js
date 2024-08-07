@@ -8,12 +8,13 @@ import { ContentLoader } from "@/components/loader";
 import Category from "@/components/category";
 import Title from "@/components/title";
 import { get, isEmpty } from "lodash";
-
+import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import { URLS } from "@/constants/url";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import Format1 from "@/components/product/format1";
+import Template from "@/components/template";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import Image from "next/image";
 import { NumericFormat } from "react-number-format";
@@ -403,38 +404,46 @@ export default function Works() {
                 "grid grid-cols-12 mt-[30px] min-h-fit gap-x-[30px] gap-y-[30px]"
               }
             >
-              {get(sample_project_category, "data.results", []).map((item) => (
-                <div
-                  key={get(item, "id")}
-                  // onClick={() => handleClick(item.id)}
-                  onClick={() => handlecmetaClick(get(item, "id"))}
-                  className={`col-span-4 flex items-center ${
-                    tabs === item.id ? "bg-blue-200" : "bg-white-100"
-                  } justify-center flex-col gap-y-[10px] border-[2px] min-h-[150px] rounded-[8px] cursor-pointer hover:bg-blue-200 transition-all duration-500 text-black`}
-                >
-                  <h3 className="my-[10px] text-lg font-medium text-[#23A8F2]">
-                    {get(item, "name")}
-                  </h3>
-                  <Image
-                    src={`/images/${get(item, "name")?.toLowerCase()}.png`}
-                    alt={`${get(item, "name")}`}
-                    quality={100}
-                    width={120}
-                    height={120}
-                  />
-                </div>
-              ))}
+              <div
+                onClick={() => handlecmetaClick(1)}
+                className={`col-span-4 flex items-center ${
+                  tabs === 1 ? "bg-blue-200" : "bg-white-100"
+                } justify-center flex-col gap-y-[10px] border-[2px] min-h-[150px] rounded-[8px] cursor-pointer hover:bg-blue-200 transition-all duration-500 text-black`}
+              >
+                <h3>Bog'cha</h3>
+                <Image
+                  src={`/images/bog'cha.png`}
+                  alt="bog'cha"
+                  width={120}
+                  height={120}
+                />
+              </div>
 
               <div
-                className={`col-span-4 flex items-center  justify-center flex-col gap-y-[10px] border-[2px] min-h-[150px] rounded-[8px] cursor-pointer hover:bg-blue-200 transition-all duration-500 text-black`}
+                onClick={() => handlecmetaClick(2)}
+                className={`col-span-4 flex items-center ${
+                  tabs === 2 ? "bg-blue-200" : "bg-white-100"
+                } justify-center flex-col gap-y-[10px] border-[2px] min-h-[150px] rounded-[8px] cursor-pointer hover:bg-blue-200 transition-all duration-500 text-black`}
               >
-                <h3 className="my-[10px] text-lg font-medium text-[#23A8F2]">
-                  Polikilinka
-                </h3>
+                <h3>Maktab</h3>
                 <Image
-                  src={`/images/polikilinka.png`}
-                  alt={`poliklinika`}
-                  quality={100}
+                  src={`/images/maktab.png`}
+                  alt="bog'cha"
+                  width={120}
+                  height={120}
+                />
+              </div>
+
+              <div
+                onClick={() => handlecmetaClick(3)}
+                className={`col-span-4 flex items-center ${
+                  tabs === 3 ? "bg-blue-200" : "bg-white-100"
+                } justify-center flex-col gap-y-[10px] border-[2px] min-h-[150px] rounded-[8px] cursor-pointer hover:bg-blue-200 transition-all duration-500 text-black`}
+              >
+                <h3>Polikilinka</h3>
+                <Image
+                  src={`/images/Polikilinka.png`}
+                  alt="bog'cha"
                   width={120}
                   height={120}
                 />
@@ -540,7 +549,7 @@ export default function Works() {
                                   <td className="border px-4 py-2 text-center">
                                     <NumericFormat
                                       value={get(stockItem, "price")}
-                                      suffix={".00 so'm"}
+                                      suffix={" so'm"}
                                       className={"bg-transparent text-center"}
                                     />
                                   </td>
@@ -658,7 +667,7 @@ export default function Works() {
                                   <td className="border px-4 py-2 text-center">
                                     <NumericFormat
                                       value={get(stockItem, "price")}
-                                      suffix={".00 so'm"}
+                                      suffix={" so'm"}
                                       className={"bg-transparent text-center"}
                                     />
                                   </td>
@@ -775,7 +784,7 @@ export default function Works() {
                                   <td className="border px-4 py-2 text-center">
                                     <NumericFormat
                                       value={get(stockItem, "price")}
-                                      suffix={".00 so'm"}
+                                      suffix={" so'm"}
                                       className={"bg-transparent text-center"}
                                     />
                                   </td>

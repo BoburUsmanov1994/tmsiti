@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import BurgerMenu from "@/components/burger-menu";
 import Search from "@/components/search";
+import clsx from "clsx";
 
 export const menuData = [
   {
@@ -82,9 +83,9 @@ const Menu = ({ active = 0 }) => {
                 {
                   "!border-b-[#1890FF] text-white": isEqual(
                     get(item, "id"),
-                    active,
+                    active
                   ),
-                },
+                }
               )}
               href={get(item, "url")}
             >
@@ -108,9 +109,9 @@ const Menu = ({ active = 0 }) => {
                       {
                         "!border-b-[#1890FF] text-[#001A57]": isEqual(
                           get(item, "id"),
-                          active,
+                          active
                         ),
-                      },
+                      }
                     )}
                     href={get(subItem, "url")}
                   >
@@ -140,9 +141,9 @@ const Menu = ({ active = 0 }) => {
                 {
                   "!border-b-[#1890FF] text-white": isEqual(
                     get(item, "id"),
-                    active,
+                    active
                   ),
-                },
+                }
               )}
               href={get(item, "url")}
             >
@@ -166,9 +167,9 @@ const Menu = ({ active = 0 }) => {
                       {
                         "!border-b-[#1890FF] text-[#001A57]": isEqual(
                           get(item, "id"),
-                          active,
+                          active
                         ),
-                      },
+                      }
                     )}
                     href={get(subItem, "url")}
                   >
