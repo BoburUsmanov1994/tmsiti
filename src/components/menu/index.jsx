@@ -5,7 +5,6 @@ import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import BurgerMenu from "@/components/burger-menu";
 import Search from "@/components/search";
-import clsx from "clsx";
 
 export const menuData = [
   {
