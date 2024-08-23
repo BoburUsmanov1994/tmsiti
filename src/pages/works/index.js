@@ -25,7 +25,7 @@ export default function Works() {
   const [pageSize, setPageSize] = useState(100);
   const [isActive, setIsActive] = useState(0);
   const [count, setCount] = useState(0);
-  const [tab, setTab] = useState(1);
+  const [tab, setTab] = useState(2);
   const [searchQuery, setSearchQuery] = useState("");
   const [url, setUrl] = useState(URLS.cmt);
   const [data, setData] = useState([]);
@@ -183,24 +183,24 @@ export default function Works() {
             className={"col-span-12 flex justify-center items-center gap-x-8"}
           >
             <button
-              onClick={() => setTab(1)}
-              className={`${
-                tab === 1
-                  ? "bg-blue-500 text-white"
-                  : "bg-white text-blue-500 border-blue-500 border-[1px]"
-              }  py-2 px-6 rounded-[6px] active:scale-90 transition-all duration-300`}
-            >
-              Hajm usuli
-            </button>
-            <button
               onClick={() => setTab(2)}
-              className={`bg-blue-500 ${
+              className={`${
                 tab === 2
                   ? "bg-blue-500 text-white"
                   : "bg-white text-blue-500 border-blue-500 border-[1px]"
               }  py-2 px-6 rounded-[6px] active:scale-90 transition-all duration-300`}
             >
               Namunaviy loyihalar
+            </button>
+            <button
+              onClick={() => setTab(1)}
+              className={`bg-blue-500 ${
+                tab === 1
+                  ? "bg-blue-500 text-white"
+                  : "bg-white text-blue-500 border-blue-500 border-[1px]"
+              }  py-2 px-6 rounded-[6px] active:scale-90 transition-all duration-300`}
+            >
+              Hajm usuli
             </button>
           </div>
         </div>
