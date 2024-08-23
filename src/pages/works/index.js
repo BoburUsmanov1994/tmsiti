@@ -19,6 +19,7 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import Image from "next/image";
 import { NumericFormat } from "react-number-format";
 import axios from "axios";
+import Link from "next/link";
 export default function Works() {
   const { t } = useTranslation();
   const [pageSize, setPageSize] = useState(100);
@@ -534,8 +535,16 @@ export default function Works() {
                                     {index + 1}
                                   </td>
 
-                                  <td className="border px-4 py-2 text-sm">
-                                    {get(stockItem, "name")}
+                                  <td className="border px-4 py-2 text-sm text-center">
+                                    <Link
+                                      href={`/materials/${get(
+                                        stockItem,
+                                        "name"
+                                      )}`}
+                                      className="text-[#3B82F6] hover:underline"
+                                    >
+                                      {get(stockItem, "name")}
+                                    </Link>
                                   </td>
 
                                   <td className="border px-4 py-2 text-sm">
@@ -652,8 +661,16 @@ export default function Works() {
                                     {index + 1}
                                   </td>
 
-                                  <td className="border px-4 py-2 text-sm">
-                                    {get(stockItem, "name")}
+                                  <td className="border px-4 py-2 text-sm text-center">
+                                    <Link
+                                      href={`/materials/${get(
+                                        stockItem,
+                                        "name"
+                                      )}`}
+                                      className="text-[#3B82F6] hover:underline"
+                                    >
+                                      {get(stockItem, "name")}
+                                    </Link>
                                   </td>
 
                                   <td className="border px-4 py-2 text-sm">
@@ -769,8 +786,16 @@ export default function Works() {
                                     {index + 1}
                                   </td>
 
-                                  <td className="border px-4 py-2 text-sm">
-                                    {get(stockItem, "name")}
+                                  <td className="border px-4 py-2 text-sm text-center">
+                                    <Link
+                                      href={`/materials/${get(
+                                        stockItem,
+                                        "name"
+                                      )}`}
+                                      className="text-[#3B82F6] hover:underline"
+                                    >
+                                      {get(stockItem, "name")}
+                                    </Link>
                                   </td>
 
                                   <td className="border px-4 py-2 text-sm">
