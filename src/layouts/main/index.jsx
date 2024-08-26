@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import FondStock from "../../components/fondStock/index";
+import InfoHub from "@/components/infohub";
 
 const Main = ({ children }) => {
   const { t } = useTranslation();
@@ -15,6 +16,7 @@ const Main = ({ children }) => {
       <Header />
       <main className={""}>
         {children}
+        <InfoHub />
         <Link
           className={""}
           href={

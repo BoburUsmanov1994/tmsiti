@@ -104,3 +104,26 @@ input[type=radio] {
     cursor: pointer;
     display: flex;
 }
+
+.icon-item { /* Adjust space between icons */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.icon-item .description {
+    display: none;
+}
+
+.icon-item:hover {
+    background-color: #20EA57;
+}
+
+.icon-item:hover .description {
+    display: inline;  
+    
+}
+
+
+
