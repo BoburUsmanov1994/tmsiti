@@ -7,6 +7,7 @@ import { URLS } from "@/constants/url";
 import { get, head } from "lodash";
 import { motion } from "framer-motion";
 import dayjs from "dayjs";
+import { NumericFormat } from "react-number-format";
 
 const FondStock = () => {
   const [open, setOpen] = useState(false);
@@ -20,10 +21,7 @@ const FondStock = () => {
   };
   return (
     <>
-      <div
-        className={"text-center bg-[#202B57] cursor-pointer py-3"}
-
-      >
+      <div className={"text-center bg-[#202B57] cursor-pointer py-3"}>
         <h3
           className={
             "!text-[#fff] tracking-normal hover:tracking-wide transition-all duration-500  hover:underline"
@@ -38,37 +36,44 @@ const FondStock = () => {
               ({dayjs(get(item, "startdate")).format("DD.MM.YYYY")} -
               {dayjs(get(item, "enddate")).format("DD.MM.YYYY")})
             </p>
-          )),
+          ))
         )}
       </div>
-      <div
-        className={` bg-[#475ADC] transition-all duration-500`}
-      >
-        <motion.div>
+      <div className={` bg-[#E7EEFC] transition-all duration-500`}>
+        <div>
           <Marquee autoFill={true} pauseOnClick={true} direction={"right"}>
             {get(birja, "data", []).map((item, index) => (
               <div
                 key={index}
                 className={
-                  "px-[5px] py-[8px] border border-[#c5c5c5] w-[180px] "
+                  "p-[15px] bg-white flex gap-x-[10px] justify-between w-[400px] h-[150px] mx-[10px] my-[10px] rounded-[10px]"
                 }
               >
-                <div className={"grid grid-rows-6"}>
+                <div className={"min-w-[156px] max-h-[130px]"}>
+                  <Image
+                    src={`/images/fond_image${(index % 7) + 1}.png`}
+                    alt={"announcement"}
+                    width={156}
+                    height={120}
+                    className={"w-[156px] h-[120px]"}
+                  />
+                </div>
+
+                <div className="flex flex-col">
                   <h4
                     className={
-                      "line-clamp-3 row-span-4 text-[14px] text-[#F0F3F5]"
+                      "line-clamp-3  text-[14px] text-black mb-[10px] "
                     }
                   >
                     {get(item, "name")}
                   </h4>
-                  <p className={"text-xs  row-span-1  neon float-right"}>
-                    {Number(get(item, "price")).toFixed(2)}
-                  </p>
-                  <div
-                    className={
-                      "flex items-center justify-end float-right row-span-1"
-                    }
-                  >
+                  <NumericFormat
+                    thousandSeparator={" "}
+                    value={Number(get(item, "price")).toFixed(1)}
+                    className="bg-transparent text-sm font-semibold flex-grow"
+                  />
+
+                  <div className={"flex items-center justify-end   "}>
                     {Number(get(item, "changeSum")) > 0 ? (
                       <Image
                         src={"/images/increase.png"}
@@ -104,7 +109,7 @@ const FondStock = () => {
               </div>
             ))}
           </Marquee>
-        </motion.div>
+        </div>
       </div>
     </>
   );

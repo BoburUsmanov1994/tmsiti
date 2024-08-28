@@ -14,7 +14,7 @@ const Main = ({ children }) => {
       <FondStock />
 
       <Header />
-      <main className={""}>
+      <main className={"relative"}>
         {children}
         <InfoHub />
         <Link

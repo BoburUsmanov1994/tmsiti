@@ -6,7 +6,7 @@ const InfoHub = () => {
   return (
     <div
       className={
-        "fixed rounded-t-[5px] bottom-0  laptop:hover:text-lg transition-all duration-400"
+        "fixed rounded-t-[5px] top-[50px] right-0 z-50 laptop:hover:text-lg transition-all duration-400"
       }
     >
       <ul>

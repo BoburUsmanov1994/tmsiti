@@ -35,7 +35,6 @@ module.exports = {
         desktop: "1440px",
       },
     },
-  } ,
+  },
   plugins: [],
 };
-    
