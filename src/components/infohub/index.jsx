@@ -17,7 +17,7 @@ const InfoHub = () => {
           >
             <p className="description">Rasmiy veb-sayt</p>
             <Image
-              src={"/images/official-website.png"}
+              src={"/images/globe.png"}
               alt="official-website"
               width={40}
               height={40}

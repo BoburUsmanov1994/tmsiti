@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 const Brand = () => {
   const { t } = useTranslation();
   return (
-    <Link className={"flex items-center"} href={"/"}>
+    <Link className={"flex items-center"} href={"/main-page"}>
       <Image
         className={"mr-5 tablet:w-[56px] tablet:h-[60px] w-[40px] h-[40px]"}
         width={56}
@@ -15,8 +15,8 @@ const Brand = () => {
         src={"/images/logo.svg"}
         alt={"image"}
       />
-      <span className={"font-bold tablet:text-base text-xs w-auto"}>
-        {t("name")}
+      <span className={"font-bold tablet:text-base text-xs w-auto capitalize"}>
+        {t("Qurilish resurslari milliy klassifikatori")}
       </span>
     </Link>
   );
