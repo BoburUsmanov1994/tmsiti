@@ -30,10 +30,6 @@ const Login = () => {
   const { mutate: signupRequest, isLoading } = usePostQuery({
     listKeyId: KEYS.login,
   });
-  const token = useSettingsStore((state) => get(state, "token", null));
-  const setToken = useSettingsStore((state) =>
-    get(state, "setToken", () => {})
-  );
 
   const { data: customer } = useGetQuery({
     key: KEYS.getCustomer,
