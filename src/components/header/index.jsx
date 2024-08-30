@@ -93,8 +93,8 @@ const Header = (toggleMenu) => {
       </div> */}
       <div className={"bg-[#202B57]  relative overflow-hidden"}>
         <Link href={"https://tmsiti.uz/"}>
-          <div className=" -rotate-45  absolute bg-white text-black text-2xl  font-medium -top-[10px] p-[30px] ">
-            <h4 className="">
+          <div className=" -rotate-45  absolute bg-[#34A946] text-white text-lg w-[300px]   font-medium -top-[10px] p-[20px] ">
+            <h4 className="ml-[70px]">
               {" "}
               TM SITI <br />
               tmsiti.uz
