@@ -55,7 +55,7 @@ const FondStock = () => {
                     alt={"announcement"}
                     width={156}
                     height={120}
-                    className={"w-[156px] h-[120px] object-contain"}
+                    className={"w-[156px] h-[120px] object-cover"}
                   />
                 </div>
 
