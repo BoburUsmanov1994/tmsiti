@@ -175,5 +175,51 @@ input[type=radio] {
     transform: translateY(0px);
 }
 
+.project-data-1 {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.project-data-2 {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.project-data-3 {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.project-data-1::after {
+    content: "1";
+    position: absolute;
+    right: 20px;
+    top: -40px;    
+    font-weight: 500;
+    font-size: 150px;
+    color: #C8E7D9;
+}
+
+.project-data-2::after {
+    content: "2";
+    position: absolute;
+    right: 20px;
+    top: -40px;    
+    font-weight: 500;
+    font-size: 150px;
+    color: #C8E7D9;
+}
+
+.project-data-3::after {
+    content: "3";
+    position: absolute;
+    right: 20px;
+    top: -40px;
+    font-weight: 500;
+    font-size: 150px;
+    color: #C8E7D9;
+}
+
 
 

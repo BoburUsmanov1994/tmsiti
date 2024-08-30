@@ -1,8 +1,10 @@
+import Button from "@/components/button";
 import MyCalendar from "@/components/calendar";
 import ClockTMSITI from "@/components/clock";
 import Reveal from "@/components/reveal";
 import Section from "@/components/section";
 import Title from "@/components/title";
+import TashkentWeather from "@/components/weather";
 
 import Main from "@/layouts/main";
 import { get } from "lodash";
@@ -55,6 +57,50 @@ const menuData = [
   },
 ];
 
+const projectData = [
+  {
+    id: 1,
+    image: "project-image1",
+    title: "Bog'cha",
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  },
+  {
+    id: 2,
+    image: "project-image2",
+    title: "Maktab",
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  },
+  {
+    id: 3,
+    image: "project-image3",
+    title: "Poliklinika",
+    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  },
+];
+
+const integrationData = [
+  {
+    id: 1,
+    url: "https://www.soliq.uz/",
+  },
+  {
+    id: 2,
+    url: "https://uzex.uz/",
+  },
+  {
+    id: 3,
+    url: "https://stat.uz/uz/",
+  },
+  {
+    id: 4,
+    url: "https://customs.uz/oz",
+  },
+  {
+    id: 5,
+    url: "https://www.imv.uz/",
+  },
+];
+
 const Index = () => {
   return (
     <Main>
@@ -86,11 +132,66 @@ const Index = () => {
         <div className="col-span-12 mt-[30px]">
           <Title>Namunaviy loyihalar</Title>
         </div>
+
+        {projectData.map((item, index) => (
+          <div
+            key={get(item, "id")}
+            className={`col-span-4 border p-[20px] hover:border-[#1890FF] shadow-md transition-all duration-500  rounded-[20px] project-data-${get(
+              item,
+              "id"
+            )}`}
+          >
+            <Reveal duration={0.4}>
+              <Image
+                src={`/images/${get(item, "image")}.png`}
+                alt="project-image"
+                width={100}
+                height={100}
+                className="bg-[#1890FF] p-[20px] rounded-[10px]"
+              />
+            </Reveal>
+
+            <Reveal duration={0.5}>
+              <h4 className="my-[15px] text-[22px] font-semibold">
+                {get(item, "title")}
+              </h4>
+            </Reveal>
+
+            <Reveal duration={0.6}>
+              <p>{get(item, "desc")}</p>
+            </Reveal>
+          </div>
+        ))}
+
+        <div className="col-span-12 flex items-center justify-center">
+          <Reveal duration={0.5}>
+            <Button url="/works">Batafsil</Button>
+          </Reveal>
+        </div>
+
+        <div className="col-span-12">
+          <Title>Integratsiya bo'yicha hamkorlar</Title>
+        </div>
+
+        {integrationData.map((item, index) => (
+          <div className="col-span-3 border flex items-center justify-center p-[10px] rounded-[15px] hover:shadow-md transition-all duration-400">
+            <Reveal duration={Number(`0.${index + 2}`)}>
+              <Link href={`${get(item, "url")}`}>
+                <Image
+                  src={`/images/integration${get(item, "id")}.png`}
+                  width={350}
+                  height={20}
+                />
+              </Link>
+            </Reveal>
+          </div>
+        ))}
       </div>
 
-      <div className="absolute top-0 right-0">
+      {/* <div className="absolute top-0 right-0">
         <ClockTMSITI />
-      </div>
+        <TashkentWeather />
+      </div> */}
     </Main>
   );
 };

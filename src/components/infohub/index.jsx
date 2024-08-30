@@ -15,13 +15,13 @@ const InfoHub = () => {
             href={"https://tmsiti.uz/"}
             className="flex items-center justify-between gap-x-[10px] cursor-pointer "
           >
-            <p className="description">Rasmiy veb-sayt</p>
             <Image
               src={"/images/globe.png"}
               alt="official-website"
               width={40}
               height={40}
             />
+            <p className="description">Rasmiy veb-sayt</p>
           </Link>
         </li>
         <li className="bg-[#017EFA] z-50 text-white px-[10px] py-[10px] mb-[10px] icon-item">
@@ -29,13 +29,13 @@ const InfoHub = () => {
             href={"#"}
             className="flex items-center justify-between gap-x-[10px]"
           >
-            <p className="description">Call markaz</p>
             <Image
               src={"/images/call-center.png"}
               alt="call-center"
               width={40}
               height={40}
             />
+            <p className="description">Call markaz</p>
           </Link>
         </li>
         <li className="bg-[#017EFA] z-50 text-white px-[10px] py-[10px] mb-[10px] icon-item">
@@ -43,13 +43,13 @@ const InfoHub = () => {
             href={"#"}
             className="flex items-center justify-between gap-x-[10px]"
           >
-            <p className="description">Ishonch telefoni</p>
             <Image
               src={"/images/phone.png"}
               alt="phone"
               width={40}
               height={40}
             />
+            <p className="description">Ishonch telefoni</p>
           </Link>
         </li>
         <li className="bg-[#017EFA] z-50 text-white px-[10px] py-[10px] mb-[10px] icon-item">
@@ -57,13 +57,13 @@ const InfoHub = () => {
             href={"#"}
             className="flex items-center justify-between gap-x-[10px]"
           >
-            <p className="description">Telegram bot</p>
             <Image
               src={"/images/telegram_bot.png"}
               alt="telegram_bot"
               width={40}
               height={40}
             />
+            <p className="description">Telegram bot</p>
           </Link>
         </li>
       </ul>

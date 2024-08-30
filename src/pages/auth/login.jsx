@@ -108,7 +108,7 @@ const Login = () => {
           </Link>
         </div>
 
-        <div className="mb-8">
+        <div className="mb-8" data-type="image">
           <ReCAPTCHA
             sitekey="6LcC5gsqAAAAAOw-JLW5sh9Ze_Vzp4RDTig6YVin"
             onChange={onChange}
