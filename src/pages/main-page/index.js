@@ -63,19 +63,16 @@ const projectData = [
     id: 1,
     image: "project-image1",
     title: "Bog'cha",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
   },
   {
     id: 2,
     image: "project-image2",
     title: "Maktab",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
   },
   {
     id: 3,
     image: "project-image3",
     title: "Poliklinika",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
   },
 ];
 
@@ -99,6 +96,14 @@ const integrationData = [
   {
     id: 5,
     url: "https://www.imv.uz/",
+  },
+  {
+    id: 6,
+    url: "https://digital.uz/",
+  },
+  {
+    id: 7,
+    url: "https://www.standart.uz/en",
   },
 ];
 
@@ -126,7 +131,7 @@ const Index = () => {
                 <div
                   className="col-span-3 main-page-menu w-full h-[300px] border flex flex-col  justify-center items-center bg-center bg-cover"
                   style={{
-                    backgroundImage: `url(/images/main-page${index + 1}.jpg)`,
+                    backgroundImage: `url(/images/main-page${index + 1}.png)`,
                   }}
                 >
                   <div className="menu-item">{get(item, "title")}</div>
@@ -140,19 +145,23 @@ const Index = () => {
               <div className=" text-white ">
                 <Title>Klassifikator haqida</Title>
                 <p>
-                  There are many variations of passages of Lorem Ipsum
-                  available, but the majority have suffered alteration in some
-                  form, by injected humour, or randomised words which don't look
-                  even slightly believable. If you are going to use a passage of
-                  Lorem Ipsum, you need to be sure there isn't anything
-                  embarrassing hidden in the middle of text. All the Lorem Ipsum
-                  generators on the Internet tend to repeat predefined chunks as
-                  necessary, making this the first true generator on the
-                  Internet. It uses a dictionary of over 200 Latin words,
-                  combined with a handful of model sentence structures, to
-                  generate Lorem Ipsum which looks reasonable. The generated
-                  Lorem Ipsum is therefore always free from repetition, injected
-                  humour, or non-characteristic words etc.
+                  Oʻzbekiston Respublikasi Qurilish va uy-joy kommunal xoʻjaligi
+                  vazirligi huzuridagi Texnik me'yorlash va standartlashtirish
+                  ilmiy-tadqiqot instituti taqdim etadi. “Qurilish resurslari
+                  milliy klassifikatori” elektron platformasi bu: <br /> - 190
+                  mingdan ortiq davlat standartlari asosida shakllantirilgan
+                  qurilish materiallari, uskuna va jihozlarning turlari; <br />{" "}
+                  - Qurilish materiallari ishlab chikaruvchilarining bir erda
+                  jamlanganligi;
+                  <br /> - Davlat tashkilotlari integrasiyasi natijasida Narx
+                  hamda sifatning muvofiqligi; <br /> - Tovar-xom ashyo birja
+                  katirovkalari <br /> - Muntazam yangilanib boradigan oʻrtacha
+                  narxlar - bir soʻz bilan aytganda Keng auditoriya uchun
+                  maksimal axborotni ta'minlashdan iborat. Siz “Qurilish
+                  resurslari milliy klassifikatori” orqali qurilish xizmatlari
+                  bozorining ishonchli etkazib beruvchilariga aylaning va butun
+                  Oʻzbekiston boʻylab yirik qurilish loyihalarida ishtirok
+                  eting.
                 </p>
               </div>
             </RevealLeft>
@@ -185,23 +194,20 @@ const Index = () => {
               )}`}
             >
               <Reveal duration={0.4}>
-                <Image
-                  src={`/images/${get(item, "image")}.png`}
-                  alt="project-image"
-                  width={100}
-                  height={100}
-                  className="bg-[#1890FF] p-[20px] rounded-[10px]"
-                />
+                <div
+                  className="bg-cover bg-center w-[150px] h-[150px] rounded-full"
+                  style={{
+                    backgroundImage: `url(/images/project-image${
+                      index + 1
+                    }.png)`,
+                  }}
+                ></div>
               </Reveal>
 
               <Reveal duration={0.5}>
-                <h4 className="my-[15px] text-[22px] font-semibold">
+                <h4 className="my-[15px] text-[22px] font-semibold uppercase">
                   {get(item, "title")}
                 </h4>
-              </Reveal>
-
-              <Reveal duration={0.6}>
-                <p>{get(item, "desc")}</p>
               </Reveal>
             </div>
           ))}
@@ -217,7 +223,7 @@ const Index = () => {
           </div>
 
           {integrationData.map((item, index) => (
-            <div className="col-span-3 border flex items-center justify-center p-[10px] rounded-[15px] hover:shadow-md transition-all duration-400">
+            <div className="col-span-3  flex items-center justify-center p-[10px] rounded-[15px] hover:shadow-md transition-all duration-400">
               <Reveal duration={Number(`0.${index + 2}`)}>
                 <Link href={`${get(item, "url")}`}>
                   <Image
