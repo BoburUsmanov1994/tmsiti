@@ -129,13 +129,18 @@ const Index = () => {
             >
               <Reveal duration={Number(`0.${index + 2}`)}>
                 <div
-                  className="col-span-3 main-page-menu w-full h-[300px] border flex flex-col  justify-center items-center bg-center bg-cover"
+                  className="col-span-3 main-page-menu shadow-2xl rounded-[10px] w-full h-[300px] border flex flex-col  justify-center items-center bg-center bg-cover"
                   style={{
                     backgroundImage: `url(/images/main-page${index + 1}.png)`,
                   }}
                 >
-                  <div className="menu-item">{get(item, "title")}</div>
+                  <div className="menu-item text-white">
+                    {get(item, "title")}
+                  </div>
                 </div>
+                <h4 className="text-[#414141] text-center py-2">
+                  {get(item, "title")}
+                </h4>
               </Reveal>
             </Link>
           ))}
@@ -195,7 +200,7 @@ const Index = () => {
             >
               <Reveal duration={0.4}>
                 <div
-                  className="bg-cover bg-center w-[150px] h-[150px] rounded-full"
+                  className="bg-cover bg-center w-[250px] h-[250px] rounded-full"
                   style={{
                     backgroundImage: `url(/images/project-image${
                       index + 1
@@ -230,7 +235,7 @@ const Index = () => {
                     src={`/images/integration${get(item, "id")}.png`}
                     alt="integration"
                     width={350}
-                    height={20}
+                    height={30}
                   />
                 </Link>
               </Reveal>
