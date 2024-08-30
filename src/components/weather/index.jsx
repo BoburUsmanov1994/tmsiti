@@ -39,7 +39,7 @@ const Weather = () => {
           <div>
             <Image
               src={"/images/sun-weather.png"}
-              alt="sun"
+              alt={"sun"}
               width={40}
               height={40}
             />
