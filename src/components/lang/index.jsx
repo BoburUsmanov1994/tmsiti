@@ -26,7 +26,7 @@ const Lang = () => {
   };
 
   return (
-    <div ref={ref} className={"relative"}>
+    <div ref={ref} className={"relative bg-white p-[6px] rounded-[2px]"}>
       <div
         className={"flex cursor-pointer "}
         onClick={() => setOpen((prev) => !prev)}
@@ -38,13 +38,23 @@ const Lang = () => {
             height={30}
             alt="flag"
           />
+
+          <div className="w-[1px] h-full bg-[#C5C5C5]"></div>
           <span
-            className={"ml-1.5 mr-1 cursor-pointer inline-block capitalize"}
+            className={
+              "ml-1.5 mr-1 text-black cursor-pointer inline-block capitalize"
+            }
           >
             {language}
           </span>
         </div>
-        <Image width={9} height={6} alt={"map"} src={"/icons/arrow-down.svg"} />
+        <Image
+          width={9}
+          height={6}
+          alt={"map"}
+          src={"/icons/arrow-down.svg"}
+          className="text-black"
+        />
       </div>
       {open && (
         <motion.ul

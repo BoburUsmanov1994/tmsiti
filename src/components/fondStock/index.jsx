@@ -21,7 +21,7 @@ const FondStock = () => {
   };
   return (
     <>
-      <div className={"text-center bg-[#202B57] cursor-pointer py-3"}>
+      <div className={"text-center bg-[#202B57] cursor-pointer py-3 z-50"}>
         <h3
           className={
             "!text-[#fff] tracking-normal hover:tracking-wide transition-all duration-500  hover:underline"
@@ -62,7 +62,7 @@ const FondStock = () => {
                 <div className="flex flex-col">
                   <h4
                     className={
-                      "line-clamp-3  text-[14px] text-black mb-[10px] "
+                      "line-clamp-3  text-[16px] text-black mb-[10px] "
                     }
                   >
                     {get(item, "name")}
@@ -70,7 +70,7 @@ const FondStock = () => {
                   <NumericFormat
                     thousandSeparator={" "}
                     value={Number(get(item, "price")).toFixed(1)}
-                    className="bg-transparent text-sm font-semibold flex-grow"
+                    className="bg-transparent text-base font-semibold flex-grow"
                   />
 
                   <div className={"flex items-center justify-end   "}>
@@ -98,7 +98,7 @@ const FondStock = () => {
                           ? "text-green-500"
                           : Number(get(item, "changeSum")) < 0
                           ? "text-red-500"
-                          : "text-[#DE9C00]"
+                          : "text-white"
                       }  row-span-1  text-sm `}
                     >
                       {Number(get(item, "changeSum")).toFixed(2)}(

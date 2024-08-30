@@ -51,7 +51,8 @@ const Header = (toggleMenu) => {
 
   return (
     <header>
-      <div className={" bg-[#182041]  py-2 relative"}>
+      {/* <div className={" bg-[#182041]  py-2 relative"}>
+        
         <div className={"container text-white text-sm"}>
           <marquee className="absolute top-0 pt-1 text-red-600">
             <span className="font-semibold text-sm">
@@ -85,12 +86,16 @@ const Header = (toggleMenu) => {
               >
                 Yo‘riqnoma
               </Link>
-              <Lang />
             </div>
           </div>
         </div>
-      </div>
-      <div className={"bg-[#202B57]  py-4 "}>
+      </div> */}
+      <div className={"bg-[#202B57] py-4 relative overflow-hidden"}>
+        <Link href={"https://tmsiti.uz/"}>
+          <div className=" -rotate-45  absolute bg-white text-black text-2xl  fontme top-0 p-[30px] ">
+            <h4 className=""> TM SITI</h4>
+          </div>
+        </Link>
         <div
           className={
             "container text-white text-sm grid grid-cols-12 justify-center items-center"
@@ -102,7 +107,7 @@ const Header = (toggleMenu) => {
           <div className="laptop:col-span-6 col-span-12 ">
             <div className="flex justify-end items-center">
               <Search />
-              <Link
+              {/* <Link
                 href={"/selected"}
                 className={"hidden tablet:block relative ml-6 cursor-pointer"}
               >
@@ -119,10 +124,20 @@ const Header = (toggleMenu) => {
                 >
                   3
                 </span>
-              </Link>
+              </Link> */}
+
+              <Image
+                width={46}
+                height={46}
+                alt={"map"}
+                src={"/images/eyes.png"}
+                className="bg-[#3E54A9] p-[8px] ml-6 rounded-[4px] active:bg-[#445BB8] hover:bg-[#516CDB] cursor-pointer"
+              />
               <Link
                 href={"/shopping-basket"}
-                className={" tablet:block relative ml-6 cursor-pointer"}
+                className={
+                  " tablet:block relative ml-6  bg-[#3E54A9] p-[5px] rounded-[2px] active:bg-[#445BB8] hover:bg-[#516CDB] cursor-pointer"
+                }
               >
                 <Image
                   width={36}
@@ -138,6 +153,9 @@ const Header = (toggleMenu) => {
                   {sum(values(state))}
                 </span>
               </Link>
+              <div className="ml-6">
+                <Lang />
+              </div>
               <div className={"ml-6 flex items-center"}>
                 <Image
                   className={

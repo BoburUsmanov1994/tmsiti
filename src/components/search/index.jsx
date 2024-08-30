@@ -12,10 +12,18 @@ const Search = () => {
     router.push(`/search?query=${query}&category=all`);
   };
   return (
-    <div className={"flex  items-center "}>
+    <div
+      className={"inline-flex  items-center bg-[#3E54A9]  active:bg-[#445BB8]"}
+    >
       {!open && (
         <button onClick={() => setOpen(true)} type={"button"}>
-          <Image width={26} height={26} alt={"map"} src={"/icons/search.svg"} />
+          <Image
+            width={46}
+            height={36}
+            alt={"map"}
+            src={"/icons/search.svg"}
+            className="p-[10px] rounded-[4px]"
+          />
         </button>
       )}
       {open && (
