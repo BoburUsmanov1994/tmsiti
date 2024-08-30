@@ -59,7 +59,7 @@ const Lang = () => {
       {open && (
         <motion.ul
           className={
-            "absolute top-full -left-[50px] bg-white w-[110px] text-[#8E8E8E] flex flex-col gap-y-[10px] text-sm p-2 capitalize z-10"
+            "absolute top-[30px] -left-[220px] bg-white w-[300px] gap-x-[15px] text-[#8E8E8E] flex gap-y-[10px] text-sm p-2 capitalize z-10"
           }
         >
           {langs.map((lang) => (

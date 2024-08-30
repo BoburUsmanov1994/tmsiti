@@ -51,7 +51,7 @@ const Header = (toggleMenu) => {
   };
 
   return (
-    <header>
+    <header className="relative">
       {/* <div className={" bg-[#182041]  py-2 relative"}>
         
         <div className={"container text-white text-sm"}>
@@ -94,7 +94,7 @@ const Header = (toggleMenu) => {
       <div className={"bg-[#202B57]  relative overflow-hidden"}>
         <Link href={"https://tmsiti.uz/"}>
           <div className=" -rotate-45  absolute bg-[#34A946] text-white text-lg w-[300px]  text-center hover:underline font-medium -top-[10px] p-[20px] ">
-            <h4 className="-ml-[30px]">
+            <h4 className="-ml-[30px] ">
               {" "}
               TM SITI <br /> saytiga o'tish
             </h4>

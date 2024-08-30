@@ -107,10 +107,10 @@ const Index = () => {
     <Main>
       {/* menu section */}
       <section
-        className="section-main-page"
+        className=""
         // style={{ backgroundImage: "url(/images/bg-main-image3.jpg)" }}
       >
-        <div className="grid grid-cols-12 gap-[30px] container  bg-white page-info py-[50px]">
+        <div className="grid grid-cols-12 gap-[30px] container  bg-white  py-[50px]">
           <div className="col-span-12">
             <Reveal duration={0.3}>
               <Title>Bo&apos;limlar</Title>
@@ -222,6 +222,7 @@ const Index = () => {
                 <Link href={`${get(item, "url")}`}>
                   <Image
                     src={`/images/integration${get(item, "id")}.png`}
+                    alt="integration"
                     width={350}
                     height={20}
                   />
