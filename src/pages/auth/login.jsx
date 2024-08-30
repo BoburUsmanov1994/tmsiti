@@ -6,7 +6,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import usePostQuery from "@/hooks/api/usePostQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
-import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import { useSettingsStore } from "@/store";
 import { get } from "lodash";
@@ -108,7 +107,7 @@ const Login = () => {
           </Link>
         </div>
 
-        <div className="mb-8" data-type="image">
+        <div className="mb-8">
           <ReCAPTCHA
             sitekey="6LcC5gsqAAAAAOw-JLW5sh9Ze_Vzp4RDTig6YVin"
             onChange={onChange}

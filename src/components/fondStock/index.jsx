@@ -51,11 +51,11 @@ const FondStock = () => {
               >
                 <div className={"min-w-[156px] max-h-[130px]"}>
                   <Image
-                    src={`/images/fond_image${(index % 7) + 1}.png`}
+                    src={`/images/fondStock-image.jpg`}
                     alt={"announcement"}
                     width={156}
                     height={120}
-                    className={"w-[156px] h-[120px]"}
+                    className={"w-[156px] h-[120px] object-contain"}
                   />
                 </div>
 
