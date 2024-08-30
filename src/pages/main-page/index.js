@@ -5,12 +5,14 @@ import Reveal from "@/components/reveal";
 import Section from "@/components/section";
 import Title from "@/components/title";
 import TashkentWeather from "@/components/weather";
-
+import ReactPlayer from "react-player";
 import Main from "@/layouts/main";
 import { get } from "lodash";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import RevealLeft from "@/components/reveal/revealLeft";
+import RevealRight from "@/components/reveal/revealRight";
 
 const menuData = [
   {
@@ -129,6 +131,44 @@ const Index = () => {
             </Reveal>
           </Link>
         ))}
+
+        <div className=" col-span-12 flex items-center gap-x-[50px] bg-[#88C5FF] container rounded-[10px]">
+          <RevealLeft>
+            <div className=" text-white ">
+              <Title>Klassifikator haqida</Title>
+              <p>
+                There are many variations of passages of Lorem Ipsum available,
+                but the majority have suffered alteration in some form, by
+                injected humour, or randomised words which don't look even
+                slightly believable. If you are going to use a passage of Lorem
+                Ipsum, you need to be sure there isn't anything embarrassing
+                hidden in the middle of text. All the Lorem Ipsum generators on
+                the Internet tend to repeat predefined chunks as necessary,
+                making this the first true generator on the Internet. It uses a
+                dictionary of over 200 Latin words, combined with a handful of
+                model sentence structures, to generate Lorem Ipsum which looks
+                reasonable. The generated Lorem Ipsum is therefore always free
+                from repetition, injected humour, or non-characteristic words
+                etc.
+              </p>
+            </div>
+          </RevealLeft>
+
+          <RevealRight>
+            <div className="col-span-6 rounded-[20px] mb-[30px]">
+              <ReactPlayer
+                url={"/videos/video_2024-08-30_08-31-21.mp4"}
+                width={600}
+                height={400}
+                playing={false}
+                controls={true}
+                playsinline={true}
+                className={"rounded-[20px]"}
+              />
+            </div>
+          </RevealRight>
+        </div>
+
         <div className="col-span-12 mt-[30px]">
           <Title>Namunaviy loyihalar</Title>
         </div>
