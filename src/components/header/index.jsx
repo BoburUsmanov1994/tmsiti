@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { useCounter } from "@/context/counter";
 import { sum } from "lodash/math";
 import { useSettingsStore } from "@/store";
+import Weather from "../weather";
 
 const Lang = dynamic(() => import("@/components/lang"), { ssr: false });
 const Header = (toggleMenu) => {
@@ -90,9 +91,9 @@ const Header = (toggleMenu) => {
           </div>
         </div>
       </div> */}
-      <div className={"bg-[#202B57] py-4 relative overflow-hidden"}>
+      <div className={"bg-[#202B57]  relative overflow-hidden"}>
         <Link href={"https://tmsiti.uz/"}>
-          <div className=" -rotate-45  absolute bg-white text-black text-2xl  fontme top-0 p-[30px] ">
+          <div className=" -rotate-45  absolute bg-white text-black text-2xl  font-medium top-0 p-[30px] ">
             <h4 className=""> TM SITI</h4>
           </div>
         </Link>
@@ -106,6 +107,9 @@ const Header = (toggleMenu) => {
           </div>
           <div className="laptop:col-span-6 col-span-12 ">
             <div className="flex justify-end items-center">
+              <div className="tablet:block hidden mr-6 bg-white text-black text-base font-medium  ">
+                <Weather />
+              </div>
               <Search />
               {/* <Link
                 href={"/selected"}
@@ -133,6 +137,7 @@ const Header = (toggleMenu) => {
                 src={"/images/eyes.png"}
                 className="bg-[#3E54A9] p-[8px] ml-6 rounded-[4px] active:bg-[#445BB8] hover:bg-[#516CDB] cursor-pointer"
               />
+
               <Link
                 href={"/shopping-basket"}
                 className={
@@ -156,6 +161,7 @@ const Header = (toggleMenu) => {
               <div className="ml-6">
                 <Lang />
               </div>
+
               <div className={"ml-6 flex items-center"}>
                 <Image
                   className={
