@@ -54,7 +54,9 @@ const Login = () => {
     });
 
     if (response.error) {
-      alert(response.error);
+      setError(response.error);
+    } else {
+      router.push("/");
     }
   };
   return (
