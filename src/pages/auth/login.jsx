@@ -18,7 +18,6 @@ const Login = () => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [captchaValue, setCaptchaValue] = useState(null);
-  const [captchaToken, setCaptchaToken] = useState(null);
   const {
     register,
     handleSubmit,
@@ -40,17 +39,16 @@ const Login = () => {
     ),
   });
 
-  const onCaptchaChange = (token) => {
-    setCaptchaToken(token); // store the CAPTCHA token
+  const onChange = (value) => {
+    setCaptchaValue(value);
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     signIn("credentials", {
       email: get(data, "email"),
       password: get(data, "password"),
-      redirect: false,
+      redirect: true,
       callbackUrl: "/dashboard/customer/my-orders",
-      captchaToken,
     });
   };
   return (
@@ -112,16 +110,16 @@ const Login = () => {
         <div className="mb-8">
           <ReCAPTCHA
             sitekey="6LcC5gsqAAAAAOw-JLW5sh9Ze_Vzp4RDTig6YVin"
-            onChange={onCaptchaChange}
+            onChange={onChange}
           />
         </div>
 
         <div className="text-center">
           <button
             className={` ${
-              captchaToken ? "bg-[#017EFA]" : "bg-gray-500"
+              captchaValue ? "bg-[#017EFA]" : "bg-gray-500"
             } rounded-[5px] text-white text-xl font-medium py-2.5 px-7 transition-all duration-500`}
-            disabled={!captchaToken}
+            disabled={!captchaValue}
           >
             {t("Kirish")}
           </button>

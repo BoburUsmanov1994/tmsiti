@@ -34,29 +34,10 @@ export const authOptions = {
       credentials: {
         email: {},
         password: {},
-        captchaToken: {},
       },
       async authorize(credentials, req) {
         debugger;
-        const { email, password, captchaToken } = credentials;
-
-        const captchaVerification = await axios.post(
-          `https://www.google.com/recaptcha/api/siteverify`,
-          null,
-          {
-            params: {
-              secret: RECAPTCHA_SECRET_KEY,
-              response: captchaToken,
-            },
-          }
-        );
-
-        const { success, score } = captchaVerification.data;
-
-        if (!success || score < 0.5) {
-          throw new Error("CAPTCHA verification failed");
-        }
-
+        const { email, password } = credentials;
         const res = await fetch("https://backend-market.tmsiti.uz/api/login", {
           method: "POST",
           headers: {
