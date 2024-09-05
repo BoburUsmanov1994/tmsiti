@@ -18,6 +18,7 @@ const Login = () => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [captchaValue, setCaptchaValue] = useState(null);
+  const [captchaToken, setCaptchaToken] = useState(null);
   const {
     register,
     handleSubmit,
@@ -39,17 +40,22 @@ const Login = () => {
     ),
   });
 
-  const onChange = (value) => {
-    setCaptchaValue(value);
+  const onCaptchaChange = (token) => {
+    setCaptchaToken(token); // store the CAPTCHA token
   };
 
-  const onSubmit = (data) => {
-    signIn("credentials", {
+  const onSubmit = async (data) => {
+    const response = await signIn("credentials", {
       email: get(data, "email"),
       password: get(data, "password"),
       redirect: true,
       callbackUrl: "/dashboard/customer/my-orders",
+      captchaToken,
     });
+
+    if (response.error) {
+      alert(response.error);
+    }
   };
   return (
     <AuthLayout>
@@ -110,16 +116,16 @@ const Login = () => {
         <div className="mb-8">
           <ReCAPTCHA
             sitekey="6LcC5gsqAAAAAOw-JLW5sh9Ze_Vzp4RDTig6YVin"
-            onChange={onChange}
+            onChange={onCaptchaChange}
           />
         </div>
 
         <div className="text-center">
           <button
             className={` ${
-              captchaValue ? "bg-[#017EFA]" : "bg-gray-500"
+              captchaToken ? "bg-[#017EFA]" : "bg-gray-500"
             } rounded-[5px] text-white text-xl font-medium py-2.5 px-7 transition-all duration-500`}
-            disabled={!captchaValue}
+            disabled={!captchaToken}
           >
             {t("Kirish")}
           </button>
