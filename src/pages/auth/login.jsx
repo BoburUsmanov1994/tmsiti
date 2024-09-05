@@ -45,19 +45,13 @@ const Login = () => {
   };
 
   const onSubmit = async (data) => {
-    const response = await signIn("credentials", {
+    signIn("credentials", {
       email: get(data, "email"),
       password: get(data, "password"),
-      redirect: true,
+      redirect: false,
       callbackUrl: "/dashboard/customer/my-orders",
       captchaToken,
     });
-
-    if (response.error) {
-      setError(response.error);
-    } else {
-      router.push("/");
-    }
   };
   return (
     <AuthLayout>
