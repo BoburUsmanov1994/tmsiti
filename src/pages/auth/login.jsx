@@ -51,6 +51,8 @@ const Login = () => {
   };
 
   const onSubmit = ({ data, sum }) => {
+    let formData = new FormData();
+    formData.append("sum", sum);
     signupRequest({
       url: URLS.login,
       attributes: {
@@ -121,7 +123,7 @@ const Login = () => {
           </Link>
         </div>
 
-        <div className="flex items-center gap-x-[40px] text-[30px] font-semibold">
+        <div className="flex items-center gap-x-[40px] text-[30px] font-semibold mb-[30px]">
           <h1 className="bg-[#E3EFF8] p-[10px]">
             {get(logins, "data.random_number_1")}
           </h1>
