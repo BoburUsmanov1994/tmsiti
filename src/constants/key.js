@@ -59,4 +59,6 @@ export const KEYS = {
   cmetaCategory: "cmetaCategory",
   sample: "sample",
   sampleCategory: "sampleCategory",
+  captcha: "captcha",
+  loginPost: "loginPost",
 };

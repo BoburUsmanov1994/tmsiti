@@ -34,6 +34,7 @@ export const authOptions = {
       credentials: {
         email: {},
         password: {},
+        sum: {},
       },
       async authorize(credentials, req) {
         debugger;

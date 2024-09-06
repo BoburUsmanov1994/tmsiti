@@ -74,4 +74,5 @@ export const URLS = {
   cmt_category: "cmeta/cmeta/category/",
   sample_project_category: "cmeta/sample/category/",
   sample_project: "cmeta/sample/",
+  verifyCaptcha: "api/verify-captcha/",
 };

@@ -39,14 +39,28 @@ const Login = () => {
     ),
   });
 
+  const { data: logins } = useGetQuery({
+    key: KEYS.login,
+    url: URLS.login,
+  });
+
+  console.log(logins);
+
   const onChange = (value) => {
     setCaptchaValue(value);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = ({ data, sum }) => {
+    signupRequest({
+      url: URLS.login,
+      attributes: {
+        sum,
+      },
+    });
     signIn("credentials", {
       email: get(data, "email"),
       password: get(data, "password"),
+      sum: get(data, "sum"),
       redirect: true,
       callbackUrl: "/dashboard/customer/my-orders",
     });
@@ -107,19 +121,33 @@ const Login = () => {
           </Link>
         </div>
 
-        <div className="mb-8">
+        <div className="flex items-center gap-x-[40px] text-[30px] font-semibold">
+          <h1 className="bg-[#E3EFF8] p-[10px]">
+            {get(logins, "data.random_number_1")}
+          </h1>
+          <span>+</span>
+          <h1 className="bg-[#E3EFF8] p-[10px]">
+            {get(logins, "data.random_number_2")}
+          </h1>
+          <span> = </span>
+          <input
+            {...register("sum", { required: true })}
+            className={
+              "w-full shadow-input h-12 rounded-[5px] outline-none px-3"
+            }
+            type={"text"}
+          />
+        </div>
+        {/* <div className="mb-8">
           <ReCAPTCHA
             sitekey="6LcC5gsqAAAAAOw-JLW5sh9Ze_Vzp4RDTig6YVin"
             onChange={onChange}
           />
-        </div>
+        </div> */}
 
         <div className="text-center">
           <button
-            className={` ${
-              captchaValue ? "bg-[#017EFA]" : "bg-gray-500"
-            } rounded-[5px] text-white text-xl font-medium py-2.5 px-7 transition-all duration-500`}
-            disabled={!captchaValue}
+            className={` bg-[#017EFA] rounded-[5px] text-white text-xl font-medium py-2.5 px-7 transition-all duration-500`}
           >
             {t("Kirish")}
           </button>
