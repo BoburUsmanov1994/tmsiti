@@ -31,7 +31,11 @@ export const authOptions = {
     CredentialsProvider({
       id: "credentials",
       name: "credentials",
-      credentials: {},
+      credentials: {
+        email: {},
+        password: {},
+        sum: {},
+      },
       async authorize(credentials, req) {
         debugger;
         const { email, password, sum } = credentials;
