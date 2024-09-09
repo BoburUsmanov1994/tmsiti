@@ -54,7 +54,7 @@ const Login = () => {
     signIn("credentials", {
       email: get(data, "email"),
       password: get(data, "password"),
-      sum: +get(data, "sum"),
+      sum: get(data, "sum"),
       redirect: true,
       callbackUrl: "/dashboard/customer/my-orders",
     });
@@ -129,7 +129,7 @@ const Login = () => {
             className={
               "w-full shadow-input h-12 rounded-[5px] outline-none px-3"
             }
-            type={"number"}
+            type={"text"}
           />
         </div>
         {/* <div className="mb-8">
