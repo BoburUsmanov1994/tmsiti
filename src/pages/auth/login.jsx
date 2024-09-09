@@ -17,7 +17,6 @@ import ReCAPTCHA from "react-google-recaptcha";
 const Login = () => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
-  const [captchaValue, setCaptchaValue] = useState(null);
   const {
     register,
     handleSubmit,
@@ -43,12 +42,6 @@ const Login = () => {
     key: KEYS.login,
     url: URLS.login,
   });
-
-  console.log(logins);
-
-  const onChange = (value) => {
-    setCaptchaValue(value);
-  };
 
   const onSubmit = (data) => {
     signIn("credentials", {
@@ -129,7 +122,7 @@ const Login = () => {
             className={
               "w-full shadow-input h-12 rounded-[5px] outline-none px-3"
             }
-            type={"text"}
+            type={"number"}
           />
         </div>
         {/* <div className="mb-8">
