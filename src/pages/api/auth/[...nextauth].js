@@ -71,10 +71,7 @@ export const authOptions = {
   // session: {
   //     strategy: "jwt"
   // },
-  pages: {
-    signIn: "/auth/login",
-    // login: "/auth/login",
-  },
+
   secret:
     process.env.NEXTAUTH_SECRET ||
     "Ey7nTKnggBc0bRN8WUjyShw2qzOZ6KW4fUyqcKBePxY=",
