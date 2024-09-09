@@ -72,7 +72,7 @@ export const authOptions = {
   //     strategy: "jwt"
   // },
   pages: {
-    signIn: "/auth/e-imzo",
+    signIn: "/auth/login",
     // login: "/auth/login",
   },
   secret:
