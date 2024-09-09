@@ -71,7 +71,10 @@ export const authOptions = {
   // session: {
   //     strategy: "jwt"
   // },
-
+  pages: {
+    signIn: "/auth/e-imzo",
+    // login: "/auth/login",
+  },
   secret:
     process.env.NEXTAUTH_SECRET ||
     "Ey7nTKnggBc0bRN8WUjyShw2qzOZ6KW4fUyqcKBePxY=",
