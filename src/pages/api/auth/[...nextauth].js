@@ -67,22 +67,14 @@ export const authOptions = {
       session.user = token;
       return session;
     },
-    async redirect({ url, baseUrl, account }) {
-      if (account && account.provider === "eimzo") {
-        return "/auth/e-imzo";
-      } else if (account && account.provider === "credentials") {
-        return "/auth/login";
-      }
-      return "/auth/login";
-    },
   },
   // session: {
   //     strategy: "jwt"
   // },
-  // pages: {
-  //   signIn: "/auth/e-imzo",
-  //   // login: "/auth/login",
-  // },
+  pages: {
+    signIn: "/auth/e-imzo",
+    // login: "/auth/login",
+  },
   secret:
     process.env.NEXTAUTH_SECRET ||
     "Ey7nTKnggBc0bRN8WUjyShw2qzOZ6KW4fUyqcKBePxY=",
