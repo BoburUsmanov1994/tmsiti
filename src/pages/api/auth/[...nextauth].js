@@ -38,7 +38,7 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         debugger;
-        const { email, password } = credentials;
+        const { email, password, sum } = credentials;
         const res = await fetch("https://backend-market.tmsiti.uz/api/login", {
           method: "POST",
           headers: {
@@ -47,6 +47,7 @@ export const authOptions = {
           body: JSON.stringify({
             email,
             password,
+            sum,
           }),
         });
 

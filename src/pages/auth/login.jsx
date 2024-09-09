@@ -50,18 +50,11 @@ const Login = () => {
     setCaptchaValue(value);
   };
 
-  const onSubmit = ({ data, sum }) => {
-    let formData = new FormData();
-    formData.append("sum", sum);
-    signupRequest({
-      url: URLS.login,
-      attributes: {
-        sum,
-      },
-    });
+  const onSubmit = (data) => {
     signIn("credentials", {
       email: get(data, "email"),
       password: get(data, "password"),
+      sum: get(data, "sum"),
       redirect: true,
       callbackUrl: "/dashboard/customer/my-orders",
     });
