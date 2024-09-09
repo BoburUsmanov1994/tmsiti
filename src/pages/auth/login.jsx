@@ -54,7 +54,7 @@ const Login = () => {
     signIn("credentials", {
       email: get(data, "email"),
       password: get(data, "password"),
-      sum: get(data, "sum"),
+      sum: +get(data, "sum"),
       redirect: true,
       callbackUrl: "/dashboard/customer/my-orders",
     });
