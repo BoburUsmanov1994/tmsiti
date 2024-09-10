@@ -143,8 +143,8 @@ const Login = () => {
             src={get(logins, "data.captcha_image_url")}
             loader={() => get(logins, "data.captcha_image_url")}
             alt="captcha_image"
-            width={100}
-            height={30}
+            width={200}
+            height={40}
             className="mb-[20px]"
           />
 
