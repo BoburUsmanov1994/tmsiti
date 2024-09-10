@@ -164,7 +164,7 @@ const Login = () => {
             className={
               "w-full shadow-input h-12 rounded-[5px] outline-none px-3"
             }
-            type={showPassword ? "text" : "password"}
+            type={"text"}
           />
         </div>
 
