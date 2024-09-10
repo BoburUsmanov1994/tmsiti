@@ -143,9 +143,9 @@ const Login = () => {
             src={get(logins, "data.captcha_image_url")}
             loader={() => get(logins, "data.captcha_image_url")}
             alt="captcha_image"
-            width={200}
+            width={100}
             height={40}
-            className="mb-[20px]"
+            className="mb-[20px] w-[100px] h-[40px]"
           />
 
           <label className={"block mb-1.5"} htmlFor="#">
