@@ -13,7 +13,7 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import { useTranslation } from "react-i18next";
 import { OverlayLoader } from "@/components/loader";
 import ReCAPTCHA from "react-google-recaptcha";
-
+import toast from "react-hot-toast";
 const Login = () => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
@@ -43,14 +43,24 @@ const Login = () => {
     url: URLS.login,
   });
 
-  const onSubmit = (data) => {
-    signIn("credentials", {
-      email: get(data, "email"),
-      password: get(data, "password"),
-      sum: get(data, "sum"),
-      redirect: false,
-      callbackUrl: "/dashboard/customer/my-orders",
-    });
+  const onSubmit = async (data) => {
+    try {
+      const response = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        sum: data.sum,
+        redirect: false,
+        callbackUrl: "/dashboard/customer/my-orders",
+      });
+
+      if (response.ok) {
+        toast.success("Login successful!");
+      } else {
+        toast.error("Login failed! Please check your credentials.");
+      }
+    } catch (error) {
+      toast.error("An error occurred during login.");
+    }
   };
   return (
     <AuthLayout>
