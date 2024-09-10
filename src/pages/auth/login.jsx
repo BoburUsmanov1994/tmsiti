@@ -40,7 +40,7 @@ const Login = () => {
   });
 
   const { data: logins } = useGetQuery({
-    key: KEYS.login,
+    key: KEYS.captcha,
     url: URLS.login,
   });
 
