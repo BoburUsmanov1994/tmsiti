@@ -57,6 +57,7 @@ const Login = () => {
 
       if (response.ok) {
         toast.success("Login successful!");
+        router.push("/dashboard/customer/my-orders");
       } else {
         toast.error("Login failed! Please check your credentials.");
       }
