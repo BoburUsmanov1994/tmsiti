@@ -49,7 +49,7 @@ const Login = () => {
       const response = await signIn("credentials", {
         email: get(data, "email"),
         password: get(data, "password"),
-        captcha_response: get(data, "captcha_response"),
+        captcha_response: get(data, "captcha_response").toLowerCase(),
         captcha_key: get(logins, "data.captcha_key"),
         redirect: false,
         callbackUrl: "/dashboard/customer/my-orders",
