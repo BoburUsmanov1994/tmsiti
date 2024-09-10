@@ -14,6 +14,7 @@ import { useTranslation } from "react-i18next";
 import { OverlayLoader } from "@/components/loader";
 import ReCAPTCHA from "react-google-recaptcha";
 import toast from "react-hot-toast";
+import Image from "next/image";
 const Login = () => {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
@@ -46,9 +47,10 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        sum: data.sum,
+        email: get(data, "email"),
+        password: get(data, "password"),
+        captcha_response: get(data, "captcha_response"),
+        captcha_key: get(logins, "data.captcha_key"),
         redirect: false,
         callbackUrl: "/dashboard/customer/my-orders",
       });
@@ -118,7 +120,7 @@ const Login = () => {
           </Link>
         </div>
 
-        <div className="flex items-center gap-x-[40px] text-[30px] font-semibold mb-[30px]">
+        {/* <div className="flex items-center gap-x-[40px] text-[30px] font-semibold mb-[30px]">
           <h1 className="bg-[#E3EFF8] p-[10px]">
             {get(logins, "data.random_number_1")}
           </h1>
@@ -134,12 +136,32 @@ const Login = () => {
             }
             type={"number"}
           />
-        </div>
-        {/* <div className="mb-8">
-          <ReCAPTCHA
-            sitekey="6LcC5gsqAAAAAOw-JLW5sh9Ze_Vzp4RDTig6YVin"
-            onChange={onChange}
+        </div> */}
+
+        <div className="mb-[20px]">
+          <Image
+            src={`${get(logins, "data.captcha_image_url")}`}
+            loader={() => get(logins, "data.captcha_image_url")}
+            alt="captcha image"
+            width={100}
+            height={30}
+            className="mb-[20px]"
           />
+
+          <label className={"block mb-1.5"} htmlFor="#">
+            Rasmdagi matnni kiriting
+          </label>
+          <input
+            {...register("captcha_response", { required: true })}
+            className={
+              "w-full shadow-input h-12 rounded-[5px] outline-none px-3"
+            }
+            type={showPassword ? "text" : "password"}
+          />
+        </div>
+
+        {/* <div className="mb-8">
+          <ReCAPTCHA sitekey={`${get(logins, "data.captcha_key")}`} />
         </div> */}
 
         <div className="text-center">

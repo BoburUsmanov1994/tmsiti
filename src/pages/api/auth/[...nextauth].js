@@ -34,11 +34,12 @@ export const authOptions = {
       credentials: {
         email: {},
         password: {},
-        sum: {},
+        captcha_response: {},
+        captcha_key: {},
       },
       async authorize(credentials, req) {
         debugger;
-        const { email, password, sum } = credentials;
+        const { email, password, captcha_response, captcha_key } = credentials;
         const res = await fetch("https://backend-market.tmsiti.uz/api/login", {
           method: "POST",
           headers: {
@@ -47,7 +48,8 @@ export const authOptions = {
           body: JSON.stringify({
             email,
             password,
-            sum,
+            captcha_response,
+            captcha_key,
           }),
         });
 
