@@ -140,8 +140,16 @@ const Login = () => {
 
         <div className="mb-[20px]">
           <Image
-            src={get(logins, "data.captcha_image_url")}
-            loader={() => get(logins, "data.captcha_image_url")}
+            src={`${get(logins, "data.captcha_image_url")?.replace(
+              "http://",
+              "https://"
+            )}`}
+            loader={() =>
+              get(logins, "data.captcha_image_url")?.replace(
+                "http://",
+                "https://"
+              )
+            }
             alt="captcha_image"
             width={100}
             height={40}
