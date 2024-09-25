@@ -48,7 +48,7 @@ const Sidebar = ({ openSidebar }) => {
       if (
         userRole === "customer" &&
         pathname.startsWith("/dashboard") &&
-        pathname !== "/customer-dashboard/orders"
+        pathname !== "/dashboard/customer/my-orders"
       ) {
         router.push("/403");
       }
