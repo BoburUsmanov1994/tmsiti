@@ -59,10 +59,6 @@ const Sidebar = ({ openSidebar }) => {
       ) {
         router.push("/403");
       }
-
-      if (!["customer", "company"].includes(userRole)) {
-        router.push("/403");
-      }
     };
 
     checkRoleAndRedirect();
