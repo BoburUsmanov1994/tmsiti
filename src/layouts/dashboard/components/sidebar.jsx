@@ -38,7 +38,6 @@ const Sidebar = ({ openSidebar }) => {
   console.log(user, "user namely company details");
 
   useEffect(() => {
-    // Function to check and redirect based on role
     const checkRoleAndRedirect = () => {
       const userRole = get(session, "user.role");
       const pathname = router.pathname;
@@ -60,9 +59,12 @@ const Sidebar = ({ openSidebar }) => {
       ) {
         router.push("/403");
       }
+
+      if (!["customer", "company"].includes(userRole)) {
+        router.push("/403");
+      }
     };
 
-    // Run the function initially and whenever pathname or session changes
     checkRoleAndRedirect();
   }, [router.pathname, session]);
 
