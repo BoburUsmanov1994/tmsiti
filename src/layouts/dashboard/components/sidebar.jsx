@@ -10,8 +10,6 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
 import { useSession } from "next-auth/react";
-import Dashboard from "..";
-import { ContentLoader } from "@/components/loader";
 
 const Sidebar = ({ openSidebar }) => {
   const { data: session } = useSession();
@@ -19,11 +17,7 @@ const Sidebar = ({ openSidebar }) => {
   const [position, setPosition] = useState("supplier");
   const router = useRouter();
   const token = useSettingsStore((state) => get(state, "token", null));
-  const {
-    data: user,
-    isLoading: isLoadingCompany,
-    isFetching: isFetchingCompany,
-  } = useGetQuery({
+  const { data: user } = useGetQuery({
     key: KEYS.getMe,
     url: URLS.getMe,
     headers: { token: token ?? `${get(session, "user.token")}` },
@@ -32,11 +26,7 @@ const Sidebar = ({ openSidebar }) => {
     ),
   });
 
-  const {
-    data: customer,
-    isLoading: isLoadingCustomer,
-    isFetching: isFetchingCustomer,
-  } = useGetQuery({
+  const { data: customer } = useGetQuery({
     key: KEYS.getCustomer,
     url: URLS.getCustomer,
     headers: { token: token ?? `${get(session, "user.token")}` },
@@ -58,7 +48,7 @@ const Sidebar = ({ openSidebar }) => {
       if (
         userRole === "customer" &&
         pathname.startsWith("/dashboard") &&
-        pathname !== "/dashboard/customer/my-orders"
+        pathname !== "/customer-dashboard/orders"
       ) {
         router.push("/403");
       }
@@ -74,21 +64,6 @@ const Sidebar = ({ openSidebar }) => {
     checkRoleAndRedirect();
   }, [router.pathname, session]);
 
-  if (isLoadingCompany || isFetchingCompany) {
-    return (
-      <Dashboard>
-        <ContentLoader />
-      </Dashboard>
-    );
-  }
-
-  if (isLoadingCustomer || isFetchingCustomer) {
-    return (
-      <Dashboard>
-        <ContentLoader />
-      </Dashboard>
-    );
-  }
   return (
     <div
       className={clsx(

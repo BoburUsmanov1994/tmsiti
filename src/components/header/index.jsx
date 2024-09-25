@@ -201,9 +201,7 @@ const Header = (toggleMenu) => {
                 ) : (
                   <div>
                     <button
-                      onClick={() =>
-                        router.push("/dashboard/customer/my-orders")
-                      }
+                      onClick={() => router.push("/customer-dashboard/orders")}
                       className={"block text-base bg-transparent"}
                     >
                       Kabinetga kirish
