@@ -60,9 +60,6 @@ const Sidebar = ({ openSidebar }) => {
       ) {
         router.push("/403");
       }
-      if (userRole !== "company" && userRole !== "customer") {
-        router.push("/403");
-      }
     };
 
     // Run the function initially and whenever pathname or session changes
