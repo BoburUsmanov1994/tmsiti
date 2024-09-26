@@ -124,7 +124,7 @@ export default function Home() {
     };
 
     fetchStatistics();
-  }, []);
+  });
 
   const closeRegion = () => {
     setSelectedRegion(null);
