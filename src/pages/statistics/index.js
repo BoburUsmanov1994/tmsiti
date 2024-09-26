@@ -188,21 +188,19 @@ export default function Home() {
   });
 
   useEffect(() => {
-    if (get(ministry, "data.result.data", [])) {
-      setDataMinistry(get(ministry, "data.result.data", []));
+    if (get(ministry, "data.results", [])) {
+      setDataMinistry(get(ministry, "data.results", []));
     }
-  }, [get(ministry, "data.result.data", [])]);
+  }, [get(ministry, "data.results", [])]);
 
   const sortDataMinistry = () => {
-    const sortedData = [...get(ministry, "data.result.data", [])].sort(
-      (a, b) => {
-        if (sortOrderMinistry === "asc") {
-          return a.price - b.price;
-        } else {
-          return b.price - a.price;
-        }
+    const sortedData = [...get(ministry, "data.results", [])].sort((a, b) => {
+      if (sortOrderMinistry === "asc") {
+        return a.price - b.price;
+      } else {
+        return b.price - a.price;
       }
-    );
+    });
 
     setDataMinistry(sortedData);
     setSortOrderMinistry(sortOrderMinistry === "asc" ? "desc" : "asc");
