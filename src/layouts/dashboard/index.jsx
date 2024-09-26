@@ -7,38 +7,56 @@ import { URLS } from "@/constants/url";
 import { KEYS } from "@/constants/key";
 import { useSession } from "next-auth/react";
 import { useSettingsStore } from "@/store";
+import { get } from "lodash";
 import { useRouter } from "next/router";
+import { Main } from "next/document";
+import { ContentLoader } from "@/components/loader";
 
 const Dashboard = ({ children }) => {
   const [openSidebar, setOpenSidebar] = useState(true);
-  // const router = useRouter();
-  // const token = useSettingsStore((state) => get(state, "token", null));
-  // const { data: session } = useSession();
-  // const {
-  //   data: user,
-  //   isLoadingCompany,
-  //   isFetchingCompany,
-  // } = useGetQuery({
-  //   key: KEYS.getMe,
-  //   url: URLS.getMe,
-  //   headers: { token: token ?? `${get(session, "user.token")}` },
-  //   enabled: !!(
-  //     get(session, "user.token") && get(session, "user.role") === "company"
-  //   ),
-  // });
+  const router = useRouter();
+  const token = useSettingsStore((state) => get(state, "token", null));
+  const { data: session } = useSession();
+  const {
+    data: user,
+    isLoadingCompany,
+    isFetchingCompany,
+  } = useGetQuery({
+    key: KEYS.getMe,
+    url: URLS.getMe,
+    headers: { token: token ?? `${get(session, "user.token")}` },
+    enabled: !!(
+      get(session, "user.token") && get(session, "user.role") === "company"
+    ),
+  });
 
-  // const {
-  //   data: customer,
-  //   isLoadingCustomer,
-  //   isFetchingCustomer,
-  // } = useGetQuery({
-  //   key: KEYS.getCustomer,
-  //   url: URLS.getCustomer,
-  //   headers: { token: token ?? `${get(session, "user.token")}` },
-  //   enabled: !!(
-  //     get(session, "user.token") && get(session, "user.role") === "customer"
-  //   ),
-  // });
+  const {
+    data: customer,
+    isLoadingCustomer,
+    isFetchingCustomer,
+  } = useGetQuery({
+    key: KEYS.getCustomer,
+    url: URLS.getCustomer,
+    headers: { token: token ?? `${get(session, "user.token")}` },
+    enabled: !!(
+      get(session, "user.token") && get(session, "user.role") === "customer"
+    ),
+  });
+  if (isLoadingCompany || isFetchingCompany) {
+    return (
+      <Main>
+        <ContentLoader />
+      </Main>
+    );
+  }
+
+  if (isLoadingCustomer || isFetchingCustomer) {
+    return (
+      <Main>
+        <ContentLoader />
+      </Main>
+    );
+  }
   return (
     <div className={"flex"}>
       <Sidebar openSidebar={openSidebar} />
