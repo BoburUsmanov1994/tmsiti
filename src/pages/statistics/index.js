@@ -935,14 +935,14 @@ export default function Home() {
                         "px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm"
                       }
                     >
-                      Toifa kodi
+                      INN
                     </th>
                     <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
-                      Xususiyat nomi
+                      Kompaniya nomi
                     </th>
 
                     <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
-                      Xususiyat qiymati
+                      Sana
                     </th>
 
                     <th className="px-4 py-2 bg-white border text-gray-600 uppercase font-semibold text-sm">
@@ -969,20 +969,21 @@ export default function Home() {
                       </td>
 
                       <td className="border px-4 py-2 text-sm">
-                        {get(stockItem, "categoryCode")}
+                        {get(stockItem, "inn")}
                       </td>
 
                       <td className="border px-4 py-2 text-sm">
-                        {get(stockItem, "fieldName")}
+                        {get(stockItem, "company_name")}
                       </td>
                       <td className="border px-4 py-2 text-sm text-center">
-                        {get(stockItem, "fieldValue")}
+                        {get(stockItem, "lot_Date")}
                       </td>
 
                       <td className="border px-4 py-2 text-center">
                         <NumericFormat
-                          value={0}
+                          value={get(stockItem, "productPrice")}
                           suffix={".00 so'm"}
+                          thousandSeparator={" "}
                           className={"bg-transparent text-center"}
                         />
                       </td>
