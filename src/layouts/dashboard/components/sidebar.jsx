@@ -127,7 +127,7 @@ const Sidebar = ({ openSidebar }) => {
       </div>
       {get(session, "user.role") === "company" ? (
         <ul className={"text-[#8D97AD] mt-3"}>
-          {companyMenu.map((item) => (
+          {get(user, "data.menu", []).map((item) => (
             <li key={get(item, "id")}>
               <Link
                 className={clsx("py-3.5 px-7 block hover:text-white", {
