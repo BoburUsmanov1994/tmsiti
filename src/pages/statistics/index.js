@@ -391,9 +391,6 @@ export default function Home() {
                   name="Andijon"
                 ></path>
                 <path
-                  className={
-                    "fill-current text-slate-400 hover:text-slate-500 cursor-pointer hover:-translate-y-7  transition-all duration-500"
-                  }
                   className={`fill-current  ${
                     selectedRegion === "UZSI"
                       ? "-translate-y-7  shadow-lg text-slate-500"
