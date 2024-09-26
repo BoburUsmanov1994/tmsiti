@@ -42,23 +42,24 @@ const Dashboard = ({ children }) => {
       get(session, "user.token") && get(session, "user.role") === "customer"
     ),
   });
-  if (isLoadingCompany || isFetchingCompany) {
-    return (
-      <Main>
-        <ContentLoader />
-      </Main>
-    );
-  }
+  // if (isLoadingCompany || isFetchingCompany) {
+  //   return (
+  //     <Main>
+  //       <ContentLoader />
+  //     </Main>
+  //   );
+  // }
 
-  if (isLoadingCustomer || isFetchingCustomer) {
-    return (
-      <Main>
-        <ContentLoader />
-      </Main>
-    );
-  }
+  // if (isLoadingCustomer || isFetchingCustomer) {
+  //   return (
+  //     <Main>
+  //       <ContentLoader />
+  //     </Main>
+  //   );
+  // }
   return (
     <div className={"flex"}>
+      {isLoadingCompany && isLoadingCustomer && <OverlayLoader />}
       <Sidebar openSidebar={openSidebar} />
       <main
         className={clsx(
