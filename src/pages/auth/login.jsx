@@ -52,12 +52,12 @@ const Login = () => {
         captcha_response: get(data, "captcha_response").toLowerCase(),
         captcha_key: get(logins, "data.captcha_key"),
         redirect: false,
-        callbackUrl: "/customer-dashboard/orders",
+        callbackUrl: "/dashboard/customer/my-orders",
       });
 
       if (response.ok) {
         toast.success("Login successful!");
-        router.push("/customer-dashboard/orders");
+        router.push("/dashboard/customer/my-orders");
       } else {
         toast.error("Login failed! Please check your credentials.");
       }
