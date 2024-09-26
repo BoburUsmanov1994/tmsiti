@@ -121,7 +121,6 @@ const Sidebar = ({ openSidebar }) => {
         openSidebar ? "left-0" : "-translate-x-full"
       )}
     >
-      {isLoadingCompany && <OverlayLoader />}
       <div className={"py-4 pl-5 pr-4 text-white text-sm"}>
         <Brand />
       </div>
@@ -263,8 +262,7 @@ const Sidebar = ({ openSidebar }) => {
         </ul>
       ) : get(session, "user.role") === "customer" ? (
         <ul className={"text-[#8D97AD] mt-3"}>
-          {isLoadingCustomer && <OverlayLoader />}
-          {customerMenu.map((item) => (
+          {get(customer, "data.menu", []).map((item) => (
             <li key={get(item, "id")}>
               <Link
                 className={clsx("py-3.5 px-7 block hover:text-white", {
