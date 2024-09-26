@@ -10,6 +10,7 @@ import useGetQuery from "@/hooks/api/useGetQuery";
 import { KEYS } from "@/constants/key";
 import { URLS } from "@/constants/url";
 import { useSession } from "next-auth/react";
+import { OverlayLoader } from "@/components/loader";
 
 const customerMenu = [
   {
@@ -63,7 +64,11 @@ const Sidebar = ({ openSidebar }) => {
   const [position, setPosition] = useState("supplier");
   const router = useRouter();
   const token = useSettingsStore((state) => get(state, "token", null));
-  const { data: user } = useGetQuery({
+  const {
+    data: user,
+    isLoading: isLoadingCompany,
+    isFetching: isFetchingCompany,
+  } = useGetQuery({
     key: KEYS.getMe,
     url: URLS.getMe,
     headers: { token: token ?? `${get(session, "user.token")}` },
@@ -72,7 +77,11 @@ const Sidebar = ({ openSidebar }) => {
     ),
   });
 
-  const { data: customer } = useGetQuery({
+  const {
+    data: customer,
+    isLoading: isLoadingCustomer,
+    isFetching: isFetchingCustomer,
+  } = useGetQuery({
     key: KEYS.getCustomer,
     url: URLS.getCustomer,
     headers: { token: token ?? `${get(session, "user.token")}` },
@@ -80,8 +89,6 @@ const Sidebar = ({ openSidebar }) => {
       get(session, "user.token") && get(session, "user.role") === "customer"
     ),
   });
-
-  console.log(user, "user namely company details");
 
   useEffect(() => {
     const checkRoleAndRedirect = () => {
@@ -114,6 +121,7 @@ const Sidebar = ({ openSidebar }) => {
         openSidebar ? "left-0" : "-translate-x-full"
       )}
     >
+      {isLoadingCompany && <OverlayLoader />}
       <div className={"py-4 pl-5 pr-4 text-white text-sm"}>
         <Brand />
       </div>
@@ -255,6 +263,7 @@ const Sidebar = ({ openSidebar }) => {
         </ul>
       ) : get(session, "user.role") === "customer" ? (
         <ul className={"text-[#8D97AD] mt-3"}>
+          {isLoadingCustomer && <OverlayLoader />}
           {customerMenu.map((item) => (
             <li key={get(item, "id")}>
               <Link
