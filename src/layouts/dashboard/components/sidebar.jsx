@@ -264,7 +264,7 @@ const Sidebar = ({ openSidebar }) => {
                 })}
                 href={`${get(item, "url")}`}
               >
-                Mening buyurtmalarim
+                {t(`${get(item, "title")}`)}
               </Link>
             </li>
           ))}
