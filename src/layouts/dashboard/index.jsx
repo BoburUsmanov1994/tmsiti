@@ -59,7 +59,6 @@ const Dashboard = ({ children }) => {
   // }
   return (
     <div className={"flex"}>
-      {isLoadingCompany && isLoadingCustomer && <OverlayLoader />}
       <Sidebar openSidebar={openSidebar} />
       <main
         className={clsx(

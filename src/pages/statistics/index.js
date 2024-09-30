@@ -7,7 +7,7 @@ import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import { ContentLoader } from "@/components/loader";
 import Category from "@/components/category";
 import Title from "@/components/title";
-import { get, head, isEmpty, parseInt } from "lodash";
+import { get, head, isEmpty, parseInt, take } from "lodash";
 import Product from "@/components/product";
 import ErrorPage from "@/pages/500";
 import { URLS } from "@/constants/url";
@@ -65,12 +65,25 @@ export default function Home() {
   });
   const currencyUSD = currency?.data?.USD;
 
+  const {
+    data: region,
+    isLoading: isLoadingRegion,
+    isFetching: isFetchingRegion,
+  } = useGetQuery({
+    key: [KEYS.regionFilter, regionName],
+    url: `${URLS.regionFilter}${regionName}/`,
+    enabled: !!regionName,
+  });
+
   const handleRegionClick = (event) => {
     const regionId = event.target.id;
     setSelectedRegion(regionId);
     setRegionName(event.target.getAttribute("data-name"));
   };
 
+  const closeRegion = () => {
+    setSelectedRegion(null);
+  };
   const { data: customs, isLoadingCustoms } = useGetQuery({
     key: KEYS.customs,
     url: URLS.customs,
@@ -117,6 +130,7 @@ export default function Home() {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
+
         setDataStatistics(data[0]); // Adjust based on your JSON structure
       } catch (error) {
         console.error("Failed to fetch the JSON data:", error);
@@ -125,10 +139,6 @@ export default function Home() {
 
     fetchStatistics();
   });
-
-  const closeRegion = () => {
-    setSelectedRegion(null);
-  };
 
   const toggleTabs = (index) => {
     setTabs(index);
@@ -312,16 +322,6 @@ export default function Home() {
     );
   });
 
-  const {
-    data: region,
-    isLoading: isLoadingRegion,
-    isFetching: isFetchingRegion,
-  } = useGetQuery({
-    key: [KEYS.regionFilter, regionName],
-    url: `${URLS.regionFilter}${regionName}/`,
-    enabled: !!regionName,
-  });
-
   return (
     <Main>
       <Menu active={7} />
@@ -456,7 +456,7 @@ export default function Home() {
                   } transition-all duration-500`}
                   d="M365.1 184.2l5.6 9.7 2.7 2.4 14.3 4 0.8 0.5 0 0.7-0.3 0.9-14.4 27.3-13.6 26.1-2.9 6.9-1.2 14.8 0 0.9 0.1 0.7 6.1 11.2 1 2.2-0.2 0.4-0.6 0.7-11.4 6.4-1.2 1 0.1 0.9 0.4 1 22.7 31.3 15.1 21 0 1-11.9 5.7-2.8 0.9-0.8-0.2-0.8-0.4-0.2-0.3-6.3-10.1-9.1-10-3.1-2.4-2.4-1.4-2.5-1.1-10.2-2.5-2.8 0-1.1 0.2-1 0.5-0.8 0.7-0.8 1-2.1 4.1-0.9 0.7-1.4 0.1-1.3-0.5-0.3-0.2-0.8-0.4-0.6-2.1-0.7-1-2.8-3.1-1-0.6-3.1-0.6-1.2-0.5-1.6-1.5-1.9-2.1-0.6-0.4-0.7-0.3-1.4-0.3-12.5-11.4-1.7-1.9-1.4-2.5-0.9-2.8-0.6-1.1-0.8-0.5-2.6-0.1-1.1-0.3-0.9-0.6-0.8-0.9-1.4-2.7-0.6-1.8-1.5-2.2-0.4-1.2 0-3.2-0.1-1.5-0.8-0.6-2.6-0.3-2.7-0.6-0.5-0.3-1.2-0.9-0.8 0.1-0.3 0.2-1.1 0.9-2.7 1.9-1.1 0.5-1.4 0-0.8 0.2-0.4 0.3-0.1 0.3 0 0.3 0.1 0.3 0.7 1.3 0.1 0.7-0.7 1.6-0.5 0.6-0.1 0.1-0.4-0.6-0.8-1.2-1.6-1.4-3-1.1-2.4-0.9-0.1-0.1-1 0-1.8 0.1-0.7-0.3-0.6-1 0.1-1 0.6-0.7 0.9-0.3 3.2-1.2-0.2-2.8-1-3.5 0.2-1.8 0.3-1.5 0.8-0.7 1.1-0.4 0.9-0.7 0.2-1.2-0.7-0.9-0.8-0.5-0.4-0.2-0.5-0.2-0.4-0.2-1.5-0.5-1.8-1.7-1.5-2.3-0.1-0.1-0.1-0.2-1.5-1.6-2.4-0.3-2.3 0.3-4.6-0.4-7.4 1.2-0.9 0.1-0.2 0-0.6 0.1-0.1 0-2 0.3-2.8 0-1.3-0.5-2.1-2.3-1.3-0.5-2.7-0.3-1.5-0.8-0.7-1.3-0.6-5.5-0.5-1.3-0.8-1.2-3.3-3.6-0.1 0-1.2-0.8-1.4 0.2-1.5 0.7-0.2 0.1-1.3 0.3-1.6 0.1-2.4-0.4-3.7-1.7-3.5-3.3-10.9-12.9-0.5-0.6-1.3-0.7-1 1.6-0.7 6.1-1 1.9-0.2 0.2-2.2 0.7-2.7-0.2-2.7-0.6-4.7-1.9-1-0.4-1.3-0.1-1 0.3-2.8 1.8-2 0.8-1 0.8-0.5 1 0.3 1.4 1 0.9 6.7 3.1 1.8 1.5 1.7 2.5 1.4 3.4 3.9 6.4 2.2 2.5 0.6 0.6 0.2 0.6-0.2 0.6-0.6 0.4-0.3 0-3.2 0.5-0.8-0.2-0.1-0.2-0.5-0.8 0-1.1 0.3-1.2 0.1-1.3-0.2-1.2-0.4-1.5-1.3-1.7-1.8-1.3-5.2-2.5-0.1-0.1-1.1-0.1-0.5 0-0.5 0.1-1.9 0.8-0.8 0.1-0.9-0.5-1.2-1.8-0.8-0.7-1-0.4-1.2 0-1.1 0.2-1 0.4-0.6 0.7 0 0.1-0.2 0.4-0.2 0.4-1.4 1.5-0.7 0.4-0.7 0.3-0.9 0.8 0.2 1.2 0.1 0.7 1.1 2.4 0.1 1.1-0.5 1.7-2.1 5-0.8 0.8-0.7 0.2-0.8 0.3-0.5 0.2-0.5 0.9 0.4 1.1 0.7 0.8 0.2 0.7-1.2 0.8-1 0.3-0.1 0-2.7-0.2-0.8 0-1.1 0.2-2.9 1.5-1.3 0.2-0.5 0.2-0.7 0.1-7.5-1.3-5 0.2-5 2.4-4.3 4.2-2.9 5.5-2 3-2.2 1.6-1.1 0.6-1.7 0.8-2.3 1-1.5 2.1 0 2.8 1 4.7 0.2 0.9 0 0.5-0.1 2.1-0.4 2.3-0.1 2.3 0.9 2.5 1.2 1.9 0.6 1.9 0.2 2 0 2.5 0.2 2 0.7 2 0.2 0.3 0.9 1.4 1.1 1.3 0.8 0.6 0.8 0.4 1 0.2 1.6 0.4 0.3 0.2 0.1 0.1-0.1 0.5-0.6 0.7-1.1 0.8-2.5 1.3-1 1.2-1.6 3-0.6 0.3-0.5 0.3-4.8-1-1.7-0.4-5-1-11.8-0.7-1.9-0.1-11-0.6-9.9-0.5-5.7-0.3-1.7-0.1 0-0.3 0-164 0-59.3 0-44 36.8-11.8 15-4.9 28.5-9.2 4.7-1.4 6.6-2.1 6.6-2 6.7-2 3-1 3.1-0.9 3-0.9 3.1-0.9 3.2-0.9 3.2-1 3.2-0.9 3.2-0.9 4.3-1.3 1.2 0.2 1.5 0.6 0.3 0.2-0.4 0.6-0.4 0.5-0.1 0.6-0.1 1.2-0.3 1.4-0.3 0.7-0.2 0.7-0.1 0.5 0 1.1-0.2 1.3 0 0.6 0 0.1 0 1.2-0.1 0.3-0.8 0.6-0.4 0.4-1.3 1.9-0.5 0.3-0.2 0.2-0.9 0.7-0.7 1.5-2.1 2.9-0.2 0.5-0.1 0.6-0.2 1.8 0.1 1.3-0.3 0.9-0.9 1.5-0.4 2.1-0.4 3.3-0.8 2.1-1.6 2-0.8 1.1 0 0.2-0.3 0.7-0.3 1.6 0 1-0.7 2-0.3 1.9-1 1.3-1.4 2.8 0 0.5-0.4 1-0.3 1.4-0.1 1.7 0.4 3.8 0.5 2.3 1 2.6 1.3 3.1 1.9 4.4 0.2 2-0.4 2.4-0.5 0.8-0.8-0.2-0.7-0.1-0.7 0.5-0.9 1.4-0.4 1-0.2 1.4 0.1 3.4 0.5 1.4 0.8 0.8 0.9 0.3 1.4 0.2 2.2 0 1 0 2.8-1.5 3.5-4.5 2.2-4.8 1.1-6.6 1.8-7.3-0.9-1.2 1.7 0 0.9-1.3 0.7-2.1-0.1-2.8-0.7-1.6-1.6-1.5-0.6-1.4 0.1-1.1 1-1.5 0.2-1.8-0.2-1.2-1-1.1-1.2-0.2 5.1-4.9 1.4-2.3 0.7-2 0-1.4-1-4.2-1.2-2.9-0.6-1.6 0-2.9 0.4-3.9 1.3-6.4 0.5-1.6 2.1-2 1.7 1.1 5.2 3.5 6.7 4.6 4.6 3.1 3.5 2.3 9.1 6.2 9.9 6.6 5.3 3.6 60.9 45 12.9 9.6 1.2 0.8 5.1 3.8 0.2 1.6 0.5 1.7 3.1 5.1 6.1 6.6 2.9 3.1 2.9 3.2 3.7 4.2 3.1 3.6 3 3.5 3.1 3.5 3 3.5 3 3.5 3 3.4 2.9 3.5 3 3.4 4 4.6 1.1 0.4 1 0.5 0.2 0z"
                   id="UZQR"
-                  data-name={"Qoraqalpogiston"}
+                  data-name={"Qoraqalpog'iston"}
                   onClick={handleRegionClick}
                   name="Karakalpakstan"
                 ></path>
@@ -633,6 +633,7 @@ export default function Home() {
                   <h1 className={"text-lg font-bold text-start p-2"}>
                     {regionName}
                   </h1>
+
                   <button onClick={closeRegion} className={""}>
                     {" "}
                     <svg
@@ -666,6 +667,7 @@ export default function Home() {
                     </svg>
                   </button>
                 </div>
+                {isLoadingRegion && isFetchingRegion && <ContentLoader />}
                 <div className={"flex items-start"}>
                   <div>
                     {get(region, "data", []).map((item) => (
