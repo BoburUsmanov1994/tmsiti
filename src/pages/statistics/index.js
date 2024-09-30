@@ -130,8 +130,9 @@ export default function Home() {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
+        const first30Items = take(data[0], 30);
 
-        setDataStatistics(data[0]); // Adjust based on your JSON structure
+        setDataStatistics(first30Items); // Adjust based on your JSON structure
       } catch (error) {
         console.error("Failed to fetch the JSON data:", error);
       }
@@ -1073,7 +1074,7 @@ export default function Home() {
                   </tr>
                 </thead>
 
-                {get(dataStatistics, "data")?.map((stat, index) => (
+                {take(get(dataStatistics, "data"), 22)?.map((stat, index) => (
                   <tbody
                     key={index}
                     className={"even:bg-white odd:bg-[#FBFBFC]"}
