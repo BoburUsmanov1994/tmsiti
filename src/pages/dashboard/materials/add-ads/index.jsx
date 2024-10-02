@@ -80,19 +80,13 @@ const Ads = () => {
     formData.append("material_description", material_description);
     formData.append("material_price", material_price);
     formData.append("material_price_currency", material_price_currency);
-    formData.append("material_image", material_image);
+    formData.append("material_image", material_image[0]);
     formData.append("material_amount", material_amount);
     formData.append("sertificate_blank_num", sertificate_blank_num);
     formData.append("sertificate_reestr_num", sertificate_reestr_num);
     formData.append("material_owner", material_owner);
     formData.append("material_amount_measure", material_measure);
     formData.append("material_measure", material_measure);
-    console.log(
-      formData.append("material_image", material_image),
-      "formData.append('material_image', material_image)"
-    );
-    console.log(material_image);
-
     addAds(
       {
         url: URLS.addAds,
@@ -122,6 +116,7 @@ const Ads = () => {
         <form
           className={"grid grid-cols-12 gap-x-[30px]"}
           onSubmit={handleSubmit(onSubmit)}
+          encType="multipart/form-data"
         >
           <div className={"col-span-12 mb-[10px]"}>
             <h4 className={"text-[#28366D] text-base"}>Qidiruv</h4>

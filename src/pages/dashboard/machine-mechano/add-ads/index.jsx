@@ -96,7 +96,7 @@ const Ads = () => {
     formData.append("mmechano_measure", mmechano_measure);
     console.log(
       formData.append("mmechano_image", mmechano_image[0]),
-      "formData.append('mmechano_image', mmechano_image[0])"
+      "formData.append('mmechano_i  mage', mmechano_image[0])"
     );
     console.log(mmechano_image[0], "mmechano_image[0]");
 
