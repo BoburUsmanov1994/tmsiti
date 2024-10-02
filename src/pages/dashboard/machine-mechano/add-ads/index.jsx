@@ -96,7 +96,7 @@ const Ads = () => {
     formData.append("mmechano_measure", mmechano_measure);
     console.log(
       formData.append(
-        "https://backend-market.tmsiti.uz/media/materials/59.1.11.03-0971.jpg",
+        "https://backend-market.tmsiti.uz/mediamedia/ads/products/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2024-04-23_002321_6vehov7.png",
         mmechano_image[0]
       ),
       "formData.append('mmechano_i  mage', mmechano_image[0])"
