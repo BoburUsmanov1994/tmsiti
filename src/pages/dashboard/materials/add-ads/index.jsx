@@ -80,7 +80,7 @@ const Ads = () => {
     formData.append("material_description", material_description);
     formData.append("material_price", material_price);
     formData.append("material_price_currency", material_price_currency);
-    formData.append("material_image", material_image[0]);
+    formData.append("material_image", material_image);
     formData.append("material_amount", material_amount);
     formData.append("sertificate_blank_num", sertificate_blank_num);
     formData.append("sertificate_reestr_num", sertificate_reestr_num);
@@ -349,7 +349,6 @@ const Ads = () => {
             <input
               id={"dropzone-file"}
               type={"file"}
-              accept={"image/png, image/jpeg, image/jpg"}
               onChange={handleChange}
               {...register("material_image")}
             />
