@@ -88,7 +88,7 @@ const Ads = () => {
       "mmechano_rent_price_currency",
       mmechano_rent_price_currency
     );
-    formData.append("mmechano_image", mmechano_image[0].name);
+    formData.append("mmechano_image", mmechano_image[0]);
     formData.append("mmechano_amount", mmechano_amount);
     formData.append("sertificate_blank_num", sertificate_blank_num);
     formData.append("sertificate_reestr_num", sertificate_reestr_num);
@@ -98,7 +98,7 @@ const Ads = () => {
       formData.append("mmechano_image", mmechano_image[0]),
       "formData.append('mmechano_image', mmechano_image[0])"
     );
-    console.log(mmechano_image[0].name, "mmechano_image[0]");
+    console.log(mmechano_image[0], "mmechano_image[0]");
 
     addAds(
       {
