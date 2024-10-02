@@ -132,7 +132,7 @@ export default function Home() {
         const data = await response.json();
         const first30Items = take(data[0], 30);
 
-        setDataStatistics(first30Items); // Adjust based on your JSON structure
+        setDataStatistics(data[0]); // Adjust based on your JSON structure
       } catch (error) {
         console.error("Failed to fetch the JSON data:", error);
       }
@@ -193,8 +193,12 @@ export default function Home() {
     );
   });
 
-  const { data: ministry, isLoading: isLoadingMinistry } = useGetQuery({
-    key: "ministry-key",
+  const {
+    data: ministry,
+    isLoading: isLoadingMinistry,
+    isFetching: isFetchingMinistry,
+  } = useGetQuery({
+    key: KEYS.ministry,
     url: URLS.ministry,
   });
 
@@ -958,6 +962,9 @@ export default function Home() {
                     key={index}
                     className={"even:bg-white odd:bg-[#FBFBFC] text-black"}
                   >
+                    {isLoadingMinistry && isFetchingMinistry && (
+                      <ContentLoader />
+                    )}
                     <tr>
                       <td className="border px-4 py-2 text-center">
                         {index + 1}

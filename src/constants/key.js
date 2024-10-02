@@ -61,4 +61,5 @@ export const KEYS = {
   sampleCategory: "sampleCategory",
   captcha: "captcha",
   loginPost: "loginPost",
+  ministry: "ministry",
 };
