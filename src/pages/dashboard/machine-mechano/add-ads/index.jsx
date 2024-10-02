@@ -95,7 +95,10 @@ const Ads = () => {
     formData.append("mmechano_owner", mmechano_owner);
     formData.append("mmechano_measure", mmechano_measure);
     console.log(
-      formData.append("mmechano_image", mmechano_image[0]),
+      formData.append(
+        "https://backend-market.tmsiti.uz/media/materials/59.1.11.03-0971.jpg",
+        mmechano_image[0]
+      ),
       "formData.append('mmechano_i  mage', mmechano_image[0])"
     );
     console.log(mmechano_image[0], "mmechano_image[0]");
