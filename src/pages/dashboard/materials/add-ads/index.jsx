@@ -87,6 +87,12 @@ const Ads = () => {
     formData.append("material_owner", material_owner);
     formData.append("material_amount_measure", material_measure);
     formData.append("material_measure", material_measure);
+    console.log(
+      formData.append("material_image", material_image),
+      "formData.append('material_image', material_image)"
+    );
+    console.log(material_image);
+
     addAds(
       {
         url: URLS.addAds,
