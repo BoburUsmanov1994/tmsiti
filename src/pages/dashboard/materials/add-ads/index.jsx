@@ -80,7 +80,10 @@ const Ads = () => {
     formData.append("material_description", material_description);
     formData.append("material_price", material_price);
     formData.append("material_price_currency", material_price_currency);
-    formData.append("material_image", material_image[0]);
+    formData.append(
+      "https://backend-market.tmsiti.uz/media/materials/59.1.11.03-0971.jpg",
+      material_image[0]
+    );
     formData.append("material_amount", material_amount);
     formData.append("sertificate_blank_num", sertificate_blank_num);
     formData.append("sertificate_reestr_num", sertificate_reestr_num);
