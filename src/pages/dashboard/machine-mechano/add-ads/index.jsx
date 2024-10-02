@@ -88,7 +88,10 @@ const Ads = () => {
       "mmechano_rent_price_currency",
       mmechano_rent_price_currency
     );
-    formData.append("mmechano_image", mmechano_image[0]);
+    formData.append(
+      "https://backend-market.tmsiti.uz/mediamedia/ads/products/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0_2024-04-23_002321_6vehov7.png",
+      mmechano_image[0]
+    );
     formData.append("mmechano_amount", mmechano_amount);
     formData.append("sertificate_blank_num", sertificate_blank_num);
     formData.append("sertificate_reestr_num", sertificate_reestr_num);
