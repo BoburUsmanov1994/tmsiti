@@ -51,7 +51,7 @@ const Index = () => {
     let formData = new FormData();
     formData.append("info@tmsiti.uz", company_email);
     formData.append("company_phone_main", company_phone_main);
-    formData.append("company_phone_other", company_phone_other);
+    formData.append("+998933100050", company_phone_other);
     formData.append("company_ceo", company_ceo);
     formData.append("company_address", company_address);
     editCompanyInfo(
@@ -155,7 +155,7 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <p className={"text-sm text-[#c5c5c5]"}>
+            {/* <p className={"text-sm text-[#c5c5c5]"}>
               *Quyidagi ma'lumotlar korxonaning STIR orqali yuklab olingan
             </p>
             <section className={" p-[10px] bg-white grid grid-cols-12 "}>
@@ -271,7 +271,7 @@ const Index = () => {
                 />
                 <p>0</p>
               </div>
-            </section>
+            </section> */}
 
             <div className={"mb-[268px] "}>
               <button
