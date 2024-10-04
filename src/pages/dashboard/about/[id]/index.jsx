@@ -1,161 +1,161 @@
-import React, {useEffect, useState, useTransition} from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import Dashboard from "../../../../layouts/dashboard";
 import Subheader from "../../../../layouts/dashboard/components/subheader";
 import Image from "next/image";
-import {useForm} from "react-hook-form";
-import {useRouter} from "next/router";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import useGetOneQuery from "@/hooks/api/useGetOneQuery";
-import {URLS} from "@/constants/url";
+import { URLS } from "@/constants/url";
 import usePutQuery from "@/hooks/api/usePutQuery";
-import {toast} from "react-hot-toast";
-import {get} from "lodash";
+import { toast } from "react-hot-toast";
+import { get } from "lodash";
 import useGetQuery from "@/hooks/api/useGetQuery";
 import usePostQuery from "@/hooks/api/usePostQuery";
-import {KEYS} from "@/constants/key";
+import { KEYS } from "@/constants/key";
 
 const Index = () => {
-    const { t } = useTransition();
-    const [companyInfo, setCompanyInfo] = useState();
-    const { register, handleSubmit, formState: {errors} } = useForm({values: companyInfo})
+  const { t } = useTransition();
+  const [companyInfo, setCompanyInfo] = useState();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ values: companyInfo });
 
-    const router = useRouter();
-    const { id } = router.query;
+  const router = useRouter();
+  const { id } = router.query;
 
-    const {data: oldData} = useGetOneQuery({
-        key: "company-info-one",
-        url: URLS.updateCompanyInfo,
-        id: `${id}/`,
-        enabled: !!id
-    })
+  const { data: oldData } = useGetOneQuery({
+    key: "company-info-one",
+    url: URLS.updateCompanyInfo,
+    id: `${id}/`,
+    enabled: !!id,
+  });
 
-    const { data, isLoadingCompanyInfo } = useGetQuery({
-        key: KEYS.aboutCompany,
-        url: URLS.  aboutCompany
-    })
+  const { data, isLoadingCompanyInfo } = useGetQuery({
+    key: KEYS.aboutCompany,
+    url: URLS.aboutCompany,
+  });
 
+  const { mutate: editCompanyInfo, isLoading } = usePostQuery({
+    listKeyId: "company-info-one",
+  });
 
-    const { mutate: editCompanyInfo, isLoading } = usePostQuery({
-        listKeyId: "company-info-one",
-    });
-
-    const onSubmit = ({
-        company_email,
-        company_phone_main,
-        company_phone_other,
-        company_ceo,
-        company_address
-    }) => {
-        let formData = new FormData();
-        formData.append("company_email", company_email);
-        formData.append("company_phone_main", company_phone_main);
-        formData.append("company_phone_other", company_phone_other);
-        formData.append("company_ceo", company_ceo);
-        formData.append("company_address", company_address);
-        editCompanyInfo(
-            {
-                url: `${URLS.updateCompanyInfo}`,
-                attributes: formData
-            },
-            {
-                onSuccess: () => {
-                    toast.success("Kompaniya ma'lumoti muvaffaqiyatli  tahrirlandi", {
-                        position: "top-center",
-                    });
-                    router.push("/dashboard/about");
-                },
-                onError: (error) => {
-                    toast.error(`Error is ${error}`, { position: "top-right" });
-                },
-            },
-
-        )
-    }
-
+  const onSubmit = ({
+    company_email,
+    company_phone_main,
+    company_phone_other,
+    company_ceo,
+    company_address,
+  }) => {
+    let formData = new FormData();
+    formData.append("company_email", company_email);
+    formData.append("company_phone_main", company_phone_main);
+    formData.append("company_phone_other", company_phone_other);
+    formData.append("company_ceo", company_ceo);
+    formData.append("company_address", company_address);
+    editCompanyInfo(
+      {
+        url: `${URLS.updateCompanyInfo}`,
+        attributes: formData,
+      },
+      {
+        onSuccess: () => {
+          toast.success("Kompaniya ma'lumoti muvaffaqiyatli  tahrirlandi", {
+            position: "top-center",
+          });
+          router.push("/dashboard/about");
+        },
+        onError: (error) => {
+          toast.error(`Error is ${error}`, { position: "top-right" });
+        },
+      }
+    );
+  };
 
   return (
     <Dashboard>
       <Subheader title={"Kompaniya ma'lumotlarini tahrirlash"} />
-        {get(data, "data", []).map(item =>
-            <div className="p-7">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className={" flex gap-x-[30px] mb-[50px]"}>
-
-
-                        <div>
-                            {/*  Company name */}
-                            <input type={"text"} placeholder={"Kompaniya nomini kiriting"}
-                                   className={"py-[16px] px-[8px] min-w-[300px] text-sm mb-[15px]"}
-                                   defaultValue={get(item, "company_name")}/> <br/>
-                            {/*  Company description */}
-                            <p className={"text-xs text-black mb-[10px]"}>
-                                Korxonaning tarmoqdagi va bozordagi holati tahlili bu o’z
-                                mohiyatiga ko’ra tashqi muhit diagnostikasidir. U biznes-rejani
-                                tayyorlashda rezyumedan keyingi ikkinchi qadamdir. Biznes-reja
-                                tuzish bo’yicha bugungi uslubiy tavsiyalar ushbu bo’limni mazkur
-                                korxona faoliyat ko’rsatuvchi muhitning investitsiyalarni jalb
-                                qilishdagi jozibadorligini tahlil qilishdan boshlashni taklif
-                                qiladi.
-                            </p>
-                            {/*  Company manager  */}
-                            <div
-                                className={
-                                    "text-xs text-black flex items-center gap-x-[5px] my-[6px]"
-                                }
-                            >
-                                <p
-
-                                    className={"cursor-pointer"}
-                                >
-                                    <strong>Rahbar: </strong>
-                                </p>
-                                <input
-                                    type={"text"}
-                                    {...register("company_ceo")}
-                                    placeholder={"Ism-familiyani kiriting"}
-                                    className={"p-[8px] min-w-[300px]"}
-                                    defaultValue={get(item, "company_ceo")}
-                                />
-                            </div>
-                            {/*  Company phone  */}
-                            <div
-                                className={
-                                    "text-xs text-black flex items-center gap-x-[5px] my-[6px]"
-                                }
-                            >
-                                <p className={"cursor-pointer"}>
-                                    <strong>Telefon: </strong>
-                                </p>
-                                <input
-                                    type={"tel"}
-                                    placeholder={"Telefon raqamini kiriting"}
-                                    {...register("company_phone_main")}
-                                    defaultValue={get(item, "company_phone_main")}
-                                    className={"p-[8px] "}
-                                    pattern="+[0-9]{3} ([0-9]{2}) [0-9]{3} [0-9]{2} [0-9]{2}"
-                                />
-                            </div>
-
-                            {/*  Company address  */}
-                            <div
-                                className={
-                                    "text-xs text-black flex items-center gap-x-[5px] my-[6px]"
-                                }
-                            >
-                                <p>
-                                    <strong>Manzil: </strong>
-                                </p>
-                                <input
-                                    type={"text"}
-                                    {...register("company_address")}
-                                    placeholder={"Manzilni kiriting"}
-                                    className={"p-[8px] min-w-[500px]"}
-                                    defaultValue={get(item, "company_address")}
-                                />
-                            </div>
-
-                        </div>
-                    </div>
-                    <p className={"text-sm text-[#c5c5c5]"}>
+      {get(data, "data", []).map((item) => (
+        <div className="p-7">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={" flex gap-x-[30px] mb-[50px]"}>
+              <div>
+                {/*  Company name */}
+                <input
+                  type={"text"}
+                  placeholder={"Kompaniya nomini kiriting"}
+                  className={
+                    "py-[16px] px-[8px] min-w-[300px] text-sm mb-[15px]"
+                  }
+                  defaultValue={get(item, "company_name")}
+                />{" "}
+                <br />
+                {/*  Company description */}
+                <p className={"text-xs text-black mb-[10px]"}>
+                  Korxonaning tarmoqdagi va bozordagi holati tahlili bu o’z
+                  mohiyatiga ko’ra tashqi muhit diagnostikasidir. U
+                  biznes-rejani tayyorlashda rezyumedan keyingi ikkinchi
+                  qadamdir. Biznes-reja tuzish bo’yicha bugungi uslubiy
+                  tavsiyalar ushbu bo’limni mazkur korxona faoliyat ko’rsatuvchi
+                  muhitning investitsiyalarni jalb qilishdagi jozibadorligini
+                  tahlil qilishdan boshlashni taklif qiladi.
+                </p>
+                {/*  Company manager  */}
+                <div
+                  className={
+                    "text-xs text-black flex items-center gap-x-[5px] my-[6px]"
+                  }
+                >
+                  <p className={"cursor-pointer"}>
+                    <strong>Rahbar: </strong>
+                  </p>
+                  <input
+                    type={"text"}
+                    {...register("company_ceo")}
+                    placeholder={"Ism-familiyani kiriting"}
+                    className={"p-[8px] min-w-[300px]"}
+                    defaultValue={get(item, "company_ceo")}
+                  />
+                </div>
+                {/*  Company phone  */}
+                <div
+                  className={
+                    "text-xs text-black flex items-center gap-x-[5px] my-[6px]"
+                  }
+                >
+                  <p className={"cursor-pointer"}>
+                    <strong>Telefon: </strong>
+                  </p>
+                  <input
+                    type={"tel"}
+                    placeholder={"Telefon raqamini kiriting"}
+                    {...register("company_phone_main")}
+                    defaultValue={get(item, "company_phone_main")}
+                    className={"p-[8px] "}
+                    pattern="+[0-9]{3} ([0-9]{2}) [0-9]{3} [0-9]{2} [0-9]{2}"
+                  />
+                </div>
+                {/*  Company address  */}
+                <div
+                  className={
+                    "text-xs text-black flex items-center gap-x-[5px] my-[6px]"
+                  }
+                >
+                  <p>
+                    <strong>Manzil: </strong>
+                  </p>
+                  <input
+                    type={"text"}
+                    {...register("company_address")}
+                    placeholder={"Manzilni kiriting"}
+                    className={"p-[8px] min-w-[500px]"}
+                    defaultValue={get(item, "company_address")}
+                  />
+                </div>
+              </div>
+            </div>
+            {/* <p className={"text-sm text-[#c5c5c5]"}>
                         *Quyidagi ma'lumotlar korxonaning STIR orqali yuklab olingan
                     </p>
                     <section className={" p-[10px] bg-white grid grid-cols-12 "}>
@@ -320,11 +320,10 @@ const Index = () => {
 
                             <p className={"text-white"}>Tahrirlash</p>
                         </button>
-                    </div>
-                </form>
-
-            </div>
-        )}
+                    </div> */}
+          </form>
+        </div>
+      ))}
     </Dashboard>
   );
 };
