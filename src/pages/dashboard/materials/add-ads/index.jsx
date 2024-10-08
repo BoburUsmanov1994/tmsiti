@@ -365,6 +365,7 @@ const Ads = () => {
                 Mahsulot sertifikati blank raqami
               </h4>
               <input
+                type="text"
                 placeholder={"Mahsulot sertifikati blank raqami"}
                 {...register("sertificate_blank_num", { required: true })}
                 className={
@@ -380,6 +381,7 @@ const Ads = () => {
                 Mahsulot sertifikati reestr raqami
               </h4>
               <input
+                type="text"
                 placeholder={"Mahsulot sertifikati reestr raqami"}
                 {...register("sertificate_reestr_num", { required: true })}
                 className={
