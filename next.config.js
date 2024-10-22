@@ -18,7 +18,7 @@ const nextConfig = {
     return [
       {
         source: "/",
-        destination: "/main-page",
+        destination: "/temporarily-error",
         permanent: true,
         basePath: false,
       },
