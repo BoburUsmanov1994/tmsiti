@@ -137,36 +137,6 @@ const ViewPage = () => {
 
   ////////// SOLIQ BILAN INTEGRATSIYA ///////////////
 
-  // const postandGetSoliqData = async () => {
-  //   const postResponse = await fetch(
-  //     "https://backend-market.tmsiti.uz/soliq/",
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         mxik: get(material, "data.mxik_soliq"),
-  //         fromDate: "03.10.2024",
-  //         toDate: "05.10.2024",
-  //       }),
-  //     }
-  //   );
-
-  //   if (!postResponse.ok) {
-  //     throw new Error("Failed to post data");
-  //   }
-
-  //   const getResponse = await fetch("https://backend-market.tmsiti.uz/soliq/");
-  //   if (!getResponse.ok) {
-  //     throw new Error("Failed to fetch data after posting");
-  //   }
-
-  //   const data = await getResponse.json();
-  // };
-
-  // postandGetSoliqData();
-
   const { mutate: postSoliqMxik, isLoading: isLoadingSoliq } = usePostQuery({
     listKeyId: KEYS.soliqPrice,
   });
@@ -234,9 +204,9 @@ const ViewPage = () => {
         get(currency, `data[${price["material_price_currency"]}]`, 1),
     0
   );
-  const averagePrice = +(
-    totalPrice / get(materialAds, "data.results", []).length
-  ).toFixed(2);
+  // const averagePrice = +(
+  //   totalPrice / get(materialAds, "data.results", []).length
+  // ).toFixed(2);
 
   const maxPrice = get(materialAds, "data.results", []).reduce((max, obj) => {
     return (
@@ -641,7 +611,7 @@ const ViewPage = () => {
                 <h4 className={" text-[#22497C] font-bold"}>O'rtacha narx:</h4>
                 {soliqAveragePrice === null ? (
                   <button
-                    className="bg-[#22497C] text-white flex items-center gap-x-[4px] px-[10px] py-[3px] rounded-lg"
+                    className="bg-[#22497C] active:bg-[#2C5EA0] scale-100 active:scale-105 transition-all duration-300 text-white flex items-center gap-x-[4px] px-[10px] py-[3px] rounded-lg"
                     onClick={postSoliqData}
                   >
                     <p>Ko'rish</p>
