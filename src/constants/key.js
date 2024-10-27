@@ -62,4 +62,5 @@ export const KEYS = {
   captcha: "captcha",
   loginPost: "loginPost",
   ministry: "ministry",
+  soliqPrice: "soliqPrice",
 };

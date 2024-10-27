@@ -76,4 +76,5 @@ export const URLS = {
   sample_project: "cmeta/sample/",
   verifyCaptcha: "api/verify-captcha/",
   ministry: "iqtisod_list/",
+  soliq: "soliq/",
 };

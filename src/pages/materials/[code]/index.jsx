@@ -137,38 +137,71 @@ const ViewPage = () => {
 
   ////////// SOLIQ BILAN INTEGRATSIYA ///////////////
 
-  const postandGetSoliqData = async () => {
-    const postResponse = await fetch(
-      "https://backend-market.tmsiti.uz/soliq/",
+  // const postandGetSoliqData = async () => {
+  //   const postResponse = await fetch(
+  //     "https://backend-market.tmsiti.uz/soliq/",
+  //     {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         mxik: get(material, "data.mxik_soliq"),
+  //         fromDate: "03.10.2024",
+  //         toDate: "05.10.2024",
+  //       }),
+  //     }
+  //   );
+
+  //   if (!postResponse.ok) {
+  //     throw new Error("Failed to post data");
+  //   }
+
+  //   const getResponse = await fetch("https://backend-market.tmsiti.uz/soliq/");
+  //   if (!getResponse.ok) {
+  //     throw new Error("Failed to fetch data after posting");
+  //   }
+
+  //   const data = await getResponse.json();
+  // };
+
+  // postandGetSoliqData();
+
+  const { mutate: postSoliqMxik, isLoading: isLoadingSoliq } = usePostQuery({
+    listKeyId: KEYS.soliqPrice,
+  });
+
+  const postSoliqData = () => {
+    postSoliqMxik(
       {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+        url: URLS.soliq,
+        attributes: {
           mxik: get(material, "data.mxik_soliq"),
           fromDate: "03.10.2024",
           toDate: "05.10.2024",
-        }),
+        },
+      },
+      {
+        onSuccess: (data) => {
+          const deliverySum = get(data, "data.data").reduce(
+            (initialValue, currentValue) =>
+              initialValue + get(currentValue, "delivery_sum"),
+            0
+          );
+
+          const averageDeliverySum =
+            deliverySum / get(data, "data.data").length;
+
+          console.log("Response data:", averageDeliverySum);
+          setSoliqAveragePrice(averageDeliverySum);
+        },
+        onError: (error) => {
+          console.error("Error posting data:", error);
+        },
       }
     );
-
-    if (!postResponse.ok) {
-      throw new Error("Failed to post data");
-    }
-
-    const getResponse = await fetch("https://backend-market.tmsiti.uz/soliq/");
-    if (!getResponse.ok) {
-      throw new Error("Failed to fetch data after posting");
-    }
-
-    const data = await getResponse.json();
-    get(data, "data").map((item) => {
-      setSoliqAveragePrice(get(item, "data.delivery_sum"));
-    });
   };
 
-  postandGetSoliqData();
   //////////////////////////////////////////////////
 
   const { data: materialAds, isLoading: isLoadingMaterialAds } = useGetQuery({
@@ -604,16 +637,29 @@ const ViewPage = () => {
                   className={"mb-[10px]"}
                 />
               </div>
-              <div className={"flex gap-x-2"}>
-                <h4 className={"mb-[8px] text-[#22497C] font-bold"}>
-                  O'rtacha narx:
-                </h4>
-                <NumericFormat
-                  thousandSeparator={" "}
-                  value={soliqAveragePrice}
-                  suffix={" so`m"}
-                  className={"mb-[10px]"}
-                />
+              <div className={"flex items-center gap-x-2 mb-[8px]"}>
+                <h4 className={" text-[#22497C] font-bold"}>O'rtacha narx:</h4>
+                {soliqAveragePrice === null ? (
+                  <button
+                    className="bg-[#22497C] text-white flex items-center gap-x-[4px] px-[10px] py-[3px] rounded-lg"
+                    onClick={postSoliqData}
+                  >
+                    <p>Ko'rish</p>
+                    <Image
+                      src={"/images/click.png"}
+                      alt="click"
+                      width={25}
+                      height={25}
+                    />
+                  </button>
+                ) : (
+                  <NumericFormat
+                    thousandSeparator={" "}
+                    value={soliqAveragePrice}
+                    suffix={" so`m"}
+                    className={""}
+                  />
+                )}
               </div>
               <div className={"flex gap-x-2"}>
                 <h4 className={"mb-[8px] text-[#22497C] font-bold"}>
@@ -631,6 +677,7 @@ const ViewPage = () => {
         </Section>
         <Section>
           <div className="grid grid-cols-12">
+            <div className="col-span-12">soliq</div>
             <div className="col-span-12">
               <GridView
                 HeaderBody={
