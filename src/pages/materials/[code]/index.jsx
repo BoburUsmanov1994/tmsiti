@@ -204,9 +204,9 @@ const ViewPage = () => {
         get(currency, `data[${price["material_price_currency"]}]`, 1),
     0
   );
-  // const averagePrice = +(
-  //   totalPrice / get(materialAds, "data.results", []).length
-  // ).toFixed(2);
+  const averagePrice = +(
+    totalPrice / get(materialAds, "data.results", []).length
+  ).toFixed(2);
 
   const maxPrice = get(materialAds, "data.results", []).reduce((max, obj) => {
     return (
@@ -566,9 +566,29 @@ const ViewPage = () => {
                 <span className={"text-sm"}>20</span>
               </div>
 
-              <div className={"flex justify-between"}>
-                <p className={"text-sm mb-[5px]"}>O'rtacha narx:</p>
-                <span className={"text-sm"}>20</span>
+              <div className={"flex  items-center gap-x-[10px]"}>
+                <p className={"text-sm  "}>O'rtacha narx:</p>
+                {soliqAveragePrice === null ? (
+                  <button
+                    className="bg-[#22497C] active:bg-[#2C5EA0] scale-100 active:scale-105 transition-all duration-300 text-white flex items-center gap-x-[4px] px-[10px] py-[3px] rounded-lg"
+                    onClick={postSoliqData}
+                  >
+                    <p>Ko'rish</p>
+                    <Image
+                      src={"/images/click.png"}
+                      alt="click"
+                      width={25}
+                      height={25}
+                    />
+                  </button>
+                ) : (
+                  <NumericFormat
+                    thousandSeparator={" "}
+                    value={soliqAveragePrice}
+                    suffix={" so`m"}
+                    className={" flex-1 font-semibold"}
+                  />
+                )}
               </div>
             </div>
             <div
@@ -609,27 +629,12 @@ const ViewPage = () => {
               </div>
               <div className={"flex items-center gap-x-2 mb-[8px]"}>
                 <h4 className={" text-[#22497C] font-bold"}>O'rtacha narx:</h4>
-                {soliqAveragePrice === null ? (
-                  <button
-                    className="bg-[#22497C] active:bg-[#2C5EA0] scale-100 active:scale-105 transition-all duration-300 text-white flex items-center gap-x-[4px] px-[10px] py-[3px] rounded-lg"
-                    onClick={postSoliqData}
-                  >
-                    <p>Ko'rish</p>
-                    <Image
-                      src={"/images/click.png"}
-                      alt="click"
-                      width={25}
-                      height={25}
-                    />
-                  </button>
-                ) : (
-                  <NumericFormat
-                    thousandSeparator={" "}
-                    value={soliqAveragePrice}
-                    suffix={" so`m"}
-                    className={""}
-                  />
-                )}
+                <NumericFormat
+                  thousandSeparator={" "}
+                  value={averagePrice}
+                  suffix={" so`m"}
+                  className={"mb-[10px]"}
+                />
               </div>
               <div className={"flex gap-x-2"}>
                 <h4 className={"mb-[8px] text-[#22497C] font-bold"}>
