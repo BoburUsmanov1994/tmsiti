@@ -162,15 +162,25 @@ const ViewPage = () => {
           );
           setSoliqProductCount(productCount);
 
-          const deliverySum = get(data, "data.data").reduce(
-            (initialValue, currentValue) =>
-              initialValue + get(currentValue, "delivery_sum"),
+          const deliver = get(data, "data.data").map(
+            (item) => get(item, "delivery_sum") / get(item, "product_count")
+          );
+
+          console.log(deliver, "deliver");
+
+          const deliverSum = deliver.reduce(
+            (initialValue, currentValue) => initialValue + currentValue,
             0
           );
 
+          // const deliverySum = get(data, "data.data").reduce(
+          //   (initialValue, currentValue) =>
+          //     initialValue + get(currentValue, "delivery_sum"),
+          //   0
+          // );
+
           //// Average Price of Soliq ////
-          const averageDeliverySum =
-            deliverySum / get(data, "data.data").length;
+          const averageDeliverySum = deliverSum / get(data, "data.data").length;
 
           console.log("Response data:", averageDeliverySum);
           setSoliqAveragePrice(averageDeliverySum);
@@ -583,11 +593,7 @@ const ViewPage = () => {
                   />
                 </button>
               </div>
-              <div
-                className={
-                  "flex items-center justify-between gap-x-[30px]  mb-[5px]"
-                }
-              >
+              <div className={"flex items-center  gap-x-[10px]  mb-[5px]"}>
                 <p className={"text-sm "}>O'tgan oydagi savdolar soni:</p>
                 <NumericFormat
                   thousandSeparator={" "}
@@ -599,8 +605,8 @@ const ViewPage = () => {
                 />
               </div>
 
-              <div className={"flex justify-between items-center "}>
-                <p className={"text-sm  flex-1"}>O'rtacha narx:</p>
+              <div className={"flex items-center gap-x-[10px]"}>
+                <p className={"text-sm  "}>O'rtacha narx:</p>
 
                 <NumericFormat
                   thousandSeparator={" "}
