@@ -148,8 +148,8 @@ const ViewPage = () => {
         url: URLS.soliq,
         attributes: {
           mxik: get(material, "data.mxik_soliq").split(".")[0],
-          fromDate: "03.10.2024",
-          toDate: "05.10.2024",
+          fromDate: "01.10.2024",
+          toDate: "01.11.2024",
         },
       },
       {
