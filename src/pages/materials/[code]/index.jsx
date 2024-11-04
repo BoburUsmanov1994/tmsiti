@@ -38,6 +38,7 @@ const ViewPage = () => {
   const [districtId, setDistrictId] = useState(null);
   const [extractedData, setExtractedData] = useState(null);
   const [soliqAveragePrice, setSoliqAveragePrice] = useState(null);
+  const [soliqProductCount, setSoliqProductCount] = useState(null);
   const [pdf, setPdf] = useState(null);
   const [inn, setInn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -146,19 +147,28 @@ const ViewPage = () => {
       {
         url: URLS.soliq,
         attributes: {
-          mxik: get(material, "data.mxik_soliq"),
+          mxik: get(material, "data.mxik_soliq").split(".")[0],
           fromDate: "03.10.2024",
           toDate: "05.10.2024",
         },
       },
       {
         onSuccess: (data) => {
+          //// Product Count ////
+          const productCount = get(data, "data.data").reduce(
+            (initialQuantity, currentQuantity) =>
+              initialQuantity + get(currentQuantity, "product_count"),
+            0
+          );
+          setSoliqProductCount(productCount);
+
           const deliverySum = get(data, "data.data").reduce(
             (initialValue, currentValue) =>
               initialValue + get(currentValue, "delivery_sum"),
             0
           );
 
+          //// Average Price of Soliq ////
           const averageDeliverySum =
             deliverySum / get(data, "data.data").length;
 
@@ -556,39 +566,48 @@ const ViewPage = () => {
                 "tablet:col-span-4 col-span-12 p-[20px] shadow-2xl rounded-[4px]"
               }
             >
-              <h4 className={"mb-[8px] text-[#22497C] font-bold"}>
-                Davlat soliq qo'mitasi
-              </h4>
-              <div className={"flex justify-between"}>
-                <p className={"text-sm mb-[5px]"}>
-                  O'tgan oydagi savdolar soni:
-                </p>
-                <span className={"text-sm"}>20</span>
+              <div className="flex justify-between items-center mb-[15px]">
+                <h4 className={" text-[#22497C] font-bold "}>
+                  Davlat soliq qo'mitasi
+                </h4>
+                <button
+                  className="bg-[#22497C] active:bg-[#2C5EA0] scale-100 active:scale-105 transition-all duration-300 text-white flex items-center gap-x-[4px] px-[10px] py-[3px] rounded-lg"
+                  onClick={postSoliqData}
+                >
+                  <p>Ko'rish</p>
+                  <Image
+                    src={"/images/click.png"}
+                    alt="click"
+                    width={25}
+                    height={25}
+                  />
+                </button>
+              </div>
+              <div
+                className={
+                  "flex items-center justify-between gap-x-[30px]  mb-[5px]"
+                }
+              >
+                <p className={"text-sm "}>O'tgan oydagi savdolar soni:</p>
+                <NumericFormat
+                  thousandSeparator={" "}
+                  value={soliqProductCount}
+                  suffix={""}
+                  className={
+                    " flex-1 font-semibold text-sm max-w-[100px] float-right"
+                  }
+                />
               </div>
 
-              <div className={"flex  items-center gap-x-[10px]"}>
-                <p className={"text-sm  "}>O'rtacha narx:</p>
-                {soliqAveragePrice === null ? (
-                  <button
-                    className="bg-[#22497C] active:bg-[#2C5EA0] scale-100 active:scale-105 transition-all duration-300 text-white flex items-center gap-x-[4px] px-[10px] py-[3px] rounded-lg"
-                    onClick={postSoliqData}
-                  >
-                    <p>Ko'rish</p>
-                    <Image
-                      src={"/images/click.png"}
-                      alt="click"
-                      width={25}
-                      height={25}
-                    />
-                  </button>
-                ) : (
-                  <NumericFormat
-                    thousandSeparator={" "}
-                    value={soliqAveragePrice}
-                    suffix={" so`m"}
-                    className={" flex-1 font-semibold"}
-                  />
-                )}
+              <div className={"flex justify-between items-center "}>
+                <p className={"text-sm  flex-1"}>O'rtacha narx:</p>
+
+                <NumericFormat
+                  thousandSeparator={" "}
+                  value={soliqAveragePrice}
+                  suffix={" so`m"}
+                  className={" text-sm font-semibold max-w-[150px]"}
+                />
               </div>
             </div>
             <div
