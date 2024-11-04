@@ -671,7 +671,6 @@ const ViewPage = () => {
         </Section>
         <Section>
           <div className="grid grid-cols-12">
-            <div className="col-span-12">soliq</div>
             <div className="col-span-12">
               <GridView
                 HeaderBody={
