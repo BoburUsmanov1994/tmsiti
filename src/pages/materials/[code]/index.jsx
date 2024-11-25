@@ -42,6 +42,9 @@ const ViewPage = () => {
   const [pdf, setPdf] = useState(null);
   const [inn, setInn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [minimum, setMinimum] = useState(0);
+  const [maximum, setMaximum] = useState(0);
+  const [average, setAverage] = useState(0);
 
   const [postComments, setPostComments] = useState({});
   const token = useSettingsStore((state) => get(state, "token", null));
@@ -251,6 +254,77 @@ const ViewPage = () => {
         ).toFixed(2)
       : min;
   }, Infinity);
+
+  useEffect(() => {
+    const results = get(materialAds, "data.results", []);
+
+    if (results.length === 0) {
+      setMaximum(0);
+      return;
+    }
+
+    let maxPrice = 0;
+
+    for (const obj of results) {
+      const price =
+        obj["material_price"] *
+        get(currency, `data[${obj["material_price_currency"]}]`, 1);
+
+      if (price > maxPrice) {
+        maxPrice = price;
+      }
+    }
+
+    // Use `toFixed(2)` only once outside the loop for optimization
+    setMaximum(maxPrice.toFixed(2));
+  }, [materialAds, currency]);
+
+  useEffect(() => {
+    const results = get(materialAds, "data.results", []);
+    const resultsLength = results.length;
+
+    if (resultsLength === 0) {
+      setAverage(0);
+      return;
+    }
+
+    let totalPrice = 0;
+
+    for (const obj of results) {
+      const price =
+        obj["material_price"] *
+        get(currency, `data[${obj["material_price_currency"]}]`, 1);
+      totalPrice += price;
+    }
+
+    const averagePrice = +(totalPrice / resultsLength).toFixed(2);
+    setAverage(averagePrice);
+  }, [materialAds, currency]);
+
+  ///////// Min Price ///////////////
+  useEffect(() => {
+    const results = get(materialAds, "data.results", []);
+
+    if (results.length === 0) {
+      setMinimum(false);
+      return;
+    }
+
+    let minPrice = Infinity;
+
+    for (const obj of results) {
+      const price =
+        obj["material_price"] *
+        get(currency, `data[${obj["material_price_currency"]}]`, 1);
+
+      if (price < minPrice) {
+        minPrice = price;
+      }
+    }
+
+    // Use `toFixed(2)` only once outside the loop for optimization
+    setMinimum(minPrice.toFixed(2));
+  }, [materialAds, currency]);
 
   // const { data: gost, isLoading: isLoadingGost } = useGetQuery({
   //   key: KEYS.materialGost,
@@ -645,32 +719,17 @@ const ViewPage = () => {
                 <h4 className={"mb-[8px] text-[#22497C] font-bold"}>
                   Maksimal narx:
                 </h4>
-                <NumericFormat
-                  thousandSeparator={" "}
-                  value={maxPrice}
-                  suffix={" so`m"}
-                  className={"mb-[10px]"}
-                />
+                {maximum}
               </div>
               <div className={"flex items-center gap-x-2 mb-[8px]"}>
                 <h4 className={" text-[#22497C] font-bold"}>O'rtacha narx:</h4>
-                <NumericFormat
-                  thousandSeparator={" "}
-                  value={averagePrice}
-                  suffix={" so`m"}
-                  className={"mb-[10px]"}
-                />
+                <p>{average}</p>
               </div>
               <div className={"flex gap-x-2"}>
                 <h4 className={"mb-[8px] text-[#22497C] font-bold"}>
                   Minimum narx:
                 </h4>
-                <NumericFormat
-                  thousandSeparator={" "}
-                  value={minPrice}
-                  suffix={" so`m"}
-                  className={"mb-[10px]"}
-                />
+                <p>{minimum}</p>
               </div>
             </div>
           </div>
