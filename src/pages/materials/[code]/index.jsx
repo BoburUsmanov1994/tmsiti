@@ -163,7 +163,7 @@ const ViewPage = () => {
               initialQuantity + get(currentQuantity, "product_count"),
             0
           );
-          setSoliqProductCount(productCount);
+          setSoliqProductCount(productCount.toFixed(2));
 
           const deliver = get(data, "data.data").map(
             (item) => get(item, "delivery_sum") / get(item, "product_count")
@@ -186,7 +186,7 @@ const ViewPage = () => {
           const averageDeliverySum = deliverSum / get(data, "data.data").length;
 
           console.log("Response data:", averageDeliverySum);
-          setSoliqAveragePrice(averageDeliverySum);
+          setSoliqAveragePrice(averageDeliverySum.toFixed(2));
         },
         onError: (error) => {
           console.error("Error posting data:", error);
