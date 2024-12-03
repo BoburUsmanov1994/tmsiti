@@ -18,7 +18,7 @@ const nextConfig = {
     return [
       {
         source: "/",
-        destination: "/main-page",
+        destination: "https://www.mkinfo.uz/",
         permanent: true,
         basePath: false,
       },
